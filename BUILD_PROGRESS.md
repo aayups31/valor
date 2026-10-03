@@ -29,4 +29,12 @@ Build stages 0–3: isolated runtime, numerical rover, observation/snapshot inva
 
 Conventional SAC training, learned-model validation, qualified memory/reflection, matched adaptation comparisons, locked final experiments and final research decision. No AACE benefit is claimed from implementation checks.
 
+### Intermediate milestone: oracle planning
+
+- Numerical-core commit `805b8d6` pushed to `origin/main`; 29 tests passed before that commit.
+- Fixed-budget simulator-backed planner evaluates six plan continuations with independent future disturbances shared across candidates. It never reads the actual environment's future noise.
+- Forecasts label finite horizon, sample count, raw failure frequency, sampling interval, terminal approximation and actual branch work. These forecasts are oracle calculations, not learned/calibrated predictions.
+- Seed-42 shortcut episode: heuristic direct loses its actuator at step 35; the detour heuristic completes at step 158 without damage; oracle planner completes at step 146 without damage.
+- Oracle episode measured 156,219 branch transitions, p50 25.62 ms / p95 62.98 ms / p99 81.66 ms decision time. This is one engineering episode, not a latency guarantee or comparative research result.
+
 Full stop reports will record changes, commit/push status, commands and test results, measured limitations, next steps and user input needed.

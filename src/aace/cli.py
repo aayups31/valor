@@ -62,7 +62,33 @@ def main() -> None:
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("doctor", help="Report runtime versions and reference backend")
     commands.add_parser("smoke", help="Check Gym contract and exact replay")
+    run = commands.add_parser("run", help="Run and export one bounded engineering episode")
+    run.add_argument("--scenario", choices=SCENARIOS, default="shortcut")
+    run.add_argument("--controller", choices=("heuristic_direct", "heuristic_detour", "oracle_planner"), default="heuristic_direct")
+    run.add_argument("--seed", type=int, default=42)
+    run.add_argument("--output", type=Path, default=Path("artifacts/replays"))
+    run.add_argument("--max-seconds", type=float, default=60)
+    demo = commands.add_parser("demo", help="Serve the local decision inspector")
+    demo.add_argument("--port", type=int, default=8765)
     args = parser.parse_args()
-    result = doctor() if args.command == "doctor" else smoke()
+    if args.command == "doctor":
+        result = doctor()
+    elif args.command == "smoke":
+        result = smoke()
+    elif args.command == "demo":
+        from aace.demo.server import serve
+        serve(args.port)
+        return
+    else:
+        from aace.runtime import Session
+        if args.max_seconds <= 0:
+            parser.error("--max-seconds must be positive")
+        session = Session(args.scenario, args.controller, args.seed)
+        started = time.perf_counter()
+        while not session.ended and time.perf_counter()-started < args.max_seconds:
+            session.step()
+        result = session.summary()
+        result["wall_clock_capped"] = not session.ended
+        result["replay_file"] = str(session.export(args.output).resolve())
     print(json.dumps(result, indent=2, allow_nan=False))
 
