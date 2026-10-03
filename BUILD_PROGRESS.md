@@ -1,6 +1,10 @@
 # Build progress
 
-Latest full stop report: [Build report 02 — premium UI redesign](reports/2026-10-03-build-02-ui.md). Previous: [Build report 01 — October 3, 2026](reports/2026-10-03-build-01.md). The overall research build remains in progress.
+Latest full stop report: [Planning report 03 — fear, survival and pressure](reports/2026-10-03-planning-03-fear-pressure.md). Previous: [Build report 02 — premium UI redesign](reports/2026-10-03-build-02-ui.md), [Build report 01](reports/2026-10-03-build-01.md). The overall research build remains in progress.
+
+### Fear, survival, intuition and pressure — design recorded
+
+The user's direction is specified in [the linked architecture extension](01_Architecture/FEAR_SURVIVAL_AND_PRESSURE_PLAN.md). Threat learning, resource margins, a fast response path and urgency-aware bounded planning have explicit interfaces, controls and E5 experiments. Primary memory comparisons remain separate. The design distinguishes mission time from action wall time, includes stale-warning and excessive-caution tests, and preserves external mission/override authority. Commit `2ed85dd` was pushed during work. Documentation links/fences and whitespace checks passed; a second design critique found no actionable issues. No new runtime mechanism, model training or benchmark was implemented in this planning turn.
 
 ### UI redesign — implementation complete; rendered review pending
 
