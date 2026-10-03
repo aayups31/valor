@@ -56,6 +56,7 @@ async function create({useSettings=true}={}) {
     latest=await api("/api/session",payload); sessionId=latest.session_id;
     selectedPlan=null; lastRevision=""; connectionFailed=false;
     $("scenario").value=latest.left.scenario;
+    $("comparison").value=latest.right.controller;$("seed").value=String(latest.left.seed);
     render(true); return true;
   } catch(error) {
     if(latest) $("scenario").value=latest.left.scenario;
@@ -234,7 +235,7 @@ async function poll() {
 const guideSteps=[
   {title:"A small mission. A bigger question.",copy:"The rover leaves home, inspects a site, and must get back before time runs out. Its energy and ability to move are limited. The risky shortcut puts rough ground in its path.",extra:"Start with the defaults. Everything runs on this computer."},
   {title:"Watch two approaches.",copy:"The left rover follows a fixed rule toward its goal. The right planner simulates six plans before moving. Both begin with the same state and disturbance sequence.",extra:"The solid line is the route actually taken. Dashed lines are sampled future routes, not promises."},
-  {title:"Follow a real decision.",copy:"Pause whenever something interests you. “One decision” advances each unfinished rover once. Below the maps, see what was chosen, why it was chosen, and what happened after the action.",extra:"Explore the other options to find rejected plans and untested choices. A low failure count from three samples is still uncertain."},
+  {title:"Follow a real decision.",copy:"Pause whenever something interests you. “One decision” advances each unfinished rover once. Below the maps, see what was chosen, why it was chosen, and what happened after the action.",extra:"Speed changes playback, not the physics. Explore the other options to find rejected plans and untested choices. A low failure count from three samples is still uncertain."},
   {title:"Explore at your own pace.",copy:"Try a different mission. Watch the battery, movement capacity and time remaining. You can restart the same conditions, apply brakes, or download both complete decision records.",extra:"This is an early research demo. The planner uses known simulator physics; learned predictions and AACE memory are upcoming work."}
 ];
 function renderGuide() {
