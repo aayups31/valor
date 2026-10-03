@@ -1,5 +1,7 @@
 # Build progress
 
+Latest full stop report: [Build report 01 — October 3, 2026](reports/2026-10-03-build-01.md). The overall research build remains in progress.
+
 ## October 3, 2026 — implementation kickoff
 
 User authorized implementation, use of https://github.com/aayups31/valor for version control, frequent intermediate commits, and a full report whenever work stops.
@@ -13,7 +15,7 @@ User authorized implementation, use of https://github.com/aayups31/valor for ver
 
 ### Current work
 
-Build stages 0–3: isolated runtime, numerical rover, observation/snapshot invariants, external guard, structured records and local replay/demo.
+Stages 0–3 are implemented and checked at code/API level; browser visual verification remains pending. Stage 4 has working oracle planning and SAC training/checkpoint tools, but the SAC policy still fails the return phase. World-model datasets are prepared. No training job remains active at this stop; the local demo is intentionally running.
 
 ### Intermediate milestone: runtime and numerical core
 
@@ -57,6 +59,15 @@ Conventional SAC competence/curriculum, learned-model validation, qualified memo
 - Oracle episode measured 156,219 branch transitions, p50 25.62 ms / p95 62.98 ms / p99 81.66 ms decision time. This is one engineering episode, not a latency guarantee or comparative research result.
 
 Full stop reports will record changes, commit/push status, commands and test results, measured limitations, next steps and user input needed.
+
+### Stop 01 — verified state
+
+- Seven intermediate commits pushed through `493fef9`; the full report/metrics are committed separately.
+- Final regression: 63 tests passed; CPU tensor, dependency, JavaScript syntax and whitespace checks passed.
+- SAC continuation completed 50,000 additional steps in 361.17 seconds, 138.44 steps/s, 331.90 MiB peak sampled working memory. Total model history is 62,000 environment steps / 15,373 gradient updates.
+- Frozen development validation: inspected waypoint on 10/10 episodes but completed 0/10 full missions. Baseline competence remains unfinished.
+- Collected 10,000 train / 3,000 validation transitions with disjoint declared episode seeds; reserved test seeds unused.
+- External compute/API/hosting spend: $0. Browser rendering verification and the learned AACE components remain pending.
 
 ### Intermediate measurement and dataset preparation
 
