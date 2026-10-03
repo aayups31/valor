@@ -4,7 +4,17 @@ A local research system investigating whether verified counterfactual memory imp
 
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
 
-## Setup and verified commands (Windows PowerShell)
+## Open the demo
+
+On this Windows computer, double-click **Start VALOR.cmd** in the project folder. It starts the engine quietly and opens the demo in your default browser. Press **Start the demo** on the page. An optional **Show me around** walkthrough explains the mission, both approaches and the recorded decisions.
+
+Use **Pause** to explore a choice, **One decision** to advance each unfinished rover once, and the mission selector to try different conditions. The advanced controls and full records are available below the explanation. **Stop VALOR.cmd** closes the engine started by the launcher. Closing a browser tab alone does not stop the engine.
+
+The runtime is already installed on this laptop. On another Windows machine the launcher can set up the small demo environment if Python 3.11+ is installed; first setup needs internet. It does not install the optional neural training stack. No account or paid API is required.
+
+Your interface preferences are maintained in [UI design principles](UI_DESIGN_PRINCIPLES.md).
+
+## Developer setup and commands (Windows PowerShell)
 
 ```powershell
 python -m venv .venv
@@ -18,7 +28,7 @@ python -m venv .venv
 
 Use Python 3.11+; the first verified runtime is Python 3.13.1. Exact installed dependencies are recorded in `requirements-core.lock.txt`. The optional learning stack is isolated from the basic simulator/demo.
 
-Open http://127.0.0.1:8765 for the local demo. Start paused, then use Run/Step, select candidate rows, compare actual outcomes with forecasts, or export a trace. The worker owns both engine instances; browser polling does not drive their decisions. Stop/brake bypasses the controllers and applies bounded braking; momentum still follows physics.
+Open http://127.0.0.1:8765 for the local demo. It begins paused. Start the mission, inspect candidate options, compare observed outcomes with forecasts, or download the full trace. The worker owns both engine instances; browser polling does not drive their decisions. Apply brakes bypasses the controllers and applies one bounded braking action; momentum still follows physics.
 
 The first demo contains direct/detour heuristics and an **oracle planner**. It does not demonstrate learned AACE or counterfactual memory yet. Every oracle forecast reports its horizon, independent samples, sampling uncertainty, terminal approximation and branch work. Three samples are coarse engineering checks, not calibrated risk estimates. Missing evaluation and uncertainty remain visible.
 

@@ -6,6 +6,15 @@ Latest full stop report: [Build report 01 — October 3, 2026](reports/2026-10-0
 
 User authorized a full premium, minimal interface redesign before further research implementation. Their lasting preferences are recorded in [UI design principles](UI_DESIGN_PRINCIPLES.md). The interface now uses an open light composition, rounded controls, contextual explanations, optional walkthrough, accessible candidate buttons and progressive detail. Engine behavior and research claims are unchanged. Browser access was declined; source/API checks proceed without browser workarounds. A novice-friendly Windows launcher is the next part of this milestone.
 
+### UI redesign — launcher milestone
+
+- Interface commit `1ee252e` pushed to `origin/main` during work.
+- Double-click Start/Stop VALOR launchers added; tested hidden startup, reuse without another server, verified process ownership, shutdown and reopening with browser launch suppressed.
+- Installed laptop runtime reused. The optional neural stack is not required or installed by the launcher.
+- Full Python regression: 65 passed in 20.08 seconds. Actual engine records also passed the Node plain-language evidence checks, including damage, completion, external braking and invalid-command overrides.
+- Live HTTP shortcut comparison at speed 8: direct rule ended with actuator loss; oracle planner completed with 146 decisions and a complete export. This reproduces an engineering example, not a research result.
+- JavaScript syntax, PowerShell syntax, HTML ID/reference contract and whitespace checks passed. Rendered layout, browser interactions and a fresh-machine bootstrap remain unverified.
+
 ## October 3, 2026 — implementation kickoff
 
 User authorized implementation, use of https://github.com/aayups31/valor for version control, frequent intermediate commits, and a full report whenever work stops.
