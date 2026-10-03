@@ -22,6 +22,17 @@ These checks confirm source identity and the stated high-level overlap. They do 
 
 ## Important additions to the reading map
 
+### October 3: fear, physiological inspiration and time pressure
+
+The [fear/survival/pressure extension](../01_Architecture/FEAR_SURVIVAL_AND_PRESSURE_PLAN.md) maps these primary sources to planned experiments. Source identity and abstract-level scope were checked; no reproduction or exhaustive novelty review was performed.
+
+| Source | Relevant overlap and limit |
+|---|---|
+| [Lipton et al., Intrinsic Fear](https://arxiv.org/abs/1611.01211) | A learned imminent-catastrophe model shapes reward. Fear learning alone is existing work; it is not VALOR's differentiator. |
+| [McDuff and Kapoor, Visceral Machines](https://arxiv.org/abs/1805.09975) | Physiological-signal-derived intrinsic rewards tested in simulated driving. VALOR does not currently collect physiology or implement this method. |
+| [Pardo et al., Time Limits in Reinforcement Learning](https://proceedings.mlr.press/v80/pardo18a.html) | Distinguishes task deadlines from training cutoffs and supports including remaining task time in observations. Does not establish preemptive wall-clock control. |
+| [Sezener and Dayan, Static and Dynamic Values of Computation in MCTS](https://proceedings.mlr.press/v124/sezener20a.html) | Values computations by their effect on action quality. Applying the principle to VALOR's urgency-aware scheduler is a proposed design inference. |
+
 | Source | Why it changes the review | Priority |
 |---|---|---|
 | [Vaskov, Schwarting and Baker, Do no harm: A counterfactual approach to safe reinforcement learning (L4DC 2024)](https://proceedings.mlr.press/v242/vaskov24a.html) | Defines counterfactual harm relative to an alternate safe policy, including situations where violations are inevitable. This directly overlaps baseline-relative consequences and attribution. | Read before claiming novelty in consequence comparison |

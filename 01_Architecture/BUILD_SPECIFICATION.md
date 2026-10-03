@@ -4,6 +4,8 @@ Proposed on October 2, 2026. This is an implementation design, not an implemente
 
 **Current implementation authority:** the [reviewed implementation master plan](../IMPLEMENTATION_MASTER_PLAN.md) incorporates the confirmed laptop/budget and transparent-demo requirement. Follow its updated build order: oracle adapters verify correctness; the learned-model comparisons establish whether memory adds value. A perfect-model planner is an upper-bound control, not a compulsory memory-win gate.
 
+The October 3 [fear, survival, intuition and pressure extension](FEAR_SURVIVAL_AND_PRESSURE_PLAN.md) specifies the proposed threat/resource state, fast response and bounded scheduling experiments. It leaves the primary memory comparison identifiable and does not describe implemented features.
+
 ## Architecture decision
 
 Start with a Python research package and one simulator. Keep the task controller conventional, the experiment harness independent, and the reflection worker outside the real-time action loop. First isolate simulator-grounded memory, then replace simulator access with learned predictions. Add threat modes and adaptive compute only as independently tested features.

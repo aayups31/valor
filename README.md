@@ -68,6 +68,7 @@ Default external compute/API/hosting spend is $0. CPU is the reference backend. 
 ## Documentation
 
 - [Current implementation plan](IMPLEMENTATION_MASTER_PLAN.md)
+- [Fear, survival, intuition and pressure design](01_Architecture/FEAR_SURVIVAL_AND_PRESSURE_PLAN.md)
 - [Build progress and stop reports](BUILD_PROGRESS.md)
 - [Project assessment](PROJECT_REVIEW_AND_WORKING_PLAN.md)
 - [Research background](START_HERE.md)

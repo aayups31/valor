@@ -6,6 +6,8 @@ Proposed October 2, 2026. This plan schedules work; none of its experiments, int
 
 ## Aim and planning assumptions
 
+The October 3 [fear/survival/pressure plan](../01_Architecture/FEAR_SURVIVAL_AND_PRESSURE_PLAN.md) expands E5 into staged threat, resource-margin, fast-response, adaptive-compute and deadline experiments. Preserve the main memory-proof dependency order. Test memory off/on × hybrid off/on only after component validation, and count teacher, scheduler, reflection and discarded forecast work. Urgency changes scheduling under fixed mission authority; it does not authorize relaxing risk limits. Measure completion, excessive avoidance and false warnings alongside machine failure and latency.
+
 Use a 90-day window to decide whether one AACE mechanism deserves further investment. The primary hypothesis is that verified counterfactual memory lowers recurrence of avoidable catastrophic decisions after limited exposure, compared with equally resourced alternatives, without materially harming task completion.
 
 Assume an experienced practitioner with roughly 400–600 working hours available over this window, access to a development computer, and optionally one training GPU. A second reviewer should independently inspect the protocol/results before a major commitment; this is a recommended future role, not delegation already performed. If foundational study or unavailable hardware consumes the window, narrow the deliverables and retain the spending cap. Do not redefine an inconclusive experiment as success.

@@ -2,6 +2,8 @@
 
 Review date: October 2, 2026. Status: planning only. No application code, dependency installation, model training or benchmark execution was performed during this review.
 
+October 3 design extension: [Fear, survival, intuition and pressure](01_Architecture/FEAR_SURVIVAL_AND_PRESSURE_PLAN.md) defines threat learning, resource margins, a fast response path and bounded deliberation. The threat/resource contracts fit this architecture; their extra scheduling and mode mechanisms are staged E5 experiments. This extension is planned, not implemented. Current executable status is recorded in [build progress](BUILD_PROGRESS.md).
+
 This is the current implementation source of truth. It incorporates the user's research-first objective, Core Ultra 185H / Intel Arc / 32 GB RAM computer, preferred $0 incremental monthly cost with a $0–$30 ceiling, and interactive transparent-decision demo. It supersedes conflicting resource, delivery-order and demo assumptions in the earlier planning documents. The original research blueprint remains background material.
 
 ## 1. Recommendation and scope
@@ -176,6 +178,8 @@ Candidate support is finite. The inspector reports which plans and sampled futur
 
 Start with fixed forecast/decision budgets. The initial 100 ms wall-clock deadline is a target to profile, not an established laptop capability. Keep simulation time separate from wall time. Ordinary offline research can run slower than real time. A dedicated deadline experiment applies the same latency limit/fallback rules to every method. The viewer never introduces extra blocking inference into the action loop.
 
+The [fear/survival/pressure extension](01_Architecture/FEAR_SURVIVAL_AND_PRESSURE_PLAN.md) makes urgency a scheduling input under the same external risk authority. Its fast response proposes actions; qualified memories suggest tested recourse; current predictions recheck assumptions. A future real-time implementation must reject expired or superseded planner results and check in-flight overrides before action commit. A timeout observed after a blocking forecast returns is not a preemptive deadline guarantee.
+
 ## 9. Reflection and memory
 
 After a qualifying incident, reflection examines a bounded window of earlier decisions. Restore pre-decision snapshots and evaluate actual versus feasible alternate actions/plans across paired and independent disturbance draws. Account for every branch transition and its cost.
@@ -221,7 +225,7 @@ Run the following in dependency order:
 | E2: equal-update adaptation | Same initial checkpoints and incident packages; uniform replay, prioritized replay, counterfactual replay/model updates without persistent scars, and AACE | Tests whether a persistent scar store adds value beyond using the same evidence to update ordinary models/policies |
 | E3: learned forecast and reflection | Same learned ensemble/planner; oracle-grounded versus learned-only reflection; calibration, uncertainty and abstention | Tests whether the result survives model error and loss of privileged reflection access |
 | E4: transfer and context | Appearance/parameter/related-mechanism/new-mechanism splits; low/high stakes; changed dynamics and contradictory scars | Supports only the transfer/context claims actually passed |
-| E5: optional architecture components | Fixed versus adaptive compute; continuous conditioning versus mode switching; shared recovery and no-viability ablations | Determines whether additional AACE mechanisms merit inclusion |
+| E5: staged architecture extensions | Threat/resource assistance, fast response versus deliberation, fixed versus adaptive compute, continuous conditioning versus modes, memory × hybrid interaction, deadline and stale-warning tests; see the linked extension | Separates memory benefit from fear, recovery, urgency and compute allocation; retains simpler controls when equivalent |
 | E6: stronger external validation | Adapt a validated constrained-RL reference and a strong safe-world-model method to a compatible task | Required before a broad competitive safe-RL claim; resource compatibility remains an open dependency |
 
 The main local references are heuristic recovery, nominal SAC, fairly tuned damage-penalty SAC, a context/risk-conditioned planner, CVaR planning with the same model, a stronger same-budget candidate search, episodic retrieval and the replay/adaptation variants above. The no-memory learned planner is the critical control for attributing value to scars.
