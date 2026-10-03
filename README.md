@@ -12,9 +12,17 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m aace doctor
 .\.venv\Scripts\python.exe -m aace smoke
 .\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m aace run --scenario shortcut --controller oracle_planner
+.\.venv\Scripts\python.exe -m aace demo
 ```
 
 Use Python 3.11+; the first verified runtime is Python 3.13.1. Exact installed dependencies are recorded in `requirements-core.lock.txt`. The optional learning stack is isolated from the basic simulator/demo.
+
+Open http://127.0.0.1:8765 for the local demo. Start paused, then use Run/Step, select candidate rows, compare actual outcomes with forecasts, or export a trace. The worker owns both engine instances; browser polling does not drive their decisions. Stop/brake bypasses the controllers and applies bounded braking; momentum still follows physics.
+
+The first demo contains direct/detour heuristics and an **oracle planner**. It does not demonstrate learned AACE or counterfactual memory yet. Every oracle forecast reports its horizon, independent samples, sampling uncertainty, terminal approximation and branch work. Three samples are coarse engineering checks, not calibrated risk estimates. Missing evaluation and uncertainty remain visible.
+
+`run` exports to ignored `artifacts/replays/` and stops at its wall-clock cap. Each replay records the start-time Git revision, dirty-worktree flag and Python-source hash. Curated episodes are not aggregate research results.
 
 ## Scope
 

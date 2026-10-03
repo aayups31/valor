@@ -29,6 +29,16 @@ Build stages 0–3: isolated runtime, numerical rover, observation/snapshot inva
 
 Conventional SAC training, learned-model validation, qualified memory/reflection, matched adaptation comparisons, locked final experiments and final research decision. No AACE benefit is claimed from implementation checks.
 
+### Intermediate milestone: local demo
+
+- Oracle-planner commit `0a3ff07` pushed to `origin/main`; 35 tests passed before that commit.
+- Local browser interface and bounded background session worker implemented: paired maps, resource metrics, forecast paths, candidate inspection, real reason codes, step/run/pause/stop and JSON export.
+- Demo server binds only to `127.0.0.1`; static assets are allowlisted, request inputs/session retention are bounded, and cross-origin control requests are rejected.
+- Replays record start-time source provenance including uncommitted work; published paths do not mutate while a browser reads them.
+- 45 tests passed, including HTTP/control/export and published-snapshot checks. JavaScript syntax check passed with Node.
+- Live server/API available on port 8765. Browser render/interaction verification remains pending: the Codex browser webview failed to attach on both visible and background attempts. This did not block simulator, HTTP or source checks.
+- PyTorch CPU 2.7.1 and SB3 2.7.1 installed in the project environment; neural runtime smoke and training pilot follow.
+
 ### Intermediate milestone: oracle planning
 
 - Numerical-core commit `805b8d6` pushed to `origin/main`; 29 tests passed before that commit.

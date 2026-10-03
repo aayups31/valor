@@ -12,7 +12,7 @@ from aace.controllers import HeuristicController, Proposal, brake
 from aace.envs.rover import RoverEnv
 from aace.planning import guard_action
 from aace.schemas import SCHEMA_VERSION
-from aace.telemetry import explain
+from aace.telemetry import explain, source_provenance
 
 
 def make_controller(name: str, env: RoverEnv, seed: int):
@@ -35,6 +35,7 @@ class Session:
         self.path = [[self.env.state.x, self.env.state.y]]
         self.total_reward = 0.0
         self.started_at = datetime.now(timezone.utc).isoformat()
+        self.provenance = source_provenance()
 
     @property
     def ended(self) -> bool:
@@ -77,7 +78,7 @@ class Session:
     def view(self) -> dict:
         return {"run_id": self.run_id, "seed": self.seed, "controller": self.controller.name,
                 "scenario": self.env.scenario.name, "observation": self.env.observe().to_dict(),
-                "path": self.path, "ended": self.ended, "total_reward": self.total_reward,
+                "path": list(self.path), "ended": self.ended, "total_reward": self.total_reward,
                 "latest_decision": self.records[-1] if self.records else None}
 
     def summary(self) -> dict:
@@ -98,10 +99,9 @@ class Session:
     def export(self, directory: str | Path) -> Path:
         directory = Path(directory)
         directory.mkdir(parents=True, exist_ok=True)
-        revision = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True)
         destination = directory/f"{self.run_id}.json"
         header = {"schema_version": SCHEMA_VERSION, "created_at_utc": self.started_at,
-                  "git_revision": revision.stdout.strip() if revision.returncode == 0 else None,
+                  **self.provenance,
                   "config": asdict(self.env.config), "scenario": asdict(self.env.scenario),
                   "observation_permission": "fully_observed_v1",
                   "claim": "engineering replay; no validated AACE advantage"}

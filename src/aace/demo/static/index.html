@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VALOR · Decision Lab</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header><div class="brand"><span class="mark">V</span><div>VALOR<span class="small">DECISION LAB / 01</span></div></div><span class="badge">LOCAL · CPU · $0 EXTERNAL COMPUTE</span></header>
+  <main>
+    <div class="intro"><div><p class="eyebrow">CONSEQUENCES, MADE VISIBLE</p><h1>Watch the choice.<br>Inspect the evidence.</h1></div><p class="context">A rover, a mission, and a limited planning budget.<br>This first build compares heuristic control with simulator-backed planning. Learned models and AACE memory are upcoming stages.</p></div>
+    <section class="toolbar" aria-label="Experiment controls">
+      <label>SCENARIO<select id="scenario"></select></label>
+      <label>SEED<input id="seed" type="number" min="0" max="2147483647" value="42"></label>
+      <label>COMPARISON<select id="comparison"><option value="oracle_planner">Oracle planner</option><option value="heuristic_detour">Detour heuristic</option><option value="heuristic_direct">Direct heuristic</option></select></label>
+      <button id="reset">New comparison</button>
+      <div class="divider"></div>
+      <button id="run" class="primary">Run</button><button id="pause">Pause</button><button id="step">Step</button><button id="stop" class="danger">Stop / brake</button>
+      <label>SPEED<select id="speed"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option></select></label>
+    </section>
+    <div class="statusline"><span id="status" role="status">Connecting to the local engine…</span><label class="check"><input type="checkbox" id="branches" checked> Show sampled future paths</label></div>
+    <section class="maps" aria-label="Side-by-side controller runs">
+      <article class="mapcard"><div class="cardhead"><div><span class="eyebrow">REFERENCE</span><h2>Direct heuristic</h2></div><span id="left-status" class="pill">Ready</span></div><canvas id="left-map" width="600" height="400" aria-label="Reference rover map"></canvas><div id="left-metrics" class="metrics"></div></article>
+      <article class="mapcard"><div class="cardhead"><div><span class="eyebrow">COMPARISON</span><h2 id="right-title">Oracle planner</h2></div><span id="right-status" class="pill">Ready</span></div><canvas id="right-map" width="600" height="400" aria-label="Comparison rover map"></canvas><div id="right-metrics" class="metrics"></div></article>
+    </section>
+    <div class="legend"><span class="legenditem"><i class="dot depot"></i>Depot</span><span class="legenditem"><i class="dot waypoint"></i>Inspection waypoint</span><span class="legenditem"><i class="dot terrain"></i>Observable terrain</span><span>Solid line: actual path · Faint lines: sampled predictions</span></div>
+    <section class="inspector">
+      <div class="cardhead"><div><span class="eyebrow">RECORDED COMPUTATIONS</span><h2>Decision inspector</h2></div><div class="tabs"><button id="inspect-left">Reference</button><button id="inspect-right" class="active">Comparison</button><button id="export">Export JSON</button></div></div>
+      <div id="decision-meta" class="decisionmeta">Step a controller to inspect its decision.</div>
+      <p class="notice">Oracle forecasts use the simulator's dynamics and independently sampled future noise. Failure frequency covers the displayed horizon; its interval covers sampling uncertainty only. These are uncalibrated estimates, not safety guarantees.</p>
+      <div class="tablewrap"><table><thead><tr><th>Candidate plan</th><th>Status</th><th>Sampled failures</th><th>Objective score</th><th>Final health</th><th>Final battery</th></tr></thead><tbody id="candidates"></tbody></table></div>
+      <div class="detailgrid"><div><span class="eyebrow">WHY THIS STATUS?</span><p id="explanation">Select a candidate row to inspect its recorded reason.</p><pre id="forecast-detail"></pre></div><div><span class="eyebrow">OBSERVED AFTER THE ACTION</span><pre id="outcome">No action applied yet.</pre></div></div>
+    </section>
+    <footer><span>ENGINEERING DEMO · FULLY OBSERVED ENVIRONMENT V1</span><span>Finite candidate support. AACE advantage has not been established.</span></footer>
+  </main>
+</body>
+</html>
+
