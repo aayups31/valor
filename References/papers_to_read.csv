@@ -1,0 +1,34 @@
+priority,area,title,authors_year,peer_reviewed,why_it_matters,url
+1,Safe RL,Constrained Policy Optimization,Achiam et al. 2017,Yes,Core CMDP baseline,https://arxiv.org/abs/1705.10528
+1,Safe RL,Safety-Gymnasium,Ji et al. 2023,Yes,Primary benchmark,https://arxiv.org/abs/2310.12567
+1,Survey,A Survey of Constraint Formulations in Safe Reinforcement Learning,Wachi et al. 2024,Yes,Map of safe-RL formulations,https://arxiv.org/abs/2402.02025
+1,Risk,Risk-Sensitive and Robust Decision-Making: a CVaR Optimization Approach,Chow et al. 2015,Yes,Tail-risk baseline,https://arxiv.org/abs/1506.02188
+1,World Models,Mastering Diverse Domains through World Models,Hafner et al. 2023,Yes,DreamerV3 foundation,https://arxiv.org/abs/2301.04104
+1,Safe World Models,SafeDreamer,Huang et al. 2024,Yes,Nearest world-model safe-RL baseline,https://arxiv.org/abs/2307.07176
+1,Fear,Combating Reinforcement Learning's Sisyphean Curse with Intrinsic Fear,Lipton et al. 2016/2018,Yes,Direct prior art for learned catastrophe fear,https://arxiv.org/abs/1611.01211
+1,Homeostasis,Homeostatic reinforcement learning for integrating reward collection and physiological stability,Keramati & Gutkin 2014,Yes,Formal internal-state survival foundation,https://doi.org/10.7554/eLife.04811
+1,Survival,Survival Instinct in Offline Reinforcement Learning,Li et al. 2023,Yes,Shows survival-like behavior already exists,https://arxiv.org/abs/2306.03286
+1,Recovery,Recovery RL: Safe Reinforcement Learning with Learned Recovery Zones,Thananjeyan et al. 2020/2021,Yes,Task/recovery policy split,https://arxiv.org/abs/2010.15920
+1,Counterfactual,Counterfactual Credit Assignment in Model-Free Reinforcement Learning,Mesnard et al. 2021,Yes,Action responsibility and hindsight,https://proceedings.mlr.press/v139/mesnard21a.html
+1,Counterfactual,ACTER: Diverse and Actionable Counterfactual Sequences for Explaining and Diagnosing RL Policies,Gajcin & Dusparic 2024,Preprint,Failure-prevention counterfactual sequences,https://arxiv.org/abs/2402.06503
+2,Risk,Policy Gradient for Coherent Risk Measures,Tamar et al. 2015,Yes,General risk-sensitive actor-critic,https://arxiv.org/abs/1502.03919
+2,Risk,A Distributional Perspective on Reinforcement Learning,Bellemare et al. 2017,Yes,Learn full return distribution,https://arxiv.org/abs/1707.06887
+2,World Models,World Models,Ha & Schmidhuber 2018,Yes,Foundational imagination concept,https://arxiv.org/abs/1803.10122
+2,World Models,Learning Latent Dynamics for Planning from Pixels,Hafner et al. 2019,Yes,RSSM-style latent planning predecessor,https://arxiv.org/abs/1811.04551
+2,World Models,Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models,Chua et al. 2018,Yes,Uncertainty-aware dynamics ensembles,https://arxiv.org/abs/1805.12114
+2,Safe World Models,PIGDreamer,Huang et al. 2025,Yes,Partial observability and safe world models,https://proceedings.mlr.press/v267/huang25ai.html
+2,Formal Safety,A General Safety Framework for Learning-Based Control in Uncertain Robotic Systems,Fisac et al. 2018/2019,Yes,Reachability based independent safety,https://arxiv.org/abs/1705.01292
+2,Formal Safety,Control Barrier Functions: Theory and Applications,Ames et al. 2019,Yes,Hard safety constraint framework,https://arxiv.org/abs/1903.11199
+2,Shielding,Safe Reinforcement Learning via Shielding,Alshiekh et al. 2017,Yes,Runtime action correction,https://arxiv.org/abs/1708.08611
+2,Memory,Prioritized Experience Replay,Schaul et al. 2015/2016,Yes,Strong simple alternative to scar memory,https://arxiv.org/abs/1511.05952
+2,Memory,Neural Episodic Control,Pritzel et al. 2017,Yes,Fast memory-based adaptation,https://arxiv.org/abs/1703.01988
+2,Memory,Hindsight Experience Replay,Andrychowicz et al. 2017,Yes,Hindsight learning baseline,https://arxiv.org/abs/1707.01495
+2,Counterfactual,Eventual Discounting Temporal Logic Counterfactual Experience Replay,Voloshin et al. 2023,Yes,Counterfactual replay with formal task specs,https://proceedings.mlr.press/v202/voloshin23a.html
+2,Robustness,Minimax Regret Optimisation for Robust Planning in Uncertain MDPs,Rigter et al. 2021,Yes,Regret under model uncertainty,https://doi.org/10.1609/aaai.v35i13.17417
+3,Fear,Fear-Neuro-Inspired Reinforcement Learning for Safe Autonomous Driving,2023,Yes,Biological fear framing prior art,https://pubmed.ncbi.nlm.nih.gov/37801378/
+3,Fear,Towards robust shielded reinforcement learning through adaptive constraints and exploration: The fear field framework,2025,Yes,Very close terminology and adaptive fear constraints,https://doi.org/10.1016/j.engappai.2025.110055
+3,Survival,Complex behavior from intrinsic motivation to occupy future action-state path space,2024,Yes,Implicit survival through preserving future options,https://www.nature.com/articles/s41467-024-49711-1
+3,Safe World Models,FOSP: Fine-tuning Offline Safe Policy through World Models,Cao et al. 2025,Yes,Offline-to-online safe generalization,https://proceedings.iclr.cc/paper_files/paper/2025/hash/61f425da6e0a201b8fe1454601abfba5-Abstract-Conference.html
+3,Counterfactual,Counterfactual experience augmented off-policy reinforcement learning,2025,Yes,Counterfactual transition augmentation,https://doi.org/10.1016/j.neucom.2025.130017
+3,Counterfactual,Counterfactual Quotient Models: Learning What Actions Change Not What the World Does,Chen et al. 2026,Preprint,Directly models action-dependent counterfactual effects,https://arxiv.org/abs/2608.22092
+3,Affective RL,Theory of Mind with Guilt Aversion Facilitates Cooperative Reinforcement Learning,Nguyen et al. 2020,Yes,Shows guilt language already exists in RL,https://proceedings.mlr.press/v129/nguyen20a.html
