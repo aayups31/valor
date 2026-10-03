@@ -1,7 +1,7 @@
 "use strict";
 const $ = id => document.getElementById(id);
 const labels = {heuristic_direct:"Direct heuristic",heuristic_detour:"Detour heuristic",oracle_planner:"Oracle planner"};
-let sessionId = null, latest = null, inspectSide = "right", selectedPlan = null, busy = false;
+let sessionId = null, latest = null, inspectSide = "right", selectedPlan = null, busy = false, creating = false;
 const pretty = value => JSON.stringify(value, null, 2);
 const fmt = (value, places=2) => Number(value).toFixed(places);
 async function api(path, payload) {
@@ -12,13 +12,17 @@ async function api(path, payload) {
 }
 function failure(error) { $("status").textContent = error.message; $("status").className = "error"; }
 async function create() {
+  if (creating) return;
   const seed = Number($("seed").value);
   if (!Number.isInteger(seed) || seed < 0 || seed >= 2147483648) return failure(new Error("Use an integer seed between 0 and 2147483647."));
+  const payload = {scenario:$("scenario").value,seed,reference:"heuristic_direct",comparison:$("comparison").value};
+  creating = true; $("reset").disabled = true;
   try {
     if (sessionId) await api(`/api/session/${sessionId}/control`, {action:"pause"});
-    latest = await api("/api/session", {scenario:$("scenario").value,seed,reference:"heuristic_direct",comparison:$("comparison").value});
+    latest = await api("/api/session", payload);
     sessionId = latest.session_id; selectedPlan = null; render();
   } catch(error) { failure(error); }
+  finally { creating = false; $("reset").disabled = false; }
 }
 async function control(action) {
   if (!sessionId) return;
@@ -85,8 +89,9 @@ function render() {
   map("left",latest.left);map("right",latest.right);inspect();
 }
 async function poll() {
-  if(!sessionId||busy)return;busy=true;
-  try {latest=await api(`/api/session/${sessionId}`);render();}catch(error){failure(error);}finally{busy=false;}
+  if(!sessionId||busy||creating)return;busy=true;
+  const queriedId=sessionId;
+  try {const data=await api(`/api/session/${queriedId}`);if(queriedId===sessionId&&!creating){latest=data;render();}}catch(error){failure(error);}finally{busy=false;}
 }
 $("reset").addEventListener("click",create);
 for(const action of ["run","pause","step","stop"])$(action).addEventListener("click",()=>control(action));
@@ -99,4 +104,3 @@ $("export").addEventListener("click",async()=>{
 });
 api("/api/scenarios").then(data=>{for(const name of data.scenarios){const option=document.createElement("option");option.value=name;option.textContent=name.replaceAll("_"," ");$("scenario").append(option);}$("scenario").value="shortcut";return create();}).catch(failure);
 setInterval(poll,200);
-

@@ -67,3 +67,28 @@ def test_stop_does_not_wait_for_controller():
     session.controller = BrokenController()
     record = session.step(external_stop=True)
     assert record["controller_bypassed"] and record["proposed_action"] is None
+
+
+def test_invalid_controller_action_is_guarded_and_exportable(tmp_path):
+    import json
+    from aace.controllers import Proposal
+
+    class InvalidController:
+        name = "invalid"
+
+        def decide(self, observation):
+            action = (float("nan"), 0)
+            return Proposal("invalid", action, ({"plan": "invalid", "action": action,
+                            "status": "selected", "reason_codes": [], "forecast": None},))
+
+    session = Session("benign")
+    session.controller = InvalidController()
+    record = session.step()
+    assert record["guard_reason"] == "invalid_action"
+    assert not record["proposed_action_valid"]
+    assert record["proposed_action"] == (None, 0)
+    assert record["candidates"][0]["status"] == "guard_overridden"
+    assert record["actual_outcome"]["state"]["step"] == 1
+    artifact = json.loads(session.export(tmp_path).read_text())
+    assert artifact["decisions"][0]["actual_outcome"] == record["actual_outcome"]
+    assert artifact["header"]["python_source_sha256"]

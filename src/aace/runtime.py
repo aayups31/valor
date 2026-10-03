@@ -1,6 +1,7 @@
 """One engine shared by CLI experiments and local demo sessions."""
 
 import json
+from math import isfinite
 import subprocess
 import time
 from dataclasses import asdict
@@ -13,6 +14,14 @@ from aace.envs.rover import RoverEnv
 from aace.planning import guard_action
 from aace.schemas import SCHEMA_VERSION
 from aace.telemetry import explain, source_provenance
+
+
+def trace_action(action):
+    """Keep invalid commands inspectable in strict JSON without NaN literals."""
+    try:
+        return tuple(float(v) if isfinite(float(v)) else None for v in action)
+    except (TypeError, ValueError, OverflowError):
+        return None
 
 
 def make_controller(name: str, env: RoverEnv, seed: int):
@@ -58,12 +67,20 @@ class Session:
         _, reward, terminated, truncated, info = self.env.step(guard.action)
         self.total_reward += reward
         self.path.append([self.env.state.x, self.env.state.y])
-        candidates = [dict(item, explanations=explain(item["reason_codes"])) for item in proposal.candidates]
+        candidates = [dict(item, action=trace_action(item["action"]),
+                           explanations=explain(item["reason_codes"])) for item in proposal.candidates]
+        if guard.reason and not external_stop:
+            for candidate in candidates:
+                if candidate["plan"] == proposal.plan:
+                    candidate["status_before_guard"] = candidate["status"]
+                    candidate["status"] = "guard_overridden"
         record = {"schema_version": SCHEMA_VERSION, "run_id": self.run_id,
                   "step": observation.state.step, "observation": observation.to_dict(),
                   "controller": self.controller.name, "forecast_source": proposal.forecast_source,
                   "candidates": candidates, "selected_plan": proposal.plan,
-                  "proposed_action": None if external_stop else proposal.action,
+                  "proposed_action": None if external_stop else trace_action(proposal.action),
+                  "proposed_action_valid": not external_stop and guard.reason != "invalid_action",
+                  "raw_invalid_action": repr(proposal.action) if guard.reason == "invalid_action" else None,
                   "controller_bypassed": external_stop, "applied_action": guard.action,
                   "guard_reason": guard.reason,
                   "guard_explanation": explain([guard.reason]) if guard.reason else [],
