@@ -78,6 +78,16 @@ def test_http_assets_and_session_export(server):
     assert len(data["runs"][0]["decisions"]) == 1
 
 
+def test_launcher_health_identifies_interface_and_all_frontend_assets(server):
+    _, _, body = request(server, "/api/health")
+    assert json.loads(body) == {"application": "valor", "interface_version": 2,
+                                "schema_version": "1.0"}
+    for path in ("/app.js", "/evidence.js", "/style.css"):
+        status, headers, body = request(server, path)
+        assert status == 200 and body
+        assert "no-store" == headers["Cache-Control"]
+
+
 def test_cross_origin_and_unknown_assets_are_rejected(server):
     with pytest.raises(HTTPError) as error:
         request(server, "/api/session", {}, {"Origin": "https://example.com"})
@@ -104,4 +114,3 @@ def test_pause_updates_public_status_immediately():
         assert not pair.view()["running"]
     finally:
         pair.close()
-

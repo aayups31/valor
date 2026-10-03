@@ -2,6 +2,10 @@
 
 Latest full stop report: [Build report 01 — October 3, 2026](reports/2026-10-03-build-01.md). The overall research build remains in progress.
 
+### UI redesign — in progress
+
+User authorized a full premium, minimal interface redesign before further research implementation. Their lasting preferences are recorded in [UI design principles](UI_DESIGN_PRINCIPLES.md). The interface now uses an open light composition, rounded controls, contextual explanations, optional walkthrough, accessible candidate buttons and progressive detail. Engine behavior and research claims are unchanged. Browser access was declined; source/API checks proceed without browser workarounds. A novice-friendly Windows launcher is the next part of this milestone.
+
 ## October 3, 2026 — implementation kickoff
 
 User authorized implementation, use of https://github.com/aayups31/valor for version control, frequent intermediate commits, and a full report whenever work stops.

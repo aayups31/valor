@@ -197,6 +197,9 @@ class Handler(BaseHTTPRequestHandler):
         if not self._local_request():
             return
         path = urlsplit(self.path).path
+        if path == "/api/health":
+            return self._respond({"application": "valor", "interface_version": 2,
+                                  "schema_version": SCHEMA_VERSION})
         if path == "/api/scenarios":
             return self._respond({"scenarios": list(SCENARIOS), "controllers": CONTROLLERS,
                                   "forecast_notice": "Oracle dynamics, finite samples; learned predictions pending"})
@@ -212,6 +215,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self._respond({"error": str(error)}, 404)
         assets = {"/": ("index.html", "text/html; charset=utf-8"),
                   "/app.js": ("app.js", "text/javascript; charset=utf-8"),
+                  "/evidence.js": ("evidence.js", "text/javascript; charset=utf-8"),
                   "/style.css": ("style.css", "text/css; charset=utf-8")}
         if path in assets:
             filename, kind = assets[path]
