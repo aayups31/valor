@@ -21,8 +21,8 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "aace.demo" = ["static/*.html", "static/*.css", "static/*.js"]
+"aace.learning" = ["*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
-

@@ -37,6 +37,15 @@ Replace `RUN-ID` with the printed run directory. `--resume` accepts a trusted ch
 
 The controller uses the established [SB3 SAC implementation](https://stable-baselines3.readthedocs.io/en/v2.7.1/modules/sac.html), two 64-unit hidden layers, one environment and bounded CPU threads. Progress is logged every 1,000 steps and checkpoints every 5,000. Validation is explicitly a development pilot; final research manifests and statistical comparisons are still to be built. `requirements-learning.lock.txt` records the full tested CPU environment.
 
+## Development data collection
+
+```powershell
+.\.venv\Scripts\python.exe -m aace collect --split train --steps 10000
+.\.venv\Scripts\python.exe -m aace collect --split validation --steps 3000
+```
+
+The packaged split manifest reserves separate episode-seed ranges. Collection crosses direct/detour/braking policies with all declared training scenarios and adds bounded random actions. Records include applied actions and episode grouping. The model-input loader exposes only the 35 public observation values and two actions; identifiers/seeds/scenario labels remain metadata. Its six targets are normalized physical-state deltas. Hashes and split checks reject changed or incorrectly assigned datasets. The reserved test range is not collectable through this development command; the final protocol remains pending.
+
 ## Scope
 
 - Lightweight continuous-control inspection rover with battery and persistent damage.

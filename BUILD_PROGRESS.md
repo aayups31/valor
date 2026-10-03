@@ -57,3 +57,11 @@ Conventional SAC competence/curriculum, learned-model validation, qualified memo
 - Oracle episode measured 156,219 branch transitions, p50 25.62 ms / p95 62.98 ms / p99 81.66 ms decision time. This is one engineering episode, not a latency guarantee or comparative research result.
 
 Full stop reports will record changes, commit/push status, commands and test results, measured limitations, next steps and user input needed.
+
+### Intermediate measurement and dataset preparation
+
+- Learning-pipeline commit `cec8172` pushed to `origin/main`; 56 checks passed.
+- Clean-source seed-42 SAC pilot: 12,000 environment steps, 2,874 gradient updates, 96.02 seconds, 124.97 steps/s, 328.34 MiB peak sampled working memory, $0 external spend.
+- Initial frozen validation on seeds 10001–10003: 0/3 completions, all deadline misses. The policy is not yet a competent research reference.
+- A bounded 50,000-step / 480-second continuation is running from the saved model/optimizer/replay bundle. This is development training, not a final hypothesis test.
+- Seeded transition collection and hashed manifests added for later world-model work. Inputs exclude episode IDs/seeds/scenario labels; development train/validation seed groups are disjoint and the test range is reserved.

@@ -1,0 +1,7 @@
+{
+  "version": "development-splits-v1",
+  "notice": "Development collection only. Final research scenario manifests and sample sizes are not frozen.",
+  "train": {"seed_start": 0, "seed_stop": 10000, "scenarios": ["benign", "shortcut", "recoverable_damage", "low_reserve"]},
+  "validation": {"seed_start": 10000, "seed_stop": 20000, "scenarios": ["benign", "shortcut", "recoverable_damage", "low_reserve"]},
+  "reserved_test": {"seed_start": 20000, "seed_stop": 30000, "collection_allowed": false}
+}

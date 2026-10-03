@@ -84,6 +84,12 @@ def main() -> None:
     evaluator.add_argument("--scenario", choices=SCENARIOS, default="benign")
     evaluator.add_argument("--seeds", type=int, nargs="+", default=[10001, 10002, 10003])
     evaluator.add_argument("--output", type=Path, default=Path("artifacts/validation"))
+    collector = commands.add_parser("collect", help="Collect separated development transition datasets")
+    collector.add_argument("--split", choices=("train", "validation"), required=True)
+    collector.add_argument("--steps", type=int, default=10000)
+    collector.add_argument("--seed-offset", type=int, default=0)
+    collector.add_argument("--max-seconds", type=float, default=60)
+    collector.add_argument("--output", type=Path, default=Path("artifacts/datasets"))
     args = parser.parse_args()
     if args.command == "doctor":
         result = doctor()
@@ -101,6 +107,10 @@ def main() -> None:
     elif args.command == "evaluate":
         from aace.learning.sac import evaluate
         result = evaluate(args.checkpoint, args.scenario, args.seeds, args.output)
+    elif args.command == "collect":
+        from aace.learning.data import collect
+        result = collect(args.split, args.steps, args.output, seed_offset=args.seed_offset,
+                         max_seconds=args.max_seconds)
     else:
         from aace.runtime import Session
         if args.max_seconds <= 0:
