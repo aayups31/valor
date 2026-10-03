@@ -1,10 +1,10 @@
 # Build progress
 
-Latest full stop report: [Build report 01 — October 3, 2026](reports/2026-10-03-build-01.md). The overall research build remains in progress.
+Latest full stop report: [Build report 02 — premium UI redesign](reports/2026-10-03-build-02-ui.md). Previous: [Build report 01 — October 3, 2026](reports/2026-10-03-build-01.md). The overall research build remains in progress.
 
-### UI redesign — in progress
+### UI redesign — implementation complete; rendered review pending
 
-User authorized a full premium, minimal interface redesign before further research implementation. Their lasting preferences are recorded in [UI design principles](UI_DESIGN_PRINCIPLES.md). The interface now uses an open light composition, rounded controls, contextual explanations, optional walkthrough, accessible candidate buttons and progressive detail. Engine behavior and research claims are unchanged. Browser access was declined; source/API checks proceed without browser workarounds. A novice-friendly Windows launcher is the next part of this milestone.
+User authorized a full premium, minimal interface redesign before further research implementation. Their lasting preferences are recorded in [UI design principles](UI_DESIGN_PRINCIPLES.md). The interface now uses an open light composition, rounded controls, contextual explanations, optional walkthrough, accessible candidate buttons and progressive detail. The double-click Windows launchers are implemented and checked on this laptop. Engine behavior and research claims are unchanged. Browser access was declined; source/API checks passed without browser workarounds.
 
 ### UI redesign — launcher milestone
 
