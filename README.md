@@ -24,6 +24,19 @@ The first demo contains direct/detour heuristics and an **oracle planner**. It d
 
 `run` exports to ignored `artifacts/replays/` and stops at its wall-clock cap. Each replay records the start-time Git revision, dirty-worktree flag and Python-source hash. Curated episodes are not aggregate research results.
 
+## CPU learning pilot
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+.\.venv\Scripts\python.exe -m pip install -e '.[learning]'
+.\.venv\Scripts\python.exe -m aace train --scenario benign --steps 12000 --max-seconds 180 --threads 2
+.\.venv\Scripts\python.exe -m aace evaluate --checkpoint artifacts/training/RUN-ID/final --scenario benign
+```
+
+Replace `RUN-ID` with the printed run directory. `--resume` accepts a trusted checkpoint bundle created by this project. Bundles include weights/optimizer, replay buffer, hashes, versions, budgets, source identity and exact update counts. Resume begins a fresh episode; it is not exact mid-episode RNG continuation. Initialization/checkpoint I/O and completion of an in-progress operation can exceed the callback's wall-clock target slightly.
+
+The controller uses the established [SB3 SAC implementation](https://stable-baselines3.readthedocs.io/en/v2.7.1/modules/sac.html), two 64-unit hidden layers, one environment and bounded CPU threads. Progress is logged every 1,000 steps and checkpoints every 5,000. Validation is explicitly a development pilot; final research manifests and statistical comparisons are still to be built. `requirements-learning.lock.txt` records the full tested CPU environment.
+
 ## Scope
 
 - Lightweight continuous-control inspection rover with battery and persistent damage.

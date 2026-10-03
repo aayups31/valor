@@ -27,7 +27,16 @@ Build stages 0–3: isolated runtime, numerical rover, observation/snapshot inva
 
 ### Remaining research work
 
-Conventional SAC training, learned-model validation, qualified memory/reflection, matched adaptation comparisons, locked final experiments and final research decision. No AACE benefit is claimed from implementation checks.
+Conventional SAC competence/curriculum, learned-model validation, qualified memory/reflection, matched adaptation comparisons, locked final experiments and final research decision. No AACE benefit is claimed from implementation checks.
+
+### Intermediate milestone: learning pipeline
+
+- Demo commit `7179c00` pushed to `origin/main`.
+- CPU PyTorch 2.7.1 tensor execution passed with two threads. SB3 2.7.1 imported and exercised by training tests; dependency consistency check passed.
+- Bounded SAC trainer, progress ledger, periodic/final checkpoint bundles, source/version/hash records and frozen development-validation command implemented.
+- Checkpoint continuation retains model/optimizer and replay history, while deliberately starting a fresh episode. Exact mid-episode continuation is not claimed.
+- 54 tests passed before additional resource-cap checks were added; the tests verify actual gradient updates, save/load, hash integrity and resumed replay/update history.
+- A bounded 12,000-step, 180-second, two-thread pilot is the next measurement. Policy competence and research advantage remain unestablished.
 
 ### Intermediate milestone: local demo
 

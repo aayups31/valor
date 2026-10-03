@@ -70,6 +70,20 @@ def main() -> None:
     run.add_argument("--max-seconds", type=float, default=60)
     demo = commands.add_parser("demo", help="Serve the local decision inspector")
     demo.add_argument("--port", type=int, default=8765)
+    trainer = commands.add_parser("train", help="Bounded CPU SAC development pilot")
+    trainer.add_argument("--scenario", choices=SCENARIOS, default="benign")
+    trainer.add_argument("--seed", type=int, default=42)
+    trainer.add_argument("--steps", type=int, default=20000)
+    trainer.add_argument("--max-seconds", type=float, default=900)
+    trainer.add_argument("--threads", type=int, choices=(1, 2, 4), default=2)
+    trainer.add_argument("--memory-mb", type=float, default=8192)
+    trainer.add_argument("--output", type=Path, default=Path("artifacts/training"))
+    trainer.add_argument("--resume", type=Path)
+    evaluator = commands.add_parser("evaluate", help="Validate a trusted local SAC checkpoint")
+    evaluator.add_argument("--checkpoint", type=Path, required=True)
+    evaluator.add_argument("--scenario", choices=SCENARIOS, default="benign")
+    evaluator.add_argument("--seeds", type=int, nargs="+", default=[10001, 10002, 10003])
+    evaluator.add_argument("--output", type=Path, default=Path("artifacts/validation"))
     args = parser.parse_args()
     if args.command == "doctor":
         result = doctor()
@@ -79,6 +93,14 @@ def main() -> None:
         from aace.demo.server import serve
         serve(args.port)
         return
+    elif args.command == "train":
+        from aace.learning.sac import TrainSettings, train
+        result = train(TrainSettings(scenario=args.scenario, seed=args.seed, steps=args.steps,
+                                     max_seconds=args.max_seconds, threads=args.threads,
+                                     max_memory_mb=args.memory_mb), args.output, args.resume)
+    elif args.command == "evaluate":
+        from aace.learning.sac import evaluate
+        result = evaluate(args.checkpoint, args.scenario, args.seeds, args.output)
     else:
         from aace.runtime import Session
         if args.max_seconds <= 0:
@@ -91,4 +113,3 @@ def main() -> None:
         result["wall_clock_capped"] = not session.ended
         result["replay_file"] = str(session.export(args.output).resolve())
     print(json.dumps(result, indent=2, allow_nan=False))
-
