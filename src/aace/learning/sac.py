@@ -32,10 +32,16 @@ class TrainSettings:
     learning_starts: int = 500
     train_freq: int = 4
     checkpoint_freq: int = 5000
+    curriculum: str = "full_mission"
+    ent_coef: str = "auto"
 
     def __post_init__(self):
         if self.scenario not in SCENARIOS or not 0 <= self.seed < 2**31:
             raise ValueError("Invalid training scenario/seed")
+        if self.curriculum not in ("full_mission", "mixed_return") or self.ent_coef not in ("auto", "auto_0.1"):
+            raise ValueError("Invalid curriculum/entropy preset")
+        if self.curriculum == "mixed_return" and self.scenario != "benign":
+            raise ValueError("Return curriculum currently supports only benign terrain")
         if min(self.steps, self.buffer_size, self.batch_size, self.train_freq, self.checkpoint_freq) <= 0:
             raise ValueError("Training counts must be positive")
         if self.batch_size > self.buffer_size or self.learning_starts < 0 or self.threads not in (1, 2, 4):
@@ -145,7 +151,11 @@ def train(settings: TrainSettings, output: Path, resume: Path | None = None) -> 
     torch.set_num_threads(settings.threads)
     directory = output/f"sac-{settings.seed}-{uuid4().hex[:8]}"
     directory.mkdir(parents=True, exist_ok=False)
-    env = Monitor(RoverEnv(settings.scenario))
+    base_env = RoverEnv(settings.scenario)
+    if settings.curriculum == "mixed_return":
+        from aace.learning.curriculum import ReturnCurriculum
+        base_env = ReturnCurriculum(base_env)
+    env = Monitor(base_env, info_keywords=("status",))
     env.reset(seed=settings.seed)
     metadata = {"algorithm": "stable-baselines3.SAC", "settings": asdict(settings),
                 "environment_version": "rover-kernel-v1", "observation_version": "fully_observed_v1",
@@ -163,6 +173,8 @@ def train(settings: TrainSettings, output: Path, resume: Path | None = None) -> 
         matching = ("scenario", "buffer_size", "batch_size", "learning_starts", "train_freq")
         if any(parent["settings"][key] != asdict(settings)[key] for key in matching):
             raise ValueError("Resume training settings differ from checkpoint")
+        if parent["settings"].get("curriculum", "full_mission") != settings.curriculum or parent["settings"].get("ent_coef", "auto") != settings.ent_coef:
+            raise ValueError("Resume curriculum/entropy differs from checkpoint")
         model = SAC.load(resume/"policy.zip", env=env, device="cpu")
         model.load_replay_buffer(resume/"replay.pkl")
         metadata["resumed_from"] = str(resume.resolve())
@@ -170,7 +182,7 @@ def train(settings: TrainSettings, output: Path, resume: Path | None = None) -> 
         model = SAC("MlpPolicy", env, device="cpu", seed=settings.seed, verbose=0,
                     buffer_size=settings.buffer_size, batch_size=settings.batch_size,
                     learning_starts=settings.learning_starts, train_freq=settings.train_freq,
-                    gradient_steps=1, policy_kwargs={"net_arch": [64, 64]})
+                    gradient_steps=1, ent_coef=settings.ent_coef, policy_kwargs={"net_arch": [64, 64]})
     initial_steps, initial_updates = model.num_timesteps, model._n_updates
     (directory/"manifest.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
     callback = BudgetCallback(settings, directory, metadata, started)

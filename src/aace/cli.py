@@ -79,6 +79,8 @@ def main() -> None:
     trainer.add_argument("--memory-mb", type=float, default=8192)
     trainer.add_argument("--output", type=Path, default=Path("artifacts/training"))
     trainer.add_argument("--resume", type=Path)
+    trainer.add_argument("--curriculum", choices=("full_mission", "mixed_return"), default="full_mission")
+    trainer.add_argument("--entropy", choices=("auto", "auto_0.1"), default="auto")
     evaluator = commands.add_parser("evaluate", help="Validate a trusted local SAC checkpoint")
     evaluator.add_argument("--checkpoint", type=Path, required=True)
     evaluator.add_argument("--scenario", choices=SCENARIOS, default="benign")
@@ -103,7 +105,8 @@ def main() -> None:
         from aace.learning.sac import TrainSettings, train
         result = train(TrainSettings(scenario=args.scenario, seed=args.seed, steps=args.steps,
                                      max_seconds=args.max_seconds, threads=args.threads,
-                                     max_memory_mb=args.memory_mb), args.output, args.resume)
+                                     max_memory_mb=args.memory_mb, curriculum=args.curriculum,
+                                     ent_coef=args.entropy), args.output, args.resume)
     elif args.command == "evaluate":
         from aace.learning.sac import evaluate
         result = evaluate(args.checkpoint, args.scenario, args.seeds, args.output)
