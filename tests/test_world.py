@@ -44,8 +44,18 @@ def test_world_validation_retains_simple_controls_and_correlated_rollout_notice(
     assert "no_change" in report["simple_baselines"]
     assert "constant_velocity" in report["simple_baselines"]
     assert report["open_loop_recorded_action_rollouts"]["20"]["count"] == 8
+    assert report["open_loop_recorded_action_rollouts"]["80"]["count"] == 8
+    assert report["evaluation_dataset_used_for_checkpoint_selection"]
     assert not report["planner_ready"] and report["remaining_gates"]
     assert "correlated" in report["rollout_notice"]
+
+
+def test_separate_development_data_is_labeled_separately_from_selection(world_bundle, tmp_path):
+    result, _, _ = world_bundle
+    validation = Path(collect("validation", 400, tmp_path, seed_offset=500)["directory"])
+    report = evaluate_world(Path(result["directory"]), validation, tmp_path, rollout_starts=2)
+    assert not report["evaluation_dataset_used_for_checkpoint_selection"]
+    assert "no locked final-test claim" in report["protocol"]
 
 
 def test_constant_velocity_uses_public_velocity_and_clips_position():

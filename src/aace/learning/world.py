@@ -293,7 +293,7 @@ def evaluate_world(checkpoint: Path, validation: Path, output: Path, *, rollout_
         if damage_mask.any():
             baselines[name]["damage"] = dict(zip(STATE_NAMES, np.sqrt(np.mean(errors[damage_mask]**2, axis=0)).tolist()))
     rollouts = {}
-    for horizon in (5, 20):
+    for horizon in (5, 20, 80):
         starts = []
         for episode in np.unique(records["episode_ids"]):
             indices = np.flatnonzero(records["episode_ids"] == episode)
@@ -323,12 +323,16 @@ def evaluate_world(checkpoint: Path, validation: Path, output: Path, *, rollout_
                                   "no_change_physical_rmse": dict(zip(STATE_NAMES, np.sqrt((baseline_error**2).mean(axis=0)).tolist())),
                                   "constant_velocity_physical_rmse": dict(zip(STATE_NAMES, np.sqrt((kinematic_error**2).mean(axis=0)).tolist())),
                                   "seconds": horizon*0.1}
-    report = {"protocol": "development validation; checkpoint selection used validation; no independent final-test claim",
+    used_for_selection = manifest["dataset_sha256"] == model.metadata["validation_sha256"]
+    report = {"protocol": "development validation; no locked final-test claim",
+              "evaluation_dataset_used_for_checkpoint_selection": used_for_selection,
+              "selection_validation_sha256": model.metadata["validation_sha256"],
+              "evaluation_episodes": len(manifest["episodes"]),
               "checkpoint": str(checkpoint.resolve()), "model_version": MODEL_VERSION,
               "model_sha256": model.metadata["weights_sha256"], "validation_sha256": manifest["dataset_sha256"],
               "one_step": one_step, "simple_baselines": baselines, "open_loop_recorded_action_rollouts": rollouts,
               "rollout_notice": "Only initial public state and recorded applied actions are supplied; no future states/noise. Decoder clips physical ranges and updates known task geometry. Windows are correlated development samples. This is state-error validation, not a closed-loop controller or calibrated terminal-risk forecast.",
-              "planner_ready": False, "remaining_gates": ["held-out candidate ranking", "threat calibration", "longer-horizon and policy-shift validation"],
+              "planner_ready": False, "remaining_gates": ["held-out candidate ranking", "threat calibration", "closed-loop/terminal forecast acceptance and policy-shift validation"],
               "elapsed_s": time.perf_counter()-start_time, **source_provenance()}
     output.mkdir(parents=True, exist_ok=True)
     destination = output/f"world-validation-{uuid4().hex[:8]}.json"
