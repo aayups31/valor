@@ -1,6 +1,16 @@
 # Build progress
 
-Latest full stop report: [Planning report 03 — fear, survival and pressure](reports/2026-10-03-planning-03-fear-pressure.md). Previous: [Build report 02 — premium UI redesign](reports/2026-10-03-build-02-ui.md), [Build report 01](reports/2026-10-03-build-01.md). The overall research build remains in progress.
+Latest full stop report: [Build report 04 — learned dynamics and return competence](reports/2026-10-06-build-04.md). Previous: [Planning report 03 — fear, survival and pressure](reports/2026-10-03-planning-03-fear-pressure.md), [Build report 02 — premium UI redesign](reports/2026-10-03-build-02-ui.md), [Build report 01](reports/2026-10-03-build-01.md). The overall research build remains in progress.
+
+### Stop 04 — verified state
+
+- Three intermediate implementation commits pushed through `c285af4`; the full report and curated metrics follow separately.
+- Final regression: 85 passed in 25.05 seconds; compilation and whitespace checks passed.
+- Fresh ordinary SAC policy completes 20/20 benign development missions across two seed sets, but 0/10 hazardous-shortcut missions. One training seed and a changed recipe do not establish general robustness or curriculum attribution.
+- Three-member learned dynamics model trained on 50,000 transitions in 101.61 seconds, using 443.60 MiB peak sampled working memory. It improves movement forecasts on 6,000 separate development transitions.
+- Damage forecasting remains weak: health RMSE 0.04048 versus 0.04097 for no change, and nominal 90% health intervals cover only 52.75% of damage transitions. Model reports retain `planner_ready: false`.
+- Training, selection and separate-check episode seeds are pairwise disjoint. Reserved final-test seeds remain unused. No AACE advantage or calibrated threat probability is claimed.
+- All build jobs completed; local demo is stopped and can be opened with Start VALOR.cmd. Interface behavior is unchanged; rendered review remains pending. External compute/API/hosting spend remains $0.
 
 ### October 6 — return curriculum and learned dynamics implementation
 
@@ -9,7 +19,7 @@ Latest full stop report: [Planning report 03 — fear, survival and pressure](re
 - A fresh two-thread, ten-minute CPU pilot reached 64,557 steps / 16,014 gradient updates using 329.93 MiB peak sampled working memory. Its final policy completed all 10 benign development missions on seeds 10001–10010 without damage. This is one trained agent; hazardous transfer and research comparisons remain unvalidated.
 - Added a compact probabilistic dynamics ensemble, episode bootstrap, training-only normalization, hashed restricted-load checkpoints, resource caps, physical/interval metrics, damage/return/boundary strata and recorded-action rollouts against simple controls.
 - Dataset integrity now checks seed ranges, grouping, trajectory continuity and terminal placement. Full regression before the latest integrity/control additions: 80 passed; targeted learning/data/model checks after those additions: 36 passed.
-- Bounded world-model training and further separated development validation follow. No learned model is approved for decision-making yet. External compute/API spend remains $0.
+- Bounded world-model training and separated development validation completed. Movement forecasts improved over simple controls, but damage prediction and its interval coverage remain weak. No learned model is approved for decision-making yet. External compute/API spend remains $0.
 
 ### Fear, survival, intuition and pressure — design recorded
 
@@ -41,7 +51,7 @@ User authorized implementation, use of https://github.com/aayups31/valor for ver
 
 ### Current work
 
-Stages 0–3 are implemented and checked at code/API level; browser visual verification remains pending. Stage 4 has working oracle planning and SAC training/checkpoint tools, but the SAC policy still fails the return phase. World-model datasets are prepared. No training job remains active at this stop; the local demo is intentionally running.
+Stages 0–3 are implemented and checked at code/API level; browser visual verification remains pending. The conventional SAC pilot now completes the benign full mission but fails hazardous transfer. Learned dynamics training/evaluation is implemented; damage forecasting and calibration remain insufficient for planning. Qualified memory and matched research comparisons remain ahead. No build job remains active at the latest stop; the local demo is stopped.
 
 ### Intermediate milestone: runtime and numerical core
 
@@ -55,7 +65,7 @@ Stages 0–3 are implemented and checked at code/API level; browser visual verif
 
 ### Remaining research work
 
-Conventional SAC competence/curriculum, learned-model validation, qualified memory/reflection, matched adaptation comparisons, locked final experiments and final research decision. No AACE benefit is claimed from implementation checks.
+Replicated controller competence and hazardous controls, damage/threat forecast qualification, learned planning, qualified memory/reflection, matched adaptation comparisons, locked final experiments and final research decision. No AACE benefit is claimed from implementation checks.
 
 ### Intermediate milestone: learning pipeline
 

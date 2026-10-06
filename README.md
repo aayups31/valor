@@ -4,6 +4,8 @@ A local research system investigating whether verified counterfactual memory imp
 
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
 
+Latest milestone: an ordinary learned controller completes the checked benign full missions, and a compact learned dynamics ensemble is trained and evaluated. Hazardous controller transfer and damage-model calibration remain insufficient; learned planning and incident memory are still pending. See [build report 04](reports/2026-10-06-build-04.md) for results, limitations and next steps.
+
 ## Open the demo
 
 On this Windows computer, double-click **Start VALOR.cmd** in the project folder. It starts the engine quietly and opens the demo in your default browser. Press **Start the demo** on the page. An optional **Show me around** walkthrough explains the mission, both approaches and the recorded decisions.
@@ -63,7 +65,7 @@ The packaged split manifest reserves separate episode-seed ranges. Collection cr
 .\.venv\Scripts\python.exe -m aace evaluate-world --checkpoint artifacts/world-models/MODEL-ID --validation artifacts/datasets/VALIDATION-ID
 ```
 
-Replace the directory placeholders with printed run directories. The optional learning dependencies are required. Three small probabilistic networks predict changes in position, velocity, battery and health from public observations and applied actions. Each member bootstraps complete episode groups; normalization uses training data only. Checkpoints record data/source hashes, bootstrap groups, work, resource caps and validation-based selection. Weights load with PyTorch's restricted `weights_only` mechanism.
+Replace the directory placeholders with printed run directories. The optional learning dependencies are required. Three small probabilistic networks predict changes in position, velocity, battery and health from public observations and applied actions. Each member bootstraps whole recorded episode groups; collection's last episode may be partial. Normalization uses training data only. Checkpoints record data/source hashes, bootstrap groups, work, resource caps and validation-based selection. Weights load with PyTorch's restricted `weights_only` mechanism.
 
 Validation reports no-change, training-mean and constant-velocity controls, damage/return/boundary strata, predictive interval coverage and 5/20/80-step rollouts using recorded actions. Rollouts start from one observed state and carry their own predictions; future observed states are scoring targets only. The decoder's physical clipping and known task geometry are explicitly reported. Trajectory checks reject interleaved episodes, broken state chains and premature terminal labels. Reports identify whether evaluation uses the same dataset hash as checkpoint selection; a different hash alone does not prove disjoint episodes. These are correlated development samples, not final-test results or calibrated failure probabilities. A model is not approved for planning until candidate ranking, threat calibration and closed-loop/terminal/policy-shift checks also pass.
 
