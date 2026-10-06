@@ -56,6 +56,19 @@ The controller uses the established [SB3 SAC implementation](https://stable-base
 
 The packaged split manifest reserves separate episode-seed ranges. Collection crosses direct/detour/braking policies with all declared training scenarios and adds bounded random actions. Records include applied actions and episode grouping. The model-input loader exposes only the 35 public observation values and two actions; identifiers/seeds/scenario labels remain metadata. Its six targets are normalized physical-state deltas. Hashes and split checks reject changed or incorrectly assigned datasets. The reserved test range is not collectable through this development command; the final protocol remains pending.
 
+## Learned dynamics development
+
+```powershell
+.\.venv\Scripts\python.exe -m aace train-world --training artifacts/datasets/TRAIN-ID --validation artifacts/datasets/VALIDATION-ID --epochs 30 --max-seconds 180
+.\.venv\Scripts\python.exe -m aace evaluate-world --checkpoint artifacts/world-models/MODEL-ID --validation artifacts/datasets/VALIDATION-ID
+```
+
+Replace the directory placeholders with printed run directories. The optional learning dependencies are required. Three small probabilistic networks predict changes in position, velocity, battery and health from public observations and applied actions. Each member bootstraps complete episode groups; normalization uses training data only. Checkpoints record data/source hashes, bootstrap groups, work, resource caps and validation-based selection. Weights load with PyTorch's restricted `weights_only` mechanism.
+
+Validation reports no-change, training-mean and constant-velocity controls, damage/return/boundary strata, predictive interval coverage and 5/20-step rollouts using recorded actions. Rollouts start from one observed state and carry their own predictions; future observed states are scoring targets only. The decoder's physical clipping and known task geometry are explicitly reported. Trajectory checks reject interleaved episodes, broken state chains and premature terminal labels. These are correlated development samples, and checkpoint selection uses validation data. They are not final-test results or calibrated failure probabilities. A model is not approved for planning until candidate ranking, threat calibration and longer-horizon/policy-shift checks also pass.
+
+For the SAC return-phase development pilot, use `train --curriculum mixed_return --entropy auto_0.1`. This training-only reset mixture includes complete missions and already-inspected return journeys on benign terrain. `evaluate` always starts the original full mission. Share this assistance and count its data/work in any matched research comparison. Changing curriculum or entropy requires a fresh run; it cannot silently change a resumed checkpoint.
+
 ## Scope
 
 - Lightweight continuous-control inspection rover with battery and persistent damage.

@@ -2,6 +2,15 @@
 
 Latest full stop report: [Planning report 03 — fear, survival and pressure](reports/2026-10-03-planning-03-fear-pressure.md). Previous: [Build report 02 — premium UI redesign](reports/2026-10-03-build-02-ui.md), [Build report 01](reports/2026-10-03-build-01.md). The overall research build remains in progress.
 
+### October 6 — return curriculum and learned dynamics implementation
+
+- Diagnosed the earlier controller: it receives the correct home target after inspection, then drifts into a boundary and misses its deadline. No target-switch bug was found in this trace.
+- Added an explicit training-only benign return curriculum and entropy preset; original full-mission evaluation remains unchanged. Commit `6482505` pushed during work.
+- A fresh two-thread, ten-minute CPU pilot reached 64,557 steps / 16,014 gradient updates using 329.93 MiB peak sampled working memory. Its final policy completed all 10 benign development missions on seeds 10001–10010 without damage. This is one trained agent; hazardous transfer and research comparisons remain unvalidated.
+- Added a compact probabilistic dynamics ensemble, episode bootstrap, training-only normalization, hashed restricted-load checkpoints, resource caps, physical/interval metrics, damage/return/boundary strata and recorded-action rollouts against simple controls.
+- Dataset integrity now checks seed ranges, grouping, trajectory continuity and terminal placement. Full regression before the latest integrity/control additions: 80 passed; targeted learning/data/model checks after those additions: 36 passed.
+- Bounded world-model training and further separated development validation follow. No learned model is approved for decision-making yet. External compute/API spend remains $0.
+
 ### Fear, survival, intuition and pressure — design recorded
 
 The user's direction is specified in [the linked architecture extension](01_Architecture/FEAR_SURVIVAL_AND_PRESSURE_PLAN.md). Threat learning, resource margins, a fast response path and urgency-aware bounded planning have explicit interfaces, controls and E5 experiments. Primary memory comparisons remain separate. The design distinguishes mission time from action wall time, includes stale-warning and excessive-caution tests, and preserves external mission/override authority. Commit `2ed85dd` was pushed during work. Documentation links/fences and whitespace checks passed; a second design critique found no actionable issues. No new runtime mechanism, model training or benchmark was implemented in this planning turn.

@@ -92,6 +92,20 @@ def main() -> None:
     collector.add_argument("--seed-offset", type=int, default=0)
     collector.add_argument("--max-seconds", type=float, default=60)
     collector.add_argument("--output", type=Path, default=Path("artifacts/datasets"))
+    world_trainer = commands.add_parser("train-world", help="Train a bounded CPU dynamics ensemble on separated development data")
+    world_trainer.add_argument("--training", type=Path, required=True)
+    world_trainer.add_argument("--validation", type=Path, required=True)
+    world_trainer.add_argument("--seed", type=int, default=42)
+    world_trainer.add_argument("--epochs", type=int, default=30)
+    world_trainer.add_argument("--max-seconds", type=float, default=180)
+    world_trainer.add_argument("--threads", type=int, choices=(1, 2, 4), default=2)
+    world_trainer.add_argument("--memory-mb", type=float, default=4096)
+    world_trainer.add_argument("--output", type=Path, default=Path("artifacts/world-models"))
+    world_evaluator = commands.add_parser("evaluate-world", help="Check one-step and open-loop learned forecasts")
+    world_evaluator.add_argument("--checkpoint", type=Path, required=True)
+    world_evaluator.add_argument("--validation", type=Path, required=True)
+    world_evaluator.add_argument("--rollout-starts", type=int, default=128)
+    world_evaluator.add_argument("--output", type=Path, default=Path("artifacts/validation"))
     args = parser.parse_args()
     if args.command == "doctor":
         result = doctor()
@@ -114,6 +128,14 @@ def main() -> None:
         from aace.learning.data import collect
         result = collect(args.split, args.steps, args.output, seed_offset=args.seed_offset,
                          max_seconds=args.max_seconds)
+    elif args.command == "train-world":
+        from aace.learning.world import WorldTrainSettings, train_world
+        result = train_world(WorldTrainSettings(seed=args.seed, epochs=args.epochs,
+                                                max_seconds=args.max_seconds, threads=args.threads,
+                                                max_memory_mb=args.memory_mb), args.training, args.validation, args.output)
+    elif args.command == "evaluate-world":
+        from aace.learning.world import evaluate_world
+        result = evaluate_world(args.checkpoint, args.validation, args.output, rollout_starts=args.rollout_starts)
     else:
         from aace.runtime import Session
         if args.max_seconds <= 0:

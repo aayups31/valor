@@ -111,17 +111,65 @@ def collect(split: str, steps: int, output: Path, *, seed_offset=0, max_seconds=
             "damage_transitions": report["damage_transitions"], "elapsed_s": report["elapsed_s"]}
 
 
-def load_features(directory: Path, *, expected_split: str) -> tuple[np.ndarray, np.ndarray, dict]:
+def load_records(directory: Path, *, expected_split: str) -> tuple[dict, dict]:
+    """Verified labels/grouping for evaluation; metadata never becomes model input."""
     manifest = json.loads((directory/"manifest.json").read_text(encoding="utf-8"))
-    if manifest["split"] != expected_split or manifest["schema_version"] != "transitions-v1":
+    declared = split_manifest()
+    if expected_split not in ("train", "validation") or manifest["split"] != expected_split or manifest["schema_version"] != "transitions-v1":
         raise ValueError("Dataset split/schema mismatch")
+    if manifest["split_manifest"] != declared or manifest["environment_version"] != "rover-kernel-v1" or manifest["observation_version"] != "fully_observed_v1":
+        raise ValueError("Dataset contract/version mismatch")
     source = directory/"transitions.npz"
     if file_hash(source) != manifest["dataset_sha256"]:
         raise ValueError("Dataset hash mismatch")
     with np.load(source, allow_pickle=False) as arrays:
-        # Episode identifiers, seeds, scenario labels and terminal truth are not inputs.
-        inputs = np.concatenate([arrays["observations"], arrays["actions"]], axis=1)
-        targets = arrays["next_observations"][:, :6]-arrays["observations"][:, :6]
+        records = {name: arrays[name].copy() for name in arrays.files}
+    count = manifest["actual_transitions"]
+    shapes = {"observations": (count, 35), "next_observations": (count, 35), "actions": (count, 2)}
+    for name in ("rewards", "terminated", "truncated", "catastrophes", "damage",
+                 "episode_ids", "episode_seeds", "scenario_indices"):
+        shapes[name] = (count,)
+    if not 0 < count <= 1000000 or any(name not in records or records[name].shape != shape for name, shape in shapes.items()):
+        raise ValueError("Unexpected dataset dimensions")
+    if any(not np.isfinite(value).all() for value in records.values()):
+        raise ValueError("Nonfinite dataset")
+    if np.any(np.abs(records["actions"]) > 1) or any(np.any(np.abs(records[name]) > 1.000001) for name in ("observations", "next_observations")):
+        raise ValueError("Dataset action/observation outside contract")
+    if any(records[name].dtype.kind != "b" for name in ("terminated", "truncated", "catastrophes")):
+        raise ValueError("Outcome labels must contain booleans")
+    limits = declared[expected_split]
+    if np.any(records["episode_seeds"] < limits["seed_start"]) or np.any(records["episode_seeds"] >= limits["seed_stop"]):
+        raise ValueError("Episode seed outside declared split")
+    for name in ("episode_ids", "episode_seeds", "scenario_indices"):
+        if records[name].dtype.kind not in "iu":
+            raise ValueError("Episode grouping must contain integers")
+    actual_ids = set(np.unique(records["episode_ids"]).tolist())
+    described_ids = {episode["episode_id"] for episode in manifest["episodes"]}
+    if actual_ids != described_ids or len(described_ids) != len(manifest["episodes"]):
+        raise ValueError("Episode manifest/group mismatch")
+    if len({episode["seed"] for episode in manifest["episodes"]}) != len(manifest["episodes"]):
+        raise ValueError("Episode seeds must be unique within a dataset")
+    for episode in manifest["episodes"]:
+        mask = records["episode_ids"] == episode["episode_id"]
+        if mask.sum() != episode["steps"] or not np.all(records["episode_seeds"][mask] == episode["seed"]):
+            raise ValueError("Episode manifest/group mismatch")
+        indices = records["scenario_indices"][mask]
+        if not np.all(indices == limits["scenarios"].index(episode["scenario"])):
+            raise ValueError("Episode scenario/group mismatch")
+        positions = np.flatnonzero(mask)
+        if np.any(np.diff(positions) != 1) or not np.array_equal(records["next_observations"][positions[:-1]], records["observations"][positions[1:]]):
+            raise ValueError("Episode trajectory is not contiguous")
+        ended = records["terminated"][positions] | records["truncated"][positions]
+        if ended[:-1].any() or bool(ended[-1]) != episode["complete_episode"]:
+            raise ValueError("Episode terminal labels disagree with its trajectory")
+    return records, manifest
+
+
+def load_features(directory: Path, *, expected_split: str) -> tuple[np.ndarray, np.ndarray, dict]:
+    records, manifest = load_records(directory, expected_split=expected_split)
+    # Episode identifiers, seeds, scenario labels and terminal truth are not inputs.
+    inputs = np.concatenate([records["observations"], records["actions"]], axis=1)
+    targets = records["next_observations"][:, :6]-records["observations"][:, :6]
     if inputs.shape != (manifest["actual_transitions"], 37) or targets.shape != (len(inputs), 6):
         raise ValueError("Unexpected observation/action/target dimensions")
     if not np.isfinite(inputs).all() or not np.isfinite(targets).all():
