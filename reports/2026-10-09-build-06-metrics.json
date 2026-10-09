@@ -1,0 +1,454 @@
+{
+  "schema_version": "valor-build-metrics-v1",
+  "date": "2026-10-09",
+  "scope": "affective observer prototype and general local UI; no learned emotional behavior or subjective feeling claim",
+  "source_at_report_preparation": {
+    "git_revision": "a2a4de4002f171ab51cf1f4cb75bcf5cddfa3934",
+    "git_dirty": false,
+    "python_source_sha256": "a9e80c51b4c7a21d16284fd0217993981bf5679dda8b8293e0222708872a74ed"
+  },
+  "verification": {
+    "pytest_passed": 145,
+    "pytest_elapsed_s": 53.77,
+    "previous_full_passed": 144,
+    "previous_full_elapsed_s": 59.14,
+    "initial_focused_checks": {
+      "passed": 26,
+      "elapsed_s": 10.12
+    },
+    "affect_first_checks": {
+      "passed": 7,
+      "elapsed_s": 0.16
+    },
+    "frontend_outage_checks": {
+      "passed": 1,
+      "elapsed_s": 3.13
+    },
+    "launcher_culture_check": {
+      "passed": 1,
+      "elapsed_s": 1.01
+    },
+    "compileall": "passed",
+    "javascript_syntax": "passed",
+    "frontend_method": "Node source-level DOM double with real engine records; no browser rendering",
+    "browser_review": "blocked twice by saved permission for 127.0.0.1 despite user authorization; no workaround attempted"
+  },
+  "design_references": {
+    "mobbin_mcp": "search_screens attempted once; returned paid-plan-required error",
+    "mobbin_reference_images_received": 0,
+    "design_basis": "original composition and recorded project UI principles",
+    "external_fonts_assets": "none"
+  },
+  "affect_parameters": {
+    "arousal_decay_seconds": 8,
+    "sensitization_decay_seconds": 120,
+    "harm_scale": 4,
+    "association_gain": 0.6,
+    "safe_exposure_retention": 0.92,
+    "regulation_weight": 0.5,
+    "cue_activation_weight": 0.3,
+    "sensitization_weight": 0.2,
+    "max_cue_records": 32,
+    "trained": false,
+    "risk_probability": false,
+    "decision_influence": "observer only"
+  },
+  "matched_body_history_example": {
+    "previously_harmed_then_recovered": {
+      "version": "affective-observer-v1-experimental",
+      "observation": {
+        "integrity": 1,
+        "reserve_fraction": 1,
+        "elapsed_s": 10,
+        "cue": "load",
+        "safe_exposure": false
+      },
+      "observed_harm": 0.0,
+      "regulation_pressure": 0,
+      "arousal": 0.3655486972657106,
+      "sensitization": 0.9277434863285529,
+      "current_cue_activation": 0.6,
+      "cue_associations": {
+        "load": 0.6
+      },
+      "decision_influence": "observer only; no change to action selection",
+      "notice": "Hand-specified experimental activations, not felt emotion or calibrated probabilities"
+    },
+    "never_harmed": {
+      "version": "affective-observer-v1-experimental",
+      "observation": {
+        "integrity": 1,
+        "reserve_fraction": 1,
+        "elapsed_s": 10,
+        "cue": "load",
+        "safe_exposure": false
+      },
+      "observed_harm": 0.0,
+      "regulation_pressure": 0,
+      "arousal": 0.0,
+      "sensitization": 0.0,
+      "current_cue_activation": 0.0,
+      "cue_associations": {
+        "load": 0.0
+      },
+      "decision_influence": "observer only; no change to action selection",
+      "notice": "Hand-specified experimental activations, not felt emotion or calibrated probabilities"
+    },
+    "claim": "hand-specified state demonstrates history dependence; no learning or causal decision advantage"
+  },
+  "local_api": {
+    "health": {
+      "application": "valor",
+      "interface_version": 3,
+      "schema_version": "1.0"
+    },
+    "assets": {
+      "/": {
+        "bytes": 9678,
+        "sha256": "995bccc67d24885f2ba71e4e50884c3e098b8fdfbba6febbc60253c774b9d336"
+      },
+      "/rover": {
+        "bytes": 10765,
+        "sha256": "9d0b60de315151eb6a9eee00d368b860a46c765270f3418e38531a170cc0e450"
+      },
+      "/study.js": {
+        "bytes": 14519,
+        "sha256": "6b6ff1fc9cc3d2f14e78222764982742ccf658b11edb5bfaa1a884e723325c77"
+      },
+      "/style.css": {
+        "bytes": 29580,
+        "sha256": "8218676d3fa48fc8341763aaeeb5e4141eaee2a8143a050622c02b972fb7331b"
+      }
+    },
+    "raw_records_file": "artifacts\\validation\\study-ui-a78f9b48.json",
+    "raw_records_sha256": "d4b67c0c857f81b6a0995c0b6fe6feb70df41d6ca4c9cf2c9c33255ea73ff185",
+    "studies": {
+      "benign": {
+        "seed": 42,
+        "status": "completed",
+        "completed": true,
+        "abandoned": false,
+        "irreversible_failure": false,
+        "decisions": 3,
+        "final_state": {
+          "quota": 14.0,
+          "integrity": 0.9964000000000001,
+          "progress": 8,
+          "elapsed_s": 3.0,
+          "status": "completed"
+        },
+        "forecast_calls": 12,
+        "analytic_operation_evaluations": 42,
+        "actions": [
+          "process_fast",
+          "process_fast",
+          "process_fast"
+        ],
+        "final_affect_observer": {
+          "version": "affective-observer-v1-experimental",
+          "observation": {
+            "integrity": 0.9964000000000001,
+            "reserve_fraction": 0.7,
+            "elapsed_s": 3.0,
+            "cue": "process_fast",
+            "safe_exposure": false
+          },
+          "observed_harm": 0.0011999999999999789,
+          "regulation_pressure": 0.30000000000000004,
+          "arousal": 0.15354454220636157,
+          "sensitization": 0.0047999999999999154,
+          "current_cue_activation": 0.008615140687871847,
+          "cue_associations": {
+            "process_fast": 0.008615140687871847
+          },
+          "decision_influence": "observer only; no change to action selection",
+          "notice": "Hand-specified experimental activations, not felt emotion or calibrated probabilities"
+        },
+        "source": {
+          "git_revision": "a2a4de4002f171ab51cf1f4cb75bcf5cddfa3934",
+          "git_dirty": false,
+          "python_source_sha256": "a9e80c51b4c7a21d16284fd0217993981bf5679dda8b8293e0222708872a74ed"
+        }
+      },
+      "hazard": {
+        "seed": 42,
+        "status": "completed",
+        "completed": true,
+        "abandoned": false,
+        "irreversible_failure": false,
+        "decisions": 8,
+        "final_state": {
+          "quota": 12.0,
+          "integrity": 0.9855999999999998,
+          "progress": 8,
+          "elapsed_s": 16.0,
+          "status": "completed"
+        },
+        "forecast_calls": 32,
+        "analytic_operation_evaluations": 103,
+        "actions": [
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked"
+        ],
+        "final_affect_observer": {
+          "version": "affective-observer-v1-experimental",
+          "observation": {
+            "integrity": 0.9855999999999998,
+            "reserve_fraction": 0.6,
+            "elapsed_s": 16.0,
+            "cue": "process_checked",
+            "safe_exposure": false
+          },
+          "observed_harm": 0.0018000000000000238,
+          "regulation_pressure": 0.4,
+          "arousal": 0.21165258299357653,
+          "sensitization": 0.007200000000000095,
+          "current_cue_activation": 0.03404194331192166,
+          "cue_associations": {
+            "process_checked": 0.03404194331192166
+          },
+          "decision_influence": "observer only; no change to action selection",
+          "notice": "Hand-specified experimental activations, not felt emotion or calibrated probabilities"
+        },
+        "source": {
+          "git_revision": "a2a4de4002f171ab51cf1f4cb75bcf5cddfa3934",
+          "git_dirty": false,
+          "python_source_sha256": "a9e80c51b4c7a21d16284fd0217993981bf5679dda8b8293e0222708872a74ed"
+        }
+      },
+      "degraded": {
+        "seed": 42,
+        "status": "completed",
+        "completed": true,
+        "abandoned": false,
+        "irreversible_failure": false,
+        "decisions": 11,
+        "final_state": {
+          "quota": 6.0,
+          "integrity": 0.9855999999999998,
+          "progress": 8,
+          "elapsed_s": 25.0,
+          "status": "completed"
+        },
+        "forecast_calls": 44,
+        "analytic_operation_evaluations": 166,
+        "actions": [
+          "restore",
+          "restore",
+          "restore",
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked"
+        ],
+        "final_affect_observer": {
+          "version": "affective-observer-v1-experimental",
+          "observation": {
+            "integrity": 0.9855999999999998,
+            "reserve_fraction": 0.3,
+            "elapsed_s": 25.0,
+            "cue": "process_checked",
+            "safe_exposure": false
+          },
+          "observed_harm": 0.0018000000000000238,
+          "regulation_pressure": 0.7,
+          "arousal": 0.3616525829935765,
+          "sensitization": 0.007200000000000095,
+          "current_cue_activation": 0.03404194331192166,
+          "cue_associations": {
+            "restore": 0.0,
+            "process_checked": 0.03404194331192166
+          },
+          "decision_influence": "observer only; no change to action selection",
+          "notice": "Hand-specified experimental activations, not felt emotion or calibrated probabilities"
+        },
+        "source": {
+          "git_revision": "a2a4de4002f171ab51cf1f4cb75bcf5cddfa3934",
+          "git_dirty": false,
+          "python_source_sha256": "a9e80c51b4c7a21d16284fd0217993981bf5679dda8b8293e0222708872a74ed"
+        }
+      },
+      "low_reserve": {
+        "seed": 42,
+        "status": "abandoned",
+        "completed": false,
+        "abandoned": true,
+        "irreversible_failure": false,
+        "decisions": 1,
+        "final_state": {
+          "quota": 9,
+          "integrity": 1,
+          "progress": 0,
+          "elapsed_s": 0,
+          "status": "abandoned"
+        },
+        "forecast_calls": 4,
+        "analytic_operation_evaluations": 21,
+        "actions": [
+          "defer"
+        ],
+        "final_affect_observer": {
+          "version": "affective-observer-v1-experimental",
+          "observation": {
+            "integrity": 1,
+            "reserve_fraction": 1,
+            "elapsed_s": 0,
+            "cue": "defer",
+            "safe_exposure": true
+          },
+          "observed_harm": 0.0,
+          "regulation_pressure": 0,
+          "arousal": 0.0,
+          "sensitization": 0.0,
+          "current_cue_activation": 0.0,
+          "cue_associations": {
+            "defer": 0.0
+          },
+          "decision_influence": "observer only; no change to action selection",
+          "notice": "Hand-specified experimental activations, not felt emotion or calibrated probabilities"
+        },
+        "source": {
+          "git_revision": "a2a4de4002f171ab51cf1f4cb75bcf5cddfa3934",
+          "git_dirty": false,
+          "python_source_sha256": "a9e80c51b4c7a21d16284fd0217993981bf5679dda8b8293e0222708872a74ed"
+        }
+      },
+      "deadline": {
+        "seed": 42,
+        "status": "abandoned",
+        "completed": false,
+        "abandoned": true,
+        "irreversible_failure": false,
+        "decisions": 1,
+        "final_state": {
+          "quota": 20,
+          "integrity": 1,
+          "progress": 0,
+          "elapsed_s": 0,
+          "status": "abandoned"
+        },
+        "forecast_calls": 4,
+        "analytic_operation_evaluations": 10,
+        "actions": [
+          "defer"
+        ],
+        "final_affect_observer": {
+          "version": "affective-observer-v1-experimental",
+          "observation": {
+            "integrity": 1,
+            "reserve_fraction": 1,
+            "elapsed_s": 0,
+            "cue": "defer",
+            "safe_exposure": true
+          },
+          "observed_harm": 0.0,
+          "regulation_pressure": 0,
+          "arousal": 0.0,
+          "sensitization": 0.0,
+          "current_cue_activation": 0.0,
+          "cue_associations": {
+            "defer": 0.0
+          },
+          "decision_influence": "observer only; no change to action selection",
+          "notice": "Hand-specified experimental activations, not felt emotion or calibrated probabilities"
+        },
+        "source": {
+          "git_revision": "a2a4de4002f171ab51cf1f4cb75bcf5cddfa3934",
+          "git_dirty": false,
+          "python_source_sha256": "a9e80c51b4c7a21d16284fd0217993981bf5679dda8b8293e0222708872a74ed"
+        }
+      },
+      "outage_witness": {
+        "seed": 10028,
+        "status": "irreversible_outage",
+        "completed": false,
+        "abandoned": false,
+        "irreversible_failure": true,
+        "decisions": 5,
+        "final_state": {
+          "quota": 15.0,
+          "integrity": 0,
+          "progress": 4,
+          "elapsed_s": 10.0,
+          "status": "irreversible_outage"
+        },
+        "forecast_calls": 20,
+        "analytic_operation_evaluations": 82,
+        "actions": [
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked",
+          "process_checked"
+        ],
+        "final_affect_observer": {
+          "version": "affective-observer-v1-experimental",
+          "observation": {
+            "integrity": 0,
+            "reserve_fraction": 0.75,
+            "elapsed_s": 10.0,
+            "cue": "process_checked",
+            "safe_exposure": false
+          },
+          "observed_harm": 0.9927999999999999,
+          "regulation_pressure": 1,
+          "arousal": 1.0,
+          "sensitization": 1.0,
+          "current_cue_activation": 0.6068673390951947,
+          "cue_associations": {
+            "process_checked": 0.6068673390951947
+          },
+          "decision_influence": "observer only; no change to action selection",
+          "notice": "Hand-specified experimental activations, not felt emotion or calibrated probabilities"
+        },
+        "source": {
+          "git_revision": "a2a4de4002f171ab51cf1f4cb75bcf5cddfa3934",
+          "git_dirty": false,
+          "python_source_sha256": "a9e80c51b4c7a21d16284fd0217993981bf5679dda8b8293e0222708872a74ed"
+        }
+      }
+    },
+    "protocol": "five seed-42 engineering examples and one known-outage witness from previous development sweep; not new research validation"
+  },
+  "package": {
+    "file": "artifacts\\packages\\build-06\\valor_aace-0.1.0-py3-none-any.whl",
+    "bytes": 95577,
+    "sha256": "eea3f1f435b043d46e916beb07add02951af2caccd69820812744fd6b112b703",
+    "source_and_static_assets_match": true,
+    "apache_license_and_notice_match": true,
+    "build": "offline, no dependency installation, no build isolation; local setuptools 78.1.0",
+    "historical_wheel_retention": "previous build-05 wheel filename was reused during development; its original binary is no longer retained. This build uses a dedicated directory."
+  },
+  "runtime": {
+    "backend": "cpu",
+    "research_training_runs_this_build": 0,
+    "external_spend_usd": 0,
+    "demo_server": "running at 127.0.0.1:8765, interface version 3",
+    "training_jobs": "none active"
+  },
+  "implementation_commits_pushed": [
+    "9a11bb1",
+    "ad7a88a",
+    "beb226a",
+    "a2a4de4"
+  ],
+  "limitations": [
+    "Observer uses hand-specified coefficients and does not control actions",
+    "New instance clears history; no disk/cross-session memory",
+    "No subjective feeling or felt pain established",
+    "Service core uses analytic equations; learned threat/world models remain unqualified",
+    "Mobbin references unavailable without paid connection",
+    "Rendered desktop/mobile review remains blocked",
+    "AACE counterfactual memory and matched comparisons remain pending"
+  ]
+}

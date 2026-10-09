@@ -8,6 +8,8 @@
 
 ## 1. What we aim to achieve
 
+October 9 refinement: the owner explicitly wants the essence of vulnerability and survival beyond a single risk estimate. [The affective survival plan](AFFECTIVE_SURVIVAL_RESEARCH_PLAN.md) now specifies persistent internal needs, harm history, sensitization, recovery and history-dependent behavior. Its first observer prototype is executable but hand-specified and has no action influence. [Build report 06](../reports/2026-10-09-build-06.md) records the prototype and new general viewer.
+
 Test whether an agent can recognize familiar danger quickly, preserve the resources needed to act, spend its limited thinking time where it matters, and revise an inappropriate warning after conditions change. Measure improvement in complete missions, repeated avoidable failures and computational cost. Human concepts inspire the mechanism; the experiment does not establish emotions, consciousness or a model of human cognition.
 
 Keep the primary AACE question identifiable: does verified counterfactual memory outperform equally resourced simpler methods? Threat and resource models fit the existing architecture; adaptive scheduling, learned reflexes and explicit modes are staged extension experiments. Do not turn on every component before finding which one causes a result.

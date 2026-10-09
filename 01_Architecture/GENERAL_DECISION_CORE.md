@@ -69,6 +69,8 @@ The current benchmark actions are local simulations only. External applications,
 
 ## Experimental learned threat head
 
+The owner's broader target now includes vulnerability, persistent needs and experience that outlasts danger. [The affective survival direction](AFFECTIVE_SURVIVAL_RESEARCH_PLAN.md) defines that extension. The current decision core remains stateless apart from supplied context; a separate experimental observer retains activation and cue associations over a run. It is shown in the main service viewer but does not alter choices. History-conditioned learned behavior and subjective feeling remain distinct research questions.
+
 The generic feature-vector learner in `src/aace/learning/threat.py` now trains a small neural event head alongside a linear head. It imports no benchmark dynamics. The first versioned feature encoder and trained weights are specific to service-workflow continuations: public state, resources, available time and proposed continuation. Outcome labels, analytic reference probabilities and seed identifiers never become model inputs.
 
 Training uses observed finite-continuation outcomes, unweighted event likelihood, a shared training-only prevalence prior, equal minibatches/update opportunities and checkpoint selection on separate development episodes. Completion, abandonment and other known task endings remain distinct from irreversible failure; censored outcomes are excluded. Capacity and computation differ between the neural and linear heads and are reported.

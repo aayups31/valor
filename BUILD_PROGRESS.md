@@ -1,10 +1,22 @@
 # Build progress
 
+### Stop 06 — persistent affect prototype and general interface
+
+- The owner's direction now includes vulnerability and persistent fear/survival mechanisms beyond instantaneous risk. [The research extension](01_Architecture/AFFECTIVE_SURVIVAL_RESEARCH_PLAN.md) defines internal needs, harm memory, recovery, extinction, a self-model and causal behavior experiments.
+- Added a bounded domain-independent affect observer. Observed integrity loss updates cue associations, activation and a slower sensitization trace; matched repaired-body observations can retain different activation depending on history. Coefficients are hand-specified, no subjective feeling is established, and the observer does not select actions.
+- The main UI is a service decision study with original editorial composition, warm neutrals, restrained typography, open rows and progressive evidence. The rover remains at `/rover`. All details pause replay; actual outcomes, abandonment and outage stay visible. Full records include the observer boundary and source identity.
+- Mobbin MCP was attempted but returned a paid-plan requirement, with no reference screens. No purchase or paid service was started. Browser review was authorized by the user but rejected twice by the saved local-address permission; no workaround or alternative browser was used. Rendered desktop/mobile review remains pending.
+- Four intermediate commits pushed through `a2a4de4`. Final complete regression: 145 passed in 53.77 seconds; JavaScript/PowerShell source checks, artifact/package checks and actual local API examples passed.
+- Fixed an observed launcher failure caused by parsing a JSON-deserialized DateTime object again under another date culture. Strict process command/creation matching is preserved; three-culture regression and owned stop/start/reuse checks passed.
+- Clean-source seed-42 service examples: benign completed in 3 actions, hazard in 8 and degraded integrity in 11; low reserve/deadline abandoned in 1. A previous known-outage witness at seed 10028 failed after 5 actions. These are engineering examples, not new research results.
+- New offline wheel is stored in a build-specific directory. The previous development wheel binary was replaced before that separation and is no longer retained; its measured hash remains in report 05. Models/datasets were not replaced.
+- External spend $0; no research training job remains active. The local interface is running at `127.0.0.1:8765`, version 3. Latest full report: [Build report 06](reports/2026-10-09-build-06.md).
+
 ### October 9 — scope clarification and general core
 
 The user clarified that VALOR is a general open-source research decision model with fear/survival mechanisms, not a rover product. The rover remains one benchmark. Added a domain-independent decision contract/engine, fixed-policy threat constraints, resource/capability/time margins, bounded pressure ordering and a final stop/state/deadline authority gate. A non-robotic service-workflow simulation and rover adapter exercise the same core. The latter preserves coarse forecast evidence and abstains rather than pretending it is calibrated. A small experimental learned threat head now trains on observed service-continuation outcomes against linear/constant controls. No AACE advantage, calibrated risk or broad transfer is claimed. [Architecture and boundaries](01_Architecture/GENERAL_DECISION_CORE.md).
 
-Latest full stop report: [Build report 05 — general core and experimental threat learning](reports/2026-10-09-build-05.md). Previous: [Build report 04 — learned dynamics and return competence](reports/2026-10-06-build-04.md), [Planning report 03 — fear, survival and pressure](reports/2026-10-03-planning-03-fear-pressure.md), [Build report 02 — premium UI redesign](reports/2026-10-03-build-02-ui.md), [Build report 01](reports/2026-10-03-build-01.md). The overall research build remains in progress.
+Latest full stop report: [Build report 06 — persistent affect and general interface](reports/2026-10-09-build-06.md). Previous: [Build report 05 — general core and experimental threat learning](reports/2026-10-09-build-05.md), [Build report 04 — learned dynamics and return competence](reports/2026-10-06-build-04.md), [Planning report 03 — fear, survival and pressure](reports/2026-10-03-planning-03-fear-pressure.md), [Build report 02 — premium UI redesign](reports/2026-10-03-build-02-ui.md), [Build report 01](reports/2026-10-03-build-01.md). The overall research build remains in progress.
 
 ### Stop 05 — verified state
 
@@ -66,7 +78,7 @@ User authorized implementation, use of https://github.com/aayups31/valor for ver
 
 ### Current work
 
-The general decision core and two benchmark adapters are implemented alongside the earlier rover/demo stages. Threat learning now has a small experimental numerical head and simple controls; calibration and decision authority remain pending. The conventional SAC pilot completes the checked benign full mission but fails hazardous transfer. The learned dynamics model's damage forecasting remains insufficient for planning. Qualified memory, matched research comparisons and browser visual verification remain ahead. No build job remains active at the latest stop.
+The general decision core, two benchmark adapters and an isolated affect observer are implemented alongside earlier rover/model work. The main viewer now shows the service study and actual internal-state observations; the rover is available separately. Threat learning has an experimental numerical head; calibration and action authority remain pending. The SAC pilot's hazardous transfer and the dynamics model's damage forecasting remain insufficient. Learned affect/response coupling, qualified memory, matched comparisons and rendered UI review remain ahead. No build job remains active; the local demo server is running at the latest stop.
 
 ### Intermediate milestone: runtime and numerical core
 

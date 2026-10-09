@@ -1,6 +1,6 @@
 # VALOR
 
-A general research decision model combining threat appraisal (the fear analogy), resource preservation, time pressure and eventually qualified experience. The rover is one benchmark, not the product. AACE is the hypothesis that verified counterfactual memory improves adaptation beyond equally resourced simpler methods inside this architecture.
+A general research decision model investigating threat appraisal, vulnerability, resource preservation, time pressure and experience that persists after damage. The rover is one benchmark. AACE is the hypothesis that verified counterfactual memory improves adaptation beyond equally resourced simpler methods inside this architecture.
 
 The domain-independent core now accepts public context, finite candidates, scoped consequence forecasts and a fixed external policy. A simulated service workflow demonstrates the same core outside robotics. Existing trained task/dynamics weights remain rover-specific; a reusable interface is not evidence of universal learned intelligence. See [the general core architecture](01_Architecture/GENERAL_DECISION_CORE.md).
 
@@ -8,13 +8,15 @@ Project-original source and documentation use [Apache 2.0](LICENSE), selected by
 
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
 
-Latest milestone: the general decision core is exercised in a non-robotic service simulation, and a small learned threat head is trained against linear and constant-risk controls. Its separate development scores are promising; its probabilities remain experimental and cannot authorize actions. All 129 regression tests pass. See [build report 05](reports/2026-10-09-build-05.md) for measured results and next steps. [Build report 04](reports/2026-10-06-build-04.md) retains the earlier rover controller and dynamics results; hazardous transfer and damage calibration remain insufficient.
+Latest milestone: the main viewer now presents a general service decision study with actual forecasts, alternatives, observed outcomes and an experimental persistent affect observer. The observer retains damage/cue history but is hand-specified and does not influence choices or establish felt fear. All 145 regression tests pass. See [build report 06](reports/2026-10-09-build-06.md) and [the affective survival research direction](01_Architecture/AFFECTIVE_SURVIVAL_RESEARCH_PLAN.md). [Report 05](reports/2026-10-09-build-05.md) retains the promising but unqualified learned threat results; [report 04](reports/2026-10-06-build-04.md) retains the rover controller/dynamics results.
 
 ## Open the demo
 
-On this Windows computer, double-click **Start VALOR.cmd** in the project folder. It starts the engine quietly and opens the demo in your default browser. Press **Start the demo** on the page. An optional **Show me around** walkthrough explains the mission, both approaches and the recorded decisions.
+On this Windows computer, double-click **Start VALOR.cmd** in the project folder. It starts the engine quietly and opens the decision study in your default browser. Press **Begin the study**. **A short introduction** explains the task and controls. If an earlier interface is still running, the launcher asks you to open **Stop VALOR.cmd**, then start again.
 
-Use **Pause** to explore a choice, **One decision** to advance each unfinished rover once, and the mission selector to try different conditions. The advanced controls and full records are available below the explanation. **Stop VALOR.cmd** closes the engine started by the launcher. Closing a browser tab alone does not stop the engine.
+Choose everyday work, pressure, damage, low reserves or a short deadline. The engine computes a finite simulated run; **Play record**, **Next decision** and the numbered timeline let you inspect it. Opening alternatives, internal state or complete evidence pauses playback. Download the complete record for all actual decisions and outcomes. Changing conditions clears the previous evidence.
+
+**Rover benchmark** opens the existing paired comparison at `/rover`. Use **Start mission**, **One decision** and the mission selector there. **Stop VALOR.cmd** closes the engine started by the launcher. Closing a browser tab alone does not stop the engine.
 
 The runtime is already installed on this laptop. On another Windows machine the launcher can set up the small demo environment if Python 3.11+ is installed; first setup needs internet. It does not install the optional neural training stack. No account or paid API is required.
 
@@ -34,7 +36,9 @@ python -m venv .venv
 
 Use Python 3.11+; the first verified runtime is Python 3.13.1. Exact installed dependencies are recorded in `requirements-core.lock.txt`. The optional learning stack is isolated from the basic simulator/demo.
 
-Open http://127.0.0.1:8765 for the local demo. It begins paused. Start the mission, inspect candidate options, compare observed outcomes with forecasts, or download the full trace. The worker owns both engine instances; browser polling does not drive their decisions. Apply brakes bypasses the controllers and applies one bounded braking action; momentum still follows physics.
+Open http://127.0.0.1:8765 for the general decision study. The service core uses analytic benchmark forecasts; its experimental affect observer is processed over the recorded public states and has no action authority. Playback changes only the view. It controls no real service or user file.
+
+The rover comparison at http://127.0.0.1:8765/rover begins paused. Its worker owns both engines; browser polling does not drive their decisions. Apply brakes bypasses the controllers and applies one bounded braking action; momentum still follows physics.
 
 The first demo contains direct/detour heuristics and an **oracle planner**. It does not demonstrate learned AACE or counterfactual memory yet. Every oracle forecast reports its horizon, independent samples, sampling uncertainty, terminal approximation and branch work. Three samples are coarse engineering checks, not calibrated risk estimates. Missing evaluation and uncertainty remain visible.
 
@@ -63,7 +67,7 @@ The controller uses the established [SB3 SAC implementation](https://stable-base
 
 The service workflow is a local simulation of processing work under threat, quota and integrity constraints. It controls no real service or computer tool. Its analytic forecasts make fast/checked/restoration/abandonment choices inspectable. Core records distinguish forecasts, proposed actions, guarded application and actual outcomes. Unknown or experimental forecasts do not silently become safe probabilities. The rover adapter probe deliberately applies no action when its coarse evidence is unqualified. External stop, stale state and expired results are checked again at the action handoff; blocking calls are not preempted.
 
-The package also declares a `valor` console entry point for fresh installs; the existing `aace` command and `python -m aace` remain compatible. The current browser viewer displays the rover benchmark; the new general-core examples are available through these commands and their exported JSON records.
+The package also declares a `valor` console entry point for fresh installs; the existing `aace` command and `python -m aace` remain compatible. The browser's main study and these commands use the same service decision core. The rover probe applies no action with its unqualified evidence.
 
 ## Experimental learned threat head
 
@@ -114,6 +118,7 @@ Default external compute/API/hosting spend is $0. CPU is the reference backend. 
 
 - [Current implementation plan](IMPLEMENTATION_MASTER_PLAN.md)
 - [Fear, survival, intuition and pressure design](01_Architecture/FEAR_SURVIVAL_AND_PRESSURE_PLAN.md)
+- [Persistent affect, vulnerability and survival research](01_Architecture/AFFECTIVE_SURVIVAL_RESEARCH_PLAN.md)
 - [Build progress and stop reports](BUILD_PROGRESS.md)
 - [Project assessment](PROJECT_REVIEW_AND_WORKING_PLAN.md)
 - [Research background](START_HERE.md)
