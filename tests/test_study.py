@@ -46,6 +46,7 @@ def test_frontend_record_semantics_without_browser():
     if not shutil.which("node"):
         pytest.skip("Node is required for frontend source checks")
     studies = {name:create_study({"scenario":name,"seed":42}) for name in ("hazard","low_reserve")}
+    studies["outage"] = create_study({"scenario":"hazard","seed":10028})
     result = subprocess.run(["node",str(Path(__file__).with_name("study_ui.cjs"))],
                             input=json.dumps(studies,allow_nan=False),text=True,capture_output=True,timeout=10)
     assert result.returncode == 0, result.stdout+result.stderr

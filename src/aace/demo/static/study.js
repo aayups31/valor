@@ -107,7 +107,7 @@ byId("study-start").addEventListener("click",begin);
 byId("study-next").addEventListener("click",()=>{stopPlayback();if(run && index<run.decisions.length-1){index++;selectedCandidate=null;}render();});
 byId("study-play").addEventListener("click",()=>{if(!run)return;if(timer)stopPlayback();else{if(index>=run.decisions.length-1){index=0;selectedCandidate=null;}startPlayback();}render();});
 document.querySelectorAll("[data-scenario]").forEach(button=>button.addEventListener("click",()=>{if(busy)return;stopPlayback();selectedScenario=button.dataset.scenario;run=null;index=0;selectedCandidate=null;failureMessage="";render();}));
-byId("study-options").addEventListener("toggle",()=>{if(byId("study-options").open){stopPlayback();render();}});
+for(const id of ["study-options","study-internals","study-records"])byId(id).addEventListener("toggle",()=>{if(byId(id).open){stopPlayback();render();}});
 document.addEventListener("visibilitychange",()=>{if(document.hidden){stopPlayback();controls();}});
 byId("study-export").addEventListener("click",()=>{if(!run)return;const url=URL.createObjectURL(new Blob([pretty(run)],{type:"application/json"})),link=document.createElement("a");link.href=url;link.download="valor-study-"+run.study_id+".json";link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast("The complete run was sent to your browser’s downloads.");});
 byId("study-help").addEventListener("click",()=>{stopPlayback();render();guideReturn=document.activeElement;byId("study-guide").showModal();});
