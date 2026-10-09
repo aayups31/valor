@@ -5,6 +5,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'Valor-LauncherSupport.ps1')
 $projectDirectory = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $runtimePython = Join-Path $projectDirectory '.venv\Scripts\python.exe'
 $artifactDirectory = Join-Path $projectDirectory 'artifacts'
@@ -47,7 +48,7 @@ try {
         $ownedProcess = Get-CimInstance Win32_Process -Filter "ProcessId = $([int]$record.process_id)"
         if (-not $ownedProcess) { Write-Host 'VALOR is already closed.'; exit 0 }
         $expectedCommand = '"' + $runtimePython + '" -m aace demo --port ' + $Port
-        $expectedCreation = [DateTime]::Parse($record.created_at_utc).ToUniversalTime()
+        $expectedCreation = Get-ValorRecordedCreationUtc $record.created_at_utc
         $actualCreation = $ownedProcess.CreationDate.ToUniversalTime()
         if ($ownedProcess.CommandLine.Trim() -ne $expectedCommand -or
             [Math]::Abs(($actualCreation - $expectedCreation).TotalSeconds) -gt 1) {
