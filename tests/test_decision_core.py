@@ -208,3 +208,10 @@ def test_stop_received_from_another_thread_during_forecast_prevents_commit():
     applied = []
     assert authority.commit(outputs[0],applied.append,clock=__import__('time').perf_counter).status == "external_stop"
     assert not applied
+
+
+def test_nested_mutable_policy_and_action_names_are_rejected():
+    with pytest.raises(ValueError,match="immutable"):
+        DecisionPolicy(resource_reserves=(["tokens",1],))
+    with pytest.raises(ValueError,match="immutable"):
+        ActionIntent({"name":"continue"})

@@ -56,6 +56,14 @@ def train_threat(settings, training: Path, selection: Path, output: Path):
     x, y = torch.from_numpy(data["features"]), torch.from_numpy(data["labels"].astype(np.float32))[:, None]
     vx, vy = torch.from_numpy(validation["features"]), torch.from_numpy(validation["labels"].astype(np.float32))[:, None]
     models = networks(x.shape[1])
+    prevalence = float(data["labels"].mean())
+    prior = min(1-1e-4,max(1e-4,prevalence))
+    # Equal training-only prior prevents a poorly initialized linear control
+    # from being presented as an informative weaker comparator.
+    with torch.no_grad():
+        for name,model in models.items():
+            head = model[-1] if name == "neural" else model
+            head.weight.zero_(); head.bias.fill_(math.log(prior/(1-prior)))
     optimizers = {name: torch.optim.Adam(model.parameters(), lr=.001) for name,model in models.items()}
     rng = np.random.default_rng(settings.seed)
     best, weights, epochs = {name: math.inf for name in models}, {}, {}
@@ -63,6 +71,10 @@ def train_threat(settings, training: Path, selection: Path, output: Path):
     if peak >= settings.max_memory_mb:
         raise ValueError("Threat runtime exceeds memory budget")
     logs = []
+    with torch.no_grad():
+        for name,model in models.items():
+            best[name] = float(nn.functional.binary_cross_entropy_with_logits(model(vx),vy))
+            weights[name],epochs[name] = copy.deepcopy(model.state_dict()),0
     for epoch in range(1, settings.epochs+1):
         order = rng.permutation(len(x))
         for begin in range(0, len(x), settings.batch_size):
@@ -87,7 +99,7 @@ def train_threat(settings, training: Path, selection: Path, output: Path):
             if loss < best[name]:
                 best[name], weights[name], epochs[name] = loss, copy.deepcopy(models[name].state_dict()), epoch
         logs.append({"epoch":epoch,"selection_log_loss":losses,"updates_per_model":updates,"elapsed_s":time.perf_counter()-started})
-    if len(weights) != len(models):
+    if len(weights) != len(models) or not logs:
         raise ValueError("Budget expired before a validated threat checkpoint")
     directory = output/f"threat-{settings.seed}-{uuid4().hex[:8]}"
     directory.mkdir(parents=True, exist_ok=False)
@@ -95,7 +107,8 @@ def train_threat(settings, training: Path, selection: Path, output: Path):
     metadata = {"model_version":"candidate-event-head-v1","settings":asdict(settings),"dimension":x.shape[1],
         "domain":manifest["domain"],"codec":manifest["codec"],"feature_names":manifest["feature_names"],
         "training_sha256":manifest["dataset_sha256"],"selection_sha256":val_manifest["dataset_sha256"],
-        "training_prevalence":float(data["labels"].mean()),"training_seed_range":[int(data["episode_seeds"].min()),int(data["episode_seeds"].max())],
+        "training_prevalence":prevalence,"initialization":"shared training-prevalence prior; epoch-0 checkpoint also eligible",
+        "training_seed_range":[int(data["episode_seeds"].min()),int(data["episode_seeds"].max())],
         "selection_seed_range":[int(validation["episode_seeds"].min()),int(validation["episode_seeds"].max())],
         "best_epochs":epochs,"selection_log_losses":best,"updates_per_model":updates,
         "training_episodes":len(x),"selection_episodes":len(vx),"stop_reason":stop,

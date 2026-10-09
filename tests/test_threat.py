@@ -60,6 +60,7 @@ def test_threat_heads_train_roundtrip_and_keep_linear_control_matched(threat_bun
     for name in a:
         np.testing.assert_array_equal(torch.sigmoid(a[name](x)).detach().numpy(),torch.sigmoid(b[name](x)).detach().numpy())
     assert metadata["updates_per_model"] > 0 and metadata["parameter_counts"]["linear"] < metadata["parameter_counts"]["neural"]
+    assert "training-prevalence" in metadata["initialization"]
     assert not metadata["decision_ready"] and metadata["evidence_kind"] == "experimental"
 
 

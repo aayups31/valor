@@ -12,12 +12,19 @@ def finite(value, *, minimum=None, maximum=None):
 
 
 def named_values(values):
-    if type(values) is not tuple or len(values) > 32 or len({name for name, _ in values}) != len(values):
+    if type(values) is not tuple or len(values) > 32 or any(type(pair) is not tuple or len(pair) != 2 for pair in values):
+        raise ValueError("Named values require bounded immutable pairs")
+    if len({name for name, _ in values}) != len(values):
         raise ValueError("Named values require a bounded unique immutable tuple")
     for name, value in values:
         if not isinstance(name, str) or not name or len(name) > 80:
             raise ValueError("Invalid quantity name")
         finite(value, minimum=0)
+
+
+def identifier(value, maximum=128):
+    if not isinstance(value, str) or not value or len(value) > maximum:
+        raise ValueError("Identifier must be a bounded immutable string")
 
 
 @dataclass(frozen=True)
@@ -26,7 +33,8 @@ class ActionIntent:
     values: tuple[float, ...] = ()
 
     def __post_init__(self):
-        if not self.name or len(self.name) > 80 or type(self.values) is not tuple or len(self.values) > 32:
+        identifier(self.name, 80)
+        if type(self.values) is not tuple or len(self.values) > 32:
             raise ValueError("Invalid action intent")
         for value in self.values:
             finite(value)
@@ -43,7 +51,8 @@ class DecisionContext:
     minimum_task_time_s: float
 
     def __post_init__(self):
-        if not self.domain or not self.observation_id or type(self.generation) is not int or self.generation < 0:
+        identifier(self.domain); identifier(self.observation_id)
+        if type(self.generation) is not int or self.generation < 0:
             raise ValueError("Invalid context identity")
         named_values(self.resources)
         finite(self.capability, minimum=0, maximum=1)
@@ -61,7 +70,8 @@ class Candidate:
     time_hint_s: float = 0
 
     def __post_init__(self):
-        if not self.identifier or not self.continuation or self.role not in ("task", "recovery", "preserve") or not isinstance(self.action, ActionIntent):
+        identifier(self.identifier); identifier(self.continuation)
+        if self.role not in ("task", "recovery", "preserve") or not isinstance(self.action, ActionIntent):
             raise ValueError("Invalid candidate")
         finite(self.horizon_s, minimum=1e-9)
         finite(self.time_hint_s, minimum=0)
@@ -75,7 +85,8 @@ class ForecastEvidence:
     reference: str
 
     def __post_init__(self):
-        if self.kind not in ("analytic", "validated", "experimental", "unknown") or not all((self.model_version, self.domain, self.reference)):
+        identifier(self.model_version); identifier(self.domain); identifier(self.reference,2048)
+        if self.kind not in ("analytic", "validated", "experimental", "unknown"):
             raise ValueError("Forecast evidence must declare kind, scope and reference")
 
 
@@ -97,7 +108,8 @@ class ConsequenceForecast:
     evidence: ForecastEvidence
 
     def __post_init__(self):
-        if type(self.generation) is not int or self.generation < 0 or not all((self.observation_id, self.candidate_id, self.continuation)) or not isinstance(self.evidence, ForecastEvidence):
+        identifier(self.observation_id); identifier(self.candidate_id); identifier(self.continuation)
+        if type(self.generation) is not int or self.generation < 0 or not isinstance(self.evidence, ForecastEvidence):
             raise ValueError("Invalid forecast identity")
         finite(self.horizon_s, minimum=1e-9)
         finite(self.duration_s, minimum=0)
