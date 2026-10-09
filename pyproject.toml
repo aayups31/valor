@@ -23,7 +23,7 @@ valor = "aace.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-"aace.demo" = ["static/*.html", "static/*.css", "static/*.js"]
+"aace.demo" = ["static/*.html", "static/*.css", "static/*.js", "static/*.svg"]
 "aace.learning" = ["*.json"]
 
 [tool.pytest.ini_options]

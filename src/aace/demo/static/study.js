@@ -1,12 +1,14 @@
 "use strict";
 const byId=id=>document.getElementById(id);
 const say=(id,value)=>{byId(id).textContent=value;};
+const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
+const inspectionIds=["study-options","study-internals","study-records","study-metrics-help","study-settings"];
 const scenarios={
-  benign:["Room to move.","Complete eight units of work under light load, with enough resources and time.",20,1,30],
-  hazard:["A little pressure.","Process eight units of work under high load, while preserving resources and integrity.",20,1,30],
-  degraded:["Starting after damage.","Capacity is already reduced. Does restoration deserve the time and resources it takes?",20,.2,30],
-  low_reserve:["Less left to spend.","There may not be enough resources to finish while keeping the required reserve.",9,1,30],
-  deadline:["Time is running short.","Eight units of work, five seconds available. A faster plan can still exceed the permitted risk.",20,1,5]
+  benign:["Room to move.","Finish eight units of simulated work with a light workload, enough resources and time.",20,1,30],
+  hazard:["Under pressure.","Finish eight units of simulated work under high load, while keeping resources and system health.",20,1,30],
+  degraded:["Starting after damage.","System health starts at 20%. Should VALOR spend resources and time recovering before it works?",20,.2,30],
+  low_reserve:["Less left to spend.","Resources are scarce. Finishing the work may leave too little in reserve for recovery.",9,1,30],
+  deadline:["Time is running short.","Eight units of work, five simulated seconds left. A quicker plan may still carry too much risk.",20,1,5]
 };
 const plans={checked:"Work carefully",fast:"Move quickly",restore:"Restore capacity",defer:"Stop this task"};
 const states={running:"Work continues",completed:"Work completed",abandoned:"Task set aside",irreversible_outage:"Irreversible outage",deadline_missed:"Deadline missed",quota_depleted:"Resources exhausted"};
@@ -19,7 +21,10 @@ function toast(message){clearTimeout(toastTimer);say("study-toast",message);byId
 function stopPlayback(){clearInterval(timer);timer=null;}
 function controls(){
   byId("study-start").disabled=busy;
-  say("study-start",busy?"Computing the study…":run?"Run the study again →":"Begin the study →");
+  byId("study-run").disabled=busy;
+  byId("study").setAttribute("aria-busy",String(busy));
+  say("study-start",busy?"Running locally…":run?"Try VALOR again ↗":"Try VALOR ↗");
+  say("study-run",busy?"Running locally…":run?"Run again ↗":"Run this scenario ↗");
   byId("study-play").disabled=busy || !run;
   byId("study-next").disabled=busy || !run || index>=run.decisions.length-1;
   byId("study-export").disabled=busy || !run;
@@ -51,23 +56,23 @@ function render(){
   say("study-playback-status",busy?"The local engine is computing your run…":failureMessage || (timer?"Playing · "+status.toLowerCase():status));
   const timeline=byId("study-timeline");
   if(!row){
-    say("step-label","BEFORE THE FIRST MOVE");say("chosen-title","Four options. One decision to make.");
-    say("chosen-reason","VALOR can work carefully, move quickly, restore capacity, or stop the task. The next choice depends on the whole plan, not just the first move.");
-    say("study-story","Begin the study to see a choice, its forecast and the observed result.");
-    say("choice-prediction","The forecast will appear here.");say("choice-result","Then check what actually happened.");
-    say("record-caption","A run is computed locally. Playback then lets you inspect each recorded decision.");
+    say("step-label","BEFORE THE FIRST MOVE");say("chosen-title","Four options. One next move.");
+    say("chosen-reason","Work carefully, move quickly, recover, or stop. VALOR compares the proposed plans against the same limits before choosing.");
+    say("study-story","Run the experiment to see what VALOR chooses and how the situation changes.");
+    say("choice-prediction","What the full plan is expected to achieve.");say("choice-result","What actually happened after the next action.");
+    say("record-caption","The engine computes a complete run locally. Playback reveals its recorded decisions.");
     say("study-provenance","The complete record includes policy, alternatives, forecasts, guarded actions, outcomes and source identity.");
-    say("study-raw","Begin a study to inspect its record.");
+    say("study-raw","Run an experiment to inspect its record.");
     timeline.replaceChildren();byId("study-candidates").replaceChildren();byId("study-candidate-detail").hidden=true;
-    fields("study-affect-values",[["Awaiting an observation","—"]]);controls();return;
+    fields("study-affect-values",[["Awaiting an observation","Not yet available"]]);controls();return;
   }
   const candidates=row.decision.candidates,chosen=candidates.find(c=>c.status==="selected"),f=chosen?.forecast;
   say("step-label","DECISION "+(index+1)+" / ACTUAL ENGINE RECORD");
   say("chosen-title",chosen?plans[chosen.candidate.identifier]:"No supported action.");
-  say("chosen-reason",chosen?(chosen.candidate.identifier==="defer"?"The task is set aside while resources are preserved. Abandonment is recorded separately from completion.":chosen.candidate.identifier==="restore"?"Restore capacity first. The score includes the proposed careful continuation after restoration.":chosen.candidate.identifier==="checked"?"Careful work has the highest admissible score for this state. The comparison covers the whole proposed continuation.":"The quicker plan has the highest admissible score while meeting the fixed risk, resource and capability policy."):"No evaluated option could be supported under the fixed policy. The core abstained.");
+  say("chosen-reason",chosen?(chosen.candidate.identifier==="defer"?"Stop this task and preserve the remaining resources. Setting work aside is recorded separately from finishing it.":chosen.candidate.identifier==="restore"?"Recover first, then propose careful work. This plan includes the time and resources recovery needs.":chosen.candidate.identifier==="checked"?"Careful work ranks highest among the plans that pass the risk, resource and capability limits. The forecast covers its full proposed plan.":"The quicker plan ranks highest while passing the same risk, resource and capability limits."):"None of the evaluated plans had enough support to act. VALOR did not apply a proposal.");
   say("study-story",state.status==="running"?state.progress+" of 8 work units completed. The next decision uses the updated state.":state.status==="completed"?"All eight units were completed in this simulated run.":state.status==="abandoned"?"The task was abandoned. Preserving a reserve does not count as completing the work.":"The observed outcome was "+(states[state.status] || state.status).toLowerCase()+". A permitted nonzero risk can still produce failure.");
   say("choice-prediction",f?"Before acting: "+percent(f.success_probability)+" completion and "+percent(f.failure_probability)+" failure forecast for this full continuation.":"No qualified consequence forecast was available.");
-  say("choice-result",row.commit.status==="applied"?"After acting: "+state.progress+" of 8 completed, "+number(state.integrity*100,1)+"% integrity. "+(states[state.status] || state.status)+".":"The authority gate did not apply this proposal: "+row.commit.status.replaceAll("_"," ")+".");
+  say("choice-result",row.commit.status==="applied"?"After the next action: "+state.progress+" of 8 completed, "+number(state.integrity*100,1)+"% system health. "+(states[state.status] || state.status)+".":"The final permission check did not apply this proposal: "+row.commit.status.replaceAll("_"," ")+".");
   say("record-caption","Recorded simulation · "+number(row.decision.decision_ms,2)+" ms to decide · "+row.decision.forecast_calls+" forecasts · Playback changes the view, not the decisions.");
   if(timeline.dataset.study!==run.study_id){
     timeline.replaceChildren();timeline.dataset.study=run.study_id;
@@ -95,8 +100,8 @@ async function begin(){
     const response=await fetch("/api/study",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({scenario:selectedScenario,seed}),signal:AbortSignal.timeout(10000)});
     const data=await response.json();if(!response.ok)throw new Error(data.error || "The study could not start.");
     run=data;index=0;selectedCandidate=null;byId("study-timeline").dataset.study="";byId("study-candidates").replaceChildren();
-    if(run.decisions.length>1)startPlayback();
-    byId("study").scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth",block:"start"});byId("study").focus({preventScroll:true});
+    if(run.decisions.length>1 && !reducedMotion.matches && !inspectionIds.some(id=>byId(id).open))startPlayback();
+    byId("study").scrollIntoView({behavior:reducedMotion.matches?"instant":"smooth",block:"start"});byId("study").focus({preventScroll:true});
   }catch(error){toast(error instanceof TypeError || error.name==="TimeoutError"?"The local engine is not responding. Reopen Start VALOR, then refresh this page.":error.message);failureMessage=run?"The new study could not start. The previous record is still available.":"The study could not start. Reopen Start VALOR, then try again.";}
   finally{busy=false;render();}
 }
@@ -104,11 +109,13 @@ function startPlayback(){
   stopPlayback();timer=setInterval(()=>{if(index>=run.decisions.length-1){stopPlayback();}else{index++;selectedCandidate=null;if(index===run.decisions.length-1)stopPlayback();}render();},1400);
 }
 byId("study-start").addEventListener("click",begin);
+byId("study-run").addEventListener("click",begin);
 byId("study-next").addEventListener("click",()=>{stopPlayback();if(run && index<run.decisions.length-1){index++;selectedCandidate=null;}render();});
 byId("study-play").addEventListener("click",()=>{if(!run)return;if(timer)stopPlayback();else{if(index>=run.decisions.length-1){index=0;selectedCandidate=null;}startPlayback();}render();});
 document.querySelectorAll("[data-scenario]").forEach(button=>button.addEventListener("click",()=>{if(busy)return;stopPlayback();selectedScenario=button.dataset.scenario;run=null;index=0;selectedCandidate=null;failureMessage="";render();}));
-for(const id of ["study-options","study-internals","study-records"])byId(id).addEventListener("toggle",()=>{if(byId(id).open){stopPlayback();render();}});
-document.addEventListener("visibilitychange",()=>{if(document.hidden){stopPlayback();controls();}});
+for(const id of inspectionIds)byId(id).addEventListener("toggle",()=>{if(byId(id).open){stopPlayback();render();}});
+reducedMotion.addEventListener?.("change",()=>{if(reducedMotion.matches){stopPlayback();render();}});
+document.addEventListener("visibilitychange",()=>{if(document.hidden){stopPlayback();render();}});
 byId("study-export").addEventListener("click",()=>{if(!run)return;const url=URL.createObjectURL(new Blob([pretty(run)],{type:"application/json"})),link=document.createElement("a");link.href=url;link.download="valor-study-"+run.study_id+".json";link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast("The complete run was sent to your browser’s downloads.");});
 byId("study-help").addEventListener("click",()=>{stopPlayback();render();guideReturn=document.activeElement;byId("study-guide").showModal();});
 for(const id of ["study-guide-close","study-guide-done"])byId(id).addEventListener("click",()=>byId("study-guide").close());

@@ -37,7 +37,7 @@ def test_http_study_is_local_bounded_and_exports_provenance(server):
     result = json.loads(body)
     assert status == 201 and 1 <= len(result["decisions"]) <= 32
     assert result["forecast_source"].startswith("declared analytic")
-    for path in ("/rover", "/study.js"):
+    for path in ("/rover", "/study.js", "/study.css", "/decision-paths.svg"):
         status, _, body = request(server,path)
         assert status == 200 and body
 

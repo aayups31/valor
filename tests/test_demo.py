@@ -63,7 +63,7 @@ def test_external_stop_has_a_real_record():
 
 def test_http_assets_and_session_export(server):
     status, headers, html = request(server, "/")
-    assert status == 200 and b"Decision inspector" in html
+    assert status == 200 and b'id="study-records"' in html
     assert "frame-ancestors 'none'" in headers["Content-Security-Policy"]
     _, _, body = request(server, "/api/session", {"scenario": "benign", "seed": 20,
                          "comparison": "heuristic_detour"})
@@ -80,7 +80,7 @@ def test_http_assets_and_session_export(server):
 
 def test_launcher_health_identifies_interface_and_all_frontend_assets(server):
     _, _, body = request(server, "/api/health")
-    assert json.loads(body) == {"application": "valor", "interface_version": 3,
+    assert json.loads(body) == {"application": "valor", "interface_version": 4,
                                 "schema_version": "1.0"}
     for path in ("/app.js", "/evidence.js", "/style.css"):
         status, headers, body = request(server, path)

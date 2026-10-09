@@ -17,11 +17,12 @@ for(const [,id] of html.matchAll(/\bid="([^"]+)"/g)){assert(!elements.has(id),"d
 const conditions=[...html.matchAll(/data-scenario="([^"]+)"/g)].map(([,scenario])=>{const e=new Element();e.dataset.scenario=scenario;return e;});
 elements.get("study-seed").value="42";
 elements.get("work-track").append(...Array.from({length:8},()=>new Element()));
-const intervals=new Map();let timerId=0,reply=studies.hazard,fail=false;
+const intervals=new Map();let timerId=0,reply=studies.hazard,fail=false,requests=0;
+const motion={matches:false,addEventListener(event,callback){assert.equal(event,"change");this.changed=callback;}};
 const context=vm.createContext({
   document:{getElementById:id=>{assert(elements.has(id),"missing HTML id "+id);return elements.get(id);},createElement:()=>new Element(),querySelectorAll:selector=>{assert.equal(selector,"[data-scenario]");return conditions;},addEventListener(){},hidden:false,activeElement:new Element()},
-  window:{matchMedia:()=>({matches:false})},
-  fetch:async(path,request)=>{assert.equal(path,"/api/study");assert.equal(request.method,"POST");if(fail)throw new TypeError("offline");return {ok:true,json:async()=>reply};},
+  window:{matchMedia:()=>motion},
+  fetch:async(path,request)=>{assert.equal(path,"/api/study");assert.equal(request.method,"POST");requests++;if(fail)throw new TypeError("offline");return {ok:true,json:async()=>reply};},
   setInterval:fn=>{const id=++timerId;intervals.set(id,fn);return id;},clearInterval:id=>intervals.delete(id),
   setTimeout:()=>0,clearTimeout(){},AbortSignal:{timeout:()=>({})},Blob,URL:{createObjectURL:()=>"blob:unit-test",revokeObjectURL(){}},TypeError
 });
@@ -61,5 +62,32 @@ const get=id=>elements.get(id);
   get("study-seed").value="-1";await get("study-start").emit("click");
   assert.equal(get("study-settings").open,true);
   assert.match(get("study-toast").textContent,/whole starting number/);
-  console.log("Study record semantics, pause, scenario reset, retained error evidence and input handling passed.");
+  get("study-seed").value="42";
+  for(const id of ["study-options","study-internals","study-records","study-metrics-help","study-settings"])get(id).open=false;
+  reply=studies.hazard;motion.matches=true;
+  await get("study-run").emit("click");
+  assert.equal(intervals.size,0,"reduced motion starts with an inspectable paused record");
+  assert.equal(get("study-export").disabled,false,"reduced motion still runs the real engine");
+  motion.matches=false;
+  const previousRequests=requests;
+  const pending=get("study-run").emit("click");
+  assert.equal(get("study-run").disabled,true);
+  assert.equal(get("study-start").disabled,true);
+  assert.equal(get("study").attributes["aria-busy"],"true");
+  await get("study-start").emit("click");
+  await pending;
+  assert.equal(requests,previousRequests+1,"both entry points share the same request guard");
+  assert.equal(get("study").attributes["aria-busy"],"false");
+  assert.equal(intervals.size,1);
+  get("study-metrics-help").open=true;get("study-metrics-help").emit("toggle");
+  assert.equal(intervals.size,0,"reading metric explanations pauses the record");
+  await get("study-run").emit("click");
+  assert.equal(intervals.size,0,"rerunning with evidence already open stays paused");
+  get("study-metrics-help").open=false;
+  get("study-play").emit("click");
+  assert.equal(intervals.size,1);
+  motion.matches=true;motion.changed();
+  assert.equal(intervals.size,0,"enabling reduced motion pauses active playback");
+  assert.doesNotMatch(get("study-playback-status").textContent,/Playing/);
+  console.log("Study records, failure/abandonment, both launch controls, request guard, help pause and reduced motion passed (DOM double; no rendering).");
 })().catch(error=>{console.error(error);process.exitCode=1;});
