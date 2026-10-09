@@ -12,3 +12,5 @@ Recorded October 3, 2026 from the user's explicit preferences. Apply these princ
 - Keep the app local, lightweight and free of external font, asset, model or API dependencies. Do not add paid services for visual polish.
 
 Review each future UI change against this document. A beautiful screen that obscures a failure or confuses a first-time user does not meet the brief.
+
+October 9 refinement: the owner requests an exceptionally polished product that avoids generic AI aesthetics. Use editorial typography, restrained color, thoughtful composition and purposeful controls. Avoid glowing orbs, decorative chat interfaces, gradient slogans and invented emotional narration. Use Mobbin MCP references when the connection is available; its current paid-plan requirement is a connection limitation, not authorization to spend money. The main experience should represent VALOR's general decision research, with benchmark tasks presented as examples.
