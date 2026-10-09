@@ -11,6 +11,7 @@ from uuid import uuid4
 from aace.envs.scenarios import SCENARIOS
 from aace.runtime import Session
 from aace.schemas import SCHEMA_VERSION
+from aace.demo.study import create_study
 
 CONTROLLERS = ("heuristic_direct", "heuristic_detour", "oracle_planner")
 STATIC = Path(__file__).parent/"static"
@@ -41,7 +42,7 @@ class PairSession:
         self._published = {"session_id": self.id, "running": self._running,
                            "speed": self._speed, "error": self._error,
                            "left": self.sessions[0].view(), "right": self.sessions[1].view(),
-                           "research_status": "engineering demo; AACE memory/learned models not implemented"}
+                           "research_status": "engineering rover benchmark; learned models and AACE memory do not drive this viewer"}
         self._replay = {"schema_version": SCHEMA_VERSION, "session_id": self.id,
                         "claim": "Engineering examples; not aggregate research evidence",
                         "runs": [{"seed": s.seed, "controller": s.controller.name,
@@ -198,7 +199,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         path = urlsplit(self.path).path
         if path == "/api/health":
-            return self._respond({"application": "valor", "interface_version": 2,
+            return self._respond({"application": "valor", "interface_version": 3,
                                   "schema_version": SCHEMA_VERSION})
         if path == "/api/scenarios":
             return self._respond({"scenarios": list(SCENARIOS), "controllers": CONTROLLERS,
@@ -214,6 +215,8 @@ class Handler(BaseHTTPRequestHandler):
             except ValueError as error:
                 return self._respond({"error": str(error)}, 404)
         assets = {"/": ("index.html", "text/html; charset=utf-8"),
+                  "/rover": ("rover.html", "text/html; charset=utf-8"),
+                  "/study.js": ("study.js", "text/javascript; charset=utf-8"),
                   "/app.js": ("app.js", "text/javascript; charset=utf-8"),
                   "/evidence.js": ("evidence.js", "text/javascript; charset=utf-8"),
                   "/style.css": ("style.css", "text/css; charset=utf-8")}
@@ -233,6 +236,8 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(payload, dict):
                 raise ValueError("Expected a JSON object")
             path = urlsplit(self.path).path
+            if path == "/api/study":
+                return self._respond(create_study(payload), 201)
             if path == "/api/session":
                 return self._respond(self.server.manager.create(payload).view(), 201)
             segments = path.strip("/").split("/")

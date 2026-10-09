@@ -20,7 +20,7 @@ $mutexHeld = $false
 function Get-ValorHealth {
     try {
         $health = Invoke-RestMethod "$demoUrl/api/health" -TimeoutSec 2
-        if ($health.application -eq 'valor' -and $health.interface_version -eq 2) { return $health }
+        if ($health.application -eq 'valor' -and $health.interface_version -in @(2, 3)) { return $health }
     } catch { }
     return $null
 }
@@ -62,6 +62,9 @@ try {
     Write-Host 'VALOR'
     Write-Host 'Preparing your local demo...'
     $health = Get-ValorHealth
+    if ($health -and $health.interface_version -eq 2) {
+        throw 'An earlier VALOR interface is still running. Double-click Stop VALOR, then Start VALOR to open the new decision study.'
+    }
     if (-not $health) {
         # Refuse to replace another service. The launcher only starts its own local process.
         $portProbe = New-Object System.Net.Sockets.TcpClient
@@ -109,7 +112,7 @@ try {
     }
     Write-Host "Ready: $demoUrl"
     if (-not $NoBrowser) { Start-Process $demoUrl }
-    Write-Host 'Press Start the demo on the page. Use Stop VALOR when you are finished.'
+    Write-Host 'Press Begin the study on the page. Use Stop VALOR when you are finished.'
 } catch {
     Write-Host ''
     Write-Host 'VALOR needs a little help starting.' -ForegroundColor Yellow

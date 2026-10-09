@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f4">
+  <meta name="description" content="VALOR studies decisions under risk, limited resources and time. Explore its first benchmark and the evidence behind each choice.">
+  <title>VALOR — Choices, understood.</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/evidence.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#mission">Skip to the demo</a>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="VALOR home"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 6 14 23 23 6M10 6l4 8 4-8"/></svg>VALOR</a>
+    <nav aria-label="Main"><a class="nav-link" href="/">Decision study</a><span class="local-indicator"><i></i>On your computer</span><button class="text-button" id="help">How it works <span aria-hidden="true">↗</span></button></nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <p class="eyebrow">THE ROVER BENCHMARK</p>
+      <h1 id="hero-title">Take a route.<br><span>Follow its consequences.</span></h1>
+      <p class="hero-copy">Decisions under risk, limited resources and time. Explore VALOR’s first benchmark: two rovers, one mission, and choices you can inspect.</p>
+      <div class="hero-actions"><button id="hero-start" class="primary" disabled>Start the demo <span aria-hidden="true">↗</span></button><button id="tour" class="text-button">Show me around <span aria-hidden="true">→</span></button></div>
+      <p class="hero-footnote">A general decision model. A small research example. Runs locally.</p>
+    </section>
+    <section class="experiment" id="mission" aria-labelledby="mission-title" tabindex="-1">
+      <div class="mission-heading">
+        <div><p class="eyebrow">YOUR MISSION</p><h2 id="mission-title">The risky shortcut.</h2><p id="mission-description">Inspect the site and return home. Rough ground lies along the shortest route.</p></div>
+        <div class="mission-picker"><label for="scenario">Explore a different mission</label><select id="scenario" disabled></select></div>
+      </div>
+      <div class="mission-journey" aria-label="Mission goals"><span><i>1</i>Leave home</span><b aria-hidden="true">→</b><span><i>2</i>Inspect the site</span><b aria-hidden="true">→</b><span><i>3</i>Return before time runs out</span></div>
+      <div class="maps" aria-label="The same mission with two approaches">
+        <article class="run" aria-labelledby="left-title">
+          <div class="run-heading"><div><span class="eyebrow">THE SIMPLE APPROACH</span><h3 id="left-title">Follow the direct route</h3></div><span id="left-status" class="status-tag">Ready</span></div>
+          <p class="approach-copy">Heads toward the next goal using a fixed rule.</p>
+          <div class="map-surface"><canvas id="left-map" width="720" height="460" aria-label="Simple approach: rover route, home, inspection site and rough ground"></canvas></div>
+          <p class="run-story" id="left-story">Ready to leave home.</p>
+          <div id="left-metrics" class="metrics" aria-label="Simple approach resources"></div>
+        </article>
+        <article class="run" aria-labelledby="right-title">
+          <div class="run-heading"><div><span class="eyebrow" id="right-eyebrow">THE PLANNING APPROACH</span><h3 id="right-title">Look before moving</h3></div><span id="right-status" class="status-tag">Ready</span></div>
+          <p class="approach-copy" id="right-description">Tests six possible plans in the simulator before each move.</p>
+          <div class="map-surface comparison-surface"><canvas id="right-map" width="720" height="460" aria-label="Comparison approach: actual rover route and sampled future routes"></canvas></div>
+          <p class="run-story" id="right-story">Ready to compare its options.</p>
+          <div id="right-metrics" class="metrics" aria-label="Comparison approach resources"></div>
+        </article>
+      </div>
+      <div class="map-key"><span><i class="key-home"></i>Home</span><span><i class="key-site"></i>Inspection site</span><span><i class="key-ground"></i>Rough ground</span><span><i class="key-route"></i>Route taken</span><label class="switch-label"><input type="checkbox" id="branches" checked><span class="switch" aria-hidden="true"></span>Possible future routes</label></div>
+      <div class="playback" aria-label="Demo controls">
+        <div class="playback-state"><i id="state-dot"></i><span id="status" role="status" aria-live="polite">Preparing your mission…</span></div>
+        <div class="playback-actions"><button id="run" class="primary" disabled>Start mission</button><button id="step" class="soft-button" title="Pause and advance both rovers by one decision" disabled>One decision <span aria-hidden="true">→</span></button><button id="restart" class="icon-button" aria-label="Restart the mission" title="Restart with the same conditions" disabled>↺</button><label class="speed-label" for="speed">Speed<select id="speed" title="Changes playback speed, not the rover’s physics or deadline"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option></select></label></div>
+      </div>
+      <p class="playback-hint" id="playback-hint">Press Start mission. Pause whenever you want to explore a choice.</p>
+    </section>
+    <section class="inspector" id="understand" aria-labelledby="inspector-title">
+      <div class="section-heading"><div><p class="eyebrow">BEHIND THE CHOICE</p><h2 id="inspector-title">A decision you can follow.</h2></div><div class="segmented" aria-label="Which rover to inspect"><button id="inspect-left" aria-pressed="false">Simple route</button><button id="inspect-right" aria-pressed="true" class="active">Planner</button></div></div>
+      <div class="decision-story"><span class="story-marker" aria-hidden="true">↗</span><div><p class="eyebrow" id="decision-label">READY WHEN YOU ARE</p><h3 id="decision-title">See the choice. Then check the result.</h3><p id="decision-summary">Start the mission or take one decision. The planner’s real comparisons will appear here.</p></div></div>
+      <div class="evidence-flow"><div><span class="evidence-number">01</span><h4>What it chose</h4><p id="choice">Waiting for the first move.</p></div><div><span class="evidence-number">02</span><h4>Why it chose it</h4><p id="reason">Reasons come from the recorded calculations.</p></div><div><span class="evidence-number">03</span><h4>What really happened</h4><p id="outcome-summary">The observed result appears after the move.</p></div></div>
+      <details class="options-disclosure" id="options-disclosure"><summary>Explore the other options <span id="option-count"></span><span class="disclosure-arrow" aria-hidden="true">+</span></summary><p class="section-note">Choose a plan to see why it was selected, rejected, or left untested. Pause the mission to examine one decision at your own pace.</p><div id="candidates" class="candidate-list" aria-label="Candidate plans"></div><div class="candidate-detail" id="candidate-detail" hidden><p class="eyebrow" id="candidate-status"></p><h3 id="candidate-title"></h3><p id="explanation"></p><div id="forecast-metrics" class="forecast-metrics"></div><p id="forecast-note" class="section-note"></p></div></details>
+      <details class="records-disclosure"><summary>Decision inspector · detailed record <span class="disclosure-arrow" aria-hidden="true">+</span></summary><p class="section-note">The underlying numbers are here when you need them. The download contains both complete runs.</p><div id="decision-meta" class="record-meta"></div><div class="record-columns"><div><h4>Forecast evidence</h4><pre id="forecast-detail">No forecast yet.</pre></div><div><h4>Applied action &amp; observed result</h4><pre id="outcome">No action yet.</pre></div></div><button id="export" class="text-button" disabled>Download full record <span aria-hidden="true">↓</span></button></details>
+    </section>
+    <section class="fine-tuning" aria-label="Optional controls"><details id="settings"><summary>Make it your experiment <span class="disclosure-arrow" aria-hidden="true">+</span></summary><p class="section-note">The defaults are ready to use. These settings let you explore further.</p><div class="settings-fields"><div><label for="comparison">Compare the simple route with</label><select id="comparison"><option value="oracle_planner">Simulator planner</option><option value="heuristic_detour">A rule that takes a detour</option><option value="heuristic_direct">The same direct-route rule</option></select><p>The planner tests options. Rules use a fixed approach.</p></div><div><label for="seed">Repeatable starting conditions</label><input id="seed" type="number" min="0" max="2147483647" value="42"><p>The same number repeats the starting conditions and disturbance sequence.</p></div></div><div class="settings-actions"><button id="reset" class="soft-button" disabled>Apply &amp; restart</button><button id="stop" class="text-button brake-button" disabled>Apply brakes</button><span>Braking pauses the demo and applies one braking action. The rover’s momentum still follows physics.</span></div></details></section>
+    <aside class="research-note"><span class="research-symbol" aria-hidden="true">◌</span><p><strong>One benchmark. A bigger research project.</strong> VALOR studies general decision-making. These rovers use fixed rules and known-physics planning; the experimental learned models and incident memory are not driving this example. Sampled futures are limited estimates, and one successful mission is not research proof.</p></aside>
+    <footer><a class="wordmark" href="#">VALOR</a><span>Choices, understood.</span><span>Local research preview · 01</span></footer>
+  </main>
+  <dialog id="guide-dialog" aria-labelledby="guide-title"><button id="guide-close" class="close-button" aria-label="Close guide">×</button><p class="eyebrow" id="guide-eyebrow">A MOMENT OF CLARITY</p><h2 id="guide-title">A small mission.<br>A bigger question.</h2><p id="guide-copy"></p><div id="guide-extra"></div><div class="guide-bottom"><span id="guide-progress"></span><button id="guide-back" class="text-button">Back</button><button id="guide-next" class="primary">Next <span aria-hidden="true">→</span></button></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <noscript><p class="noscript">Please enable JavaScript in your browser to run the interactive demo.</p></noscript>
+</body>
+</html>

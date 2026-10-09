@@ -80,7 +80,7 @@ def test_http_assets_and_session_export(server):
 
 def test_launcher_health_identifies_interface_and_all_frontend_assets(server):
     _, _, body = request(server, "/api/health")
-    assert json.loads(body) == {"application": "valor", "interface_version": 2,
+    assert json.loads(body) == {"application": "valor", "interface_version": 3,
                                 "schema_version": "1.0"}
     for path in ("/app.js", "/evidence.js", "/style.css"):
         status, headers, body = request(server, path)
