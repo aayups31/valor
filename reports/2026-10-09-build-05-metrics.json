@@ -1,0 +1,771 @@
+{
+  "schema_version": "valor-build-metrics-v1",
+  "date": "2026-10-09",
+  "scope": "general decision core and synthetic learned-threat development; no AACE advantage, transfer or final-test claim",
+  "source_at_report_preparation": {
+    "git_revision": "121714c0ca60e1e40434adfa3e8e6ff37164787f",
+    "git_dirty": false,
+    "python_source_sha256": "7d714bd9fd663ab7ddfbbe1c106f3958723a784edd48d17ab45eefaef7bc911e"
+  },
+  "verification": {
+    "pytest_passed": 129,
+    "pytest_elapsed_s": 58.47,
+    "pytest_environment": "local escalated loopback tests; TEMP/TMP and --basetemp inside ignored workspace artifacts",
+    "prior_full_regression": {
+      "passed": 128,
+      "elapsed_s": 36.9
+    },
+    "post_hardening_targeted": {
+      "passed": 34,
+      "elapsed_s": 10.63
+    },
+    "compileall": "passed",
+    "git_diff_check_before_report": "passed",
+    "browser_rendering": "not run; earlier browser-access decline respected"
+  },
+  "runtime": {
+    "python": "3.13.1",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "packages": {
+      "numpy": "2.2.5",
+      "gymnasium": "1.2.1",
+      "pytest": "8.4.2",
+      "torch": "2.7.1+cpu",
+      "stable-baselines3": "2.7.1",
+      "setuptools": "78.1.0"
+    },
+    "device": "cpu",
+    "external_spend_usd": 0
+  },
+  "service_core_evaluation": {
+    "file": "artifacts/validation/core-evaluation-d672a264.json",
+    "sha256": "fc5efdb0383c9dd84c02827b99de418cd3776176f5f9295b4b2b489ca43c3d40",
+    "protocol": "development engineering sweep; one fixed algorithm and analytic model, no research comparison",
+    "domain": "service-workflow-v1",
+    "seeds": [
+      10000,
+      10001,
+      10002,
+      10003,
+      10004,
+      10005,
+      10006,
+      10007,
+      10008,
+      10009,
+      10010,
+      10011,
+      10012,
+      10013,
+      10014,
+      10015,
+      10016,
+      10017,
+      10018,
+      10019,
+      10020,
+      10021,
+      10022,
+      10023,
+      10024,
+      10025,
+      10026,
+      10027,
+      10028,
+      10029,
+      10030,
+      10031,
+      10032,
+      10033,
+      10034,
+      10035,
+      10036,
+      10037,
+      10038,
+      10039,
+      10040,
+      10041,
+      10042,
+      10043,
+      10044,
+      10045,
+      10046,
+      10047,
+      10048,
+      10049,
+      10050,
+      10051,
+      10052,
+      10053,
+      10054,
+      10055,
+      10056,
+      10057,
+      10058,
+      10059,
+      10060,
+      10061,
+      10062,
+      10063,
+      10064,
+      10065,
+      10066,
+      10067,
+      10068,
+      10069,
+      10070,
+      10071,
+      10072,
+      10073,
+      10074,
+      10075,
+      10076,
+      10077,
+      10078,
+      10079,
+      10080,
+      10081,
+      10082,
+      10083,
+      10084,
+      10085,
+      10086,
+      10087,
+      10088,
+      10089,
+      10090,
+      10091,
+      10092,
+      10093,
+      10094,
+      10095,
+      10096,
+      10097,
+      10098,
+      10099
+    ],
+    "budget": {
+      "max_forecasts": 8,
+      "action_seconds": 0.1
+    },
+    "forecast_source": "known analytic simulation equations",
+    "elapsed_s": 1.5287424999987707,
+    "git_revision": "23ff882dfa8d522490cb66720cb8048d5fe15ef3",
+    "git_dirty": false,
+    "python_source_sha256": "4db97ac019bca8def3be30f3dc9d30ec08de419b5933224ac91253d90342c281",
+    "external_spend_usd": 0,
+    "limitations": [
+      "Synthetic service dynamics and fixed primitives; no real services controlled",
+      "No independent trained-model replications or AACE memory",
+      "Abandonment is not completion",
+      "Shared seeds use decision-indexed random event draws; differing action sequences alter exposure"
+    ],
+    "scenarios": {
+      "benign": {
+        "status_counts": {
+          "completed": 99,
+          "irreversible_outage": 1
+        },
+        "completion_rate": 0.99,
+        "irreversible_failure_rate": 0.01,
+        "abandonment_rate": 0.0,
+        "forecast_calls": 1200,
+        "analytic_operation_evaluations": 4200
+      },
+      "hazard": {
+        "status_counts": {
+          "completed": 95,
+          "irreversible_outage": 5
+        },
+        "completion_rate": 0.95,
+        "irreversible_failure_rate": 0.05,
+        "abandonment_rate": 0.0,
+        "forecast_calls": 3124,
+        "analytic_operation_evaluations": 10126
+      },
+      "low_reserve": {
+        "status_counts": {
+          "abandoned": 100
+        },
+        "completion_rate": 0.0,
+        "irreversible_failure_rate": 0.0,
+        "abandonment_rate": 1.0,
+        "forecast_calls": 400,
+        "analytic_operation_evaluations": 2100
+      },
+      "deadline": {
+        "status_counts": {
+          "abandoned": 100
+        },
+        "completion_rate": 0.0,
+        "irreversible_failure_rate": 0.0,
+        "abandonment_rate": 1.0,
+        "forecast_calls": 400,
+        "analytic_operation_evaluations": 1000
+      },
+      "degraded": {
+        "status_counts": {
+          "completed": 95,
+          "irreversible_outage": 5
+        },
+        "completion_rate": 0.95,
+        "irreversible_failure_rate": 0.05,
+        "abandonment_rate": 0.0,
+        "forecast_calls": 4328,
+        "analytic_operation_evaluations": 16433
+      }
+    }
+  },
+  "threat_datasets": [
+    {
+      "directory": "artifacts/datasets/threat-train-966bf3d0",
+      "actual_seed_range": [
+        0,
+        5999
+      ],
+      "schema": "candidate-threat-data-v1",
+      "domain": "service-workflow-v1",
+      "codec": "service-candidate-features-v1",
+      "feature_names": [
+        "integrity",
+        "public_load",
+        "remaining_work_fraction",
+        "quota_fraction",
+        "remaining_time_fraction",
+        "continuation_duration_fraction",
+        "fast",
+        "checked",
+        "restore",
+        "defer"
+      ],
+      "split": "train",
+      "seed_intervals": {
+        "train": [
+          0,
+          10000
+        ],
+        "selection": [
+          10000,
+          11000
+        ],
+        "check": [
+          12000,
+          13000
+        ]
+      },
+      "episodes": 6000,
+      "positive_events": 225,
+      "censored_excluded": 0,
+      "label": "irreversible outage under the specified continuation before competing task endings",
+      "horizon": "whole finite continuation until completion, outage, deadline, depletion or abandonment",
+      "metadata_not_features": [
+        "episode_seeds",
+        "statuses",
+        "outcomes",
+        "oracle_probability"
+      ],
+      "oracle_notice": "Known benchmark probability is a scoring reference only, never a learned input/target",
+      "dataset_sha256": "fad7bd0a5befe9380699eef28a5bb04ba56e00e7435e881f94d5495dd38adb80",
+      "elapsed_s": 2.264850599996862,
+      "git_revision": "23ff882dfa8d522490cb66720cb8048d5fe15ef3",
+      "git_dirty": false,
+      "python_source_sha256": "4db97ac019bca8def3be30f3dc9d30ec08de419b5933224ac91253d90342c281",
+      "claim": "synthetic observed development outcomes; not final research evidence"
+    },
+    {
+      "directory": "artifacts/datasets/threat-selection-3198440c",
+      "actual_seed_range": [
+        10000,
+        10799
+      ],
+      "schema": "candidate-threat-data-v1",
+      "domain": "service-workflow-v1",
+      "codec": "service-candidate-features-v1",
+      "feature_names": [
+        "integrity",
+        "public_load",
+        "remaining_work_fraction",
+        "quota_fraction",
+        "remaining_time_fraction",
+        "continuation_duration_fraction",
+        "fast",
+        "checked",
+        "restore",
+        "defer"
+      ],
+      "split": "selection",
+      "seed_intervals": {
+        "train": [
+          0,
+          10000
+        ],
+        "selection": [
+          10000,
+          11000
+        ],
+        "check": [
+          12000,
+          13000
+        ]
+      },
+      "episodes": 800,
+      "positive_events": 41,
+      "censored_excluded": 0,
+      "label": "irreversible outage under the specified continuation before competing task endings",
+      "horizon": "whole finite continuation until completion, outage, deadline, depletion or abandonment",
+      "metadata_not_features": [
+        "episode_seeds",
+        "statuses",
+        "outcomes",
+        "oracle_probability"
+      ],
+      "oracle_notice": "Known benchmark probability is a scoring reference only, never a learned input/target",
+      "dataset_sha256": "23ccbcfd88b814c20a43baf1d72dc4eed2d3a204c789add547ac27e781128321",
+      "elapsed_s": 0.5813864000010653,
+      "git_revision": "23ff882dfa8d522490cb66720cb8048d5fe15ef3",
+      "git_dirty": false,
+      "python_source_sha256": "4db97ac019bca8def3be30f3dc9d30ec08de419b5933224ac91253d90342c281",
+      "claim": "synthetic observed development outcomes; not final research evidence"
+    },
+    {
+      "directory": "artifacts/datasets/threat-check-a8c986c7",
+      "actual_seed_range": [
+        12000,
+        12799
+      ],
+      "schema": "candidate-threat-data-v1",
+      "domain": "service-workflow-v1",
+      "codec": "service-candidate-features-v1",
+      "feature_names": [
+        "integrity",
+        "public_load",
+        "remaining_work_fraction",
+        "quota_fraction",
+        "remaining_time_fraction",
+        "continuation_duration_fraction",
+        "fast",
+        "checked",
+        "restore",
+        "defer"
+      ],
+      "split": "check",
+      "seed_intervals": {
+        "train": [
+          0,
+          10000
+        ],
+        "selection": [
+          10000,
+          11000
+        ],
+        "check": [
+          12000,
+          13000
+        ]
+      },
+      "episodes": 800,
+      "positive_events": 34,
+      "censored_excluded": 0,
+      "label": "irreversible outage under the specified continuation before competing task endings",
+      "horizon": "whole finite continuation until completion, outage, deadline, depletion or abandonment",
+      "metadata_not_features": [
+        "episode_seeds",
+        "statuses",
+        "outcomes",
+        "oracle_probability"
+      ],
+      "oracle_notice": "Known benchmark probability is a scoring reference only, never a learned input/target",
+      "dataset_sha256": "bd23d253fd2879a505940a0fac7f7433296f45f1eb9a2fcd9186dd07a6b252bf",
+      "elapsed_s": 0.6040293999976711,
+      "git_revision": "23ff882dfa8d522490cb66720cb8048d5fe15ef3",
+      "git_dirty": false,
+      "python_source_sha256": "4db97ac019bca8def3be30f3dc9d30ec08de419b5933224ac91253d90342c281",
+      "claim": "synthetic observed development outcomes; not final research evidence"
+    }
+  ],
+  "data_separation": {
+    "episode_seed_sets_pairwise_disjoint": true,
+    "calibration_seeds_11000_11999": "unused",
+    "reserved_final_test_seeds_20000_29999": "unused",
+    "notice": "check distribution matches this synthetic collector; not dynamics/policy-shift or real-world transfer evidence"
+  },
+  "threat_development_trials": [
+    {
+      "directory": "artifacts/threat-models/threat-42-a95c8862",
+      "development_recipe": "initial random initialization",
+      "model_version": "candidate-event-head-v1",
+      "settings": {
+        "seed": 42,
+        "epochs": 30,
+        "batch_size": 128,
+        "max_seconds": 90.0,
+        "max_memory_mb": 1024,
+        "threads": 2
+      },
+      "dimension": 10,
+      "domain": "service-workflow-v1",
+      "codec": "service-candidate-features-v1",
+      "feature_names": [
+        "integrity",
+        "public_load",
+        "remaining_work_fraction",
+        "quota_fraction",
+        "remaining_time_fraction",
+        "continuation_duration_fraction",
+        "fast",
+        "checked",
+        "restore",
+        "defer"
+      ],
+      "training_sha256": "fad7bd0a5befe9380699eef28a5bb04ba56e00e7435e881f94d5495dd38adb80",
+      "selection_sha256": "23ccbcfd88b814c20a43baf1d72dc4eed2d3a204c789add547ac27e781128321",
+      "training_prevalence": 0.0375,
+      "training_seed_range": [
+        0,
+        5999
+      ],
+      "selection_seed_range": [
+        10000,
+        10799
+      ],
+      "best_epochs": {
+        "neural": 23,
+        "linear": 30
+      },
+      "selection_log_losses": {
+        "neural": 0.15914404392242432,
+        "linear": 0.1944587677717209
+      },
+      "updates_per_model": 1410,
+      "training_episodes": 6000,
+      "selection_episodes": 800,
+      "stop_reason": "epoch_budget",
+      "elapsed_s": 11.495263899996644,
+      "peak_sampled_memory_mb": 270.38671875,
+      "parameter_counts": {
+        "neural": 1441,
+        "linear": 11
+      },
+      "weights_sha256": "56099294a6e27926cefb1a45e0c52f5f21eb2f6fe23ca4b60df72ca7efbc1add",
+      "linear_control": "same public features, batches, updates and selection opportunities",
+      "label": "irreversible outage under the specified continuation before competing task endings",
+      "horizon": "whole finite continuation until completion, outage, deadline, depletion or abandonment",
+      "evidence_kind": "experimental",
+      "decision_ready": false,
+      "external_spend_usd": 0,
+      "git_revision": "23ff882dfa8d522490cb66720cb8048d5fe15ef3",
+      "git_dirty": false,
+      "python_source_sha256": "4db97ac019bca8def3be30f3dc9d30ec08de419b5933224ac91253d90342c281"
+    },
+    {
+      "directory": "artifacts/threat-models/threat-42-8e3b500b",
+      "development_recipe": "shared training-only prevalence prior",
+      "model_version": "candidate-event-head-v1",
+      "settings": {
+        "seed": 42,
+        "epochs": 30,
+        "batch_size": 128,
+        "max_seconds": 90.0,
+        "max_memory_mb": 1024,
+        "threads": 2
+      },
+      "dimension": 10,
+      "domain": "service-workflow-v1",
+      "codec": "service-candidate-features-v1",
+      "feature_names": [
+        "integrity",
+        "public_load",
+        "remaining_work_fraction",
+        "quota_fraction",
+        "remaining_time_fraction",
+        "continuation_duration_fraction",
+        "fast",
+        "checked",
+        "restore",
+        "defer"
+      ],
+      "training_sha256": "fad7bd0a5befe9380699eef28a5bb04ba56e00e7435e881f94d5495dd38adb80",
+      "selection_sha256": "23ccbcfd88b814c20a43baf1d72dc4eed2d3a204c789add547ac27e781128321",
+      "training_prevalence": 0.0375,
+      "initialization": "shared training-prevalence prior; epoch-0 checkpoint also eligible",
+      "training_seed_range": [
+        0,
+        5999
+      ],
+      "selection_seed_range": [
+        10000,
+        10799
+      ],
+      "best_epochs": {
+        "neural": 11,
+        "linear": 30
+      },
+      "selection_log_losses": {
+        "neural": 0.159101203083992,
+        "linear": 0.17139607667922974
+      },
+      "updates_per_model": 1410,
+      "training_episodes": 6000,
+      "selection_episodes": 800,
+      "stop_reason": "epoch_budget",
+      "elapsed_s": 13.460545199995977,
+      "peak_sampled_memory_mb": 270.91796875,
+      "parameter_counts": {
+        "neural": 1441,
+        "linear": 11
+      },
+      "weights_sha256": "b99b7c6d38d6d4275893f2ec948b97581c74d534fd8f2acca339b896f8aa04c3",
+      "linear_control": "same public features, batches, updates and selection opportunities",
+      "label": "irreversible outage under the specified continuation before competing task endings",
+      "horizon": "whole finite continuation until completion, outage, deadline, depletion or abandonment",
+      "evidence_kind": "experimental",
+      "decision_ready": false,
+      "external_spend_usd": 0,
+      "git_revision": "121714c0ca60e1e40434adfa3e8e6ff37164787f",
+      "git_dirty": false,
+      "python_source_sha256": "7d714bd9fd663ab7ddfbbe1c106f3958723a784edd48d17ab45eefaef7bc911e"
+    }
+  ],
+  "threat_check": {
+    "file": "artifacts/validation/threat-validation-a54280b1.json",
+    "sha256": "160fa5f27559e7dbeda049f75aab8cfb31b33581c6fc4cb7f072532695f34d55",
+    "protocol": "separate development episodes; not final-test or transfer evidence",
+    "checkpoint": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\threat-models\\threat-42-8e3b500b",
+    "model_sha256": "b99b7c6d38d6d4275893f2ec948b97581c74d534fd8f2acca339b896f8aa04c3",
+    "check_sha256": "bd23d253fd2879a505940a0fac7f7433296f45f1eb9a2fcd9186dd07a6b252bf",
+    "domain": "service-workflow-v1",
+    "codec": "service-candidate-features-v1",
+    "metrics": {
+      "neural": {
+        "count": 800,
+        "positive_events": 34,
+        "brier": 0.036856447935052356,
+        "log_loss": 0.13473308568398004,
+        "fixed_bin_ece": 0.007867788362891587,
+        "reliability_bins": [
+          {
+            "range": [
+              0,
+              0.025
+            ],
+            "count": 490,
+            "mean_prediction": 0.007463378976372413,
+            "event_rate": 0.006122448979591836
+          },
+          {
+            "range": [
+              0.025,
+              0.05
+            ],
+            "count": 125,
+            "mean_prediction": 0.03514663900434971,
+            "event_rate": 0.032
+          },
+          {
+            "range": [
+              0.05,
+              0.1
+            ],
+            "count": 74,
+            "mean_prediction": 0.07153709439208379,
+            "event_rate": 0.06756756756756757
+          },
+          {
+            "range": [
+              0.1,
+              0.2
+            ],
+            "count": 82,
+            "mean_prediction": 0.13698009047202947,
+            "event_rate": 0.18292682926829268
+          },
+          {
+            "range": [
+              0.2,
+              0.5
+            ],
+            "count": 29,
+            "mean_prediction": 0.28215405344963074,
+            "event_rate": 0.2413793103448276
+          }
+        ],
+        "notice": "Raw event probabilities; bin averages are not individual risk bounds or calibrated guarantees"
+      },
+      "linear": {
+        "count": 800,
+        "positive_events": 34,
+        "brier": 0.03777998743749053,
+        "log_loss": 0.1463057177598003,
+        "fixed_bin_ece": 0.02311829737038351,
+        "reliability_bins": [
+          {
+            "range": [
+              0,
+              0.025
+            ],
+            "count": 413,
+            "mean_prediction": 0.018492836985493543,
+            "event_rate": 0.007263922518159807
+          },
+          {
+            "range": [
+              0.025,
+              0.05
+            ],
+            "count": 187,
+            "mean_prediction": 0.02958464353559489,
+            "event_rate": 0.0213903743315508
+          },
+          {
+            "range": [
+              0.05,
+              0.1
+            ],
+            "count": 130,
+            "mean_prediction": 0.08570070914351023,
+            "event_rate": 0.06923076923076923
+          },
+          {
+            "range": [
+              0.1,
+              0.2
+            ],
+            "count": 70,
+            "mean_prediction": 0.11166177583592278,
+            "event_rate": 0.2571428571428571
+          }
+        ],
+        "notice": "Raw event probabilities; bin averages are not individual risk bounds or calibrated guarantees"
+      },
+      "constant_prevalence": {
+        "count": 800,
+        "positive_events": 34,
+        "brier": 0.04071875000000001,
+        "log_loss": 0.1761419209805846,
+        "fixed_bin_ece": 0.005000000000000011,
+        "reliability_bins": [
+          {
+            "range": [
+              0.025,
+              0.05
+            ],
+            "count": 800,
+            "mean_prediction": 0.03749999999999999,
+            "event_rate": 0.0425
+          }
+        ],
+        "notice": "Raw event probabilities; bin averages are not individual risk bounds or calibrated guarantees"
+      },
+      "analytic_oracle": {
+        "count": 800,
+        "positive_events": 34,
+        "brier": 0.03656967393485479,
+        "log_loss": 0.13175152271068305,
+        "fixed_bin_ece": 0.010540388561639701,
+        "reliability_bins": [
+          {
+            "range": [
+              0,
+              0.025
+            ],
+            "count": 522,
+            "mean_prediction": 0.005998721856300958,
+            "event_rate": 0.0038314176245210726
+          },
+          {
+            "range": [
+              0.025,
+              0.05
+            ],
+            "count": 118,
+            "mean_prediction": 0.03502187099686618,
+            "event_rate": 0.0423728813559322
+          },
+          {
+            "range": [
+              0.05,
+              0.1
+            ],
+            "count": 74,
+            "mean_prediction": 0.07074987712140018,
+            "event_rate": 0.12162162162162163
+          },
+          {
+            "range": [
+              0.1,
+              0.2
+            ],
+            "count": 59,
+            "mean_prediction": 0.13424377522226108,
+            "event_rate": 0.1694915254237288
+          },
+          {
+            "range": [
+              0.2,
+              0.5
+            ],
+            "count": 27,
+            "mean_prediction": 0.2744654643314856,
+            "event_rate": 0.2962962962962963
+          }
+        ],
+        "notice": "Raw event probabilities; bin averages are not individual risk bounds or calibrated guarantees"
+      }
+    },
+    "check_seed_range": [
+      12000,
+      12799
+    ],
+    "evidence_kind": "experimental",
+    "decision_ready": false,
+    "remaining_gates": [
+      "independent calibration and threshold reliability intervals",
+      "shift and candidate ranking acceptance",
+      "approved-model applicability and risk-bound protocol"
+    ],
+    "baseline_notice": "Linear head uses matched data/update opportunities; analytic oracle is a known-dynamics upper-reference, not an equally informed learned competitor",
+    "git_revision": "121714c0ca60e1e40434adfa3e8e6ff37164787f",
+    "git_dirty": false,
+    "python_source_sha256": "7d714bd9fd663ab7ddfbbe1c106f3958723a784edd48d17ab45eefaef7bc911e"
+  },
+  "development_accounting": {
+    "recipe_trials": 2,
+    "independent_training_seeds": 1,
+    "total_updates_per_model_across_trials": 2820,
+    "total_training_elapsed_s": 24.95580909999262,
+    "check_scored_checkpoint": "second trial only",
+    "notice": "linear initialization revised using selection performance before scoring the separate check; all development work retained, no locked-test claim"
+  },
+  "package": {
+    "file": "artifacts/packages/valor_aace-0.1.0-py3-none-any.whl",
+    "sha256": "70fefe684f922aec0fe6ae04c4a47955aaba3266516456c5a105159295116d5d",
+    "bytes": 81357,
+    "build": "offline wheel; --no-deps --no-build-isolation --no-index --no-cache-dir",
+    "builder_setuptools": "78.1.0",
+    "build_system_declared_setuptools": "80.3.1",
+    "spdx_license_expression": "Apache-2.0",
+    "exact_license_and_notice_included": true,
+    "console_entry_points": [
+      "valor = aace.cli:main",
+      "aace = aace.cli:main"
+    ],
+    "current_core_and_threat_source_matches": true,
+    "limitations": "fresh-machine isolated build and console installation not exercised; no registry publication"
+  },
+  "implementation_commits_pushed": [
+    "958ffcb",
+    "8a811c4",
+    "23ff882",
+    "121714c"
+  ],
+  "status": {
+    "project": "in progress",
+    "aace_memory": "not implemented",
+    "learned_threat_decision_ready": false,
+    "existing_rover_world_model_planner_ready": false,
+    "browser_viewer": "existing rover heuristic/oracle benchmark; general examples use CLI/JSON",
+    "real_services_or_user_files_controlled": false,
+    "llm_training": false,
+    "raw_models_and_datasets": "local ignored artifacts; not uploaded by Git"
+  }
+}

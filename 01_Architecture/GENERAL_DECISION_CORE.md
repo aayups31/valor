@@ -67,12 +67,20 @@ Mission time and computation wall time remain separate. The core checks between 
 
 The current benchmark actions are local simulations only. External applications, autonomous tool use and production deployment need task-specific action validation and authorization in addition to this core. The model has no operation for clearing an external stop or preserving itself against shutdown.
 
+## Experimental learned threat head
+
+The generic feature-vector learner in `src/aace/learning/threat.py` now trains a small neural event head alongside a linear head. It imports no benchmark dynamics. The first versioned feature encoder and trained weights are specific to service-workflow continuations: public state, resources, available time and proposed continuation. Outcome labels, analytic reference probabilities and seed identifiers never become model inputs.
+
+Training uses observed finite-continuation outcomes, unweighted event likelihood, a shared training-only prevalence prior, equal minibatches/update opportunities and checkpoint selection on separate development episodes. Completion, abandonment and other known task endings remain distinct from irreversible failure; censored outcomes are excluded. Capacity and computation differ between the neural and linear heads and are reported.
+
+The first 6,000-episode training / 800-selection / 800-check run gives promising proper-score results against simple controls. It is one training seed after two recipe trials, with 34 check-set failure events. Raw predictions remain `experimental` and `decision_ready: false`. They do not supply approved risk bounds to the decision core. [Build report 05](../reports/2026-10-09-build-05.md) records the full results and limitations.
+
 ## Next model work
 
-1. Add trainable candidate-conditioned threat/event models with versioned feature encoders, known/censored outcome handling and separate calibration episodes. Preserve original event prevalence in evaluation and compare against simple predictors.
+1. Qualify the experimental candidate-conditioned threat heads using independent calibration episodes, threshold reliability intervals, rare-event support and stricter model applicability. Preserve event prevalence and compare against simple predictors over multiple training seeds.
 2. Validate within-domain forecast ranking, terminal outcomes and policy shift; then test declared transfer between environment families. A shared API is not a transfer result.
 3. Add qualified incident memory through the general context/candidate/evidence contract. Match incident packages, model/data access and computation against ordinary retrieval/replay/planning.
 4. Test fast response and adaptive compute as separate components under fixed authority and equal evidence. Do not assume the fear analogy itself explains improvements.
-5. Extend the premium inspector to multiple benchmark tasks using these actual decision records, then prepare the reproducible open-source release and licensing record.
+5. Extend the premium inspector to multiple benchmark tasks using actual decision records, then prepare a reproducible release. Licensing and a local wheel are now checked; fresh-machine installation and artifact publication remain separate work.
 
 The rover learning problem remains worth studying, but it no longer determines the sequencing of the reusable core or defines VALOR's scope. The user selected Apache 2.0 during this build. [LICENSE](../LICENSE) and [NOTICE](../NOTICE) cover project-original source/documentation; third-party works retain their licenses. Repository visibility and publication of model/data artifacts are separate from this licensing step.

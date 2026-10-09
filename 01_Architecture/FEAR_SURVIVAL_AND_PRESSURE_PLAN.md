@@ -4,7 +4,7 @@
 **Authority:** extends the [implementation master plan](../IMPLEMENTATION_MASTER_PLAN.md), especially the threat model, mission policy, recovery and E5 experiments.  
 **User direction:** consider fear, survival instincts, gut decisions, time bounds and pressure together. Preserve the [premium interface direction](../UI_DESIGN_PRINCIPLES.md).
 
-**October 9 implementation update:** [The general decision core](GENERAL_DECISION_CORE.md) now implements forecast-based threat appraisal, resource/capability/time margins, pressure-dependent finite ordering and final stop/state/deadline checks. The core is domain-independent; a non-robotic service simulation and rover adapter use it. Learned fear, qualified memory, learned fast responses and preemptive execution remain unfinished. The original sections below are the staged research design; they should not be read as current executable status.
+**October 9 implementation update:** [The general decision core](GENERAL_DECISION_CORE.md) now implements forecast-based threat appraisal, resource/capability/time margins, pressure-dependent finite ordering and final stop/state/deadline checks. The core is domain-independent; a non-robotic service simulation and rover adapter use it. A small experimental threat head is also trained and compared with linear/constant controls on service-specific synthetic data; its raw probabilities cannot authorize decisions. Calibrated learned threat, qualified memory, learned fast responses and preemptive execution remain unfinished. [Build report 05](../reports/2026-10-09-build-05.md) records measurements. The original sections below are the staged research design; they should not be read as current executable status.
 
 ## 1. What we aim to achieve
 

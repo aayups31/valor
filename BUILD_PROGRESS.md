@@ -2,9 +2,20 @@
 
 ### October 9 — scope clarification and general core
 
-The user clarified that VALOR is a general open-source research decision model with fear/survival mechanisms, not a rover product. The rover remains one benchmark. Added a domain-independent decision contract/engine, fixed-policy threat constraints, resource/capability/time margins, bounded pressure ordering and a final stop/state/deadline authority gate. A non-robotic service-workflow simulation and rover adapter exercise the same core. The latter preserves coarse forecast evidence and abstains rather than pretending it is calibrated. Initial targeted regression: 32 passed. No new neural training or research advantage is claimed. [Architecture and boundaries](01_Architecture/GENERAL_DECISION_CORE.md).
+The user clarified that VALOR is a general open-source research decision model with fear/survival mechanisms, not a rover product. The rover remains one benchmark. Added a domain-independent decision contract/engine, fixed-policy threat constraints, resource/capability/time margins, bounded pressure ordering and a final stop/state/deadline authority gate. A non-robotic service-workflow simulation and rover adapter exercise the same core. The latter preserves coarse forecast evidence and abstains rather than pretending it is calibrated. A small experimental learned threat head now trains on observed service-continuation outcomes against linear/constant controls. No AACE advantage, calibrated risk or broad transfer is claimed. [Architecture and boundaries](01_Architecture/GENERAL_DECISION_CORE.md).
 
-Latest full stop report: [Build report 04 — learned dynamics and return competence](reports/2026-10-06-build-04.md). Previous: [Planning report 03 — fear, survival and pressure](reports/2026-10-03-planning-03-fear-pressure.md), [Build report 02 — premium UI redesign](reports/2026-10-03-build-02-ui.md), [Build report 01](reports/2026-10-03-build-01.md). The overall research build remains in progress.
+Latest full stop report: [Build report 05 — general core and experimental threat learning](reports/2026-10-09-build-05.md). Previous: [Build report 04 — learned dynamics and return competence](reports/2026-10-06-build-04.md), [Planning report 03 — fear, survival and pressure](reports/2026-10-03-planning-03-fear-pressure.md), [Build report 02 — premium UI redesign](reports/2026-10-03-build-02-ui.md), [Build report 01](reports/2026-10-03-build-01.md). The overall research build remains in progress.
+
+### Stop 05 — verified state
+
+- Four meaningful intermediate commits pushed through `121714c`; the full report and curated metrics follow in a separate documentation commit.
+- Final regression: 129 passed in 58.47 seconds, including existing demo/API/learning checks and new core/service/threat tests. Compilation, artifact hashes, dataset seed separation and offline package/license checks passed.
+- The general core handles finite action/continuation candidates, one objective, qualified threat limits, resource/recovery margins, capability and time constraints, explicit abstention and guarded application. Pressure changes evaluation order without relaxing human policy; stop/state/deadline checks remain cooperative rather than hard preemption.
+- A 500-run analytic service simulation recorded 99/100 benign completions, 95/100 high-load completions and 95/100 degraded-integrity completions. Low-reserve and impossible-deadline cases all abandoned; the other cases recorded 1/5/5 irreversible outages. This is an engineering check, not a comparative research result.
+- Threat data: 6,000 train / 800 selection / 800 separate-check continuations, with 225/41/34 observed failure events and disjoint seeds. Two bounded seed-42 recipe trials are retained; the second initializes both controls from the training event rate.
+- Separate development Brier/log loss: neural 0.03686/0.13473, linear 0.03778/0.14631, constant 0.04072/0.17614. Neural has 1,441 parameters; the linear head has 11. Second training took 13.46 seconds and 270.92 MiB peak sampled memory. Calibration, shift, ranking and individual risk bounds remain unqualified; `decision_ready: false`.
+- Apache 2.0 and NOTICE added at the owner's explicit selection. Offline wheel includes exact license texts and `valor`/`aace` entry points; fresh-machine installation and publication remain untested.
+- UI copy now identifies the rover as the first benchmark. The viewer still uses the existing heuristic/oracle comparison; general-core examples use CLI/JSON. Browser visual review remains pending. External compute/API/hosting spend is $0; no build job remains active.
 
 ### Stop 04 — verified state
 
@@ -55,7 +66,7 @@ User authorized implementation, use of https://github.com/aayups31/valor for ver
 
 ### Current work
 
-Stages 0–3 are implemented and checked at code/API level; browser visual verification remains pending. The conventional SAC pilot now completes the benign full mission but fails hazardous transfer. Learned dynamics training/evaluation is implemented; damage forecasting and calibration remain insufficient for planning. Qualified memory and matched research comparisons remain ahead. No build job remains active at the latest stop; the local demo is stopped.
+The general decision core and two benchmark adapters are implemented alongside the earlier rover/demo stages. Threat learning now has a small experimental numerical head and simple controls; calibration and decision authority remain pending. The conventional SAC pilot completes the checked benign full mission but fails hazardous transfer. The learned dynamics model's damage forecasting remains insufficient for planning. Qualified memory, matched research comparisons and browser visual verification remain ahead. No build job remains active at the latest stop.
 
 ### Intermediate milestone: runtime and numerical core
 

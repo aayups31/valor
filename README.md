@@ -8,7 +8,7 @@ Project-original source and documentation use [Apache 2.0](LICENSE), selected by
 
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
 
-Latest milestone: an ordinary learned controller completes the checked benign full missions, and a compact learned dynamics ensemble is trained and evaluated. Hazardous controller transfer and damage-model calibration remain insufficient; learned planning and incident memory are still pending. See [build report 04](reports/2026-10-06-build-04.md) for results, limitations and next steps.
+Latest milestone: the general decision core is exercised in a non-robotic service simulation, and a small learned threat head is trained against linear and constant-risk controls. Its separate development scores are promising; its probabilities remain experimental and cannot authorize actions. All 129 regression tests pass. See [build report 05](reports/2026-10-09-build-05.md) for measured results and next steps. [Build report 04](reports/2026-10-06-build-04.md) retains the earlier rover controller and dynamics results; hazardous transfer and damage calibration remain insufficient.
 
 ## Open the demo
 
@@ -77,6 +77,8 @@ The package also declares a `valor` console entry point for fresh installs; the 
 
 Use the printed directories. Observed whole-continuation outcomes train a small neural event head and a simpler linear head on identical public features, batches and update opportunities. Episode IDs, outcome labels and analytic probabilities are not inputs; analytic probabilities are scoring references only. Unknown/censored endings are excluded. The feature-vector learner has no domain dynamics imports; the first feature encoder and trained weights are service-specific. Proper Brier/log-loss scores and reliability bins use separate development episodes. Outputs remain experimental and are not wired into action permission until independent calibration, applicability and risk-bound checks pass.
 
+Both heads start from the training event rate; the constant prior is also an eligible checkpoint. The 1,441-parameter neural head achieved Brier 0.03686 / log loss 0.13473 on 800 separate synthetic episodes, versus 0.03778 / 0.14631 for the 11-parameter linear head. This is one training seed after two development recipe trials, with only 34 failure events. It does not establish AACE benefit, individual risk bounds or general transfer. Complete controls and reliability bins are in the latest report.
+
 ## Development data collection
 
 ```powershell
@@ -101,10 +103,10 @@ For the SAC return-phase development pilot, use `train --curriculum mixed_return
 
 ## Scope
 
-- Lightweight continuous-control inspection rover with battery and persistent damage.
-- Conventional control baselines, a small learned world model, consequence planning and qualified incident memory.
-- A local decision inspector using the same engine and recorded calculations.
-- Reproducible comparisons with explicit observation, evidence and compute budgets.
+- A general decision core for threat appraisal, resource/capability preservation and time pressure under external authority.
+- Simulated service and rover benchmarks, with scoped numerical threat and dynamics models.
+- Conventional controls and qualified incident memory experiments; memory and learned planning remain pending.
+- A premium local decision inspector and reproducible comparisons with explicit evidence and compute budgets.
 
 Default external compute/API/hosting spend is $0. CPU is the reference backend. This project does not train an LLM.
 
