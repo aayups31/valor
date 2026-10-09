@@ -75,4 +75,4 @@ The current benchmark actions are local simulations only. External applications,
 4. Test fast response and adaptive compute as separate components under fixed authority and equal evidence. Do not assume the fear analogy itself explains improvements.
 5. Extend the premium inspector to multiple benchmark tasks using these actual decision records, then prepare the reproducible open-source release and licensing record.
 
-The rover learning problem remains worth studying, but it no longer determines the sequencing of the reusable core or defines VALOR's scope. Formal repository licensing must be selected before describing an actual public release as licensed open source; no license was present at this scope review.
+The rover learning problem remains worth studying, but it no longer determines the sequencing of the reusable core or defines VALOR's scope. The user selected Apache 2.0 during this build. [LICENSE](../LICENSE) and [NOTICE](../NOTICE) cover project-original source/documentation; third-party works retain their licenses. Repository visibility and publication of model/data artifacts are separate from this licensing step.

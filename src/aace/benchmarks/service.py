@@ -106,6 +106,7 @@ class ServiceForecaster:
         # Copy public state/config only, never RNG or hidden future draws.
         self.state = environment.state
         self.load, self.goal, self.deadline_s = environment.load, environment.goal, environment.deadline_s
+        self.operation_evaluations = 0
 
     def forecast(self, context, candidate, *, deadline):
         if context.domain != DOMAIN:
@@ -120,6 +121,7 @@ class ServiceForecaster:
         survival, duration, quota, integrity, damage = 1.0, 0.0, state.quota, state.integrity, 0.0
         cost_total, progress, feasible = 0.0, state.progress, True
         for name in names_sequence:
+            self.operation_evaluations += 1
             amount, seconds, cost, probability, wear = operation(integrity, self.load, name)
             duration += seconds
             cost_total += cost

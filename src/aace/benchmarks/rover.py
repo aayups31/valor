@@ -16,6 +16,7 @@ class RoverDecisionAdapter:
         self.planner = OraclePlanner(environment.config, seed=seed)
         self.config = environment.config
         self.seed = seed
+        self.branch_transitions = 0
 
     def context(self, generation):
         from math import hypot
@@ -42,6 +43,7 @@ class RoverDecisionAdapter:
         budget = self.planner.budget
         noise = rng.normal(0, self.config.noise_std, (budget.particles, budget.horizon_steps, 2))
         forecast = self.planner.forecast(self.observation, candidate.identifier, noise)
+        self.branch_transitions += forecast["branch_transitions"]
         endpoint = forecast["sample_path"][-1]
         depot = self.observation.depot
         return_estimate = float(np.linalg.norm(np.array(endpoint)-depot)*.8/max(forecast["mean_health"], .15))

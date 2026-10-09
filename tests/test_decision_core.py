@@ -176,3 +176,35 @@ def test_conflicting_terminal_probabilities_and_mutable_action_are_rejected():
         forecast(context(), candidate(), success_probability=.9, failure_probability=.2, failure_upper_bound=.2)
     with pytest.raises(ValueError):
         ActionIntent("mutate", [1, 2])
+
+
+def test_provider_runtime_fault_is_recorded_without_applying_an_action():
+    class FaultProvider(Provider):
+        def forecast(self, ctx, item, *, deadline):
+            raise RuntimeError("prediction runtime fault")
+    result = decide((candidate(),), FaultProvider())
+    assert result.action is None and result.trace["candidates"][0]["error_type"] == "RuntimeError"
+
+
+def test_forecast_scope_mismatch_never_claims_qualified_threat():
+    result = decide((candidate(),), Provider({"continue":{"evidence":ForecastEvidence("analytic","model","other-domain","reference")}}))
+    assert not result.trace["candidates"][0]["fear"]["qualified"]
+
+
+def test_stop_received_from_another_thread_during_forecast_prevents_commit():
+    from threading import Event, Thread
+    authority, started, release = ActionAuthority(), Event(), Event()
+    outputs = []
+    class BlockingProvider(Provider):
+        def forecast(self, ctx, item, *, deadline):
+            started.set()
+            assert release.wait(2)
+            return forecast(ctx,item)
+    thread = Thread(target=lambda:outputs.append(decide((candidate(),),BlockingProvider(),authority=authority,budget=ComputeBudget(action_seconds=3))))
+    thread.start()
+    assert started.wait(2)
+    authority.stop(); release.set(); thread.join(2)
+    assert not thread.is_alive() and outputs[0].status == "external_stop"
+    applied = []
+    assert authority.commit(outputs[0],applied.append,clock=__import__('time').perf_counter).status == "external_stop"
+    assert not applied

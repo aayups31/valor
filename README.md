@@ -4,6 +4,8 @@ A general research decision model combining threat appraisal (the fear analogy),
 
 The domain-independent core now accepts public context, finite candidates, scoped consequence forecasts and a fixed external policy. A simulated service workflow demonstrates the same core outside robotics. Existing trained task/dynamics weights remain rover-specific; a reusable interface is not evidence of universal learned intelligence. See [the general core architecture](01_Architecture/GENERAL_DECISION_CORE.md).
 
+Project-original source and documentation use [Apache 2.0](LICENSE), selected by the project owner. See [NOTICE](NOTICE) for attribution and third-party scope.
+
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
 
 Latest milestone: an ordinary learned controller completes the checked benign full missions, and a compact learned dynamics ensemble is trained and evaluated. Hazardous controller transfer and damage-model calibration remain insufficient; learned planning and incident memory are still pending. See [build report 04](reports/2026-10-06-build-04.md) for results, limitations and next steps.
@@ -50,6 +52,30 @@ The first demo contains direct/detour heuristics and an **oracle planner**. It d
 Replace `RUN-ID` with the printed run directory. `--resume` accepts a trusted checkpoint bundle created by this project. Bundles include weights/optimizer, replay buffer, hashes, versions, budgets, source identity and exact update counts. Resume begins a fresh episode; it is not exact mid-episode RNG continuation. Initialization/checkpoint I/O and completion of an in-progress operation can exceed the callback's wall-clock target slightly.
 
 The controller uses the established [SB3 SAC implementation](https://stable-baselines3.readthedocs.io/en/v2.7.1/modules/sac.html), two 64-unit hidden layers, one environment and bounded CPU threads. Progress is logged every 1,000 steps and checkpoints every 5,000. Validation is explicitly a development pilot; final research manifests and statistical comparisons are still to be built. `requirements-learning.lock.txt` records the full tested CPU environment.
+
+## General decision core and non-robotic examples
+
+```powershell
+.\.venv\Scripts\python.exe -m aace decision-example --domain service --scenario hazard
+.\.venv\Scripts\python.exe -m aace evaluate-core --episodes 20 --seed-start 10000
+.\.venv\Scripts\python.exe -m aace decision-example --domain rover --scenario shortcut
+```
+
+The service workflow is a local simulation of processing work under threat, quota and integrity constraints. It controls no real service or computer tool. Its analytic forecasts make fast/checked/restoration/abandonment choices inspectable. Core records distinguish forecasts, proposed actions, guarded application and actual outcomes. Unknown or experimental forecasts do not silently become safe probabilities. The rover adapter probe deliberately applies no action when its coarse evidence is unqualified. External stop, stale state and expired results are checked again at the action handoff; blocking calls are not preempted.
+
+The package also declares a `valor` console entry point for fresh installs; the existing `aace` command and `python -m aace` remain compatible. The current browser viewer displays the rover benchmark; the new general-core examples are available through these commands and their exported JSON records.
+
+## Experimental learned threat head
+
+```powershell
+.\.venv\Scripts\python.exe -m aace collect-threat --split train --episodes 6000
+.\.venv\Scripts\python.exe -m aace collect-threat --split selection --episodes 800
+.\.venv\Scripts\python.exe -m aace collect-threat --split check --episodes 800
+.\.venv\Scripts\python.exe -m aace train-threat --training artifacts/datasets/TRAIN-ID --selection artifacts/datasets/SELECTION-ID
+.\.venv\Scripts\python.exe -m aace evaluate-threat --checkpoint artifacts/threat-models/MODEL-ID --check artifacts/datasets/CHECK-ID
+```
+
+Use the printed directories. Observed whole-continuation outcomes train a small neural event head and a simpler linear head on identical public features, batches and update opportunities. Episode IDs, outcome labels and analytic probabilities are not inputs; analytic probabilities are scoring references only. Unknown/censored endings are excluded. The feature-vector learner has no domain dynamics imports; the first feature encoder and trained weights are service-specific. Proper Brier/log-loss scores and reliability bins use separate development episodes. Outputs remain experimental and are not wired into action permission until independent calibration, applicability and risk-bound checks pass.
 
 ## Development data collection
 

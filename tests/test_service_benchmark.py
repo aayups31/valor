@@ -76,3 +76,22 @@ def test_old_rover_forecasts_stay_unqualified_in_general_core():
     assert result.action is None and result.status == "abstained"
     assert all("unqualified_forecast" in row["reason_codes"] for row in result.trace["candidates"])
     assert environment.snapshot().state == before.state
+
+
+def test_benchmark_export_distinguishes_proposed_applied_and_actual_outcome(tmp_path):
+    import json
+    from aace.benchmarks.run import export_example
+    result = export_example("service","hazard",42,tmp_path)
+    report = json.loads(__import__('pathlib').Path(result["report_file"]).read_text())
+    assert result["completed"]
+    assert all(row["commit"]["status"] == "applied" and row["proposed_action"] == row["commit"]["applied_action"] for row in report["decisions"])
+    assert report["decisions"][-1]["actual_outcome"]["status"] == "completed"
+
+
+def test_service_sweep_counts_abandonment_and_blocks_reserved_seed_access(tmp_path):
+    from aace.benchmarks.run import evaluate_service
+    result = evaluate_service(tmp_path,episodes=2)
+    assert result["scenarios"]["low_reserve"]["abandonment_rate"] == 1
+    assert result["scenarios"]["low_reserve"]["completion_rate"] == 0
+    with pytest.raises(ValueError,match="reserved seed"):
+        evaluate_service(tmp_path,episodes=2,seed_start=19999)

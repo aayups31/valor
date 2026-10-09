@@ -106,6 +106,34 @@ def main() -> None:
     world_evaluator.add_argument("--validation", type=Path, required=True)
     world_evaluator.add_argument("--rollout-starts", type=int, default=128)
     world_evaluator.add_argument("--output", type=Path, default=Path("artifacts/validation"))
+    core_example = commands.add_parser("decision-example", help="Inspect the general fear/survival core in a simulation")
+    core_example.add_argument("--domain", choices=("service", "rover"), default="service")
+    core_example.add_argument("--scenario", default="hazard")
+    core_example.add_argument("--seed", type=int, default=42)
+    core_example.add_argument("--action-seconds", type=float, default=2)
+    core_example.add_argument("--max-forecasts", type=int, default=8)
+    core_example.add_argument("--output", type=Path, default=Path("artifacts/decisions"))
+    core_evaluator = commands.add_parser("evaluate-core", help="Run bounded development service-workflow scenarios")
+    core_evaluator.add_argument("--episodes", type=int, default=20)
+    core_evaluator.add_argument("--seed-start", type=int, default=10000)
+    core_evaluator.add_argument("--action-seconds", type=float, default=.1)
+    core_evaluator.add_argument("--max-forecasts", type=int, default=8)
+    core_evaluator.add_argument("--output", type=Path, default=Path("artifacts/validation"))
+    threat_collector = commands.add_parser("collect-threat", help="Collect observed service-continuation event outcomes")
+    threat_collector.add_argument("--split", choices=("train", "selection", "check"), required=True)
+    threat_collector.add_argument("--episodes", type=int, default=800)
+    threat_collector.add_argument("--max-seconds", type=float, default=60)
+    threat_collector.add_argument("--output", type=Path, default=Path("artifacts/datasets"))
+    threat_trainer = commands.add_parser("train-threat", help="Train experimental neural/linear threat heads with matched updates")
+    threat_trainer.add_argument("--training", type=Path, required=True)
+    threat_trainer.add_argument("--selection", type=Path, required=True)
+    threat_trainer.add_argument("--epochs", type=int, default=30)
+    threat_trainer.add_argument("--max-seconds", type=float, default=90)
+    threat_trainer.add_argument("--output", type=Path, default=Path("artifacts/threat-models"))
+    threat_evaluator = commands.add_parser("evaluate-threat", help="Score raw event probabilities on separate development episodes")
+    threat_evaluator.add_argument("--checkpoint", type=Path, required=True)
+    threat_evaluator.add_argument("--check", type=Path, required=True)
+    threat_evaluator.add_argument("--output", type=Path, default=Path("artifacts/validation"))
     args = parser.parse_args()
     if args.command == "doctor":
         result = doctor()
@@ -136,6 +164,22 @@ def main() -> None:
     elif args.command == "evaluate-world":
         from aace.learning.world import evaluate_world
         result = evaluate_world(args.checkpoint, args.validation, args.output, rollout_starts=args.rollout_starts)
+    elif args.command in ("decision-example", "evaluate-core"):
+        from aace.benchmarks.run import evaluate_service, export_example
+        from aace.decision import ComputeBudget
+        budget = ComputeBudget(max_forecasts=args.max_forecasts, action_seconds=args.action_seconds)
+        result = (export_example(args.domain, args.scenario, args.seed, args.output, budget=budget)
+                  if args.command == "decision-example" else
+                  evaluate_service(args.output, episodes=args.episodes, seed_start=args.seed_start, budget=budget))
+    elif args.command == "collect-threat":
+        from aace.benchmarks.threat_data import collect_threat
+        result = collect_threat(args.split,args.episodes,args.output,max_seconds=args.max_seconds)
+    elif args.command == "train-threat":
+        from aace.learning.threat import ThreatTrainSettings, train_threat
+        result = train_threat(ThreatTrainSettings(epochs=args.epochs,max_seconds=args.max_seconds),args.training,args.selection,args.output)
+    elif args.command == "evaluate-threat":
+        from aace.learning.threat import evaluate_threat
+        result = evaluate_threat(args.checkpoint,args.check,args.output)
     else:
         from aace.runtime import Session
         if args.max_seconds <= 0:

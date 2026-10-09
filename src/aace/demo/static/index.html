@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f7f4">
-  <meta name="description" content="Watch a rover weigh its options. See the choice, the evidence, and what really happens. A local VALOR research demo.">
+  <meta name="description" content="VALOR studies decisions under risk, limited resources and time. Explore its first benchmark and the evidence behind each choice.">
   <title>VALOR — Choices, understood.</title>
   <link rel="stylesheet" href="/style.css">
   <script src="/evidence.js" defer></script>
@@ -20,9 +20,9 @@
     <section class="hero" aria-labelledby="hero-title">
       <p class="eyebrow">INTELLIGENCE, MADE UNDERSTANDABLE</p>
       <h1 id="hero-title">Every choice.<br><span>A visible consequence.</span></h1>
-      <p class="hero-copy">Two rovers. One mission. Watch how a simple rule and a planner choose their way forward — and see what actually happens.</p>
+      <p class="hero-copy">Decisions under risk, limited resources and time. Explore VALOR’s first benchmark: two rovers, one mission, and choices you can inspect.</p>
       <div class="hero-actions"><button id="hero-start" class="primary" disabled>Start the demo <span aria-hidden="true">↗</span></button><button id="tour" class="text-button">Show me around <span aria-hidden="true">→</span></button></div>
-      <p class="hero-footnote">Runs locally. No account. No paid API.</p>
+      <p class="hero-footnote">A general decision model. A small research example. Runs locally.</p>
     </section>
     <section class="experiment" id="mission" aria-labelledby="mission-title" tabindex="-1">
       <div class="mission-heading">
@@ -61,7 +61,7 @@
       <details class="records-disclosure"><summary>Decision inspector · detailed record <span class="disclosure-arrow" aria-hidden="true">+</span></summary><p class="section-note">The underlying numbers are here when you need them. The download contains both complete runs.</p><div id="decision-meta" class="record-meta"></div><div class="record-columns"><div><h4>Forecast evidence</h4><pre id="forecast-detail">No forecast yet.</pre></div><div><h4>Applied action &amp; observed result</h4><pre id="outcome">No action yet.</pre></div></div><button id="export" class="text-button" disabled>Download full record <span aria-hidden="true">↓</span></button></details>
     </section>
     <section class="fine-tuning" aria-label="Optional controls"><details id="settings"><summary>Make it your experiment <span class="disclosure-arrow" aria-hidden="true">+</span></summary><p class="section-note">The defaults are ready to use. These settings let you explore further.</p><div class="settings-fields"><div><label for="comparison">Compare the simple route with</label><select id="comparison"><option value="oracle_planner">Simulator planner</option><option value="heuristic_detour">A rule that takes a detour</option><option value="heuristic_direct">The same direct-route rule</option></select><p>The planner tests options. Rules use a fixed approach.</p></div><div><label for="seed">Repeatable starting conditions</label><input id="seed" type="number" min="0" max="2147483647" value="42"><p>The same number repeats the starting conditions and disturbance sequence.</p></div></div><div class="settings-actions"><button id="reset" class="soft-button" disabled>Apply &amp; restart</button><button id="stop" class="text-button brake-button" disabled>Apply brakes</button><span>Braking pauses the demo and applies one braking action. The rover’s momentum still follows physics.</span></div></details></section>
-    <aside class="research-note"><span class="research-symbol" aria-hidden="true">◌</span><p><strong>A preview of the research.</strong> This version uses fixed rules and a planner with the simulator’s known physics. Learned predictions and AACE memory are still to come. Sampled futures are limited estimates; one successful mission does not establish a research advantage.</p></aside>
+    <aside class="research-note"><span class="research-symbol" aria-hidden="true">◌</span><p><strong>One benchmark. A bigger research project.</strong> VALOR studies general decision-making. These rovers use fixed rules and known-physics planning; the experimental learned models and incident memory are not driving this example. Sampled futures are limited estimates, and one successful mission is not research proof.</p></aside>
     <footer><a class="wordmark" href="#">VALOR</a><span>Choices, understood.</span><span>Local research preview · 01</span></footer>
   </main>
   <dialog id="guide-dialog" aria-labelledby="guide-title"><button id="guide-close" class="close-button" aria-label="Close guide">×</button><p class="eyebrow" id="guide-eyebrow">A MOMENT OF CLARITY</p><div class="guide-art" aria-hidden="true"><span class="guide-orbit"></span><span class="guide-orbit second"></span><span class="guide-core">V</span></div><h2 id="guide-title">A small mission.<br>A bigger question.</h2><p id="guide-copy"></p><div id="guide-extra"></div><div class="guide-bottom"><span id="guide-progress"></span><button id="guide-back" class="text-button">Back</button><button id="guide-next" class="primary">Next <span aria-hidden="true">→</span></button></div></dialog>

@@ -6,7 +6,7 @@ from typing import Protocol
 
 from aace.decision.authority import ActionAuthority
 from aace.decision.contracts import (CORE_VERSION, ActionIntent, Candidate, ComputeBudget,
-                                     ConsequenceForecast, DecisionContext, DecisionPolicy, record)
+                                     ConsequenceForecast, DecisionContext, DecisionPolicy, finite, record)
 
 
 class Forecaster(Protocol):
@@ -57,9 +57,13 @@ def assess(context, candidate, forecast, policy):
         reasons.append("capability_floor")
     score = (policy.task_value*forecast.success_probability-policy.recoverable_damage_cost*forecast.recoverable_damage
              -policy.failure_cost*forecast.failure_probability-policy.time_cost*forecast.duration_s) if known and qualified else None
+    for value in (*margins.values(), time_margin, capability_margin):
+        finite(value)
+    if score is not None:
+        finite(score)
     return {"reason_codes": reasons, "score": score,
             "fear": {"failure_probability": forecast.failure_probability,
-                     "failure_upper_bound": forecast.failure_upper_bound, "qualified": qualified and known,
+                     "failure_upper_bound": forecast.failure_upper_bound, "qualified": qualified and known and not any(reason in reasons for reason in ("forecast_identity_mismatch", "forecast_scope_mismatch", "insufficient_forecast_horizon")),
                      "notice": "Action/continuation-specific threat forecast, not an emotion percentage"},
             "survival": {"resource_margins": margins, "time_margin_s": time_margin,
                          "capability_margin": capability_margin}, "forecast": record(forecast)}
@@ -101,7 +105,7 @@ class DecisionEngine:
                 if not evaluated["reason_codes"]:
                     evaluated["reason_codes"] = ["admissible"]
                 records[candidate.identifier].update(evaluated)
-            except (ValueError, TypeError, ArithmeticError) as error:
+            except (ValueError, TypeError, ArithmeticError, RuntimeError, OSError) as error:
                 records[candidate.identifier].update(status="forecast_invalid", reason_codes=["forecast_invalid"], error_type=type(error).__name__)
             interruption = authority.check(context.generation, deadline, clock)
         admissible = [item for item in candidates if records[item.identifier]["status"] == "admissible"]
