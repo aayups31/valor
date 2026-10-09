@@ -4,6 +4,8 @@
 **Authority:** extends the [implementation master plan](../IMPLEMENTATION_MASTER_PLAN.md), especially the threat model, mission policy, recovery and E5 experiments.  
 **User direction:** consider fear, survival instincts, gut decisions, time bounds and pressure together. Preserve the [premium interface direction](../UI_DESIGN_PRINCIPLES.md).
 
+**October 9 implementation update:** [The general decision core](GENERAL_DECISION_CORE.md) now implements forecast-based threat appraisal, resource/capability/time margins, pressure-dependent finite ordering and final stop/state/deadline checks. The core is domain-independent; a non-robotic service simulation and rover adapter use it. Learned fear, qualified memory, learned fast responses and preemptive execution remain unfinished. The original sections below are the staged research design; they should not be read as current executable status.
+
 ## 1. What we aim to achieve
 
 Test whether an agent can recognize familiar danger quickly, preserve the resources needed to act, spend its limited thinking time where it matters, and revise an inappropriate warning after conditions change. Measure improvement in complete missions, repeated avoidable failures and computational cost. Human concepts inspire the mechanism; the experiment does not establish emotions, consciousness or a model of human cognition.

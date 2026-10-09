@@ -1,5 +1,9 @@
 # Build progress
 
+### October 9 — scope clarification and general core
+
+The user clarified that VALOR is a general open-source research decision model with fear/survival mechanisms, not a rover product. The rover remains one benchmark. Added a domain-independent decision contract/engine, fixed-policy threat constraints, resource/capability/time margins, bounded pressure ordering and a final stop/state/deadline authority gate. A non-robotic service-workflow simulation and rover adapter exercise the same core. The latter preserves coarse forecast evidence and abstains rather than pretending it is calibrated. Initial targeted regression: 32 passed. No new neural training or research advantage is claimed. [Architecture and boundaries](01_Architecture/GENERAL_DECISION_CORE.md).
+
 Latest full stop report: [Build report 04 — learned dynamics and return competence](reports/2026-10-06-build-04.md). Previous: [Planning report 03 — fear, survival and pressure](reports/2026-10-03-planning-03-fear-pressure.md), [Build report 02 — premium UI redesign](reports/2026-10-03-build-02-ui.md), [Build report 01](reports/2026-10-03-build-01.md). The overall research build remains in progress.
 
 ### Stop 04 — verified state

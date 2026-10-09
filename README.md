@@ -1,6 +1,8 @@
-# VALOR / AACE
+# VALOR
 
-A local research system investigating whether verified counterfactual memory improves adaptation after limited failure exposure compared with equally resourced simpler methods.
+A general research decision model combining threat appraisal (the fear analogy), resource preservation, time pressure and eventually qualified experience. The rover is one benchmark, not the product. AACE is the hypothesis that verified counterfactual memory improves adaptation beyond equally resourced simpler methods inside this architecture.
+
+The domain-independent core now accepts public context, finite candidates, scoped consequence forecasts and a fixed external policy. A simulated service workflow demonstrates the same core outside robotics. Existing trained task/dynamics weights remain rover-specific; a reusable interface is not evidence of universal learned intelligence. See [the general core architecture](01_Architecture/GENERAL_DECISION_CORE.md).
 
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
 

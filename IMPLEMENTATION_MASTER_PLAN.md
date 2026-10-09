@@ -2,6 +2,8 @@
 
 Review date: October 2, 2026. Status: planning only. No application code, dependency installation, model training or benchmark execution was performed during this review.
 
+October 9 scope clarification: **VALOR is a general research decision model with fear/survival mechanisms; the rover is one benchmark, not its intended product scope.** [The general decision-core architecture](01_Architecture/GENERAL_DECISION_CORE.md) records the reusable contracts, second non-robotic benchmark, implemented mechanisms and current limits. It supersedes rover-specific interpretations of the core boundary and build sequencing. Existing numerical checkpoints remain task-specific. Current executable status is in [build progress](BUILD_PROGRESS.md).
+
 October 3 design extension: [Fear, survival, intuition and pressure](01_Architecture/FEAR_SURVIVAL_AND_PRESSURE_PLAN.md) defines threat learning, resource margins, a fast response path and bounded deliberation. The threat/resource contracts fit this architecture; their extra scheduling and mode mechanisms are staged E5 experiments. This extension is planned, not implemented. Current executable status is recorded in [build progress](BUILD_PROGRESS.md).
 
 This is the current implementation source of truth. It incorporates the user's research-first objective, Core Ultra 185H / Intel Arc / 32 GB RAM computer, preferred $0 incremental monthly cost with a $0–$30 ceiling, and interactive transparent-decision demo. It supersedes conflicting resource, delivery-order and demo assumptions in the earlier planning documents. The original research blueprint remains background material.
