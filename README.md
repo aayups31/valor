@@ -10,7 +10,9 @@ Project-original source and documentation use [Apache 2.0](LICENSE), selected by
 
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
 
-Latest milestone: public-history action-conditioned models predict terminal outcomes, experienced harm, work, recovery, resources, time and integrity. A 635-parameter summary head improves harm Brier by 17.63% relative to a context/action table on 12,000 check records from 500 paired episode IDs, but terminal prediction is worse and strong known-law controls remain better on outages. Public-law auditing exposes contradictions across every learned fit's check contexts; predictions remain unchanged and unqualified. Twelve structured consequence previews and a curated audited example are exported. All 226 regression tests pass. See [build report 11](reports/2026-10-12-build-11.md) and [the frozen continuation protocol](01_Architecture/CONTINUATION_MODEL_PROTOCOL.md). [Report 10](reports/2026-10-12-build-10.md) retains the earlier negative behavior comparison. The premium local demo still uses analytic service forecasts and a hand-specified observer without learned action influence. No felt fear, calibrated learned survival policy or AACE advantage is established.
+Latest milestone: coherent consequence forecasts combine a learned public-history mixture weight with declared simulator physics. All twelve structured heads pass the public-law audit on fresh 12,000 check contexts from 500 paired IDs; the earlier raw heads remain contradictory. The 169-parameter summary model improves composite prediction loss by 14.39% over its matched constant, but the strongest recent-count likelihood control is close and GRU does not improve overall. All 243 regression tests pass. See [build report 12](reports/2026-10-12-build-12.md) and [the frozen structured protocol](01_Architecture/STRUCTURED_CONTINUATION_PROTOCOL.md). [Report 11](reports/2026-10-12-build-11.md) preserves the earlier failure. Coherence comes from supplied physics; per-query risk bounds, trained intrinsic needs and general cascading predictions remain unfinished. The premium local demo still uses analytic service forecasts and a hand-specified observer without learned action influence. No felt fear, qualified learned authority or AACE advantage is established.
+
+The owner's [learned-stakes direction](01_Architecture/INTRINSIC_STAKES_DIRECTION.md) keeps persistent vulnerability, meaningful loss/recovery and downstream consequences central to the model itself, beyond an approval wrapper. These are staged experiments rather than implemented emotional experience.
 
 ## Open the demo
 
@@ -72,6 +74,14 @@ The service workflow is a local simulation of processing work under threat, quot
 The package also declares a `valor` console entry point for fresh installs; the existing `aace` command and `python -m aace` remain compatible. The browser's main study and these commands use the same service decision core. The rover probe applies no action with its unqualified evidence.
 
 ## Experimental learned threat head
+
+The coherent structured comparison reuses a completed continuation fit index and creates fresh checks:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/Run-StructuredPilot.py --continuation-index artifacts/continuation-pilots/pilot-continuation-e526ac4c/index.json
+```
+
+On a fresh checkout run the continuation pilot below first, then use its printed index path. `aace structured-pilot` exposes the same arguments; `--smoke` needs a separate engineering continuation index. The learner estimates a mixture weight from public history; transition laws and two danger levels are supplied. A [coherent preview example](reports/examples/structured-preview-v2.json) separates predicted branches from observed interventions and remains unqualified for action permission. [Report 12](reports/2026-10-12-build-12.md) gives results, controls and limitations.
 
 The action-conditioned continuation experiment runs independently of earlier fitted artifacts:
 

@@ -1,5 +1,16 @@
 # Build progress
 
+### Stop 12 — coherent consequences and learned stakes, October 12
+
+- Recorded the owner's clarified intrinsic-stakes direction: persistent vulnerability/history and cascading consequences belong in the learned mechanism; proctor UI alone is insufficient. Frozen the structured comparison before new checks.
+- Added learned constant/linear/summary/GRU mixture weights, one canonical declared-law decoder, strict source/data/checkpoint/buffer gates and coherent previews. New v2 check schema requires explicit opt-in; v1 artifacts remain isolated.
+- Reused unchanged 3,000 training / 500 selection subjects and historical fits. Fresh checks: 500 paired IDs on 80,000–80,499, four conditions and six context/action interventions, 12,000 action records. Reserved final-test range untouched; no check-driven recipe retry.
+- All twelve structured heads pass public-law checks in every fresh context; historical raw heads retain contradictions. Coherence comes from supplied physics and two hypotheses, not learned universal dynamics or calibrated risk.
+- Summary MLP composite score 0.563735 vs matched constant 0.658468: 14.39% relative prediction-score improvement. Strong recent-count likelihood 0.567112 remains close; one fit is worse and GRU has no overall advantage. No subjective fear, survival-policy superiority or AACE claim.
+- Full regression: 243 passed in 32.71 seconds. Pilot 48.87 seconds, fitting 42.92 seconds, peak sampled process memory 298.29 MiB, CPU/two threads, $0 external spend. Dataset/model/decoder/108 prediction-array/648 reliability-profile/preview/hash audits and offline package/source/static/license checks passed; scientific figure visually reviewed.
+- Three intermediate commits pushed through `a16035e`; [full report 12](reports/2026-10-12-build-12.md) and current documents form the fourth commit. Raw artifacts remain local; curated coherent example is versioned. Main UI/authority unchanged; local visual review pending. All research/build jobs finished.
+- Next: a bounded multi-step task with persistent capability loss, meaningful recovery and downstream effects; freeze causal controls before learning intrinsic-state mechanisms. Per-query uncertainty and real agent/product validation remain separate gates.
+
 ### Stop 11 — action-conditioned consequences and proctor direction, October 12
 
 - Recorded the owner's confirmed agent-proctor and inspectable consequence-preview direction. Frozen the action-conditioned prediction protocol before implementation and checks.
