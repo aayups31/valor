@@ -1,5 +1,16 @@
 # Build progress
 
+### Stop 11 — action-conditioned consequences and proctor direction, October 12
+
+- Recorded the owner's confirmed agent-proctor and inspectable consequence-preview direction. Frozen the action-conditioned prediction protocol before implementation and checks.
+- Added scoped whole-plan outcome models, exact declared-law references, paired public-history/context/action datasets, selection-only restricted checkpoints, reliability diagnostics, qualification gates and twelve structured JSON previews. No real agent/tools are controlled; main UI and existing authority unchanged.
+- Three fitted seeds; 18,000 train / 3,000 selection / 12,000 check action records. Check records represent 500 paired IDs across conditions and contexts. Reserved final-test seeds untouched; no check-driven recipe tuning.
+- Mean summary-model harm Brier 0.141724 vs context/action table 0.172063: 17.63% relative prediction-score reduction. Terminal log loss remains worse; known-law controls remain strong on outages. GRU does not establish an advantage. No felt fear, calibrated authority or AACE claim.
+- Per-query upper bounds and shift/applicability qualification are absent. Many over-limit latent-risk contexts receive low point estimates; no resource-exhaustion events are represented. Post-measurement public-law auditing finds contradictions in every learned fit's check contexts, while all four non-learned references pass. Preview warnings expose them without retraining or rewriting predictions. No experimental forecast can authorize an action.
+- Final full regression: 226 passed in 36.84 seconds. Pre-measurement full regression: 223 passed in 44.49 seconds. Pilot 89.25 seconds, fitting 78.93 seconds, 287.44 MiB sampled peak process memory, CPU/two threads, $0 external spend. Data/model/prediction/preview/hash audits and offline package/source/static/license checks passed; scientific figure visually reviewed.
+- Four meaningful intermediate commits pushed through `04e356a`; [full report 11](reports/2026-10-12-build-11.md) and current documents form the fifth commit. Raw data/models/previews/wheels remain local ignored artifacts, with one audited preview example versioned. All research/build jobs finished; browser visual review remains pending.
+- Next: physically coherent structured predictions, calibration/applicability evidence, broader capability/recovery/resource coverage, a shadow proctor adapter and a clearly labeled consequence explorer before any real authority integration.
+
 ### Stop 10 — guarded behavior rehearsal, October 12
 
 - Frozen history estimates now rank actual offline workload proposals through the existing decision engine and authority. Added fast/careful/preserve execution, irreversible outage, observed harm/repair costs, qualified oracle evidence and explicit abandonment/abstention records.

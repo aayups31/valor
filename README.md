@@ -4,11 +4,13 @@ A general research decision model investigating threat appraisal, vulnerability,
 
 The domain-independent core now accepts public context, finite candidates, scoped consequence forecasts and a fixed external policy. A simulated service workflow demonstrates the same core outside robotics. Existing trained task/dynamics weights remain rover-specific; a reusable interface is not evidence of universal learned intelligence. See [the general core architecture](01_Architecture/GENERAL_DECISION_CORE.md).
 
+The intended product is [a proctor for AI agents doing consequential work](01_Architecture/AGENT_PROCTOR_DIRECTION.md), combining learned harmful experience with explicit consequence assessment, human permissions and inspectable predicted branches. External-agent integrations and qualified learned action permission are future work; current actions run only in simulations.
+
 Project-original source and documentation use [Apache 2.0](LICENSE), selected by the project owner. See [NOTICE](NOTICE) for attribution and third-party scope.
 
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
 
-Latest milestone: frozen history estimates now rank proposals for actual offline task execution through the existing core and a separately labeled privileged analytic guard. In 38,400 paired rehearsals from 100 episode IDs, the strongest simple public rule achieves 84.5% completion with one guard forecast, versus mean GRU 82.94% / summary MLP 83.31%. Evaluating all three alternatives removes actor differences. All 204 regression tests pass. See [build report 10](reports/2026-10-12-build-10.md) and [the frozen decision protocol](01_Architecture/DECISION_REHEARSAL_PROTOCOL.md). [Report 09](reports/2026-10-12-build-09.md) and [report 08](reports/2026-10-12-build-08.md) retain earlier prediction results. The premium local demo still uses analytic service forecasts and a hand-specified observer without learned action influence. No felt fear, calibrated learned survival policy or AACE advantage is established.
+Latest milestone: public-history action-conditioned models predict terminal outcomes, experienced harm, work, recovery, resources, time and integrity. A 635-parameter summary head improves harm Brier by 17.63% relative to a context/action table on 12,000 check records from 500 paired episode IDs, but terminal prediction is worse and strong known-law controls remain better on outages. Public-law auditing exposes contradictions across every learned fit's check contexts; predictions remain unchanged and unqualified. Twelve structured consequence previews and a curated audited example are exported. All 226 regression tests pass. See [build report 11](reports/2026-10-12-build-11.md) and [the frozen continuation protocol](01_Architecture/CONTINUATION_MODEL_PROTOCOL.md). [Report 10](reports/2026-10-12-build-10.md) retains the earlier negative behavior comparison. The premium local demo still uses analytic service forecasts and a hand-specified observer without learned action influence. No felt fear, calibrated learned survival policy or AACE advantage is established.
 
 ## Open the demo
 
@@ -71,6 +73,14 @@ The package also declares a `valor` console entry point for fresh installs; the 
 
 ## Experimental learned threat head
 
+The action-conditioned continuation experiment runs independently of earlier fitted artifacts:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/Run-ContinuationPilot.py
+```
+
+`aace continuation-pilot --smoke` runs a separate small engineering cohort. The complete pilot creates mixed training/selection data, three fits and four paired checks. Its `previews.json` separates predicted action consequences from observed offline outcomes; this is a structured export, not yet a new browser view. No prediction can authorize an action. [Report 11](reports/2026-10-12-build-11.md) documents reproduction, qualification gaps and strong controls.
+
 The offline behavior rehearsal reuses a completed adaptive v2 fit index:
 
 ```powershell
@@ -107,7 +117,7 @@ The earlier candidate-conditioned threat head remains available separately:
 
 Use the printed directories. Observed whole-continuation outcomes train a small neural event head and a simpler linear head on identical public features, batches and update opportunities. Episode IDs, outcome labels and analytic probabilities are not inputs; analytic probabilities are scoring references only. Unknown/censored endings are excluded. The feature-vector learner has no domain dynamics imports; the first feature encoder and trained weights are service-specific. Proper Brier/log-loss scores and reliability bins use separate development episodes. Outputs remain experimental and are not wired into action permission until independent calibration, applicability and risk-bound checks pass.
 
-Both heads start from the training event rate; the constant prior is also an eligible checkpoint. The 1,441-parameter neural head achieved Brier 0.03686 / log loss 0.13473 on 800 separate synthetic episodes, versus 0.03778 / 0.14631 for the 11-parameter linear head. This is one training seed after two development recipe trials, with only 34 failure events. It does not establish AACE benefit, individual risk bounds or general transfer. Complete controls and reliability bins are in the latest report.
+Both heads start from the training event rate; the constant prior is also an eligible checkpoint. The 1,441-parameter neural head achieved Brier 0.03686 / log loss 0.13473 on 800 separate synthetic episodes, versus 0.03778 / 0.14631 for the 11-parameter linear head. This is one training seed after two development recipe trials, with only 34 failure events. It does not establish AACE benefit, individual risk bounds or general transfer. Complete controls and reliability bins are in [report 05](reports/2026-10-09-build-05.md).
 
 ## Development data collection
 
