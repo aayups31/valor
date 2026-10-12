@@ -34,9 +34,9 @@ One forecast permits only the first evaluated plan. Three forecasts evaluate all
 
 ## Frozen pilot and interpretation
 
-100 new paired episode seeds [16000,16100), four cue-history conditions (stable, extinction, reversal, recurrence), three public resource/time contexts and budgets of one/three forecasts. No training or model selection is performed. These seeds are distinct from v1/v2 measured groups and avoid reserved [20000,30000) final-test seeds. Fifteen actors: six fitted learned heads, five simple history controls, one constant prior and three fixed orders. Non-learned controls run once, not duplicated as independent fitted seeds.
+100 new paired episode seeds [16000,16100), four cue-history conditions (stable, extinction, reversal, recurrence), three public resource/time contexts and budgets of one/three forecasts. No training or model selection is performed. These seeds are distinct from v1/v2 measured groups and avoid reserved [20000,30000) final-test seeds. Sixteen actors after the pre-measurement clarification: six fitted learned heads, five simple history controls, one constant prior and four fixed public rules. Non-learned controls run once, not duplicated as independent fitted seeds.
 
-36,000 finite one-choice rehearsals. Retain per-episode results and replayable example traces, dataset/model hashes, source identity, forecast/prediction work and CPU timing. Whole-pilot limits: 180 seconds, 1,024 MiB sampled process memory, two PyTorch threads. Checks are cooperative. No real services/files/devices are controlled; no paid resources.
+38,400 finite one-choice rehearsals. Retain per-episode results and replayable example traces, dataset/model hashes, source identity, forecast/prediction work and CPU timing. Whole-pilot limits: 180 seconds, 1,024 MiB sampled process memory, two PyTorch threads. Checks are cooperative. No real services/files/devices are controlled; no paid resources.
 
 Report completion and failure separately from abandonment/abstention, encountered harm even after repair, resource use, repair cost, time, missed feasible tasks, guard rejections, urgency overrides and forecast calls. Confidence intervals resample paired episode IDs, with learned fitted-seed variability separate. Do not optimize on these checks or choose a winning actor separately per condition for deployment.
 

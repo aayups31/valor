@@ -26,7 +26,8 @@ def frozen_predictions(index_path,sequences):
     for fit in source["fits"]:
         checkpoint=Path(fit["model"]["directory"])
         models,m=load_history_model(checkpoint)
-        if m["model_version"]!=ADAPTIVE_VERSION or m["weights_sha256"]!=fit["model"]["weights_sha256"] or m["settings"]["seed"]!=fit["seed"] or m["settings"]["epochs"]!=25 or m["training_episodes"]!=3000 or m["selection_episodes"]!=500:
+        expected_settings={"seed":fit["seed"],"epochs":25,"batch_size":128,"max_seconds":120,"max_memory_mb":1024,"threads":2}
+        if m["model_version"]!=ADAPTIVE_VERSION or m["weights_sha256"]!=fit["model"]["weights_sha256"] or m["settings"]!=expected_settings or m["training_episodes"]!=3000 or m["selection_episodes"]!=500:
             raise ValueError("Rehearsal estimator differs from frozen v2 recipe")
         if first is None:first=m
         elif any(m[k]!=first[k] for k in ("training_sha256","selection_sha256","training_prevalence")) or m["adaptive_controls"]["settings"]!=first["adaptive_controls"]["settings"]:
@@ -66,6 +67,25 @@ def aggregate_records(records):
             "oracle_feasible_episodes":sum(bool(r["oracle_feasible_tasks"]) for r in rows),
             "urgency_overrides":sum(r["urgency_overrode_order"] for r in rows),
             "means":{n:float(np.mean([r[n] for r in rows])) for n in numeric}})
+    return result
+
+
+def cluster_intervals(records):
+    """Resample episode IDs, keeping all repeated contexts within each cluster."""
+    actors=sorted({r["actor"] for r in records});result=[]
+    for budget in sorted({r["budget"] for r in records}):
+        grouped={}
+        for row in records:
+            if row["budget"]==budget:
+                grouped.setdefault((row["actor"],row["seed"]),[]).append(row)
+        seeds=sorted({seed for actor,seed in grouped if actor=="public_careful"})
+        for actor in actors:
+            for metric in ("completed","missed_feasible_task"):
+                first=np.array([np.mean([r[metric] for r in grouped[(actor,seed)]]) for seed in seeds])
+                second=np.array([np.mean([r[metric] for r in grouped[("public_careful",seed)]]) for seed in seeds])
+                interval=paired_interval(first,second)
+                interval["notice"]="Paired episode-ID cluster bootstrap keeps repeated conditions/contexts together; one actor, no fitted-seed uncertainty"
+                result.append({"budget":budget,"actor":actor,"metric":metric,"subject_clusters":len(seeds),**interval})
     return result
 
 
@@ -132,6 +152,7 @@ def run_rehearsal(index_path: Path,output: Path,*,smoke=False):
                         paired.append({"condition":condition,"scenario":scenario,"budget":budget,"actor":actor,"metric":metric,**interval})
     (directory/"examples.json").write_text(json.dumps(examples,indent=2,allow_nan=False),encoding="utf-8")
     progress.update({"status":"complete","records":len(records),"aggregate":aggregate_records(records),
+        "pooled_cluster_differences":cluster_intervals(records),
         "paired_differences_against_public_careful":paired,"elapsed_s":time.perf_counter()-began,
         "peak_sampled_memory_mb":max(peak,memory_mb()),"records_sha256":digest(directory/"episodes.jsonl"),
         "examples_sha256":digest(directory/"examples.json"),"examples":len(examples),

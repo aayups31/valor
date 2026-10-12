@@ -135,3 +135,29 @@ def test_aggregates_preserve_abandonment_failure_and_forecast_work():
     assert fast["abstained"]==1 and preserve["abandoned"]==1
     assert fast["failed"]==preserve["failed"]==0
     assert fast["means"]["guard_forecasts"]==1
+
+
+def test_pooled_uncertainty_keeps_repeated_contexts_in_subject_clusters():
+    pytest.importorskip("torch")
+    from aace.learning.rehearsal import cluster_intervals
+    rows=[]
+    for seed in (17001,17002):
+        for scenario in ("normal","reserve_pressure"):
+            for actor,value in (("public_careful",True),("always_preserve",False)):
+                rows.append({"actor":actor,"seed":seed,"scenario":scenario,"budget":1,"completed":value,"missed_feasible_task":not value})
+    result=next(r for r in cluster_intervals(rows) if r["actor"]=="always_preserve" and r["metric"]=="completed")
+    assert result["subject_clusters"]==2 and result["mean_delta"]==-1
+    assert result["episode_bootstrap_95_percent"]==[-1.,-1.]
+
+
+def test_rehearsal_rejects_a_nonfrozen_estimator_recipe(tmp_path,monkeypatch):
+    pytest.importorskip("torch")
+    import json,numpy as np
+    from aace.learning import rehearsal as runner
+    index={"status":"complete","fits":[{"seed":seed,"model":{"directory":"unused","weights_sha256":"same"}} for seed in (42,43,44)]}
+    path=tmp_path/"index.json";path.write_text(json.dumps(index))
+    metadata={"model_version":runner.ADAPTIVE_VERSION,"weights_sha256":"same","training_episodes":3000,"selection_episodes":500,
+        "settings":{"seed":42,"epochs":25,"batch_size":64,"max_seconds":120,"max_memory_mb":1024,"threads":2}}
+    monkeypatch.setattr(runner,"load_history_model",lambda p:({},metadata))
+    with pytest.raises(ValueError,match="frozen v2 recipe"):
+        runner.frozen_predictions(path,np.zeros((1,13,6),dtype=np.float32))
