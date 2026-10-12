@@ -2,6 +2,8 @@
 
 Frozen October 12, 2026 before measurement. This is an offline controlled task experiment, not learned risk qualification, realistic deployment, felt fear or an AACE test.
 
+Pre-measurement clarification: include a public-feasibility careful-first rule as a stronger fixed comparator. This makes sixteen actors and 38,400 rehearsals. Minimum necessary task time is 3 seconds (fast processing with no harm); the predefined contexts need not activate urgency ordering. The constrained budget counts qualified guard forecasts only; three cheap experimental plan transforms, predictor work and retrospective audit calculations are recorded separately. Total computation is not matched.
+
 ## Question and scope
 
 Can history-based estimates improve finite proposal ordering when decision work is limited? Separate predictor proposals from the unchanged external action permission. Test completion, irreversible outages, recoverable harm, recovery costs and unnecessary task avoidance. Compare with simple fixed-order controls, not just a weaker stateless neural baseline.
@@ -23,6 +25,8 @@ The **analytic guard has privileged access to latent p** in this constructed sim
 ## Proposal controls
 
 Frozen v2 GRU and summary MLP from each fitted seed; counts, forgetting, recent window, change detector and known-law Markov/Bayes settings from the v2 selection record; constant training-event prevalence; always-fast-first, always-careful-first and always-preserve-first controls.
+
+Public-feasibility careful-first checks worst-case time/resource requirements without any probability estimate. It prefers a structurally feasible careful plan, then fast, then preserve. It receives no latent cue state or retrospective audit result.
 
 Estimated probabilities are experimental. Estimate plan scores and constraints with the common public task context and declared action transforms. Rank estimated-admissible plans before estimated-rejected plans, sorting each group by the same objective. This ranks search proposals only and cannot apply an action. Record estimated ordering separately from actual guard evaluation ordering, including urgency overrides. Fixed-order controls have no predictive advantage or probability requirement.
 

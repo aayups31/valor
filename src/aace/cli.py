@@ -159,6 +159,10 @@ def main() -> None:
     adaptive_collector.add_argument("--episodes",type=int,default=500)
     adaptive_collector.add_argument("--output",type=Path,default=Path("artifacts/adaptive-history-data"))
     history_trainer.add_argument("--adaptive",action="store_true",help="Use the v2 mixed-change protocol and stronger controls")
+    rehearsal = commands.add_parser("decision-rehearsal",help="Replay frozen estimators under a separate simulator oracle guard")
+    rehearsal.add_argument("--pilot-index",type=Path,required=True)
+    rehearsal.add_argument("--output",type=Path,default=Path("artifacts/decision-rehearsals"))
+    rehearsal.add_argument("--smoke",action="store_true",help="Engineering examples on disjoint seeds, not the frozen pilot")
     args = parser.parse_args()
     if args.command == "doctor":
         result = doctor()
@@ -215,6 +219,9 @@ def main() -> None:
     elif args.command == "collect-adaptive":
         from aace.benchmarks.adaptive_history import collect_adaptive
         result = collect_adaptive(args.split,args.episodes,args.output,condition=args.condition)
+    elif args.command == "decision-rehearsal":
+        from aace.learning.rehearsal import run_rehearsal
+        result = run_rehearsal(args.pilot_index,args.output,smoke=args.smoke)
     elif args.command == "evaluate-history":
         from aace.learning.history import evaluate_history
         result = evaluate_history(args.checkpoint,args.check,args.output)
