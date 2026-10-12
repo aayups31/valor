@@ -19,6 +19,21 @@ from aace.telemetry import source_provenance
 
 VERSION = "history-event-head-v1"
 KINDS = ("stateless", "history_linear", "history_mlp", "gru")
+ADAPTIVE_VERSION = "history-event-head-v2-adaptive"
+SUMMARY_FEATURES = ["query_cue_exposures", "query_cue_rate", "recent_query_exposures", "recent_query_rate",
+                    "other_cue_rate", "recent_other_rate", "whole_harm_rate", "query_cue_a", "integrity", "reserve_fraction"]
+
+
+def summary_features(sequence):
+    history,query = sequence[:,:-1],sequence[:,-1]
+    harm = history[:,:,2]/.25
+    matched = (history[:,:,:2]*query[:,None,:2]).sum(dim=2)
+    other = 1-matched
+    def rate(mask,events):
+        return ((mask*events).sum(dim=1)+1)/(mask.sum(dim=1)+2)
+    return torch.stack((matched.sum(dim=1)/ENCOUNTERS,rate(matched,harm),matched[:,-4:].sum(dim=1)/4,
+        rate(matched[:,-4:],harm[:,-4:]),rate(other,harm),rate(other[:,-4:],harm[:,-4:]),harm.mean(dim=1),
+        query[:,0],query[:,4],query[:,5]),dim=1)
 
 
 @dataclass(frozen=True)
@@ -40,7 +55,7 @@ class HistoryTrainSettings:
 class HistoryHead(nn.Module):
     def __init__(self, kind):
         super().__init__()
-        if kind not in KINDS:
+        if kind not in (*KINDS,"summary_mlp"):
             raise ValueError("Unknown history model")
         self.kind = kind
         dimension = len(FEATURES)*(ENCOUNTERS+1)
@@ -50,14 +65,15 @@ class HistoryHead(nn.Module):
         elif kind == "history_linear":
             self.head = nn.Linear(dimension,1)
         else:
-            self.head = nn.Sequential(nn.Linear(len(FEATURES) if kind == "stateless" else dimension,14),
+            inputs = len(FEATURES) if kind == "stateless" else len(SUMMARY_FEATURES) if kind == "summary_mlp" else dimension
+            self.head = nn.Sequential(nn.Linear(inputs,14),
                                       nn.SiLU(),nn.Linear(14,1))
 
     def forward(self, sequence):
         if self.kind == "gru":
             features, _ = self.recurrent(sequence)
             return self.head(features[:,-1])
-        features = sequence[:,-1] if self.kind == "stateless" else sequence.flatten(start_dim=1)
+        features = sequence[:,-1] if self.kind == "stateless" else summary_features(sequence) if self.kind == "summary_mlp" else sequence.flatten(start_dim=1)
         return self.head(features)
 
     def step(self, observation, state=None):
@@ -68,18 +84,26 @@ class HistoryHead(nn.Module):
         return self.head(features[:,0]), state
 
 
-def train_history(settings, training: Path, selection: Path, output: Path):
+def train_history(settings, training: Path, selection: Path, output: Path, *, adaptive=False):
     started = time.perf_counter()
     provenance = source_provenance()
-    data, manifest = load_history(training,"train")
-    validation, val_manifest = load_history(selection,"selection")
+    if adaptive:
+        from aace.benchmarks.adaptive_history import load_adaptive
+        from aace.learning.adaptive_controls import fit_controls
+        loader = load_adaptive
+    else:
+        loader = load_history
+    data, manifest = loader(training,"train")
+    validation, val_manifest = loader(selection,"selection")
     if set(data["episode_seeds"]) & set(validation["episode_seeds"]):
         raise ValueError("History training/selection overlap")
     torch.set_num_threads(settings.threads)
     torch.manual_seed(settings.seed)
-    models = {name:HistoryHead(name) for name in KINDS}
+    kinds = (*KINDS,"summary_mlp") if adaptive else KINDS
+    models = {name:HistoryHead(name) for name in kinds}
     prevalence = float(data["labels"].mean())
     prior = min(1-1e-4,max(1e-4,prevalence))
+    adaptive_controls = fit_controls(data["labels"],validation["sequences"],validation["labels"]) if adaptive else None
     with torch.no_grad():
         for model in models.values():
             head = model.head[-1] if isinstance(model.head,nn.Sequential) else model.head
@@ -126,7 +150,9 @@ def train_history(settings, training: Path, selection: Path, output: Path):
     directory = output/f"history-model-{settings.seed}-{uuid4().hex[:8]}"
     directory.mkdir(parents=True,exist_ok=False)
     torch.save(weights,directory/"weights.pt")
-    metadata = {"model_version":VERSION,"dataset_schema":SCHEMA,"feature_names":FEATURES,
+    metadata = {"model_version":ADAPTIVE_VERSION if adaptive else VERSION,"dataset_schema":manifest["schema"],"feature_names":FEATURES,
+        "model_kinds":list(kinds),"summary_feature_names":SUMMARY_FEATURES if adaptive else [],
+        "adaptive_controls":adaptive_controls,
         "encounters":ENCOUNTERS,"settings":asdict(settings),"training_sha256":manifest["dataset_sha256"],
         "selection_sha256":val_manifest["dataset_sha256"],"training_episodes":len(x),"selection_episodes":len(vx),
         "training_seed_range":[int(data["episode_seeds"].min()),int(data["episode_seeds"].max())],
@@ -145,15 +171,25 @@ def train_history(settings, training: Path, selection: Path, output: Path):
 
 def load_history_model(checkpoint: Path):
     metadata = json.loads((checkpoint/"model.json").read_text(encoding="utf-8"))
-    if metadata.get("model_version") != VERSION or metadata.get("dataset_schema") != SCHEMA or metadata.get("feature_names") != FEATURES or metadata.get("encounters") != ENCOUNTERS or metadata.get("decision_ready") is not False:
+    adaptive = metadata.get("model_version") == ADAPTIVE_VERSION
+    if adaptive:
+        from aace.benchmarks.adaptive_history import SCHEMA as expected_schema
+        from aace.learning.adaptive_controls import validate_controls
+        kinds = (*KINDS,"summary_mlp")
+        if metadata.get("model_kinds") != list(kinds) or metadata.get("summary_feature_names") != SUMMARY_FEATURES or not isinstance(metadata.get("adaptive_controls"),dict):
+            raise ValueError("Adaptive checkpoint control/summary contract mismatch")
+        validate_controls(metadata["adaptive_controls"])
+    else:
+        expected_schema,kinds = SCHEMA,KINDS
+    if metadata.get("model_version") not in (VERSION,ADAPTIVE_VERSION) or metadata.get("dataset_schema") != expected_schema or metadata.get("feature_names") != FEATURES or metadata.get("encounters") != ENCOUNTERS or metadata.get("decision_ready") is not False:
         raise ValueError("History checkpoint contract mismatch")
     if digest(checkpoint/"weights.pt") != metadata["weights_sha256"]:
         raise ValueError("History checkpoint hash mismatch")
     settings = HistoryTrainSettings(**metadata["settings"])
     torch.set_num_threads(settings.threads)
-    models = {name:HistoryHead(name) for name in KINDS}
+    models = {name:HistoryHead(name) for name in kinds}
     weights = torch.load(checkpoint/"weights.pt",map_location="cpu",weights_only=True)
-    if set(weights) != set(KINDS) or any(not torch.isfinite(value).all() for model in weights.values() for value in model.values()):
+    if set(weights) != set(kinds) or any(not torch.isfinite(value).all() for model in weights.values() for value in model.values()):
         raise ValueError("Invalid history weights")
     for name,model in models.items():
         model.load_state_dict(weights[name]);model.eval()
@@ -170,7 +206,13 @@ def paired_interval(first, second, seed=42):
 
 def evaluate_history(checkpoint: Path, check: Path, output: Path):
     models, metadata = load_history_model(checkpoint)
-    data, manifest = load_history(check,"check")
+    adaptive = metadata["model_version"] == ADAPTIVE_VERSION
+    if adaptive:
+        from aace.benchmarks.adaptive_history import load_adaptive
+        from aace.learning.adaptive_controls import predict_control
+        data,manifest = load_adaptive(check,"check")
+    else:
+        data,manifest = load_history(check,"check")
     seeds = data["episode_seeds"]
     for group in ("training_seed_range","selection_seed_range"):
         lo,hi = metadata[group]
@@ -189,22 +231,40 @@ def evaluate_history(checkpoint: Path, check: Path, output: Path):
         # Deterministic cross-episode rotation preserves each query and destroys
         # its association with its own observed history. Not a new training set.
         shuffled[:,:-1] = x[torch.roll(torch.arange(len(x)),1),:-1]
-        for name in ("gru","history_mlp"):
+        for name in (("gru","history_mlp","summary_mlp") if adaptive else ("gru","history_mlp")):
             predictions[name+"_shuffled_history"] = torch.sigmoid(models[name](shuffled)).numpy().ravel()
-    predictions.update(history_controls(sequence))
+    if adaptive:
+        controls = metadata["adaptive_controls"]
+        for name,specification in controls["settings"].items():
+            started = time.perf_counter()
+            predictions[name] = predict_control(sequence,specification,controls["prior"])
+            timings[name] = 1000*(time.perf_counter()-started)/len(sequence)
+    else:
+        predictions.update(history_controls(sequence))
     predictions["constant_prevalence"] = np.full(len(x),metadata["training_prevalence"])
     predictions["hidden_state_reference"] = data["reference_probability"]
     labels = data["labels"]
     scores = {name:(prob-labels)**2 for name,prob in predictions.items()}
     metrics = {name:dict(probability_metrics(prob,labels),reference_probability_rmse=float(np.sqrt(np.mean((prob-data["reference_probability"])**2)))) for name,prob in predictions.items()}
-    report = {"protocol":"repaired-body history probe v1; separate development episodes, not a final-test or survival-policy result",
+    if adaptive:
+        for name,prob in predictions.items():
+            groups={}
+            for group,reference in (("low_probability",.05),("high_probability",.65)):
+                mask=data["reference_probability"]==reference
+                if mask.any():
+                    groups[group]={"count":int(mask.sum()),"mean_prediction":float(prob[mask].mean()),
+                        "mean_reference":reference,"prediction_bias":float(prob[mask].mean()-reference),
+                        "observed_event_rate":float(labels[mask].mean()),"brier":float(np.mean((prob[mask]-labels[mask])**2))}
+            metrics[name]["conditional_reference_groups"]=groups
+    report = {"protocol":("adaptive repaired-body history probe v2" if adaptive else "repaired-body history probe v1")+"; separate development episodes, not a final-test or survival-policy result",
+        "model_version":metadata["model_version"],"control_selection":metadata.get("adaptive_controls"),
         "condition":manifest["condition"],"checkpoint":str(checkpoint.resolve()),"model_sha256":metadata["weights_sha256"],
         "check_sha256":manifest["dataset_sha256"],"check_seed_range":[int(seeds.min()),int(seeds.max())],
         "metrics":metrics,"gru_brier_differences":{name:paired_interval(scores["gru"],value) for name,value in scores.items() if name != "gru"},
         "batch_amortized_inference_ms_per_episode":timings,"inference_notice":"One full batch after warmup; not single-request latency or a deadline guarantee",
         "observed_history_damage_events":int((sequence[:,:-1,2]/.25).sum()),"total_recovery_units":int(data["recovery_units"].sum()),
         "evidence_kind":"experimental","decision_ready":False,"external_spend_usd":0,
-        "baseline_notice":"Cue-count control uses public history; stable-law Bayes knows the generation law; hidden-state reference has privileged latent information",
+        "baseline_notice":("Adaptive controls use public history and selection-only settings; Markov/Bayes knows the likelihood law, not hidden schedules; hidden-state reference has privileged latent information" if adaptive else "Cue-count control uses public history; stable-law Bayes knows the generation law; hidden-state reference has privileged latent information"),
         "remaining_gates":["broader replicated and final evaluation", "independent calibration and shift qualification", "causal action coupling and excessive-avoidance tests", "matched counterfactual memory comparison"],
         **source_provenance()}
     output.mkdir(parents=True,exist_ok=True)

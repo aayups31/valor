@@ -153,6 +153,12 @@ def main() -> None:
     history_evaluator.add_argument("--checkpoint", type=Path, required=True)
     history_evaluator.add_argument("--check", type=Path, required=True)
     history_evaluator.add_argument("--output", type=Path, default=Path("artifacts/validation"))
+    adaptive_collector = commands.add_parser("collect-adaptive", help="Collect mixed changing-danger histories or separated checks")
+    adaptive_collector.add_argument("--split",choices=("train","selection","check"),required=True)
+    adaptive_collector.add_argument("--condition",choices=("mixed","stable","extinction","reversal","recurrence"),default="mixed")
+    adaptive_collector.add_argument("--episodes",type=int,default=500)
+    adaptive_collector.add_argument("--output",type=Path,default=Path("artifacts/adaptive-history-data"))
+    history_trainer.add_argument("--adaptive",action="store_true",help="Use the v2 mixed-change protocol and stronger controls")
     args = parser.parse_args()
     if args.command == "doctor":
         result = doctor()
@@ -205,7 +211,10 @@ def main() -> None:
     elif args.command == "train-history":
         from aace.learning.history import HistoryTrainSettings,train_history
         result = train_history(HistoryTrainSettings(seed=args.seed,epochs=args.epochs,max_seconds=args.max_seconds,
-                               threads=args.threads,max_memory_mb=args.memory_mb),args.training,args.selection,args.output)
+                               threads=args.threads,max_memory_mb=args.memory_mb),args.training,args.selection,args.output,adaptive=args.adaptive)
+    elif args.command == "collect-adaptive":
+        from aace.benchmarks.adaptive_history import collect_adaptive
+        result = collect_adaptive(args.split,args.episodes,args.output,condition=args.condition)
     elif args.command == "evaluate-history":
         from aace.learning.history import evaluate_history
         result = evaluate_history(args.checkpoint,args.check,args.output)

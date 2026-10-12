@@ -78,21 +78,27 @@ def collect_history(split, episodes, output: Path, *, condition="stable", max_se
     return dict(manifest,directory=str(directory.resolve()))
 
 
-def load_history(directory: Path, expected_split):
+def load_history(directory: Path, expected_split, *, adaptive=False):
+    # V1 remains the default and rejects v2 artifacts unless explicitly opted in.
+    if adaptive:
+        from aace.benchmarks.adaptive_history import SCHEMA as schema, SPLITS as splits, CONDITIONS as conditions
+    else:
+        schema, splits, conditions = SCHEMA, SPLITS, CONDITIONS
     manifest = json.loads((directory/"manifest.json").read_text(encoding="utf-8"))
-    if expected_split not in SPLITS or manifest.get("split") != expected_split or manifest.get("schema") != SCHEMA:
+    if expected_split not in splits or manifest.get("split") != expected_split or manifest.get("schema") != schema:
         raise ValueError("History dataset split/schema mismatch")
     condition = manifest.get("condition")
-    if condition not in CONDITIONS or (expected_split != "check" and condition != "stable"):
+    allowed = ("mixed",) if adaptive and expected_split != "check" else conditions
+    if condition not in allowed or (not adaptive and expected_split != "check" and condition != "stable"):
         raise ValueError("History condition mismatch")
-    if manifest.get("feature_names") != FEATURES or manifest.get("encounters") != ENCOUNTERS or manifest.get("probabilities") != [LOW,HIGH] or manifest.get("seed_intervals") != {k:list(v) for k,v in SPLITS.items()}:
+    if manifest.get("feature_names") != FEATURES or manifest.get("encounters") != ENCOUNTERS or manifest.get("probabilities") != [LOW,HIGH] or manifest.get("seed_intervals") != {k:list(v) for k,v in splits.items()}:
         raise ValueError("History codec/protocol mismatch")
     if digest(directory/"episodes.npz") != manifest["dataset_sha256"]:
         raise ValueError("History dataset hash mismatch")
     with np.load(directory/"episodes.npz", allow_pickle=False) as archive:
         data = {name:archive[name].copy() for name in archive.files}
     count = manifest["episodes"]
-    if type(count) is not int or not 1 <= count <= SPLITS[expected_split][1]-SPLITS[expected_split][0] or set(data) != {"sequences","labels","episode_seeds","reference_probability","recovery_units"}:
+    if type(count) is not int or not 1 <= count <= splits[expected_split][1]-splits[expected_split][0] or set(data) != {"sequences","labels","episode_seeds","reference_probability","recovery_units"}:
         raise ValueError("Invalid history dataset fields/capacity")
     x = data["sequences"]
     if x.shape != (count,ENCOUNTERS+1,len(FEATURES)) or not np.isfinite(x).all() or np.any((x < 0) | (x > 1)):
@@ -110,7 +116,7 @@ def load_history(directory: Path, expected_split):
     if not np.array_equal(data["recovery_units"], (x[:,:-1,2]/.25).sum(axis=1)*2):
         raise ValueError("Recovery cost does not match observed damage")
     seeds = data["episode_seeds"]
-    if seeds.dtype.kind not in "iu" or len(np.unique(seeds)) != count or np.any(seeds < SPLITS[expected_split][0]) or np.any(seeds >= SPLITS[expected_split][1]):
+    if seeds.dtype.kind not in "iu" or len(np.unique(seeds)) != count or np.any(seeds < splits[expected_split][0]) or np.any(seeds >= splits[expected_split][1]):
         raise ValueError("History episode seed overlap/outside split")
     data["sequences"] = x.astype(np.float32)
     return data, manifest
