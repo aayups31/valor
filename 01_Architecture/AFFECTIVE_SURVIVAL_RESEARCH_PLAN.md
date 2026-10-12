@@ -33,6 +33,8 @@ Time must be monotonic within an observer instance. Creating a new instance rese
 
 ## Integration and measurement sequence
 
+October 12 progress: [the repaired-body history probe](HISTORY_SURVIVAL_PROTOCOL.md) now supplies a controlled predictive task and matched comparisons. A compact recurrent head was trained across three seeds, but simple cue counts outperform it under stable danger. Shifts remain unqualified. This is separate from the hand-specified observer and does not supply an emotional policy or evidence of feeling. [Full measurements](../reports/2026-10-12-build-08.md). Strengthen adaptive history controls before action coupling; retain the failed frozen recipe unchanged.
+
 1. Keep the existing risk-constrained core as the stateless comparator. Qualify learned forecasts independently; an activation state cannot replace a risk bound.
 2. Define and freeze a small environment with persistent costs, repair, equivalent visible states and different histories. Establish oracle and simple history-aware controls. Reserve separate training, development and final episode groups.
 3. Train a compact recurrent survival/self-model on public action/outcome history. Record all incidents, updates, state size and inference work. Test predictive value against a feed-forward head with matched history features.

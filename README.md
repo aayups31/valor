@@ -8,7 +8,7 @@ Project-original source and documentation use [Apache 2.0](LICENSE), selected by
 
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
 
-Latest milestone: the main viewer now presents a general service decision study with actual forecasts, alternatives, observed outcomes and an experimental persistent affect observer. The observer retains damage/cue history but is hand-specified and does not influence choices or establish felt fear. All 145 regression tests pass. See [build report 06](reports/2026-10-09-build-06.md) and [the affective survival research direction](01_Architecture/AFFECTIVE_SURVIVAL_RESEARCH_PLAN.md). [Report 05](reports/2026-10-09-build-05.md) retains the promising but unqualified learned threat results; [report 04](reports/2026-10-06-build-04.md) retains the rover controller/dynamics results.
+Latest milestone: a repaired-body history benchmark and compact recurrent predictor now test anticipation from previous harm against simpler controls. Across three fitted seeds, simple cue counts outperform the GRU under stable danger; shifted danger remains unqualified. All 164 regression tests pass. See [build report 08](reports/2026-10-12-build-08.md) and [the frozen protocol](01_Architecture/HISTORY_SURVIVAL_PROTOCOL.md). The premium local demo still uses analytic service forecasts and a hand-specified observer without learned action influence. [Report 06](reports/2026-10-09-build-06.md) describes that observer; [report 05](reports/2026-10-09-build-05.md) retains the separate learned threat results; [report 04](reports/2026-10-06-build-04.md) retains rover controller/dynamics results. No felt fear or AACE advantage is established.
 
 ## Open the demo
 
@@ -70,6 +70,16 @@ The service workflow is a local simulation of processing work under threat, quot
 The package also declares a `valor` console entry point for fresh installs; the existing `aace` command and `python -m aace` remain compatible. The browser's main study and these commands use the same service decision core. The rover probe applies no action with its unqualified evidence.
 
 ## Experimental learned threat head
+
+The separate repaired-body history experiment can be reproduced with:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/Run-HistoryPilot.py
+```
+
+It creates new datasets, four learned controls for each of three training seeds, and stable/extinction/reversal development checks. Individual commands are `collect-history`, `train-history` and `evaluate-history`; use `--help` for arguments. This requires the optional learning stack and controls no real service. The frozen pilot found mean Brier 0.21693 for its recurrent head versus 0.17097 for simple cue counts. Its checkpoints are experimental and do not select demo actions. Full results and limitations are in [report 08](reports/2026-10-12-build-08.md).
+
+The earlier candidate-conditioned threat head remains available separately:
 
 ```powershell
 .\.venv\Scripts\python.exe -m aace collect-threat --split train --episodes 6000

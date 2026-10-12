@@ -1,5 +1,14 @@
 # Build progress
 
+### Stop 08 — learned survival-history prediction, October 12
+
+- Frozen repaired-body cue-history benchmark, separated/hashed data, public-history controls and shifted-condition checks implemented. Future query outcomes, latent assignments and seed metadata are excluded from inputs.
+- Added 1,169-parameter GRU with streaming state/reset, a similarly sized 1,121-parameter history MLP, linear/stateless controls, equal update/checkpoint opportunities, simple cue counts, known-law/privileged references and shuffled-history ablations.
+- Three frozen development fits on 3,000 training / 500 selection episodes, with 500 check episodes per condition. Mean stable Brier: GRU 0.21693, cue counts 0.17097, known-law Bayes 0.15234. Simple counts win; shifted danger remains unqualified. No AACE, subjective-feeling or action-policy advantage is claimed.
+- Total measured training 25.27 seconds, peak sampled process memory 277.74 MiB, CPU/two threads, external spend $0. Full regression: 164 passed in 32.23 seconds. Dataset/model/prediction hashes, seed separation, saved scores and offline wheel/source/license checks passed.
+- Four intermediate commits pushed through `018347b`; full [report 08](reports/2026-10-12-build-08.md) and current-status documents follow separately. Raw datasets/models remain local ignored artifacts; scientific measurements and figures are versioned.
+- No new UI changes. The Scale-inspired product direction is preserved; demo still uses analytic forecasts and an observer without learned action influence. Next: stronger adaptive history controls and a new shift-learning protocol before causal behavior integration.
+
 ### Stop 07 — premium product interface, report completed October 12
 
 - Scale-inspired original scientific hero, quiet navigation, open experiment layout and contextual guidance implemented in `e9a3238`, with persistent product preferences in `ec3433c`; both pushed during work.
