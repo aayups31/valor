@@ -1,0 +1,5466 @@
+{
+  "date": "2026-10-12",
+  "scope": "frozen adaptive history development comparison; not survival policy, felt fear or AACE advantage",
+  "source": "dbf2dd130a9621ec0a0025d7eb33000fefb3b36f",
+  "source_dirty": false,
+  "pilot_index_file": "artifacts\\adaptive-history-pilots\\pilot-v2-0a91c83b\\index.json",
+  "pilot_index_sha256": "be7db3362b83ba350d11419bafba365e7d2f72afb4868a54daf0c03cf247a8c4",
+  "datasets": {
+    "train_mixed": {
+      "episodes": 3000,
+      "regime_counts": {
+        "stable": 1057,
+        "extinction": 992,
+        "reversal": 951,
+        "recurrence": 0
+      },
+      "dataset_sha256": "0fbaac1e1868f9485d09d3d64522b321571d8ee6f7477abbe292903e3d7a773e",
+      "schedule_sha256": "baf33aead09e060ee586f69e016d5fb2e1f37585f6dfe40fca302a3d58cf3327",
+      "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\adaptive-history-pilots\\pilot-v2-0a91c83b\\data\\adaptive-train-mixed-15985083",
+      "query_damage_events": 761,
+      "seed_range": [
+        3000,
+        5999
+      ]
+    },
+    "selection_mixed": {
+      "episodes": 500,
+      "regime_counts": {
+        "stable": 168,
+        "extinction": 167,
+        "reversal": 165,
+        "recurrence": 0
+      },
+      "dataset_sha256": "32745cfa03c08ffd8d47b80a0af32eada6acbe94862e8051ee0c7037190b1099",
+      "schedule_sha256": "fce5c6e495fe5a8ae08962eaad3baa45fffafb65410ff3b487b31f27d250292a",
+      "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\adaptive-history-pilots\\pilot-v2-0a91c83b\\data\\adaptive-selection-mixed-b7c14b70",
+      "query_damage_events": 116,
+      "seed_range": [
+        11000,
+        11499
+      ]
+    },
+    "check_stable": {
+      "episodes": 500,
+      "regime_counts": {
+        "stable": 500,
+        "extinction": 0,
+        "reversal": 0,
+        "recurrence": 0
+      },
+      "dataset_sha256": "6d92c4e710a451eff175e02f7b90ffe3e13f59a066f240612a6f6c325e289e1b",
+      "schedule_sha256": "336b48a255c31c6b9b9277a6df9de13bd058148a36dc493c56901d536ce1b68d",
+      "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\adaptive-history-pilots\\pilot-v2-0a91c83b\\data\\adaptive-check-stable-dec93a0f",
+      "query_damage_events": 174,
+      "seed_range": [
+        14000,
+        14499
+      ]
+    },
+    "check_extinction": {
+      "episodes": 500,
+      "regime_counts": {
+        "stable": 0,
+        "extinction": 500,
+        "reversal": 0,
+        "recurrence": 0
+      },
+      "dataset_sha256": "de19a6e600889ccb732395402d9d0a29815ee7232e52a32d655fb75f87d864d1",
+      "schedule_sha256": "a3d92a426a996346b9c90a6e9b104dc112d3167d68eb27219f53467fcd94aae1",
+      "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\adaptive-history-pilots\\pilot-v2-0a91c83b\\data\\adaptive-check-extinction-924fc973",
+      "query_damage_events": 36,
+      "seed_range": [
+        14000,
+        14499
+      ]
+    },
+    "check_reversal": {
+      "episodes": 500,
+      "regime_counts": {
+        "stable": 0,
+        "extinction": 0,
+        "reversal": 500,
+        "recurrence": 0
+      },
+      "dataset_sha256": "8456ae814573ff7c0e5cbd71bc3a32fee8f993510245edef5154cc15fd8cc31b",
+      "schedule_sha256": "129c0bc76cbc28d2ce8e30badc23a320aa53e4df67d3ec9d8630cad97aeece53",
+      "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\adaptive-history-pilots\\pilot-v2-0a91c83b\\data\\adaptive-check-reversal-4edada44",
+      "query_damage_events": 210,
+      "seed_range": [
+        14000,
+        14499
+      ]
+    },
+    "check_recurrence": {
+      "episodes": 500,
+      "regime_counts": {
+        "stable": 0,
+        "extinction": 0,
+        "reversal": 0,
+        "recurrence": 500
+      },
+      "dataset_sha256": "b269243f1b23b091a6cb128733f440cdc0732fa8aab726106e554e4a3156a846",
+      "schedule_sha256": "98b4809b844ba2aeb10a829c34c6dc46e1c80a6b4b893285e3fe0eaba4e42314",
+      "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\adaptive-history-pilots\\pilot-v2-0a91c83b\\data\\adaptive-check-recurrence-dcd39a44",
+      "query_damage_events": 174,
+      "seed_range": [
+        14000,
+        14499
+      ]
+    }
+  },
+  "fits": [
+    {
+      "seed": 42,
+      "model": {
+        "model_version": "history-event-head-v2-adaptive",
+        "dataset_schema": "adaptive-repaired-body-history-v2",
+        "feature_names": [
+          "cue_a",
+          "cue_b",
+          "observed_harm",
+          "exposure_completed",
+          "integrity",
+          "reserve_fraction"
+        ],
+        "model_kinds": [
+          "stateless",
+          "history_linear",
+          "history_mlp",
+          "gru",
+          "summary_mlp"
+        ],
+        "summary_feature_names": [
+          "query_cue_exposures",
+          "query_cue_rate",
+          "recent_query_exposures",
+          "recent_query_rate",
+          "other_cue_rate",
+          "recent_other_rate",
+          "whole_harm_rate",
+          "query_cue_a",
+          "integrity",
+          "reserve_fraction"
+        ],
+        "adaptive_controls": {
+          "prior": 0.25366666666666665,
+          "settings": {
+            "cue_counts": {
+              "kind": "counts",
+              "strength": 4
+            },
+            "forgetting_counts": {
+              "kind": "forgetting",
+              "strength": 1,
+              "decay": 0.5
+            },
+            "window_counts": {
+              "kind": "window",
+              "strength": 2,
+              "window": 4
+            },
+            "change_detector": {
+              "kind": "cusum",
+              "strength": 2,
+              "threshold": 0.75
+            },
+            "markov_bayes_reference": {
+              "kind": "markov_bayes",
+              "hazard": 0.15
+            }
+          },
+          "selection_trials": {
+            "cue_counts": [
+              {
+                "setting": {
+                  "kind": "counts",
+                  "strength": 1
+                },
+                "selection_log_loss": 0.5550226002194018
+              },
+              {
+                "setting": {
+                  "kind": "counts",
+                  "strength": 2
+                },
+                "selection_log_loss": 0.531755477427086
+              },
+              {
+                "setting": {
+                  "kind": "counts",
+                  "strength": 4
+                },
+                "selection_log_loss": 0.5168753106119832
+              }
+            ],
+            "forgetting_counts": [
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 0.5
+                },
+                "selection_log_loss": 0.448023209035588
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 0.5
+                },
+                "selection_log_loss": 0.4635953228919907
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 0.5
+                },
+                "selection_log_loss": 0.486040696288508
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 0.75
+                },
+                "selection_log_loss": 0.45660568317368216
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 0.75
+                },
+                "selection_log_loss": 0.46122416799324284
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 0.75
+                },
+                "selection_log_loss": 0.47733851374632574
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 0.9
+                },
+                "selection_log_loss": 0.4989471729953404
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 0.9
+                },
+                "selection_log_loss": 0.48811850718402455
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 0.9
+                },
+                "selection_log_loss": 0.4889188276241613
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 1.0
+                },
+                "selection_log_loss": 0.5550226002194018
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 1.0
+                },
+                "selection_log_loss": 0.531755477427086
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 1.0
+                },
+                "selection_log_loss": 0.5168753106119832
+              }
+            ],
+            "window_counts": [
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 2
+                },
+                "selection_log_loss": 0.45528862302608397
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 2
+                },
+                "selection_log_loss": 0.4639752097709038
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 2
+                },
+                "selection_log_loss": 0.4837656571602764
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 4
+                },
+                "selection_log_loss": 0.4550730876016869
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 4
+                },
+                "selection_log_loss": 0.4529844806824905
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 4
+                },
+                "selection_log_loss": 0.46805142081698675
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 8
+                },
+                "selection_log_loss": 0.5138486820912532
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 8
+                },
+                "selection_log_loss": 0.49501632897657183
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 8
+                },
+                "selection_log_loss": 0.4902692677767429
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 12
+                },
+                "selection_log_loss": 0.5550226002194018
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 12
+                },
+                "selection_log_loss": 0.531755477427086
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 12
+                },
+                "selection_log_loss": 0.5168753106119832
+              }
+            ],
+            "change_detector": [
+              {
+                "setting": {
+                  "kind": "cusum",
+                  "strength": 2,
+                  "threshold": 0.75
+                },
+                "selection_log_loss": 0.4654267788892779
+              },
+              {
+                "setting": {
+                  "kind": "cusum",
+                  "strength": 2,
+                  "threshold": 1.25
+                },
+                "selection_log_loss": 0.48778197495652
+              },
+              {
+                "setting": {
+                  "kind": "cusum",
+                  "strength": 2,
+                  "threshold": 2.0
+                },
+                "selection_log_loss": 0.5286220418358436
+              }
+            ],
+            "markov_bayes_reference": [
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.0
+                },
+                "selection_log_loss": 0.6397771987347884
+              },
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.05
+                },
+                "selection_log_loss": 0.4544357088775657
+              },
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.15
+                },
+                "selection_log_loss": 0.4507017171952963
+              },
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.3
+                },
+                "selection_log_loss": 0.4766211938856187
+              }
+            ]
+          },
+          "selection_opportunities": {
+            "cue_counts": 3,
+            "forgetting_counts": 12,
+            "window_counts": 12,
+            "change_detector": 3,
+            "markov_bayes_reference": 4
+          },
+          "selection_elapsed_s": 0.01579079998191446,
+          "notice": "Selection labels only; no check access. Different search/computation budgets are recorded, not equalized."
+        },
+        "encounters": 12,
+        "settings": {
+          "seed": 42,
+          "epochs": 25,
+          "batch_size": 128,
+          "max_seconds": 120,
+          "max_memory_mb": 1024,
+          "threads": 2
+        },
+        "training_sha256": "0fbaac1e1868f9485d09d3d64522b321571d8ee6f7477abbe292903e3d7a773e",
+        "selection_sha256": "32745cfa03c08ffd8d47b80a0af32eada6acbe94862e8051ee0c7037190b1099",
+        "training_episodes": 3000,
+        "selection_episodes": 500,
+        "training_seed_range": [
+          3000,
+          5999
+        ],
+        "selection_seed_range": [
+          11000,
+          11499
+        ],
+        "training_prevalence": 0.25366666666666665,
+        "best_epochs": {
+          "stateless": 23,
+          "history_linear": 24,
+          "history_mlp": 25,
+          "gru": 25,
+          "summary_mlp": 25
+        },
+        "selection_log_losses": {
+          "stateless": 0.5426703095436096,
+          "history_linear": 0.533014714717865,
+          "history_mlp": 0.5277653932571411,
+          "gru": 0.5276217460632324,
+          "summary_mlp": 0.4620972275733948
+        },
+        "updates_per_model": 600,
+        "parameter_counts": {
+          "stateless": 113,
+          "history_linear": 79,
+          "history_mlp": 1121,
+          "gru": 1169,
+          "summary_mlp": 169
+        },
+        "recurrent_state_float32_bytes": 64,
+        "initialization": "same training-event prior; epoch zero eligible",
+        "comparison": "same history for history heads; same data, batches, updates and selection opportunities; computation not equalized",
+        "weights_sha256": "2d5b737cb388b05e7fe162ee70552307b8a62df9e066ccd811a623309c8dc9f6",
+        "elapsed_s": 10.329923600016627,
+        "peak_sampled_memory_mb": 267.8046875,
+        "stop_reason": "epoch_budget",
+        "evidence_kind": "experimental",
+        "decision_ready": false,
+        "external_spend_usd": 0,
+        "git_revision": "dbf2dd130a9621ec0a0025d7eb33000fefb3b36f",
+        "git_dirty": false,
+        "python_source_sha256": "8169c0bd636eab49f92ca1caa406af51af7a1f04cabbcda5f39af9f3ec549bf2",
+        "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\adaptive-history-pilots\\pilot-v2-0a91c83b\\models\\history-model-42-13afb940"
+      }
+    },
+    {
+      "seed": 43,
+      "model": {
+        "model_version": "history-event-head-v2-adaptive",
+        "dataset_schema": "adaptive-repaired-body-history-v2",
+        "feature_names": [
+          "cue_a",
+          "cue_b",
+          "observed_harm",
+          "exposure_completed",
+          "integrity",
+          "reserve_fraction"
+        ],
+        "model_kinds": [
+          "stateless",
+          "history_linear",
+          "history_mlp",
+          "gru",
+          "summary_mlp"
+        ],
+        "summary_feature_names": [
+          "query_cue_exposures",
+          "query_cue_rate",
+          "recent_query_exposures",
+          "recent_query_rate",
+          "other_cue_rate",
+          "recent_other_rate",
+          "whole_harm_rate",
+          "query_cue_a",
+          "integrity",
+          "reserve_fraction"
+        ],
+        "adaptive_controls": {
+          "prior": 0.25366666666666665,
+          "settings": {
+            "cue_counts": {
+              "kind": "counts",
+              "strength": 4
+            },
+            "forgetting_counts": {
+              "kind": "forgetting",
+              "strength": 1,
+              "decay": 0.5
+            },
+            "window_counts": {
+              "kind": "window",
+              "strength": 2,
+              "window": 4
+            },
+            "change_detector": {
+              "kind": "cusum",
+              "strength": 2,
+              "threshold": 0.75
+            },
+            "markov_bayes_reference": {
+              "kind": "markov_bayes",
+              "hazard": 0.15
+            }
+          },
+          "selection_trials": {
+            "cue_counts": [
+              {
+                "setting": {
+                  "kind": "counts",
+                  "strength": 1
+                },
+                "selection_log_loss": 0.5550226002194018
+              },
+              {
+                "setting": {
+                  "kind": "counts",
+                  "strength": 2
+                },
+                "selection_log_loss": 0.531755477427086
+              },
+              {
+                "setting": {
+                  "kind": "counts",
+                  "strength": 4
+                },
+                "selection_log_loss": 0.5168753106119832
+              }
+            ],
+            "forgetting_counts": [
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 0.5
+                },
+                "selection_log_loss": 0.448023209035588
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 0.5
+                },
+                "selection_log_loss": 0.4635953228919907
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 0.5
+                },
+                "selection_log_loss": 0.486040696288508
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 0.75
+                },
+                "selection_log_loss": 0.45660568317368216
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 0.75
+                },
+                "selection_log_loss": 0.46122416799324284
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 0.75
+                },
+                "selection_log_loss": 0.47733851374632574
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 0.9
+                },
+                "selection_log_loss": 0.4989471729953404
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 0.9
+                },
+                "selection_log_loss": 0.48811850718402455
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 0.9
+                },
+                "selection_log_loss": 0.4889188276241613
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 1.0
+                },
+                "selection_log_loss": 0.5550226002194018
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 1.0
+                },
+                "selection_log_loss": 0.531755477427086
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 1.0
+                },
+                "selection_log_loss": 0.5168753106119832
+              }
+            ],
+            "window_counts": [
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 2
+                },
+                "selection_log_loss": 0.45528862302608397
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 2
+                },
+                "selection_log_loss": 0.4639752097709038
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 2
+                },
+                "selection_log_loss": 0.4837656571602764
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 4
+                },
+                "selection_log_loss": 0.4550730876016869
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 4
+                },
+                "selection_log_loss": 0.4529844806824905
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 4
+                },
+                "selection_log_loss": 0.46805142081698675
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 8
+                },
+                "selection_log_loss": 0.5138486820912532
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 8
+                },
+                "selection_log_loss": 0.49501632897657183
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 8
+                },
+                "selection_log_loss": 0.4902692677767429
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 12
+                },
+                "selection_log_loss": 0.5550226002194018
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 12
+                },
+                "selection_log_loss": 0.531755477427086
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 12
+                },
+                "selection_log_loss": 0.5168753106119832
+              }
+            ],
+            "change_detector": [
+              {
+                "setting": {
+                  "kind": "cusum",
+                  "strength": 2,
+                  "threshold": 0.75
+                },
+                "selection_log_loss": 0.4654267788892779
+              },
+              {
+                "setting": {
+                  "kind": "cusum",
+                  "strength": 2,
+                  "threshold": 1.25
+                },
+                "selection_log_loss": 0.48778197495652
+              },
+              {
+                "setting": {
+                  "kind": "cusum",
+                  "strength": 2,
+                  "threshold": 2.0
+                },
+                "selection_log_loss": 0.5286220418358436
+              }
+            ],
+            "markov_bayes_reference": [
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.0
+                },
+                "selection_log_loss": 0.6397771987347884
+              },
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.05
+                },
+                "selection_log_loss": 0.4544357088775657
+              },
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.15
+                },
+                "selection_log_loss": 0.4507017171952963
+              },
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.3
+                },
+                "selection_log_loss": 0.4766211938856187
+              }
+            ]
+          },
+          "selection_opportunities": {
+            "cue_counts": 3,
+            "forgetting_counts": 12,
+            "window_counts": 12,
+            "change_detector": 3,
+            "markov_bayes_reference": 4
+          },
+          "selection_elapsed_s": 0.02708679996430874,
+          "notice": "Selection labels only; no check access. Different search/computation budgets are recorded, not equalized."
+        },
+        "encounters": 12,
+        "settings": {
+          "seed": 43,
+          "epochs": 25,
+          "batch_size": 128,
+          "max_seconds": 120,
+          "max_memory_mb": 1024,
+          "threads": 2
+        },
+        "training_sha256": "0fbaac1e1868f9485d09d3d64522b321571d8ee6f7477abbe292903e3d7a773e",
+        "selection_sha256": "32745cfa03c08ffd8d47b80a0af32eada6acbe94862e8051ee0c7037190b1099",
+        "training_episodes": 3000,
+        "selection_episodes": 500,
+        "training_seed_range": [
+          3000,
+          5999
+        ],
+        "selection_seed_range": [
+          11000,
+          11499
+        ],
+        "training_prevalence": 0.25366666666666665,
+        "best_epochs": {
+          "stateless": 16,
+          "history_linear": 23,
+          "history_mlp": 24,
+          "gru": 24,
+          "summary_mlp": 25
+        },
+        "selection_log_losses": {
+          "stateless": 0.5427758097648621,
+          "history_linear": 0.5334957838058472,
+          "history_mlp": 0.5273875594139099,
+          "gru": 0.5290572643280029,
+          "summary_mlp": 0.46174073219299316
+        },
+        "updates_per_model": 600,
+        "parameter_counts": {
+          "stateless": 113,
+          "history_linear": 79,
+          "history_mlp": 1121,
+          "gru": 1169,
+          "summary_mlp": 169
+        },
+        "recurrent_state_float32_bytes": 64,
+        "initialization": "same training-event prior; epoch zero eligible",
+        "comparison": "same history for history heads; same data, batches, updates and selection opportunities; computation not equalized",
+        "weights_sha256": "e0ebd18fee4b2b41671b0da34ace0ce5ab07d0291cc016e44ae14a5869261f6f",
+        "elapsed_s": 6.741161699988879,
+        "peak_sampled_memory_mb": 273.30078125,
+        "stop_reason": "epoch_budget",
+        "evidence_kind": "experimental",
+        "decision_ready": false,
+        "external_spend_usd": 0,
+        "git_revision": "dbf2dd130a9621ec0a0025d7eb33000fefb3b36f",
+        "git_dirty": false,
+        "python_source_sha256": "8169c0bd636eab49f92ca1caa406af51af7a1f04cabbcda5f39af9f3ec549bf2",
+        "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\adaptive-history-pilots\\pilot-v2-0a91c83b\\models\\history-model-43-4db4f12d"
+      }
+    },
+    {
+      "seed": 44,
+      "model": {
+        "model_version": "history-event-head-v2-adaptive",
+        "dataset_schema": "adaptive-repaired-body-history-v2",
+        "feature_names": [
+          "cue_a",
+          "cue_b",
+          "observed_harm",
+          "exposure_completed",
+          "integrity",
+          "reserve_fraction"
+        ],
+        "model_kinds": [
+          "stateless",
+          "history_linear",
+          "history_mlp",
+          "gru",
+          "summary_mlp"
+        ],
+        "summary_feature_names": [
+          "query_cue_exposures",
+          "query_cue_rate",
+          "recent_query_exposures",
+          "recent_query_rate",
+          "other_cue_rate",
+          "recent_other_rate",
+          "whole_harm_rate",
+          "query_cue_a",
+          "integrity",
+          "reserve_fraction"
+        ],
+        "adaptive_controls": {
+          "prior": 0.25366666666666665,
+          "settings": {
+            "cue_counts": {
+              "kind": "counts",
+              "strength": 4
+            },
+            "forgetting_counts": {
+              "kind": "forgetting",
+              "strength": 1,
+              "decay": 0.5
+            },
+            "window_counts": {
+              "kind": "window",
+              "strength": 2,
+              "window": 4
+            },
+            "change_detector": {
+              "kind": "cusum",
+              "strength": 2,
+              "threshold": 0.75
+            },
+            "markov_bayes_reference": {
+              "kind": "markov_bayes",
+              "hazard": 0.15
+            }
+          },
+          "selection_trials": {
+            "cue_counts": [
+              {
+                "setting": {
+                  "kind": "counts",
+                  "strength": 1
+                },
+                "selection_log_loss": 0.5550226002194018
+              },
+              {
+                "setting": {
+                  "kind": "counts",
+                  "strength": 2
+                },
+                "selection_log_loss": 0.531755477427086
+              },
+              {
+                "setting": {
+                  "kind": "counts",
+                  "strength": 4
+                },
+                "selection_log_loss": 0.5168753106119832
+              }
+            ],
+            "forgetting_counts": [
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 0.5
+                },
+                "selection_log_loss": 0.448023209035588
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 0.5
+                },
+                "selection_log_loss": 0.4635953228919907
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 0.5
+                },
+                "selection_log_loss": 0.486040696288508
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 0.75
+                },
+                "selection_log_loss": 0.45660568317368216
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 0.75
+                },
+                "selection_log_loss": 0.46122416799324284
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 0.75
+                },
+                "selection_log_loss": 0.47733851374632574
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 0.9
+                },
+                "selection_log_loss": 0.4989471729953404
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 0.9
+                },
+                "selection_log_loss": 0.48811850718402455
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 0.9
+                },
+                "selection_log_loss": 0.4889188276241613
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 1,
+                  "decay": 1.0
+                },
+                "selection_log_loss": 0.5550226002194018
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 2,
+                  "decay": 1.0
+                },
+                "selection_log_loss": 0.531755477427086
+              },
+              {
+                "setting": {
+                  "kind": "forgetting",
+                  "strength": 4,
+                  "decay": 1.0
+                },
+                "selection_log_loss": 0.5168753106119832
+              }
+            ],
+            "window_counts": [
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 2
+                },
+                "selection_log_loss": 0.45528862302608397
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 2
+                },
+                "selection_log_loss": 0.4639752097709038
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 2
+                },
+                "selection_log_loss": 0.4837656571602764
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 4
+                },
+                "selection_log_loss": 0.4550730876016869
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 4
+                },
+                "selection_log_loss": 0.4529844806824905
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 4
+                },
+                "selection_log_loss": 0.46805142081698675
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 8
+                },
+                "selection_log_loss": 0.5138486820912532
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 8
+                },
+                "selection_log_loss": 0.49501632897657183
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 8
+                },
+                "selection_log_loss": 0.4902692677767429
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 1,
+                  "window": 12
+                },
+                "selection_log_loss": 0.5550226002194018
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 2,
+                  "window": 12
+                },
+                "selection_log_loss": 0.531755477427086
+              },
+              {
+                "setting": {
+                  "kind": "window",
+                  "strength": 4,
+                  "window": 12
+                },
+                "selection_log_loss": 0.5168753106119832
+              }
+            ],
+            "change_detector": [
+              {
+                "setting": {
+                  "kind": "cusum",
+                  "strength": 2,
+                  "threshold": 0.75
+                },
+                "selection_log_loss": 0.4654267788892779
+              },
+              {
+                "setting": {
+                  "kind": "cusum",
+                  "strength": 2,
+                  "threshold": 1.25
+                },
+                "selection_log_loss": 0.48778197495652
+              },
+              {
+                "setting": {
+                  "kind": "cusum",
+                  "strength": 2,
+                  "threshold": 2.0
+                },
+                "selection_log_loss": 0.5286220418358436
+              }
+            ],
+            "markov_bayes_reference": [
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.0
+                },
+                "selection_log_loss": 0.6397771987347884
+              },
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.05
+                },
+                "selection_log_loss": 0.4544357088775657
+              },
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.15
+                },
+                "selection_log_loss": 0.4507017171952963
+              },
+              {
+                "setting": {
+                  "kind": "markov_bayes",
+                  "hazard": 0.3
+                },
+                "selection_log_loss": 0.4766211938856187
+              }
+            ]
+          },
+          "selection_opportunities": {
+            "cue_counts": 3,
+            "forgetting_counts": 12,
+            "window_counts": 12,
+            "change_detector": 3,
+            "markov_bayes_reference": 4
+          },
+          "selection_elapsed_s": 0.01798090001102537,
+          "notice": "Selection labels only; no check access. Different search/computation budgets are recorded, not equalized."
+        },
+        "encounters": 12,
+        "settings": {
+          "seed": 44,
+          "epochs": 25,
+          "batch_size": 128,
+          "max_seconds": 120,
+          "max_memory_mb": 1024,
+          "threads": 2
+        },
+        "training_sha256": "0fbaac1e1868f9485d09d3d64522b321571d8ee6f7477abbe292903e3d7a773e",
+        "selection_sha256": "32745cfa03c08ffd8d47b80a0af32eada6acbe94862e8051ee0c7037190b1099",
+        "training_episodes": 3000,
+        "selection_episodes": 500,
+        "training_seed_range": [
+          3000,
+          5999
+        ],
+        "selection_seed_range": [
+          11000,
+          11499
+        ],
+        "training_prevalence": 0.25366666666666665,
+        "best_epochs": {
+          "stateless": 1,
+          "history_linear": 25,
+          "history_mlp": 25,
+          "gru": 23,
+          "summary_mlp": 25
+        },
+        "selection_log_losses": {
+          "stateless": 0.5427564978599548,
+          "history_linear": 0.533242404460907,
+          "history_mlp": 0.5276802778244019,
+          "gru": 0.5294225811958313,
+          "summary_mlp": 0.46141448616981506
+        },
+        "updates_per_model": 600,
+        "parameter_counts": {
+          "stateless": 113,
+          "history_linear": 79,
+          "history_mlp": 1121,
+          "gru": 1169,
+          "summary_mlp": 169
+        },
+        "recurrent_state_float32_bytes": 64,
+        "initialization": "same training-event prior; epoch zero eligible",
+        "comparison": "same history for history heads; same data, batches, updates and selection opportunities; computation not equalized",
+        "weights_sha256": "90954592d786038be88fb2b3f1f21ef744295a39746de3fae931e3620e56d4b6",
+        "elapsed_s": 8.68892980000237,
+        "peak_sampled_memory_mb": 278.16015625,
+        "stop_reason": "epoch_budget",
+        "evidence_kind": "experimental",
+        "decision_ready": false,
+        "external_spend_usd": 0,
+        "git_revision": "dbf2dd130a9621ec0a0025d7eb33000fefb3b36f",
+        "git_dirty": false,
+        "python_source_sha256": "8169c0bd636eab49f92ca1caa406af51af7a1f04cabbcda5f39af9f3ec549bf2",
+        "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\adaptive-history-pilots\\pilot-v2-0a91c83b\\models\\history-model-44-015f2b8b"
+      }
+    }
+  ],
+  "aggregate": {
+    "stable": {
+      "stateless": {
+        "brier": {
+          "mean": 0.23629025337450874,
+          "training_seed_values": [
+            0.23647454363112785,
+            0.23627195747329735,
+            0.23612425901910106
+          ],
+          "training_seed_standard_deviation": 0.00017585756269362978
+        },
+        "log_loss": {
+          "mean": 0.6694558684675518,
+          "training_seed_values": [
+            0.6699546317797215,
+            0.6694129924002148,
+            0.6689999812227191
+          ],
+          "training_seed_standard_deviation": 0.00047876736455084134
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3088137384649099,
+          "training_seed_values": [
+            0.308943966995693,
+            0.30869692976176805,
+            0.30880031863726864
+          ],
+          "training_seed_standard_deviation": 0.0001240641671344391
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2521242101987203,
+            "prediction_bias": 0.20212421317895254
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.2521480719248454,
+            "prediction_bias": -0.3978519042332967
+          }
+        }
+      },
+      "history_linear": {
+        "brier": {
+          "mean": 0.23729345321999332,
+          "training_seed_values": [
+            0.23792935748061758,
+            0.23710046066946647,
+            0.2368505415098959
+          ],
+          "training_seed_standard_deviation": 0.0005647083920840776
+        },
+        "log_loss": {
+          "mean": 0.6728194940852367,
+          "training_seed_values": [
+            0.6745784860821844,
+            0.6722587458642056,
+            0.6716212503093201
+          ],
+          "training_seed_standard_deviation": 0.0015563225178667984
+        },
+        "reference_probability_rmse": {
+          "mean": 0.31252041639196765,
+          "training_seed_values": [
+            0.3133607202198631,
+            0.3122055102720747,
+            0.31199501868396506
+          ],
+          "training_seed_standard_deviation": 0.0007352955661147955
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2550317446390788,
+            "prediction_bias": 0.205031747619311
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.2508171151081721,
+            "prediction_bias": -0.39918285608291626
+          }
+        }
+      },
+      "history_mlp": {
+        "brier": {
+          "mean": 0.23942203384407024,
+          "training_seed_values": [
+            0.23945310999308037,
+            0.23926094850598506,
+            0.2395520430331453
+          ],
+          "training_seed_standard_deviation": 0.00014801453041386503
+        },
+        "log_loss": {
+          "mean": 0.6803040053455023,
+          "training_seed_values": [
+            0.6803955485106774,
+            0.6796923925123056,
+            0.6808240750135237
+          ],
+          "training_seed_standard_deviation": 0.000571368037440425
+        },
+        "reference_probability_rmse": {
+          "mean": 0.31739643767943265,
+          "training_seed_values": [
+            0.317394537595231,
+            0.31705863517140387,
+            0.31773614027166297
+          ],
+          "training_seed_standard_deviation": 0.00033875654674006474
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.26663412650426227,
+            "prediction_bias": 0.21663412948449454
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.2588646908601125,
+            "prediction_bias": -0.3911352852980296
+          }
+        }
+      },
+      "gru": {
+        "brier": {
+          "mean": 0.2390821000074889,
+          "training_seed_values": [
+            0.23765608693010004,
+            0.23859199871012984,
+            0.24099821438223681
+          ],
+          "training_seed_standard_deviation": 0.001724123962433192
+        },
+        "log_loss": {
+          "mean": 0.6809861117702932,
+          "training_seed_values": [
+            0.6763407857661314,
+            0.6797866591374981,
+            0.6868308904072501
+          ],
+          "training_seed_standard_deviation": 0.00534692330309161
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3168655890166778,
+          "training_seed_values": [
+            0.3149552655359077,
+            0.316753092929434,
+            0.31888840858469164
+          ],
+          "training_seed_standard_deviation": 0.0019689832624436516
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.26825496554374695,
+            "prediction_bias": 0.2182549685239792
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.26212011774381,
+            "prediction_bias": -0.3878798584143321
+          }
+        }
+      },
+      "summary_mlp": {
+        "brier": {
+          "mean": 0.16080004955256053,
+          "training_seed_values": [
+            0.1600717469151256,
+            0.1595003937718659,
+            0.16282800797069005
+          ],
+          "training_seed_standard_deviation": 0.0017793461194565339
+        },
+        "log_loss": {
+          "mean": 0.48496427621346444,
+          "training_seed_values": [
+            0.48379684820007574,
+            0.4818902573725727,
+            0.4892057230677448
+          ],
+          "training_seed_standard_deviation": 0.003794888102321785
+        },
+        "reference_probability_rmse": {
+          "mean": 0.1549684214835841,
+          "training_seed_values": [
+            0.1522907494692685,
+            0.15129215563962145,
+            0.1613223593418624
+          ],
+          "training_seed_standard_deviation": 0.0055252775621952984
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.07533931980530421,
+            "prediction_bias": 0.02533931906024615
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.5103743374347687,
+            "prediction_bias": -0.1396256387233734
+          }
+        }
+      },
+      "gru_shuffled_history": {
+        "brier": {
+          "mean": 0.24209505640192833,
+          "training_seed_values": [
+            0.24058527648868505,
+            0.24146657749590572,
+            0.24423331522119418
+          ],
+          "training_seed_standard_deviation": 0.0019034930916497236
+        },
+        "log_loss": {
+          "mean": 0.6886485070384819,
+          "training_seed_values": [
+            0.6837566255655538,
+            0.6870697665538223,
+            0.6951191289960693
+          ],
+          "training_seed_standard_deviation": 0.0058434525060571995
+        },
+        "reference_probability_rmse": {
+          "mean": 0.31592917702759604,
+          "training_seed_values": [
+            0.3142567899129378,
+            0.3149322731205046,
+            0.31859846804934566
+          ],
+          "training_seed_standard_deviation": 0.0023362160238345033
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2673552831013997,
+            "prediction_bias": 0.217355286081632
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.2631294329961141,
+            "prediction_bias": -0.386870543162028
+          }
+        }
+      },
+      "history_mlp_shuffled_history": {
+        "brier": {
+          "mean": 0.24278927865680774,
+          "training_seed_values": [
+            0.24283634098922854,
+            0.24246710625112927,
+            0.24306438873006544
+          ],
+          "training_seed_standard_deviation": 0.00030140958388992663
+        },
+        "log_loss": {
+          "mean": 0.6898594490055384,
+          "training_seed_values": [
+            0.6901208570726014,
+            0.6887087753343986,
+            0.6907487146096152
+          ],
+          "training_seed_standard_deviation": 0.001044791220669012
+        },
+        "reference_probability_rmse": {
+          "mean": 0.31723214970448815,
+          "training_seed_values": [
+            0.3172255941902493,
+            0.31685686024026183,
+            0.3176139946829534
+          ],
+          "training_seed_standard_deviation": 0.000378609788770287
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2664545973141988,
+            "prediction_bias": 0.21645460029443106
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.25902411341667175,
+            "prediction_bias": -0.39097586274147034
+          }
+        }
+      },
+      "summary_mlp_shuffled_history": {
+        "brier": {
+          "mean": 0.29908397206281573,
+          "training_seed_values": [
+            0.2996304423978637,
+            0.2998831343234256,
+            0.29773833946715783
+          ],
+          "training_seed_standard_deviation": 0.001172181135398352
+        },
+        "log_loss": {
+          "mean": 0.8970491181147214,
+          "training_seed_values": [
+            0.9044400548411604,
+            0.8962484618114716,
+            0.8904588376915323
+          ],
+          "training_seed_standard_deviation": 0.007024912535627322
+        },
+        "reference_probability_rmse": {
+          "mean": 0.38760008203877044,
+          "training_seed_values": [
+            0.38822805610446554,
+            0.3886201394977944,
+            0.3859520505140515
+          ],
+          "training_seed_standard_deviation": 0.0014406381491136864
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.29135967294375104,
+            "prediction_bias": 0.24135967592398325
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.3022464911142985,
+            "prediction_bias": -0.34775348504384357
+          }
+        }
+      },
+      "cue_counts": {
+        "brier": {
+          "mean": 0.1620616204542054,
+          "training_seed_values": [
+            0.1620616204542054,
+            0.1620616204542054,
+            0.1620616204542054
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.4900393194787258,
+          "training_seed_values": [
+            0.4900393194787258,
+            0.4900393194787258,
+            0.4900393194787258
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.1595907431308916,
+          "training_seed_values": [
+            0.1595907431308916,
+            0.1595907431308916,
+            0.1595907431308916
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.12938522435276167,
+            "prediction_bias": 0.07938522435276167
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.48051942347244075,
+            "prediction_bias": -0.16948057652755924
+          }
+        }
+      },
+      "forgetting_counts": {
+        "brier": {
+          "mean": 0.18245859166546086,
+          "training_seed_values": [
+            0.18245859166546086,
+            0.18245859166546086,
+            0.18245859166546086
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.5409084410337017,
+          "training_seed_values": [
+            0.5409084410337017,
+            0.5409084410337017,
+            0.5409084410337017
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.21420966020461907,
+          "training_seed_values": [
+            0.21420966020461907,
+            0.21420966020461907,
+            0.21420966020461907
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.15713449682749242,
+            "prediction_bias": 0.10713449682749242
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.4377865505296632,
+            "prediction_bias": -0.21221344947033682
+          }
+        }
+      },
+      "window_counts": {
+        "brier": {
+          "mean": 0.18059149963382717,
+          "training_seed_values": [
+            0.18059149963382717,
+            0.18059149963382717,
+            0.18059149963382717
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.5365470826112438,
+          "training_seed_values": [
+            0.5365470826112438,
+            0.5365470826112438,
+            0.5365470826112438
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.21248733209415996,
+          "training_seed_values": [
+            0.21248733209416,
+            0.21248733209416,
+            0.21248733209416
+          ],
+          "training_seed_standard_deviation": 3.3993498887762956e-17
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.15735360696517411,
+            "prediction_bias": 0.10735360696517411
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.4369325670498084,
+            "prediction_bias": -0.2130674329501916
+          }
+        }
+      },
+      "change_detector": {
+        "brier": {
+          "mean": 0.17340320463568507,
+          "training_seed_values": [
+            0.17340320463568507,
+            0.17340320463568507,
+            0.17340320463568507
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.5190964756592791,
+          "training_seed_values": [
+            0.5190964756592791,
+            0.5190964756592791,
+            0.5190964756592791
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.18219959794385918,
+          "training_seed_values": [
+            0.18219959794385915,
+            0.18219959794385915,
+            0.18219959794385915
+          ],
+          "training_seed_standard_deviation": 3.3993498887762956e-17
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.10577881551836775,
+            "prediction_bias": 0.05577881551836775
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.46505551108374393,
+            "prediction_bias": -0.18494448891625614
+          }
+        }
+      },
+      "markov_bayes_reference": {
+        "brier": {
+          "mean": 0.17504474490297464,
+          "training_seed_values": [
+            0.17504474490297464,
+            0.17504474490297464,
+            0.17504474490297464
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.5194699035533096,
+          "training_seed_values": [
+            0.5194699035533096,
+            0.5194699035533096,
+            0.5194699035533096
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.19035856707275098,
+          "training_seed_values": [
+            0.19035856707275098,
+            0.19035856707275098,
+            0.19035856707275098
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.13649217511832873,
+            "prediction_bias": 0.08649217511832873
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.42268484321084493,
+            "prediction_bias": -0.22731515678915507
+          }
+        }
+      },
+      "constant_prevalence": {
+        "brier": {
+          "mean": 0.23579477777777771,
+          "training_seed_values": [
+            0.23579477777777771,
+            0.23579477777777771,
+            0.23579477777777771
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.6681275890919919,
+          "training_seed_values": [
+            0.668127589091992,
+            0.668127589091992,
+            0.668127589091992
+          ],
+          "training_seed_standard_deviation": 1.3597399555105182e-16
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3084128906370665,
+          "training_seed_values": [
+            0.3084128906370665,
+            0.3084128906370665,
+            0.3084128906370665
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.25366666666666665,
+            "prediction_bias": 0.20366666666666666
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.25366666666666665,
+            "prediction_bias": -0.39633333333333337
+          }
+        }
+      },
+      "hidden_state_reference": {
+        "brier": {
+          "mean": 0.13618,
+          "training_seed_values": [
+            0.13618,
+            0.13618,
+            0.13618
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.42747024178636367,
+          "training_seed_values": [
+            0.42747024178636367,
+            0.42747024178636367,
+            0.42747024178636367
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.0,
+          "training_seed_values": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.049999999999999996,
+            "prediction_bias": -6.938893903907228e-18
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.65,
+            "prediction_bias": 0.0
+          }
+        }
+      }
+    },
+    "extinction": {
+      "stateless": {
+        "brier": {
+          "mean": 0.09931180518223022,
+          "training_seed_values": [
+            0.09916837334637979,
+            0.09951863242818859,
+            0.0992484097721223
+          ],
+          "training_seed_standard_deviation": 0.00018353361984783595
+        },
+        "log_loss": {
+          "mean": 0.3689112583793947,
+          "training_seed_values": [
+            0.36851490271507337,
+            0.3694469689081632,
+            0.3687719035149475
+          ],
+          "training_seed_standard_deviation": 0.00048140594175712586
+        },
+        "reference_probability_rmse": {
+          "mean": 0.20219254600101055,
+          "training_seed_values": [
+            0.20176053720218368,
+            0.20273708078160138,
+            0.2020800200192466
+          ],
+          "training_seed_standard_deviation": 0.0004979015093916078
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2521352668603261,
+            "prediction_bias": 0.20213526984055838
+          }
+        }
+      },
+      "history_linear": {
+        "brier": {
+          "mean": 0.0905628102321125,
+          "training_seed_values": [
+            0.08955192421337194,
+            0.09102826439763115,
+            0.09110824208533443
+          ],
+          "training_seed_standard_deviation": 0.0008763657996501555
+        },
+        "log_loss": {
+          "mean": 0.34375496747930456,
+          "training_seed_values": [
+            0.34083696001035246,
+            0.34511701119921995,
+            0.34531093122834133
+          ],
+          "training_seed_standard_deviation": 0.0025289280211324462
+        },
+        "reference_probability_rmse": {
+          "mean": 0.17783041038521485,
+          "training_seed_values": [
+            0.17465418857863124,
+            0.1792651397534538,
+            0.17957190282355948
+          ],
+          "training_seed_standard_deviation": 0.0027549618180218085
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2257921745379766,
+            "prediction_bias": 0.17579217751820883
+          }
+        }
+      },
+      "history_mlp": {
+        "brier": {
+          "mean": 0.08293800104903466,
+          "training_seed_values": [
+            0.0827308253021736,
+            0.08343199529782318,
+            0.08265118254710722
+          ],
+          "training_seed_standard_deviation": 0.0004296608901048993
+        },
+        "log_loss": {
+          "mean": 0.31928117417449337,
+          "training_seed_values": [
+            0.31856881338246656,
+            0.32092614179119167,
+            0.318348567349822
+          ],
+          "training_seed_standard_deviation": 0.0014288337634985376
+        },
+        "reference_probability_rmse": {
+          "mean": 0.15046434347015078,
+          "training_seed_values": [
+            0.14963219954639065,
+            0.15249232587941702,
+            0.1492685049846446
+          ],
+          "training_seed_standard_deviation": 0.0017656735040150983
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.1945917159318924,
+            "prediction_bias": 0.14459171891212463
+          }
+        }
+      },
+      "gru": {
+        "brier": {
+          "mean": 0.07870540111591147,
+          "training_seed_values": [
+            0.07996430501919988,
+            0.0788121371999032,
+            0.07733976112863135
+          ],
+          "training_seed_standard_deviation": 0.0013155235087597497
+        },
+        "log_loss": {
+          "mean": 0.306283775853799,
+          "training_seed_values": [
+            0.31080976416751877,
+            0.306365746679362,
+            0.30167581671451615
+          ],
+          "training_seed_standard_deviation": 0.004567525416539665
+        },
+        "reference_probability_rmse": {
+          "mean": 0.13177677701183274,
+          "training_seed_values": [
+            0.13787023704750093,
+            0.1330949263171196,
+            0.12436516767087769
+          ],
+          "training_seed_standard_deviation": 0.00684834745833788
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.1761580357948939,
+            "prediction_bias": 0.12615803877512613
+          }
+        }
+      },
+      "summary_mlp": {
+        "brier": {
+          "mean": 0.0931981938617037,
+          "training_seed_values": [
+            0.093918250953472,
+            0.09481154744856428,
+            0.0908647831830748
+          ],
+          "training_seed_standard_deviation": 0.0020695648584643494
+        },
+        "log_loss": {
+          "mean": 0.3359938867687198,
+          "training_seed_values": [
+            0.3378125688404075,
+            0.3404578021533323,
+            0.32971128931241944
+          ],
+          "training_seed_standard_deviation": 0.0055993381678895926
+        },
+        "reference_probability_rmse": {
+          "mean": 0.17553952440928877,
+          "training_seed_values": [
+            0.17786669798820742,
+            0.18100290892003093,
+            0.16774896631962796
+          ],
+          "training_seed_standard_deviation": 0.006926655128090826
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.18851975599924722,
+            "prediction_bias": 0.13851975897947946
+          }
+        }
+      },
+      "gru_shuffled_history": {
+        "brier": {
+          "mean": 0.07919272633623846,
+          "training_seed_values": [
+            0.08052701564647008,
+            0.07956304655492855,
+            0.07748811680731672
+          ],
+          "training_seed_standard_deviation": 0.0015529260564913947
+        },
+        "log_loss": {
+          "mean": 0.30784731735004806,
+          "training_seed_values": [
+            0.31247036580582666,
+            0.3086630438761462,
+            0.30240854236817144
+          ],
+          "training_seed_standard_deviation": 0.005080268698274925
+        },
+        "reference_probability_rmse": {
+          "mean": 0.13168883116543786,
+          "training_seed_values": [
+            0.13778796249719005,
+            0.1329817008033425,
+            0.12429683019578106
+          ],
+          "training_seed_standard_deviation": 0.00683785760446882
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.17612802982330322,
+            "prediction_bias": 0.12612803280353546
+          }
+        }
+      },
+      "history_mlp_shuffled_history": {
+        "brier": {
+          "mean": 0.08317776538224796,
+          "training_seed_values": [
+            0.08305392495385454,
+            0.08363167351305768,
+            0.08284769767983163
+          ],
+          "training_seed_standard_deviation": 0.0004063949625046033
+        },
+        "log_loss": {
+          "mean": 0.3207462187548231,
+          "training_seed_values": [
+            0.3203184193960006,
+            0.32221003728424935,
+            0.3197101995842195
+          ],
+          "training_seed_standard_deviation": 0.0013036703379993733
+        },
+        "reference_probability_rmse": {
+          "mean": 0.150448337966558,
+          "training_seed_values": [
+            0.14960279583194383,
+            0.1524811283330474,
+            0.14926108973468274
+          ],
+          "training_seed_standard_deviation": 0.0017687193869564033
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.19458498060703278,
+            "prediction_bias": 0.14458498358726501
+          }
+        }
+      },
+      "summary_mlp_shuffled_history": {
+        "brier": {
+          "mean": 0.0948450339185581,
+          "training_seed_values": [
+            0.09563793498319899,
+            0.09670784367308767,
+            0.09218932309938768
+          ],
+          "training_seed_standard_deviation": 0.002361308136916695
+        },
+        "log_loss": {
+          "mean": 0.3445326954416031,
+          "training_seed_values": [
+            0.3465456848503669,
+            0.3495968429278099,
+            0.33745555854663256
+          ],
+          "training_seed_standard_deviation": 0.006315994884101918
+        },
+        "reference_probability_rmse": {
+          "mean": 0.18042245098497148,
+          "training_seed_values": [
+            0.18294953528278782,
+            0.18602798243993085,
+            0.17228983523219576
+          ],
+          "training_seed_standard_deviation": 0.007209284878651436
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.1929435133934021,
+            "prediction_bias": 0.14294351637363434
+          }
+        }
+      },
+      "cue_counts": {
+        "brier": {
+          "mean": 0.10548788955342216,
+          "training_seed_values": [
+            0.10548788955342216,
+            0.10548788955342216,
+            0.10548788955342216
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.36643900453617767,
+          "training_seed_values": [
+            0.3664390045361777,
+            0.3664390045361777,
+            0.3664390045361777
+          ],
+          "training_seed_standard_deviation": 6.798699777552591e-17
+        },
+        "reference_probability_rmse": {
+          "mean": 0.21119755674311333,
+          "training_seed_values": [
+            0.2111975567431133,
+            0.2111975567431133,
+            0.2111975567431133
+          ],
+          "training_seed_standard_deviation": 3.3993498887762956e-17
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.21729305562585566,
+            "prediction_bias": 0.1672930556258557
+          }
+        }
+      },
+      "forgetting_counts": {
+        "brier": {
+          "mean": 0.0818790776142413,
+          "training_seed_values": [
+            0.0818790776142413,
+            0.0818790776142413,
+            0.0818790776142413
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.3079054325717155,
+          "training_seed_values": [
+            0.3079054325717155,
+            0.3079054325717155,
+            0.3079054325717155
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.14297897936339934,
+          "training_seed_values": [
+            0.14297897936339934,
+            0.14297897936339934,
+            0.14297897936339934
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.16677252263252132,
+            "prediction_bias": 0.11677252263252132
+          }
+        }
+      },
+      "window_counts": {
+        "brier": {
+          "mean": 0.08281894259679012,
+          "training_seed_values": [
+            0.08281894259679012,
+            0.08281894259679012,
+            0.08281894259679012
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.30847330814262225,
+          "training_seed_values": [
+            0.30847330814262225,
+            0.30847330814262225,
+            0.30847330814262225
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.1450284506077308,
+          "training_seed_values": [
+            0.1450284506077308,
+            0.1450284506077308,
+            0.1450284506077308
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.1665449111111111,
+            "prediction_bias": 0.11654491111111111
+          }
+        }
+      },
+      "change_detector": {
+        "brier": {
+          "mean": 0.09338304527657937,
+          "training_seed_values": [
+            0.09338304527657937,
+            0.09338304527657937,
+            0.09338304527657937
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.3289148404012021,
+          "training_seed_values": [
+            0.3289148404012021,
+            0.3289148404012021,
+            0.3289148404012021
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.1675220879523176,
+          "training_seed_values": [
+            0.1675220879523176,
+            0.1675220879523176,
+            0.1675220879523176
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.14874319326599325,
+            "prediction_bias": 0.09874319326599325
+          }
+        }
+      },
+      "markov_bayes_reference": {
+        "brier": {
+          "mean": 0.09113435775204311,
+          "training_seed_values": [
+            0.09113435775204311,
+            0.09113435775204311,
+            0.09113435775204311
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.33782057927006054,
+          "training_seed_values": [
+            0.33782057927006054,
+            0.33782057927006054,
+            0.33782057927006054
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.17173165452352354,
+          "training_seed_values": [
+            0.1717316545235235,
+            0.1717316545235235,
+            0.1717316545235235
+          ],
+          "training_seed_standard_deviation": 3.3993498887762956e-17
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.20233532142022712,
+            "prediction_bias": 0.1523353214202271
+          }
+        }
+      },
+      "constant_prevalence": {
+        "brier": {
+          "mean": 0.09981877777777774,
+          "training_seed_values": [
+            0.09981877777777774,
+            0.09981877777777774,
+            0.09981877777777774
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.37028184168056094,
+          "training_seed_values": [
+            0.370281841680561,
+            0.370281841680561,
+            0.370281841680561
+          ],
+          "training_seed_standard_deviation": 6.798699777552591e-17
+        },
+        "reference_probability_rmse": {
+          "mean": 0.20366666666666666,
+          "training_seed_values": [
+            0.20366666666666666,
+            0.20366666666666666,
+            0.20366666666666666
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2536666666666667,
+            "prediction_bias": 0.20366666666666675
+          }
+        }
+      },
+      "hidden_state_reference": {
+        "brier": {
+          "mean": 0.06729999999999998,
+          "training_seed_values": [
+            0.06729999999999998,
+            0.06729999999999998,
+            0.06729999999999998
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.2632929008875343,
+          "training_seed_values": [
+            0.2632929008875343,
+            0.2632929008875343,
+            0.2632929008875343
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.0,
+          "training_seed_values": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 500,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.05000000000000001,
+            "prediction_bias": 0.0
+          }
+        }
+      }
+    },
+    "reversal": {
+      "stateless": {
+        "brier": {
+          "mean": 0.2718414925868628,
+          "training_seed_values": [
+            0.2720282349586997,
+            0.27169250227643993,
+            0.2718037405254487
+          ],
+          "training_seed_standard_deviation": 0.00017102053119463816
+        },
+        "log_loss": {
+          "mean": 0.7473751651834094,
+          "training_seed_values": [
+            0.7478861682491798,
+            0.7469912816816127,
+            0.7472480456194359
+          ],
+          "training_seed_standard_deviation": 0.00046078740202138275
+        },
+        "reference_probability_rmse": {
+          "mean": 0.32223544762950745,
+          "training_seed_values": [
+            0.32243252648305865,
+            0.32206249256644126,
+            0.32221132383902235
+          ],
+          "training_seed_standard_deviation": 0.00018619275714250053
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2521480719248454,
+            "prediction_bias": 0.2021480749050776
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.2521242101987203,
+            "prediction_bias": -0.3978757659594218
+          }
+        }
+      },
+      "history_linear": {
+        "brier": {
+          "mean": 0.27142217854461936,
+          "training_seed_values": [
+            0.27252624165356143,
+            0.27116585966165574,
+            0.2705744343186409
+          ],
+          "training_seed_standard_deviation": 0.0010008309025430638
+        },
+        "log_loss": {
+          "mean": 0.7475437352813789,
+          "training_seed_values": [
+            0.7505472587602576,
+            0.7467975567578956,
+            0.7452863903259835
+          ],
+          "training_seed_standard_deviation": 0.002708647441504004
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3226880573581398,
+          "training_seed_values": [
+            0.3239367855674287,
+            0.3223391029689809,
+            0.3217882835380099
+          ],
+          "training_seed_standard_deviation": 0.0011159489759344505
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2510758588711421,
+            "prediction_bias": 0.2010758618513743
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.25342173377672833,
+            "prediction_bias": -0.39657824238141376
+          }
+        }
+      },
+      "history_mlp": {
+        "brier": {
+          "mean": 0.2696228577798907,
+          "training_seed_values": [
+            0.26954854639254705,
+            0.2694048745251364,
+            0.2699151524219887
+          ],
+          "training_seed_standard_deviation": 0.0002631302333839878
+        },
+        "log_loss": {
+          "mean": 0.7461532802020597,
+          "training_seed_values": [
+            0.746051328573715,
+            0.7454276279539273,
+            0.746980884078537
+          ],
+          "training_seed_standard_deviation": 0.0007816308259344992
+        },
+        "reference_probability_rmse": {
+          "mean": 0.32388473505247517,
+          "training_seed_values": [
+            0.32392577771327147,
+            0.32354259988630146,
+            0.3241858275578527
+          ],
+          "training_seed_standard_deviation": 0.0003235719925553371
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2590860327084859,
+            "prediction_bias": 0.20908603568871817
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.2625082830588023,
+            "prediction_bias": -0.3874916930993398
+          }
+        }
+      },
+      "gru": {
+        "brier": {
+          "mean": 0.26895967669224935,
+          "training_seed_values": [
+            0.26759630765718034,
+            0.26706829063189924,
+            0.2722144317876685
+          ],
+          "training_seed_standard_deviation": 0.002831037538273623
+        },
+        "log_loss": {
+          "mean": 0.7457467100605425,
+          "training_seed_values": [
+            0.741242725288188,
+            0.7409169422469076,
+            0.755080462646532
+          ],
+          "training_seed_standard_deviation": 0.008084907955557968
+        },
+        "reference_probability_rmse": {
+          "mean": 0.32611047880332084,
+          "training_seed_values": [
+            0.32439452110628764,
+            0.32443779803788997,
+            0.32949911726578485
+          ],
+          "training_seed_standard_deviation": 0.002934726766697398
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.26247673233350116,
+            "prediction_bias": 0.21247673531373343
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.26230283578236896,
+            "prediction_bias": -0.38769714037577313
+          }
+        }
+      },
+      "summary_mlp": {
+        "brier": {
+          "mean": 0.2322564525580815,
+          "training_seed_values": [
+            0.2317856019987381,
+            0.22993505872299771,
+            0.23504869695250874
+          ],
+          "training_seed_standard_deviation": 0.002589130968588625
+        },
+        "log_loss": {
+          "mean": 0.6682139637212391,
+          "training_seed_values": [
+            0.6678163987960168,
+            0.6619028224381676,
+            0.674922669929533
+          ],
+          "training_seed_standard_deviation": 0.006519022210188339
+        },
+        "reference_probability_rmse": {
+          "mean": 0.266464197854555,
+          "training_seed_values": [
+            0.2655478451330765,
+            0.2630357074251564,
+            0.27080904100543196
+          ],
+          "training_seed_standard_deviation": 0.00396685712752307
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.15721091628074646,
+            "prediction_bias": 0.1072109192609787
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.3537554244200389,
+            "prediction_bias": -0.2962445517381032
+          }
+        }
+      },
+      "gru_shuffled_history": {
+        "brier": {
+          "mean": 0.2704794878910506,
+          "training_seed_values": [
+            0.2686005431548783,
+            0.26894028827033356,
+            0.2738976322479399
+          ],
+          "training_seed_standard_deviation": 0.00296506995183412
+        },
+        "log_loss": {
+          "mean": 0.7492916685099327,
+          "training_seed_values": [
+            0.7434751559462276,
+            0.7454628889072099,
+            0.7589369606763604
+          ],
+          "training_seed_standard_deviation": 0.008411986466516606
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3211136522400103,
+          "training_seed_values": [
+            0.3193837380610532,
+            0.31935929324945866,
+            0.32459792540951915
+          ],
+          "training_seed_standard_deviation": 0.003017493832143278
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2568146785100301,
+            "prediction_bias": 0.20681468149026236
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.26724352439244586,
+            "prediction_bias": -0.3827564517656962
+          }
+        }
+      },
+      "history_mlp_shuffled_history": {
+        "brier": {
+          "mean": 0.27011460037404095,
+          "training_seed_values": [
+            0.27021246674270444,
+            0.269739906032677,
+            0.27039142834674135
+          ],
+          "training_seed_standard_deviation": 0.0003366061511878182
+        },
+        "log_loss": {
+          "mean": 0.7470149620503381,
+          "training_seed_values": [
+            0.747383442722854,
+            0.7458391619656195,
+            0.7478222814625408
+          ],
+          "training_seed_standard_deviation": 0.0010416449679620543
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3196784697299008,
+          "training_seed_values": [
+            0.3196259078330851,
+            0.31941769157344985,
+            0.3199918097831675
+          ],
+          "training_seed_standard_deviation": 0.00029064582300456025
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.25423455238342285,
+            "prediction_bias": 0.2042345553636551
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.26655786236127216,
+            "prediction_bias": -0.38344211379686993
+          }
+        }
+      },
+      "summary_mlp_shuffled_history": {
+        "brier": {
+          "mean": 0.292099506533339,
+          "training_seed_values": [
+            0.2928615354834703,
+            0.29057053459027904,
+            0.2928664495262676
+          ],
+          "training_seed_standard_deviation": 0.0013241308239568138
+        },
+        "log_loss": {
+          "mean": 0.8368590645068367,
+          "training_seed_values": [
+            0.8409892894949059,
+            0.8301668711532466,
+            0.8394210328723576
+          ],
+          "training_seed_standard_deviation": 0.00584841398328797
+        },
+        "reference_probability_rmse": {
+          "mean": 0.35332566038621893,
+          "training_seed_values": [
+            0.3541958489305612,
+            0.35200735818740453,
+            0.3537737740406909
+          ],
+          "training_seed_standard_deviation": 0.0011610242541453739
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2512703984975815,
+            "prediction_bias": 0.20127040147781372
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.2646941343943278,
+            "prediction_bias": -0.38530584176381427
+          }
+        }
+      },
+      "cue_counts": {
+        "brier": {
+          "mean": 0.2837148944362033,
+          "training_seed_values": [
+            0.2837148944362033,
+            0.2837148944362033,
+            0.2837148944362033
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.7912490018336484,
+          "training_seed_values": [
+            0.7912490018336484,
+            0.7912490018336484,
+            0.7912490018336484
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3442220772875373,
+          "training_seed_values": [
+            0.3442220772875373,
+            0.3442220772875373,
+            0.3442220772875373
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.3188417572689125,
+            "prediction_bias": 0.2688417572689125
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.2845111100756623,
+            "prediction_bias": -0.36548888992433765
+          }
+        }
+      },
+      "forgetting_counts": {
+        "brier": {
+          "mean": 0.21290138795907487,
+          "training_seed_values": [
+            0.21290138795907487,
+            0.21290138795907487,
+            0.21290138795907487
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.6168514883782698,
+          "training_seed_values": [
+            0.6168514883782698,
+            0.6168514883782698,
+            0.6168514883782698
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.2524212394339208,
+          "training_seed_values": [
+            0.2524212394339208,
+            0.2524212394339208,
+            0.2524212394339208
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.17790610416591676,
+            "prediction_bias": 0.12790610416591675
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.4001626011624962,
+            "prediction_bias": -0.24983739883750386
+          }
+        }
+      },
+      "window_counts": {
+        "brier": {
+          "mean": 0.2120649381523457,
+          "training_seed_values": [
+            0.2120649381523457,
+            0.2120649381523457,
+            0.2120649381523457
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.6137716141531416,
+          "training_seed_values": [
+            0.6137716141531416,
+            0.6137716141531416,
+            0.6137716141531416
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.24216354973243256,
+          "training_seed_values": [
+            0.24216354973243256,
+            0.24216354973243256,
+            0.24216354973243256
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.17716245210727968,
+            "prediction_bias": 0.12716245210727967
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.4093436567164179,
+            "prediction_bias": -0.2406563432835821
+          }
+        }
+      },
+      "change_detector": {
+        "brier": {
+          "mean": 0.22201357973549382,
+          "training_seed_values": [
+            0.22201357973549382,
+            0.22201357973549382,
+            0.22201357973549382
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.6638781141014493,
+          "training_seed_values": [
+            0.6638781141014493,
+            0.6638781141014493,
+            0.6638781141014493
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.26359149952982686,
+          "training_seed_values": [
+            0.26359149952982686,
+            0.26359149952982686,
+            0.26359149952982686
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.1983744572158365,
+            "prediction_bias": 0.14837445721583653
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.409890605504225,
+            "prediction_bias": -0.24010939449577506
+          }
+        }
+      },
+      "markov_bayes_reference": {
+        "brier": {
+          "mean": 0.209125962642669,
+          "training_seed_values": [
+            0.20912596264266897,
+            0.20912596264266897,
+            0.20912596264266897
+          ],
+          "training_seed_standard_deviation": 3.3993498887762956e-17
+        },
+        "log_loss": {
+          "mean": 0.6026190929843663,
+          "training_seed_values": [
+            0.6026190929843663,
+            0.6026190929843663,
+            0.6026190929843663
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.22907672965057513,
+          "training_seed_values": [
+            0.22907672965057513,
+            0.22907672965057513,
+            0.22907672965057513
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.15334167061017498,
+            "prediction_bias": 0.10334167061017498
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.3899511769097163,
+            "prediction_bias": -0.26004882309028376
+          }
+        }
+      },
+      "constant_prevalence": {
+        "brier": {
+          "mean": 0.27126677777777775,
+          "training_seed_values": [
+            0.27126677777777775,
+            0.27126677777777775,
+            0.27126677777777775
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.7458264797210609,
+          "training_seed_values": [
+            0.7458264797210609,
+            0.7458264797210609,
+            0.7458264797210609
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3216235549693323,
+          "training_seed_values": [
+            0.3216235549693323,
+            0.3216235549693323,
+            0.3216235549693323
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.25366666666666665,
+            "prediction_bias": 0.20366666666666666
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.25366666666666665,
+            "prediction_bias": -0.39633333333333337
+          }
+        }
+      },
+      "hidden_state_reference": {
+        "brier": {
+          "mean": 0.14482,
+          "training_seed_values": [
+            0.14482,
+            0.14482,
+            0.14482
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.4547934945491166,
+          "training_seed_values": [
+            0.45479349454911666,
+            0.45479349454911666,
+            0.45479349454911666
+          ],
+          "training_seed_standard_deviation": 6.798699777552591e-17
+        },
+        "reference_probability_rmse": {
+          "mean": 0.0,
+          "training_seed_values": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.05000000000000001,
+            "prediction_bias": 0.0
+          },
+          "high_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.65,
+            "prediction_bias": 0.0
+          }
+        }
+      }
+    },
+    "recurrence": {
+      "stateless": {
+        "brier": {
+          "mean": 0.23629025337450874,
+          "training_seed_values": [
+            0.23647454363112785,
+            0.23627195747329735,
+            0.23612425901910106
+          ],
+          "training_seed_standard_deviation": 0.00017585756269362978
+        },
+        "log_loss": {
+          "mean": 0.6694558684675518,
+          "training_seed_values": [
+            0.6699546317797215,
+            0.6694129924002148,
+            0.6689999812227191
+          ],
+          "training_seed_standard_deviation": 0.00047876736455084134
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3088137384649099,
+          "training_seed_values": [
+            0.308943966995693,
+            0.30869692976176805,
+            0.30880031863726864
+          ],
+          "training_seed_standard_deviation": 0.0001240641671344391
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2521242101987203,
+            "prediction_bias": 0.20212421317895254
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.2521480719248454,
+            "prediction_bias": -0.3978519042332967
+          }
+        }
+      },
+      "history_linear": {
+        "brier": {
+          "mean": 0.24158937091961233,
+          "training_seed_values": [
+            0.2423071545049579,
+            0.24127048252870753,
+            0.24119047572517166
+          ],
+          "training_seed_standard_deviation": 0.0006229046706331801
+        },
+        "log_loss": {
+          "mean": 0.6845001918158834,
+          "training_seed_values": [
+            0.6865859664508075,
+            0.683559225675998,
+            0.6833553833208443
+          ],
+          "training_seed_standard_deviation": 0.0018092069525647318
+        },
+        "reference_probability_rmse": {
+          "mean": 0.31723701571260726,
+          "training_seed_values": [
+            0.31821454184834314,
+            0.3167638714682445,
+            0.3167326338212341
+          ],
+          "training_seed_standard_deviation": 0.0008467065354553163
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.23371375103791556,
+            "prediction_bias": 0.1837137540181478
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.23044506212075552,
+            "prediction_bias": -0.4195549090703328
+          }
+        }
+      },
+      "history_mlp": {
+        "brier": {
+          "mean": 0.2496291352529257,
+          "training_seed_values": [
+            0.2498532989658429,
+            0.24905769302978417,
+            0.2499764137631501
+          ],
+          "training_seed_standard_deviation": 0.0004986972770335947
+        },
+        "log_loss": {
+          "mean": 0.709980222792942,
+          "training_seed_values": [
+            0.710762935772548,
+            0.7079270682886152,
+            0.7112506643176627
+          ],
+          "training_seed_standard_deviation": 0.0017947290456801412
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3280152148584552,
+          "training_seed_values": [
+            0.32821307324712745,
+            0.3272420735787492,
+            0.3285904977494889
+          ],
+          "training_seed_standard_deviation": 0.0006956456659354413
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.21316236754258475,
+            "prediction_bias": 0.16316237052281699
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.20751234392325082,
+            "prediction_bias": -0.442487637201945
+          }
+        }
+      },
+      "gru": {
+        "brier": {
+          "mean": 0.25179961309039056,
+          "training_seed_values": [
+            0.2486599194805899,
+            0.2518807385097659,
+            0.25485818128081594
+          ],
+          "training_seed_standard_deviation": 0.003099927150158038
+        },
+        "log_loss": {
+          "mean": 0.7187308589288625,
+          "training_seed_values": [
+            0.7081173722587321,
+            0.7194386193292104,
+            0.7286365851986447
+          ],
+          "training_seed_standard_deviation": 0.010277899518218463
+        },
+        "reference_probability_rmse": {
+          "mean": 0.33026359786028214,
+          "training_seed_values": [
+            0.3263058879773189,
+            0.3304670249720667,
+            0.3340178806314608
+          ],
+          "training_seed_standard_deviation": 0.003860018732693074
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.2044767290353775,
+            "prediction_bias": 0.15447673201560974
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.20166003704071045,
+            "prediction_bias": -0.44833993911743164
+          }
+        }
+      },
+      "summary_mlp": {
+        "brier": {
+          "mean": 0.19904115336428319,
+          "training_seed_values": [
+            0.1975732142410323,
+            0.1964180908254966,
+            0.20313215502632068
+          ],
+          "training_seed_standard_deviation": 0.0035896794390829377
+        },
+        "log_loss": {
+          "mean": 0.5767447336933639,
+          "training_seed_values": [
+            0.5728899214890086,
+            0.5697961023170278,
+            0.587548177274055
+          ],
+          "training_seed_standard_deviation": 0.00948307567027236
+        },
+        "reference_probability_rmse": {
+          "mean": 0.24179206396355082,
+          "training_seed_values": [
+            0.2389510533996369,
+            0.2369711720762101,
+            0.24945396641480555
+          ],
+          "training_seed_standard_deviation": 0.006708840763732631
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.10336558520793915,
+            "prediction_bias": 0.05336558446288109
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.3378277023633321,
+            "prediction_bias": -0.31217227379481
+          }
+        }
+      },
+      "gru_shuffled_history": {
+        "brier": {
+          "mean": 0.25294403352710426,
+          "training_seed_values": [
+            0.2498688412401375,
+            0.25319645531622936,
+            0.2557668040249459
+          ],
+          "training_seed_standard_deviation": 0.002957072677913925
+        },
+        "log_loss": {
+          "mean": 0.7231929673457712,
+          "training_seed_values": [
+            0.7125637613773483,
+            0.7244031349763225,
+            0.732612005683643
+          ],
+          "training_seed_standard_deviation": 0.010078760053287552
+        },
+        "reference_probability_rmse": {
+          "mean": 0.33213065614495935,
+          "training_seed_values": [
+            0.32817527958752535,
+            0.3322630329739319,
+            0.3359536558734209
+          ],
+          "training_seed_standard_deviation": 0.003890877424165688
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.20647061367829642,
+            "prediction_bias": 0.15647061665852866
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.19933377703030905,
+            "prediction_bias": -0.4506661891937256
+          }
+        }
+      },
+      "history_mlp_shuffled_history": {
+        "brier": {
+          "mean": 0.2508541240326712,
+          "training_seed_values": [
+            0.25110341161664473,
+            0.2501860526331153,
+            0.2512729078482537
+          ],
+          "training_seed_standard_deviation": 0.0005847407881368439
+        },
+        "log_loss": {
+          "mean": 0.7158555398637718,
+          "training_seed_values": [
+            0.7168618983599282,
+            0.7133729291215295,
+            0.7173317921098581
+          ],
+          "training_seed_standard_deviation": 0.002162803067128149
+        },
+        "reference_probability_rmse": {
+          "mean": 0.32918540981949107,
+          "training_seed_values": [
+            0.32945197158888,
+            0.3283496670571608,
+            0.3297545908124324
+          ],
+          "training_seed_standard_deviation": 0.0007394214442430333
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.214384526014328,
+            "prediction_bias": 0.16438452899456024
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.20602595806121826,
+            "prediction_bias": -0.44397401809692383
+          }
+        }
+      },
+      "summary_mlp_shuffled_history": {
+        "brier": {
+          "mean": 0.27752912863362206,
+          "training_seed_values": [
+            0.27767733532075295,
+            0.2770459592695006,
+            0.27786409131061257
+          ],
+          "training_seed_standard_deviation": 0.0004287294318754555
+        },
+        "log_loss": {
+          "mean": 0.8271369096089917,
+          "training_seed_values": [
+            0.8294094180282062,
+            0.8225392437464556,
+            0.8294620670523132
+          ],
+          "training_seed_standard_deviation": 0.003981782454828745
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3585942821372489,
+          "training_seed_values": [
+            0.3586740447150496,
+            0.3578468190009116,
+            0.35926198269578546
+          ],
+          "training_seed_standard_deviation": 0.0007109455833151599
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.22153209149837494,
+            "prediction_bias": 0.17153209447860718
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.21981211503346762,
+            "prediction_bias": -0.430187851190567
+          }
+        }
+      },
+      "cue_counts": {
+        "brier": {
+          "mean": 0.19449374813277778,
+          "training_seed_values": [
+            0.19449374813277778,
+            0.19449374813277778,
+            0.19449374813277778
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.5629546702742156,
+          "training_seed_values": [
+            0.5629546702742156,
+            0.5629546702742156,
+            0.5629546702742156
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.22955470794708954,
+          "training_seed_values": [
+            0.22955470794708954,
+            0.22955470794708954,
+            0.22955470794708954
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.12938522435276167,
+            "prediction_bias": 0.07938522435276167
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.347920640550382,
+            "prediction_bias": -0.30207935944961806
+          }
+        }
+      },
+      "forgetting_counts": {
+        "brier": {
+          "mean": 0.20308388847306605,
+          "training_seed_values": [
+            0.20308388847306605,
+            0.20308388847306605,
+            0.20308388847306605
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.599234701495413,
+          "training_seed_values": [
+            0.599234701495413,
+            0.599234701495413,
+            0.599234701495413
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.2544373172811769,
+          "training_seed_values": [
+            0.2544373172811769,
+            0.2544373172811769,
+            0.2544373172811769
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.15713449682749242,
+            "prediction_bias": 0.10713449682749242
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.35962423898916684,
+            "prediction_bias": -0.2903757610108332
+          }
+        }
+      },
+      "window_counts": {
+        "brier": {
+          "mean": 0.2121446055597531,
+          "training_seed_values": [
+            0.2121446055597531,
+            0.2121446055597531,
+            0.2121446055597531
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.6203325833629839,
+          "training_seed_values": [
+            0.6203325833629839,
+            0.6203325833629839,
+            0.6203325833629839
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.27278924507102503,
+          "training_seed_values": [
+            0.27278924507102503,
+            0.27278924507102503,
+            0.27278924507102503
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.15735360696517411,
+            "prediction_bias": 0.10735360696517411
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.30898716475095783,
+            "prediction_bias": -0.3410128352490422
+          }
+        }
+      },
+      "change_detector": {
+        "brier": {
+          "mean": 0.20251293093847111,
+          "training_seed_values": [
+            0.20251293093847111,
+            0.20251293093847111,
+            0.20251293093847111
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.6087180655345368,
+          "training_seed_values": [
+            0.6087180655345368,
+            0.6087180655345368,
+            0.6087180655345368
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.253902647687425,
+          "training_seed_values": [
+            0.253902647687425,
+            0.253902647687425,
+            0.253902647687425
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.10577881551836775,
+            "prediction_bias": 0.05577881551836775
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.3562795098978289,
+            "prediction_bias": -0.2937204901021711
+          }
+        }
+      },
+      "markov_bayes_reference": {
+        "brier": {
+          "mean": 0.1968071633588738,
+          "training_seed_values": [
+            0.19680716335887377,
+            0.19680716335887377,
+            0.19680716335887377
+          ],
+          "training_seed_standard_deviation": 3.3993498887762956e-17
+        },
+        "log_loss": {
+          "mean": 0.575387266706047,
+          "training_seed_values": [
+            0.575387266706047,
+            0.575387266706047,
+            0.575387266706047
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.23958799930421518,
+          "training_seed_values": [
+            0.23958799930421518,
+            0.23958799930421518,
+            0.23958799930421518
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.14541184026791684,
+            "prediction_bias": 0.09541184026791684
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.3512136273882837,
+            "prediction_bias": -0.2987863726117163
+          }
+        }
+      },
+      "constant_prevalence": {
+        "brier": {
+          "mean": 0.23579477777777771,
+          "training_seed_values": [
+            0.23579477777777771,
+            0.23579477777777771,
+            0.23579477777777771
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.6681275890919919,
+          "training_seed_values": [
+            0.668127589091992,
+            0.668127589091992,
+            0.668127589091992
+          ],
+          "training_seed_standard_deviation": 1.3597399555105182e-16
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3084128906370665,
+          "training_seed_values": [
+            0.3084128906370665,
+            0.3084128906370665,
+            0.3084128906370665
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.25366666666666665,
+            "prediction_bias": 0.20366666666666666
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.25366666666666665,
+            "prediction_bias": -0.39633333333333337
+          }
+        }
+      },
+      "hidden_state_reference": {
+        "brier": {
+          "mean": 0.13618,
+          "training_seed_values": [
+            0.13618,
+            0.13618,
+            0.13618
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.42747024178636367,
+          "training_seed_values": [
+            0.42747024178636367,
+            0.42747024178636367,
+            0.42747024178636367
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.0,
+          "training_seed_values": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "conditional_reference_groups": {
+          "low_probability": {
+            "count_per_fit": 268,
+            "mean_reference": 0.05,
+            "mean_prediction": 0.049999999999999996,
+            "prediction_bias": -6.938893903907228e-18
+          },
+          "high_probability": {
+            "count_per_fit": 232,
+            "mean_reference": 0.65,
+            "mean_prediction": 0.65,
+            "prediction_bias": 0.0
+          }
+        }
+      }
+    }
+  },
+  "prediction_artifacts": [
+    {
+      "seed": 42,
+      "condition": "stable",
+      "predictions_sha256": "041b52dac565a59b388356ffcde97ab7508da643265b845dc33a4bb15e7d98dd"
+    },
+    {
+      "seed": 42,
+      "condition": "extinction",
+      "predictions_sha256": "bad0dd0a796844c7b620810c5d6558f28d9b961aa386ea03274d3850d80df196"
+    },
+    {
+      "seed": 42,
+      "condition": "reversal",
+      "predictions_sha256": "a9cf66e0e28b2d00a19e46208d65c5a0b8039fb95dff9e2fc691f6891f4dff2f"
+    },
+    {
+      "seed": 42,
+      "condition": "recurrence",
+      "predictions_sha256": "0055b967796ed8b3b049f4d9e80224ab7d50c1ac42d0006e22805eb64082234a"
+    },
+    {
+      "seed": 43,
+      "condition": "stable",
+      "predictions_sha256": "89b67e632202bbe247f46baf4e35d1b4c4f4208136cf5bd218246b3250ec8039"
+    },
+    {
+      "seed": 43,
+      "condition": "extinction",
+      "predictions_sha256": "0881efb34ac18b88eb936468deb43ab897b58f99503aa1013ed42032a8e8a74f"
+    },
+    {
+      "seed": 43,
+      "condition": "reversal",
+      "predictions_sha256": "f18cf759eb69d4fcb4e7349451d7871848f9af94cf166004bbb3e0d150d28f59"
+    },
+    {
+      "seed": 43,
+      "condition": "recurrence",
+      "predictions_sha256": "26917cfcc62ad19f45ecb9100cab49df13c2bf45f8cb260a152562d239fc9675"
+    },
+    {
+      "seed": 44,
+      "condition": "stable",
+      "predictions_sha256": "22ec13e93fe1f312021d991fbd3149f9355d3222ad8cc971af03dc4d999d8700"
+    },
+    {
+      "seed": 44,
+      "condition": "extinction",
+      "predictions_sha256": "216312c82fb6c76517f316df833153f757fa703f2a5e2f4fde1447f2dc0e5372"
+    },
+    {
+      "seed": 44,
+      "condition": "reversal",
+      "predictions_sha256": "b502dde3764ba9bf21edb4f64199f250ad34710c28f0658afd35d90e48916037"
+    },
+    {
+      "seed": 44,
+      "condition": "recurrence",
+      "predictions_sha256": "e933613fe74214c5342a1af0aaa1fe3a11aeef973b21c448e63930a44ff35ff3"
+    }
+  ],
+  "verification": {
+    "full_regression": {
+      "passed": 180,
+      "elapsed_s": 31.04
+    },
+    "targeted": {
+      "passed": 35,
+      "elapsed_s": 18.05
+    },
+    "data_model_prediction_hashes": "passed",
+    "saved_scores_reproduced": "passed",
+    "control_selection_reproduced": "passed",
+    "reserved_test_range_untouched": "passed",
+    "stable_recurrence_paired_query_and_labels": "identical",
+    "scientific_figure": "visually reviewed",
+    "ui": "no new UI changes; prior rendering permission block remains"
+  },
+  "external_spend_usd": 0,
+  "package": {
+    "file": "artifacts\\packages\\build-09\\valor_aace-0.1.0-py3-none-any.whl",
+    "sha256": "7a24729d7c887112b96f2167851e037b64f9e8070d33c510ca7b331a6309b3a6",
+    "bytes": 116092,
+    "source_static_licenses": "exact",
+    "build": "offline no-deps no-index no-build-isolation; setuptools 78.1.0 versus declared 80.3.1",
+    "fresh_install": "not tested"
+  },
+  "paired_gru_brier_differences": {
+    "42": {
+      "stable": {
+        "stateless": {
+          "mean_delta": 0.0011815441539511085,
+          "episode_bootstrap_95_percent": [
+            -0.005098909116350114,
+            0.007153191510587927
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": -0.000273270474281162,
+          "episode_bootstrap_95_percent": [
+            -0.004901781352236867,
+            0.004316077998373656
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": -0.0017970233457162976,
+          "episode_bootstrap_95_percent": [
+            -0.004566832294221968,
+            0.0012267550395335996
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": 0.07758433371782303,
+          "episode_bootstrap_95_percent": [
+            0.059936183877289294,
+            0.0946139706298709
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.002929189708083868,
+          "episode_bootstrap_95_percent": [
+            -0.01058559101074934,
+            0.0052693442441523065
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": -0.005180253181606531,
+          "episode_bootstrap_95_percent": [
+            -0.012608517915941775,
+            0.0023891188204288477
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.06197435408830643,
+          "episode_bootstrap_95_percent": [
+            -0.08392860274761915,
+            -0.04039654638618231
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": 0.07559446691079606,
+          "episode_bootstrap_95_percent": [
+            0.06055242268189572,
+            0.09043192474387338
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": 0.05519749569954058,
+          "episode_bootstrap_95_percent": [
+            0.0411583774898302,
+            0.06870414152151444
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": 0.05706458773117428,
+          "episode_bootstrap_95_percent": [
+            0.04321672349874444,
+            0.06942612680244457
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": 0.06425288272931638,
+          "episode_bootstrap_95_percent": [
+            0.04887943153008353,
+            0.0795087033082161
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": 0.06261134246202678,
+          "episode_bootstrap_95_percent": [
+            0.05027013381159883,
+            0.07543245719782013
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": 0.0018613095872237091,
+          "episode_bootstrap_95_percent": [
+            -0.004196332433488836,
+            0.007848849178174019
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.10147608736500145,
+          "episode_bootstrap_95_percent": [
+            0.0783682959737703,
+            0.123602417717807
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      },
+      "extinction": {
+        "stateless": {
+          "mean_delta": -0.019204070791602135,
+          "episode_bootstrap_95_percent": [
+            -0.02262616013176739,
+            -0.015332837007008495
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": -0.009587619453668594,
+          "episode_bootstrap_95_percent": [
+            -0.011995186517015099,
+            -0.007087776914704591
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": -0.0027665207162499428,
+          "episode_bootstrap_95_percent": [
+            -0.004155657044611872,
+            -0.0012471387890400367
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": -0.013953945599496365,
+          "episode_bootstrap_95_percent": [
+            -0.020074332365766168,
+            -0.008126483624801041
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.000562711211387068,
+          "episode_bootstrap_95_percent": [
+            -0.003675115172518417,
+            0.0025113539013545956
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": -0.003089620266109705,
+          "episode_bootstrap_95_percent": [
+            -0.006251451512798667,
+            0.00013776755440630858
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.015673629939556122,
+          "episode_bootstrap_95_percent": [
+            -0.022288999892771243,
+            -0.008894806494936347
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": -0.025523585218006777,
+          "episode_bootstrap_95_percent": [
+            -0.03261800673909918,
+            -0.018639746169576192
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": -0.0019147732788259493,
+          "episode_bootstrap_95_percent": [
+            -0.006106500312127189,
+            0.0020245947515717183
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": -0.002854638261374756,
+          "episode_bootstrap_95_percent": [
+            -0.0074249453624695184,
+            0.0011575256398454422
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": -0.013418740941163996,
+          "episode_bootstrap_95_percent": [
+            -0.020896757613822325,
+            -0.0066748870084732724
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": -0.011170053416627732,
+          "episode_bootstrap_95_percent": [
+            -0.015890740886846985,
+            -0.006825612825413394
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": -0.01985447344236239,
+          "episode_bootstrap_95_percent": [
+            -0.023325050099747523,
+            -0.015895096352580827
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.012664304335415363,
+          "episode_bootstrap_95_percent": [
+            0.00552693496624008,
+            0.019046210752204057
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      },
+      "reversal": {
+        "stateless": {
+          "mean_delta": -0.004431925248354673,
+          "episode_bootstrap_95_percent": [
+            -0.010690783127211034,
+            0.001553574873832985
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": -0.004929933696985245,
+          "episode_bootstrap_95_percent": [
+            -0.0099786470644176,
+            -4.924022223349338e-05
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": -0.0019522380316630006,
+          "episode_bootstrap_95_percent": [
+            -0.005091628932859749,
+            0.0013041639031143844
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": 0.03581070527434349,
+          "episode_bootstrap_95_percent": [
+            0.02361126528121531,
+            0.04814517768099904
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.001004236750304699,
+          "episode_bootstrap_95_percent": [
+            -0.009641901566646993,
+            0.007332732854411005
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": -0.0026161603163927794,
+          "episode_bootstrap_95_percent": [
+            -0.011572728515602648,
+            0.006056369049474595
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.025265228003263474,
+          "episode_bootstrap_95_percent": [
+            -0.041290737502276895,
+            -0.009422730701044203
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": -0.016118586666785454,
+          "episode_bootstrap_95_percent": [
+            -0.024441627803501776,
+            -0.007565603666017059
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": 0.054694919810342885,
+          "episode_bootstrap_95_percent": [
+            0.041342228171703646,
+            0.06846725243589097
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": 0.05553136961707209,
+          "episode_bootstrap_95_percent": [
+            0.04240521669150418,
+            0.06871521383031462
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": 0.045582728033923936,
+          "episode_bootstrap_95_percent": [
+            0.029265543873042477,
+            0.06163124578401052
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": 0.058470345126748806,
+          "episode_bootstrap_95_percent": [
+            0.047023217320012765,
+            0.07093053354720323
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": -0.0036704700083599606,
+          "episode_bootstrap_95_percent": [
+            -0.009968735988344362,
+            0.002224901320355772
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.12277630776941775,
+          "episode_bootstrap_95_percent": [
+            0.09626019149948285,
+            0.1489464663909748
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      },
+      "recurrence": {
+        "stateless": {
+          "mean_delta": 0.012185377068817616,
+          "episode_bootstrap_95_percent": [
+            0.006671533721964806,
+            0.01759957424364984
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": 0.006352765951305628,
+          "episode_bootstrap_95_percent": [
+            0.0026454332866705957,
+            0.01009409597609192
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": -0.0011933798668906093,
+          "episode_bootstrap_95_percent": [
+            -0.00384067966369912,
+            0.0015479000750929113
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": 0.05108670890331268,
+          "episode_bootstrap_95_percent": [
+            0.03963094810023904,
+            0.06289096567779778
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.0012089230585843325,
+          "episode_bootstrap_95_percent": [
+            -0.006940307235345245,
+            0.004950052383355793
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": -0.0024434919469058514,
+          "episode_bootstrap_95_percent": [
+            -0.008180447784252465,
+            0.003661385795567183
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.029017414897680283,
+          "episode_bootstrap_95_percent": [
+            -0.04359262762591243,
+            -0.014303795970045033
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": 0.054166171974795514,
+          "episode_bootstrap_95_percent": [
+            0.043140638271501774,
+            0.06549632573992223
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": 0.045576031634507234,
+          "episode_bootstrap_95_percent": [
+            0.032166221868957005,
+            0.05937712507461388
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": 0.0365153145478202,
+          "episode_bootstrap_95_percent": [
+            0.02679630800066116,
+            0.047238544044888114
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": 0.04614698916910217,
+          "episode_bootstrap_95_percent": [
+            0.031370960328168995,
+            0.06045220873012241
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": 0.05185275674869952,
+          "episode_bootstrap_95_percent": [
+            0.04035659463198439,
+            0.06386481690885808
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": 0.012865142329795541,
+          "episode_bootstrap_95_percent": [
+            0.007154976728860414,
+            0.01835643857396208
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.11247992010757327,
+          "episode_bootstrap_95_percent": [
+            0.08586519378393144,
+            0.13836048090851683
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      }
+    },
+    "43": {
+      "stable": {
+        "stateless": {
+          "mean_delta": 0.002320030238479376,
+          "episode_bootstrap_95_percent": [
+            -0.004265670734457672,
+            0.008959416137076914
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": 0.0014915381325408816,
+          "episode_bootstrap_95_percent": [
+            -0.003366337378975004,
+            0.006418608664534986
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": -0.0006689521251246333,
+          "episode_bootstrap_95_percent": [
+            -0.0036437928909435866,
+            0.0026166646275669323
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": 0.07909160852432251,
+          "episode_bootstrap_95_percent": [
+            0.06152911921963096,
+            0.09613813105970621
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.002874579979106784,
+          "episode_bootstrap_95_percent": [
+            -0.011114127677865326,
+            0.005866753554437308
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": -0.0038751084357500076,
+          "episode_bootstrap_95_percent": [
+            -0.011590069090016187,
+            0.004164157225750386
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.061291132122278214,
+          "episode_bootstrap_95_percent": [
+            -0.08356675747781991,
+            -0.03899002876132727
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": 0.07653037774293293,
+          "episode_bootstrap_95_percent": [
+            0.061671348929652675,
+            0.09111855347162087
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": 0.05613340653167744,
+          "episode_bootstrap_95_percent": [
+            0.04182235672157171,
+            0.06944647252552628
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": 0.058000498563311145,
+          "episode_bootstrap_95_percent": [
+            0.04421739134599673,
+            0.07026587393585187
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": 0.06518879356145325,
+          "episode_bootstrap_95_percent": [
+            0.049539743441561736,
+            0.08054866458677691
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": 0.06354725329416366,
+          "episode_bootstrap_95_percent": [
+            0.05103056330292351,
+            0.07618377208818725
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": 0.0027972204193605793,
+          "episode_bootstrap_95_percent": [
+            -0.003694330498770991,
+            0.00910769470492962
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.10241199819713832,
+          "episode_bootstrap_95_percent": [
+            0.07898347557520494,
+            0.1250508575575538
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      },
+      "extinction": {
+        "stateless": {
+          "mean_delta": -0.020706498995423317,
+          "episode_bootstrap_95_percent": [
+            -0.024487658916041256,
+            -0.016359387524425985
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": -0.01221612747758627,
+          "episode_bootstrap_95_percent": [
+            -0.015052048722282052,
+            -0.009055799013003709
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": -0.004619858227670193,
+          "episode_bootstrap_95_percent": [
+            -0.006341520533896983,
+            -0.0028302206017542632
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": -0.015999410301446915,
+          "episode_bootstrap_95_percent": [
+            -0.022257041512057187,
+            -0.010000154608860614
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.0007509096758440137,
+          "episode_bootstrap_95_percent": [
+            -0.0043714677100069824,
+            0.0026770511001814154
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": -0.004819536115974188,
+          "episode_bootstrap_95_percent": [
+            -0.008111038035713137,
+            -0.0013546829781262207
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.017895705997943878,
+          "episode_bootstrap_95_percent": [
+            -0.02464615195058286,
+            -0.011103722290135922
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": -0.026675752441400694,
+          "episode_bootstrap_95_percent": [
+            -0.033816603918570526,
+            -0.01968384671911388
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": -0.0030669405022198657,
+          "episode_bootstrap_95_percent": [
+            -0.0073616062562714525,
+            0.0009130628150700883
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": -0.0040068054847686736,
+          "episode_bootstrap_95_percent": [
+            -0.0085129471408439,
+            4.8059016462026656e-05
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": -0.014570908164557913,
+          "episode_bootstrap_95_percent": [
+            -0.02203653356115789,
+            -0.007892423153376604
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": -0.012322220640021649,
+          "episode_bootstrap_95_percent": [
+            -0.017143194775317,
+            -0.007820807864759702
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": -0.021006640665756308,
+          "episode_bootstrap_95_percent": [
+            -0.02483163351281014,
+            -0.016602337706283745
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.011512137112021446,
+          "episode_bootstrap_95_percent": [
+            0.004407390204034747,
+            0.01772555574415251
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      },
+      "reversal": {
+        "stateless": {
+          "mean_delta": -0.004624225664883852,
+          "episode_bootstrap_95_percent": [
+            -0.011349025066010654,
+            0.001914641261100769
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": -0.004097569268196821,
+          "episode_bootstrap_95_percent": [
+            -0.00961356065236032,
+            0.0011484086368000123
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": -0.0023365835659205914,
+          "episode_bootstrap_95_percent": [
+            -0.0058392976992763575,
+            0.001340655083185993
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": 0.03713323175907135,
+          "episode_bootstrap_95_percent": [
+            0.02511385390534997,
+            0.04959175642579794
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.0018719997024163604,
+          "episode_bootstrap_95_percent": [
+            -0.011381024424917997,
+            0.007227703509852288
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": -0.0026716168504208326,
+          "episode_bootstrap_95_percent": [
+            -0.011942344601266086,
+            0.006469424930401144
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.023502247408032417,
+          "episode_bootstrap_95_percent": [
+            -0.03956039464101195,
+            -0.0073397762258537134
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": -0.016646604455910898,
+          "episode_bootstrap_95_percent": [
+            -0.02465509625682137,
+            -0.00787537038912376
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": 0.05416690202121744,
+          "episode_bootstrap_95_percent": [
+            0.040928755275570355,
+            0.06789274580970309
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": 0.055003351827946655,
+          "episode_bootstrap_95_percent": [
+            0.04228350285438035,
+            0.06796749636254999
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": 0.04505471024479849,
+          "episode_bootstrap_95_percent": [
+            0.029267735055331565,
+            0.06070625829937009
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": 0.057942327337623355,
+          "episode_bootstrap_95_percent": [
+            0.046386219726061204,
+            0.07062706799834108
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": -0.004198487797485403,
+          "episode_bootstrap_95_percent": [
+            -0.010847862671973421,
+            0.0022585691018292163
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.12224828998029232,
+          "episode_bootstrap_95_percent": [
+            0.09513725202827901,
+            0.1485353828729652
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      },
+      "recurrence": {
+        "stateless": {
+          "mean_delta": 0.015608768910169601,
+          "episode_bootstrap_95_percent": [
+            0.009458992700092494,
+            0.021754777012392874
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": 0.010610255412757397,
+          "episode_bootstrap_95_percent": [
+            0.006289120041765272,
+            0.015240291273221372
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": 0.0028230431489646435,
+          "episode_bootstrap_95_percent": [
+            -5.701866575691381e-05,
+            0.005798293848056346
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": 0.05546264722943306,
+          "episode_bootstrap_95_percent": [
+            0.043565388582646844,
+            0.06775505356490612
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.0013157163048163056,
+          "episode_bootstrap_95_percent": [
+            -0.007536541623994708,
+            0.005270293622743336
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": 0.0016946842661127448,
+          "episode_bootstrap_95_percent": [
+            -0.004136325407307595,
+            0.008096035895869136
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.025165222585201263,
+          "episode_bootstrap_95_percent": [
+            -0.0399784323759377,
+            -0.010582364350557332
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": 0.05738698941777891,
+          "episode_bootstrap_95_percent": [
+            0.04607485843638121,
+            0.06887999293646475
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": 0.048796849077490614,
+          "episode_bootstrap_95_percent": [
+            0.034794943281626925,
+            0.06291240824283685
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": 0.039736131990803586,
+          "episode_bootstrap_95_percent": [
+            0.029653257718312155,
+            0.050601966217021975
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": 0.049367806612085556,
+          "episode_bootstrap_95_percent": [
+            0.03444524232804448,
+            0.06405521469190104
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": 0.055073574191682906,
+          "episode_bootstrap_95_percent": [
+            0.04308754551950479,
+            0.06790876644157468
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": 0.016085959772778928,
+          "episode_bootstrap_95_percent": [
+            0.009799603695950784,
+            0.02244524417021288
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.11570073755055667,
+          "episode_bootstrap_95_percent": [
+            0.08841753998980671,
+            0.1428044366074726
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      }
+    },
+    "44": {
+      "stable": {
+        "stateless": {
+          "mean_delta": 0.004873961675912142,
+          "episode_bootstrap_95_percent": [
+            -0.0008299854307551868,
+            0.011067882180213928
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": 0.004147673491388559,
+          "episode_bootstrap_95_percent": [
+            -6.112182254582874e-05,
+            0.008568838494829834
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": 0.0014461748069152236,
+          "episode_bootstrap_95_percent": [
+            -0.0015663263911847025,
+            0.004567001014947891
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": 0.07817021012306213,
+          "episode_bootstrap_95_percent": [
+            0.060258901584893464,
+            0.09506501592695712
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.003235099371522665,
+          "episode_bootstrap_95_percent": [
+            -0.010881566815078259,
+            0.005357423215173184
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": -0.002066174056380987,
+          "episode_bootstrap_95_percent": [
+            -0.009356036991812288,
+            0.005703451065346599
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.05674012750387192,
+          "episode_bootstrap_95_percent": [
+            -0.07868626546114683,
+            -0.0352482813410461
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": 0.07893659546329249,
+          "episode_bootstrap_95_percent": [
+            0.06323720839953294,
+            0.09457141986281753
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": 0.05853962425203701,
+          "episode_bootstrap_95_percent": [
+            0.043629001324328835,
+            0.07259748057374459
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": 0.06040671628367071,
+          "episode_bootstrap_95_percent": [
+            0.045827634356951995,
+            0.07365998511361224
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": 0.06759501128181282,
+          "episode_bootstrap_95_percent": [
+            0.051626030564806434,
+            0.08379993843797544
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": 0.06595347101452322,
+          "episode_bootstrap_95_percent": [
+            0.052900390054194064,
+            0.07915573627319462
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": 0.005203438139720142,
+          "episode_bootstrap_95_percent": [
+            -0.0005124442195347156,
+            0.011377057288080087
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.10481821591749788,
+          "episode_bootstrap_95_percent": [
+            0.080849903186813,
+            0.12846953333019093
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      },
+      "extinction": {
+        "stateless": {
+          "mean_delta": -0.021908648312091827,
+          "episode_bootstrap_95_percent": [
+            -0.02587343188934028,
+            -0.017571647185832262
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": -0.013768480159342289,
+          "episode_bootstrap_95_percent": [
+            -0.01679163775406778,
+            -0.010547006386332216
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": -0.005311420653015375,
+          "episode_bootstrap_95_percent": [
+            -0.00711413084063679,
+            -0.0033807921514380722
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": -0.013525022193789482,
+          "episode_bootstrap_95_percent": [
+            -0.01934235719963908,
+            -0.00779241049895063
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.00014835590263828635,
+          "episode_bootstrap_95_percent": [
+            -0.003088739956729114,
+            0.0027400531223975124
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": -0.005507937632501125,
+          "episode_bootstrap_95_percent": [
+            -0.00858068789821118,
+            -0.00214661192148924
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.014849560335278511,
+          "episode_bootstrap_95_percent": [
+            -0.02128403107635677,
+            -0.008255212474614384
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": -0.02814812878053825,
+          "episode_bootstrap_95_percent": [
+            -0.0353696411936169,
+            -0.021078644373142694
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": -0.004539316841357419,
+          "episode_bootstrap_95_percent": [
+            -0.008903118361604801,
+            -0.00035517161720185033
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": -0.005479181823906228,
+          "episode_bootstrap_95_percent": [
+            -0.00993704204876874,
+            -0.001171749291519298
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": -0.01604328450369547,
+          "episode_bootstrap_95_percent": [
+            -0.02338600336871227,
+            -0.00918632531352054
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": -0.013794596979159203,
+          "episode_bootstrap_95_percent": [
+            -0.018379160979206034,
+            -0.008949847776542046
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": -0.022479017004893864,
+          "episode_bootstrap_95_percent": [
+            -0.026535574110958374,
+            -0.018073161136477955
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.01003976077288389,
+          "episode_bootstrap_95_percent": [
+            0.003682071789214389,
+            0.015959497576039282
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      },
+      "reversal": {
+        "stateless": {
+          "mean_delta": 0.00041069721919484437,
+          "episode_bootstrap_95_percent": [
+            -0.005969638226088136,
+            0.006760536739602683
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": 0.0016399977030232549,
+          "episode_bootstrap_95_percent": [
+            -0.0030733431922271848,
+            0.006556509993970392
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": 0.0022992787417024374,
+          "episode_bootstrap_95_percent": [
+            -0.0010987896064762026,
+            0.005737530987244099
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": 0.03716573491692543,
+          "episode_bootstrap_95_percent": [
+            0.025214357115328313,
+            0.04960685400292277
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.0016832005931064487,
+          "episode_bootstrap_95_percent": [
+            -0.010867374995723367,
+            0.00711122865322977
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": 0.0018230037530884147,
+          "episode_bootstrap_95_percent": [
+            -0.007522865512873978,
+            0.010795559850521386
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.02065201848745346,
+          "episode_bootstrap_95_percent": [
+            -0.03619801970198751,
+            -0.004806874494533986
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": -0.011500462237648938,
+          "episode_bootstrap_95_percent": [
+            -0.019687936316182996,
+            -0.002349790573144316
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": 0.0593130442394794,
+          "episode_bootstrap_95_percent": [
+            0.04556476180290502,
+            0.07404003335250499
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": 0.06014949404620861,
+          "episode_bootstrap_95_percent": [
+            0.046114140497071444,
+            0.07403951855332043
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": 0.05020085246306045,
+          "episode_bootstrap_95_percent": [
+            0.03347463632849939,
+            0.06683893516226846
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": 0.06308846955588533,
+          "episode_bootstrap_95_percent": [
+            0.05062015158591506,
+            0.07672849429786416
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": 0.000947654420776554,
+          "episode_bootstrap_95_percent": [
+            -0.005376671687883254,
+            0.007345708323159948
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.12739443219855426,
+          "episode_bootstrap_95_percent": [
+            0.09952281317800657,
+            0.15451151228576154
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      },
+      "recurrence": {
+        "stateless": {
+          "mean_delta": 0.018733926117420197,
+          "episode_bootstrap_95_percent": [
+            0.012052384694106877,
+            0.025628939736634493
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_linear": {
+          "mean_delta": 0.013667705468833447,
+          "episode_bootstrap_95_percent": [
+            0.009137649135664106,
+            0.018489808216691016
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp": {
+          "mean_delta": 0.004881768021732569,
+          "episode_bootstrap_95_percent": [
+            0.002022492594551295,
+            0.007871449436061084
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp": {
+          "mean_delta": 0.05172602832317352,
+          "episode_bootstrap_95_percent": [
+            0.04011411117389798,
+            0.06373728420585394
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "gru_shuffled_history": {
+          "mean_delta": -0.0009086222271434963,
+          "episode_bootstrap_95_percent": [
+            -0.006346325424965471,
+            0.004611786431632934
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "history_mlp_shuffled_history": {
+          "mean_delta": 0.0035852757282555103,
+          "episode_bootstrap_95_percent": [
+            -0.001997995044803247,
+            0.00962764136493206
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "summary_mlp_shuffled_history": {
+          "mean_delta": -0.023005908355116844,
+          "episode_bootstrap_95_percent": [
+            -0.036681496538221836,
+            -0.009371012961491945
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "cue_counts": {
+          "mean_delta": 0.06036443404603248,
+          "episode_bootstrap_95_percent": [
+            0.048762229848754994,
+            0.07262267903458722
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "forgetting_counts": {
+          "mean_delta": 0.05177429370574419,
+          "episode_bootstrap_95_percent": [
+            0.0371121802184873,
+            0.06738996557685534
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "window_counts": {
+          "mean_delta": 0.04271357661905716,
+          "episode_bootstrap_95_percent": [
+            0.03211779158095464,
+            0.05423378504134801
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "change_detector": {
+          "mean_delta": 0.05234525124033914,
+          "episode_bootstrap_95_percent": [
+            0.03683842056268676,
+            0.06783404308719879
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "markov_bayes_reference": {
+          "mean_delta": 0.05805101881993649,
+          "episode_bootstrap_95_percent": [
+            0.045350878113420194,
+            0.07156639034411395
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "constant_prevalence": {
+          "mean_delta": 0.01906340440103251,
+          "episode_bootstrap_95_percent": [
+            0.012244713577974591,
+            0.026068280359017492
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        },
+        "hidden_state_reference": {
+          "mean_delta": 0.11867818217881025,
+          "episode_bootstrap_95_percent": [
+            0.09152945519914665,
+            0.1459830868319385
+          ],
+          "notice": "Paired development episodes for one fitted model; does not include training-seed variability"
+        }
+      }
+    }
+  },
+  "descriptive_trained_condition_mean_brier": {
+    "stateless": 0.2024811837145339,
+    "history_linear": 0.19975948066557506,
+    "history_mlp": 0.19732763089099856,
+    "gru": 0.19558239260521657,
+    "summary_mlp": 0.16208489865744857,
+    "gru_shuffled_history": 0.1972557568764058,
+    "history_mlp_shuffled_history": 0.1986938814710322,
+    "summary_mlp_shuffled_history": 0.22867617083823763,
+    "cue_counts": 0.18375480148127696,
+    "forgetting_counts": 0.159079685746259,
+    "window_counts": 0.15849179346098766,
+    "change_detector": 0.16293327654925274,
+    "markov_bayes_reference": 0.15843502176589558,
+    "constant_prevalence": 0.20229344444444441,
+    "hidden_state_reference": 0.1161
+  },
+  "inference": {
+    "42": {
+      "stable": {
+        "stateless": 0.0005753999575972557,
+        "history_linear": 0.0003165999660268426,
+        "history_mlp": 0.000291000003926456,
+        "gru": 0.00793399999383837,
+        "summary_mlp": 0.001508600078523159,
+        "cue_counts": 0.001577200018800795,
+        "forgetting_counts": 0.0013780000153928995,
+        "window_counts": 0.0014588000485673547,
+        "change_detector": 0.003925799974240363,
+        "markov_bayes_reference": 0.002616999903693795
+      },
+      "extinction": {
+        "stateless": 0.000269399955868721,
+        "history_linear": 0.00022499996703118086,
+        "history_mlp": 0.00025399995502084494,
+        "gru": 0.0063056000508368015,
+        "summary_mlp": 0.0014921999536454678,
+        "cue_counts": 0.0009078000439330935,
+        "forgetting_counts": 0.0007834000280126929,
+        "window_counts": 0.0008150000358000398,
+        "change_detector": 0.0017660000594332814,
+        "markov_bayes_reference": 0.0013502000365406275
+      },
+      "reversal": {
+        "stateless": 0.0002615998964756727,
+        "history_linear": 0.00021760002709925175,
+        "history_mlp": 0.00027139997109770775,
+        "gru": 0.007028799969702959,
+        "summary_mlp": 0.0016033999854698777,
+        "cue_counts": 0.0009342000121250749,
+        "forgetting_counts": 0.0008162000449374318,
+        "window_counts": 0.0009169999975711107,
+        "change_detector": 0.0018086000345647335,
+        "markov_bayes_reference": 0.001433800091035664
+      },
+      "recurrence": {
+        "stateless": 0.0004018000327050686,
+        "history_linear": 0.00016299996059387922,
+        "history_mlp": 0.0006778000388294458,
+        "gru": 0.007874400005675852,
+        "summary_mlp": 0.0018123999470844865,
+        "cue_counts": 0.0011626000050455332,
+        "forgetting_counts": 0.001021200092509389,
+        "window_counts": 0.001031799940392375,
+        "change_detector": 0.002673799986951053,
+        "markov_bayes_reference": 0.0016832000110298395
+      }
+    },
+    "43": {
+      "stable": {
+        "stateless": 0.0004723999882116914,
+        "history_linear": 0.0002875999780371785,
+        "history_mlp": 0.00020420004148036242,
+        "gru": 0.004640200058929622,
+        "summary_mlp": 0.0013090000720694661,
+        "cue_counts": 0.0008720000041648746,
+        "forgetting_counts": 0.0007447999669238925,
+        "window_counts": 0.0007448000833392143,
+        "change_detector": 0.0016147999558597803,
+        "markov_bayes_reference": 0.0012740000383928418
+      },
+      "extinction": {
+        "stateless": 0.00021500000730156898,
+        "history_linear": 0.00020299991592764854,
+        "history_mlp": 0.0002517999382689595,
+        "gru": 0.005079400027170777,
+        "summary_mlp": 0.001416000071913004,
+        "cue_counts": 0.0008870000019669533,
+        "forgetting_counts": 0.0007582000689581037,
+        "window_counts": 0.0007972000166773796,
+        "change_detector": 0.001677999971434474,
+        "markov_bayes_reference": 0.001279400079511106
+      },
+      "reversal": {
+        "stateless": 0.00021500000730156898,
+        "history_linear": 0.00020299991592764854,
+        "history_mlp": 0.0003388000186532736,
+        "gru": 0.005909799947403371,
+        "summary_mlp": 0.0017265999922528863,
+        "cue_counts": 0.0009680000366643071,
+        "forgetting_counts": 0.0008855999913066626,
+        "window_counts": 0.0008301999187096953,
+        "change_detector": 0.0018440000712871552,
+        "markov_bayes_reference": 0.0014767999527975917
+      },
+      "recurrence": {
+        "stateless": 0.0002715999726206064,
+        "history_linear": 0.0002256000880151987,
+        "history_mlp": 0.00047800003085285425,
+        "gru": 0.007019600016064942,
+        "summary_mlp": 0.0015397999668493867,
+        "cue_counts": 0.0011021998943760991,
+        "forgetting_counts": 0.0009974000276997685,
+        "window_counts": 0.000916799996048212,
+        "change_detector": 0.002207399928011,
+        "markov_bayes_reference": 0.0016330000944435596
+      }
+    },
+    "44": {
+      "stable": {
+        "stateless": 0.0004708000924438238,
+        "history_linear": 0.00044239999260753393,
+        "history_mlp": 0.0005425999406725168,
+        "gru": 0.010203199926763773,
+        "summary_mlp": 0.003726599970832467,
+        "cue_counts": 0.001889800070784986,
+        "forgetting_counts": 0.0017561999848112464,
+        "window_counts": 0.0016246000304818153,
+        "change_detector": 0.0045535999815911055,
+        "markov_bayes_reference": 0.004095999989658594
+      },
+      "extinction": {
+        "stateless": 0.00033840001560747623,
+        "history_linear": 0.000256399973295629,
+        "history_mlp": 0.0007085999241098762,
+        "gru": 0.008375799981877208,
+        "summary_mlp": 0.002487999969162047,
+        "cue_counts": 0.0015868000918999314,
+        "forgetting_counts": 0.0013038000324741006,
+        "window_counts": 0.0012983999913558364,
+        "change_detector": 0.003003799938596785,
+        "markov_bayes_reference": 0.0022478000028058887
+      },
+      "reversal": {
+        "stateless": 0.0005508000031113625,
+        "history_linear": 0.0005653999978676438,
+        "history_mlp": 0.0012846000026911497,
+        "gru": 0.014609599951654673,
+        "summary_mlp": 0.002591000054962933,
+        "cue_counts": 0.002067800029180944,
+        "forgetting_counts": 0.0017036000499501824,
+        "window_counts": 0.0012513999827206135,
+        "change_detector": 0.003016199916601181,
+        "markov_bayes_reference": 0.0030391999753192067
+      },
+      "recurrence": {
+        "stateless": 0.0005396000342443585,
+        "history_linear": 0.00042719999328255653,
+        "history_mlp": 0.0005339999916031957,
+        "gru": 0.011298199999146163,
+        "summary_mlp": 0.0035942000104114413,
+        "cue_counts": 0.0018903999589383602,
+        "forgetting_counts": 0.0017760000191628933,
+        "window_counts": 0.0017269999952986836,
+        "change_detector": 0.004268000018782914,
+        "markov_bayes_reference": 0.003355399938300252
+      }
+    }
+  },
+  "inference_notice": "Batch amortized after model warmup; controls timed once without a dedicated warmup. Not single-request latency or matched computation."
+}
