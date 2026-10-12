@@ -140,6 +140,19 @@ def main() -> None:
     history_collector.add_argument("--episodes", type=int, default=500)
     history_collector.add_argument("--max-seconds", type=float, default=60)
     history_collector.add_argument("--output", type=Path, default=Path("artifacts/history-data"))
+    history_trainer = commands.add_parser("train-history", help="Compare bounded CPU recurrent and simpler history heads")
+    history_trainer.add_argument("--training", type=Path, required=True)
+    history_trainer.add_argument("--selection", type=Path, required=True)
+    history_trainer.add_argument("--seed", type=int, default=42)
+    history_trainer.add_argument("--epochs", type=int, default=25)
+    history_trainer.add_argument("--max-seconds", type=float, default=120)
+    history_trainer.add_argument("--threads", type=int, choices=(1,2,4), default=2)
+    history_trainer.add_argument("--memory-mb", type=float, default=1024)
+    history_trainer.add_argument("--output", type=Path, default=Path("artifacts/history-models"))
+    history_evaluator = commands.add_parser("evaluate-history", help="Score history predictions, simple controls and history ablations")
+    history_evaluator.add_argument("--checkpoint", type=Path, required=True)
+    history_evaluator.add_argument("--check", type=Path, required=True)
+    history_evaluator.add_argument("--output", type=Path, default=Path("artifacts/validation"))
     args = parser.parse_args()
     if args.command == "doctor":
         result = doctor()
@@ -189,6 +202,13 @@ def main() -> None:
     elif args.command == "collect-history":
         from aace.benchmarks.history import collect_history
         result = collect_history(args.split,args.episodes,args.output,condition=args.condition,max_seconds=args.max_seconds)
+    elif args.command == "train-history":
+        from aace.learning.history import HistoryTrainSettings,train_history
+        result = train_history(HistoryTrainSettings(seed=args.seed,epochs=args.epochs,max_seconds=args.max_seconds,
+                               threads=args.threads,max_memory_mb=args.memory_mb),args.training,args.selection,args.output)
+    elif args.command == "evaluate-history":
+        from aace.learning.history import evaluate_history
+        result = evaluate_history(args.checkpoint,args.check,args.output)
     else:
         from aace.runtime import Session
         if args.max_seconds <= 0:
