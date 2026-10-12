@@ -134,6 +134,12 @@ def main() -> None:
     threat_evaluator.add_argument("--checkpoint", type=Path, required=True)
     threat_evaluator.add_argument("--check", type=Path, required=True)
     threat_evaluator.add_argument("--output", type=Path, default=Path("artifacts/validation"))
+    history_collector = commands.add_parser("collect-history", help="Collect controlled repaired-body history episodes")
+    history_collector.add_argument("--split", choices=("train", "selection", "check"), required=True)
+    history_collector.add_argument("--condition", choices=("stable", "extinction", "reversal"), default="stable")
+    history_collector.add_argument("--episodes", type=int, default=500)
+    history_collector.add_argument("--max-seconds", type=float, default=60)
+    history_collector.add_argument("--output", type=Path, default=Path("artifacts/history-data"))
     args = parser.parse_args()
     if args.command == "doctor":
         result = doctor()
@@ -180,6 +186,9 @@ def main() -> None:
     elif args.command == "evaluate-threat":
         from aace.learning.threat import evaluate_threat
         result = evaluate_threat(args.checkpoint,args.check,args.output)
+    elif args.command == "collect-history":
+        from aace.benchmarks.history import collect_history
+        result = collect_history(args.split,args.episodes,args.output,condition=args.condition,max_seconds=args.max_seconds)
     else:
         from aace.runtime import Session
         if args.max_seconds <= 0:
