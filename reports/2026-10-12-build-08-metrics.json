@@ -1,0 +1,1249 @@
+{
+  "date": "2026-10-12",
+  "scope": "frozen development repaired-body history probe, not AACE benefit or felt fear",
+  "source": "295ffb1a501e67d23bd2e67ce82e589ffd5b0f5f",
+  "source_dirty": false,
+  "pilot_index_file": "artifacts\\history-pilots\\pilot-v1-086e844e\\index.json",
+  "pilot_index_sha256": "584973e3ee46830be72d7e1f024c34a3fbb3ff41f559e04b9ab9e02467104318",
+  "datasets": {
+    "train_stable": {
+      "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\history-pilots\\pilot-v1-086e844e\\data\\history-train-stable-c0a7e39f",
+      "sha256": "7ad2db6cf3cc5d3d332761f6928f80245184cd133cda226f29db932c77f9c0fe",
+      "episodes": 3000,
+      "query_damage_events": 1096,
+      "observed_history_damage_events": 12573,
+      "recovery_units": 25146,
+      "seed_range": [
+        0,
+        2999
+      ]
+    },
+    "selection_stable": {
+      "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\history-pilots\\pilot-v1-086e844e\\data\\history-selection-stable-d93d2e1a",
+      "sha256": "865c94a704a6c2f02ed590e6b759a8e0d4bd21a6c858c78a46bfd5f8960d3f1e",
+      "episodes": 500,
+      "query_damage_events": 171,
+      "observed_history_damage_events": 2102,
+      "recovery_units": 4204,
+      "seed_range": [
+        10000,
+        10499
+      ]
+    },
+    "check_stable": {
+      "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\history-pilots\\pilot-v1-086e844e\\data\\history-check-stable-b767a143",
+      "sha256": "a50307e1593dc1b0ecd091c1448a832add6acd1913e78f82512cf8ff42d83c3f",
+      "episodes": 500,
+      "query_damage_events": 161,
+      "observed_history_damage_events": 2101,
+      "recovery_units": 4202,
+      "seed_range": [
+        12000,
+        12499
+      ]
+    },
+    "check_extinction": {
+      "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\history-pilots\\pilot-v1-086e844e\\data\\history-check-extinction-b9ae264d",
+      "sha256": "47bb0d4f9de1f4f07a1925706e26db69a6a1a65d832e9d45302d1b37de8aec96",
+      "episodes": 500,
+      "query_damage_events": 30,
+      "observed_history_damage_events": 1508,
+      "recovery_units": 3016,
+      "seed_range": [
+        12000,
+        12499
+      ]
+    },
+    "check_reversal": {
+      "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\history-pilots\\pilot-v1-086e844e\\data\\history-check-reversal-a2b0ab2d",
+      "sha256": "359e22516ee475b8e894f6b330d473c3b45a6762617db2639166729c08a96d3e",
+      "episodes": 500,
+      "query_damage_events": 189,
+      "observed_history_damage_events": 2094,
+      "recovery_units": 4188,
+      "seed_range": [
+        12000,
+        12499
+      ]
+    }
+  },
+  "fits": [
+    {
+      "seed": 42,
+      "model": {
+        "model_version": "history-event-head-v1",
+        "dataset_schema": "repaired-body-history-v1",
+        "feature_names": [
+          "cue_a",
+          "cue_b",
+          "observed_harm",
+          "exposure_completed",
+          "integrity",
+          "reserve_fraction"
+        ],
+        "encounters": 12,
+        "settings": {
+          "seed": 42,
+          "epochs": 25,
+          "batch_size": 128,
+          "max_seconds": 120,
+          "max_memory_mb": 1024,
+          "threads": 2
+        },
+        "training_sha256": "7ad2db6cf3cc5d3d332761f6928f80245184cd133cda226f29db932c77f9c0fe",
+        "selection_sha256": "865c94a704a6c2f02ed590e6b759a8e0d4bd21a6c858c78a46bfd5f8960d3f1e",
+        "training_episodes": 3000,
+        "selection_episodes": 500,
+        "training_seed_range": [
+          0,
+          2999
+        ],
+        "selection_seed_range": [
+          10000,
+          10499
+        ],
+        "training_prevalence": 0.36533333333333334,
+        "best_epochs": {
+          "stateless": 5,
+          "history_linear": 1,
+          "history_mlp": 5,
+          "gru": 16
+        },
+        "selection_log_losses": {
+          "stateless": 0.6431331038475037,
+          "history_linear": 0.642345666885376,
+          "history_mlp": 0.6433987617492676,
+          "gru": 0.6427184343338013
+        },
+        "updates_per_model": 600,
+        "parameter_counts": {
+          "stateless": 113,
+          "history_linear": 79,
+          "history_mlp": 1121,
+          "gru": 1169
+        },
+        "recurrent_state_float32_bytes": 64,
+        "initialization": "same training-event prior; epoch zero eligible",
+        "comparison": "same history for history heads; same data, batches, updates and selection opportunities; computation not equalized",
+        "weights_sha256": "ae964f3dcc86637116ce5409e325accb3054afe0bcea794e04fb27febef65885",
+        "elapsed_s": 12.433011300046928,
+        "peak_sampled_memory_mb": 267.4765625,
+        "stop_reason": "epoch_budget",
+        "evidence_kind": "experimental",
+        "decision_ready": false,
+        "external_spend_usd": 0,
+        "git_revision": "295ffb1a501e67d23bd2e67ce82e589ffd5b0f5f",
+        "git_dirty": false,
+        "python_source_sha256": "c1900c0eaaf660520d5ddac21d58d3836352bac89caac4d94dc0697dcd2b14ed",
+        "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\history-pilots\\pilot-v1-086e844e\\models\\history-model-42-7e09b705"
+      }
+    },
+    {
+      "seed": 43,
+      "model": {
+        "model_version": "history-event-head-v1",
+        "dataset_schema": "repaired-body-history-v1",
+        "feature_names": [
+          "cue_a",
+          "cue_b",
+          "observed_harm",
+          "exposure_completed",
+          "integrity",
+          "reserve_fraction"
+        ],
+        "encounters": 12,
+        "settings": {
+          "seed": 43,
+          "epochs": 25,
+          "batch_size": 128,
+          "max_seconds": 120,
+          "max_memory_mb": 1024,
+          "threads": 2
+        },
+        "training_sha256": "7ad2db6cf3cc5d3d332761f6928f80245184cd133cda226f29db932c77f9c0fe",
+        "selection_sha256": "865c94a704a6c2f02ed590e6b759a8e0d4bd21a6c858c78a46bfd5f8960d3f1e",
+        "training_episodes": 3000,
+        "selection_episodes": 500,
+        "training_seed_range": [
+          0,
+          2999
+        ],
+        "selection_seed_range": [
+          10000,
+          10499
+        ],
+        "training_prevalence": 0.36533333333333334,
+        "best_epochs": {
+          "stateless": 1,
+          "history_linear": 3,
+          "history_mlp": 5,
+          "gru": 25
+        },
+        "selection_log_losses": {
+          "stateless": 0.6432021856307983,
+          "history_linear": 0.6426927447319031,
+          "history_mlp": 0.6432564854621887,
+          "gru": 0.6312516331672668
+        },
+        "updates_per_model": 600,
+        "parameter_counts": {
+          "stateless": 113,
+          "history_linear": 79,
+          "history_mlp": 1121,
+          "gru": 1169
+        },
+        "recurrent_state_float32_bytes": 64,
+        "initialization": "same training-event prior; epoch zero eligible",
+        "comparison": "same history for history heads; same data, batches, updates and selection opportunities; computation not equalized",
+        "weights_sha256": "b69b0ad017533260d9a094310f321ba5ee33332cd164cf63df8b31c89c2e027b",
+        "elapsed_s": 6.97321850003209,
+        "peak_sampled_memory_mb": 272.7578125,
+        "stop_reason": "epoch_budget",
+        "evidence_kind": "experimental",
+        "decision_ready": false,
+        "external_spend_usd": 0,
+        "git_revision": "295ffb1a501e67d23bd2e67ce82e589ffd5b0f5f",
+        "git_dirty": false,
+        "python_source_sha256": "c1900c0eaaf660520d5ddac21d58d3836352bac89caac4d94dc0697dcd2b14ed",
+        "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\history-pilots\\pilot-v1-086e844e\\models\\history-model-43-f87d6d73"
+      }
+    },
+    {
+      "seed": 44,
+      "model": {
+        "model_version": "history-event-head-v1",
+        "dataset_schema": "repaired-body-history-v1",
+        "feature_names": [
+          "cue_a",
+          "cue_b",
+          "observed_harm",
+          "exposure_completed",
+          "integrity",
+          "reserve_fraction"
+        ],
+        "encounters": 12,
+        "settings": {
+          "seed": 44,
+          "epochs": 25,
+          "batch_size": 128,
+          "max_seconds": 120,
+          "max_memory_mb": 1024,
+          "threads": 2
+        },
+        "training_sha256": "7ad2db6cf3cc5d3d332761f6928f80245184cd133cda226f29db932c77f9c0fe",
+        "selection_sha256": "865c94a704a6c2f02ed590e6b759a8e0d4bd21a6c858c78a46bfd5f8960d3f1e",
+        "training_episodes": 3000,
+        "selection_episodes": 500,
+        "training_seed_range": [
+          0,
+          2999
+        ],
+        "selection_seed_range": [
+          10000,
+          10499
+        ],
+        "training_prevalence": 0.36533333333333334,
+        "best_epochs": {
+          "stateless": 19,
+          "history_linear": 3,
+          "history_mlp": 7,
+          "gru": 25
+        },
+        "selection_log_losses": {
+          "stateless": 0.643269419670105,
+          "history_linear": 0.6429024338722229,
+          "history_mlp": 0.6434755325317383,
+          "gru": 0.6182470917701721
+        },
+        "updates_per_model": 600,
+        "parameter_counts": {
+          "stateless": 113,
+          "history_linear": 79,
+          "history_mlp": 1121,
+          "gru": 1169
+        },
+        "recurrent_state_float32_bytes": 64,
+        "initialization": "same training-event prior; epoch zero eligible",
+        "comparison": "same history for history heads; same data, batches, updates and selection opportunities; computation not equalized",
+        "weights_sha256": "0060772df929b52f693453405e2bd601aaba1ac7b5fa8579f3cbf642e10afa9f",
+        "elapsed_s": 5.859451299998909,
+        "peak_sampled_memory_mb": 277.73828125,
+        "stop_reason": "epoch_budget",
+        "evidence_kind": "experimental",
+        "decision_ready": false,
+        "external_spend_usd": 0,
+        "git_revision": "295ffb1a501e67d23bd2e67ce82e589ffd5b0f5f",
+        "git_dirty": false,
+        "python_source_sha256": "c1900c0eaaf660520d5ddac21d58d3836352bac89caac4d94dc0697dcd2b14ed",
+        "directory": "C:\\Users\\Aayu\\OneDrive\\Desktop\\VALOR\\artifacts\\history-pilots\\pilot-v1-086e844e\\models\\history-model-44-5a33fb08"
+      }
+    }
+  ],
+  "aggregate": {
+    "stable": {
+      "stateless": {
+        "brier": {
+          "mean": 0.2206239780371859,
+          "training_seed_values": [
+            0.22061217705519728,
+            0.220020865366411,
+            0.22123889168994937
+          ],
+          "training_seed_standard_deviation": 0.0006090989070668435
+        },
+        "log_loss": {
+          "mean": 0.633409172689633,
+          "training_seed_values": [
+            0.6333872325491393,
+            0.6321191944495028,
+            0.6347210910702572
+          ],
+          "training_seed_standard_deviation": 0.0013010870584234313
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3015771787259679,
+          "training_seed_values": [
+            0.3015372544493734,
+            0.3009580269503589,
+            0.3022362547781714
+          ],
+          "training_seed_standard_deviation": 0.0006400484792925959
+        }
+      },
+      "history_linear": {
+        "brier": {
+          "mean": 0.21935852892131044,
+          "training_seed_values": [
+            0.2191316464655459,
+            0.21925909437951416,
+            0.21968484591887125
+          ],
+          "training_seed_standard_deviation": 0.0002896943732048378
+        },
+        "log_loss": {
+          "mean": 0.6306726696338328,
+          "training_seed_values": [
+            0.6301811491701449,
+            0.6304561198273854,
+            0.631380739903968
+          ],
+          "training_seed_standard_deviation": 0.000628430462480051
+        },
+        "reference_probability_rmse": {
+          "mean": 0.30061638701861704,
+          "training_seed_values": [
+            0.3002552906713007,
+            0.3004953550312081,
+            0.3010985153533423
+          ],
+          "training_seed_standard_deviation": 0.0004344462251915237
+        }
+      },
+      "history_mlp": {
+        "brier": {
+          "mean": 0.22005147605383035,
+          "training_seed_values": [
+            0.22001775156879466,
+            0.2200469036364147,
+            0.2200897729562817
+          ],
+          "training_seed_standard_deviation": 3.622775613610631e-05
+        },
+        "log_loss": {
+          "mean": 0.6321813084882907,
+          "training_seed_values": [
+            0.6321115970062242,
+            0.6321746068824459,
+            0.6322577215762021
+          ],
+          "training_seed_standard_deviation": 7.329243568390286e-05
+        },
+        "reference_probability_rmse": {
+          "mean": 0.30117757229442915,
+          "training_seed_values": [
+            0.30105935736044154,
+            0.3010598057654757,
+            0.3014135537573702
+          ],
+          "training_seed_standard_deviation": 0.00020436606471140107
+        }
+      },
+      "gru": {
+        "brier": {
+          "mean": 0.21693265246459556,
+          "training_seed_values": [
+            0.22084660524093516,
+            0.21794296300798238,
+            0.21200838914486908
+          ],
+          "training_seed_standard_deviation": 0.004504893060412129
+        },
+        "log_loss": {
+          "mean": 0.6257745515414148,
+          "training_seed_values": [
+            0.633876332506092,
+            0.6280032636190275,
+            0.615444058499125
+          ],
+          "training_seed_standard_deviation": 0.009416079301421071
+        },
+        "reference_probability_rmse": {
+          "mean": 0.2919373503613966,
+          "training_seed_values": [
+            0.30191392557498165,
+            0.29299095263412317,
+            0.28090717287508504
+          ],
+          "training_seed_standard_deviation": 0.010542934746097701
+        }
+      },
+      "gru_shuffled_history": {
+        "brier": {
+          "mean": 0.22666046913494498,
+          "training_seed_values": [
+            0.22124792898730125,
+            0.2267029012766249,
+            0.23203057714090886
+          ],
+          "training_seed_standard_deviation": 0.005391449310353388
+        },
+        "log_loss": {
+          "mean": 0.6458123620927659,
+          "training_seed_values": [
+            0.634746075864488,
+            0.645936242574897,
+            0.6567547678389128
+          ],
+          "training_seed_standard_deviation": 0.011004868940004171
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3061434050537506,
+          "training_seed_values": [
+            0.3021481440766594,
+            0.3060565153771743,
+            0.3102255557074181
+          ],
+          "training_seed_standard_deviation": 0.004039406766482009
+        }
+      },
+      "history_mlp_shuffled_history": {
+        "brier": {
+          "mean": 0.2201825929132736,
+          "training_seed_values": [
+            0.2201275272041136,
+            0.22009342079313077,
+            0.22032683074257645
+          ],
+          "training_seed_standard_deviation": 0.000126072302148525
+        },
+        "log_loss": {
+          "mean": 0.6324674632559971,
+          "training_seed_values": [
+            0.6323494751650984,
+            0.6322757992984989,
+            0.6327771153043941
+          ],
+          "training_seed_standard_deviation": 0.00027068492133312116
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3010598562847067,
+          "training_seed_values": [
+            0.30102588047299367,
+            0.3010277268422497,
+            0.30112596153887683
+          ],
+          "training_seed_standard_deviation": 5.72562725081449e-05
+        }
+      },
+      "cue_counts": {
+        "brier": {
+          "mean": 0.17097411911305893,
+          "training_seed_values": [
+            0.17097411911305893,
+            0.17097411911305893,
+            0.17097411911305893
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.5174681882532567,
+          "training_seed_values": [
+            0.5174681882532567,
+            0.5174681882532567,
+            0.5174681882532567
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.14383243527903442,
+          "training_seed_values": [
+            0.14383243527903442,
+            0.14383243527903442,
+            0.14383243527903442
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      },
+      "public_history_bayes": {
+        "brier": {
+          "mean": 0.1523363444942998,
+          "training_seed_values": [
+            0.1523363444942998,
+            0.1523363444942998,
+            0.1523363444942998
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.46501573369204835,
+          "training_seed_values": [
+            0.4650157336920483,
+            0.4650157336920483,
+            0.4650157336920483
+          ],
+          "training_seed_standard_deviation": 6.798699777552591e-17
+        },
+        "reference_probability_rmse": {
+          "mean": 0.033550061024733256,
+          "training_seed_values": [
+            0.033550061024733256,
+            0.033550061024733256,
+            0.033550061024733256
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      },
+      "constant_prevalence": {
+        "brier": {
+          "mean": 0.22019377777777782,
+          "training_seed_values": [
+            0.22019377777777782,
+            0.22019377777777782,
+            0.22019377777777782
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.6324926511044946,
+          "training_seed_values": [
+            0.6324926511044946,
+            0.6324926511044946,
+            0.6324926511044946
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3011868375462499,
+          "training_seed_values": [
+            0.3011868375462499,
+            0.3011868375462499,
+            0.3011868375462499
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      },
+      "hidden_state_reference": {
+        "brier": {
+          "mean": 0.15058,
+          "training_seed_values": [
+            0.15058,
+            0.15058,
+            0.15058
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.460677505881182,
+          "training_seed_values": [
+            0.460677505881182,
+            0.460677505881182,
+            0.460677505881182
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.0,
+          "training_seed_values": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      }
+    },
+    "extinction": {
+      "stateless": {
+        "brier": {
+          "mean": 0.14799807768915832,
+          "training_seed_values": [
+            0.14822539560111098,
+            0.14780855457539535,
+            0.14796028289096863
+          ],
+          "training_seed_standard_deviation": 0.00021097498727944768
+        },
+        "log_loss": {
+          "mean": 0.4841462374927847,
+          "training_seed_values": [
+            0.4846782803854379,
+            0.4838595815933075,
+            0.4839008504996086
+          ],
+          "training_seed_standard_deviation": 0.00046122446853342754
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3127393396409335,
+          "training_seed_values": [
+            0.31311782815236017,
+            0.31235247244009745,
+            0.31274771833034287
+          ],
+          "training_seed_standard_deviation": 0.0003827466438787629
+        }
+      },
+      "history_linear": {
+        "brier": {
+          "mean": 0.14177699507392905,
+          "training_seed_values": [
+            0.14010698470532876,
+            0.13997361809370068,
+            0.14525038242275767
+          ],
+          "training_seed_standard_deviation": 0.0030087807197478524
+        },
+        "log_loss": {
+          "mean": 0.47067755555077667,
+          "training_seed_values": [
+            0.46704966029939,
+            0.4667212560302843,
+            0.47826175032265555
+          ],
+          "training_seed_standard_deviation": 0.00657015753953728
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3021502302525055,
+          "training_seed_values": [
+            0.29928124947959645,
+            0.2990718906605913,
+            0.30809755061732863
+          ],
+          "training_seed_standard_deviation": 0.005151594162990141
+        }
+      },
+      "history_mlp": {
+        "brier": {
+          "mean": 0.14727482718397336,
+          "training_seed_values": [
+            0.1479923637377269,
+            0.14793703709851921,
+            0.14589508071567406
+          ],
+          "training_seed_standard_deviation": 0.001195215669592673
+        },
+        "log_loss": {
+          "mean": 0.4826686209813062,
+          "training_seed_values": [
+            0.48425336422017073,
+            0.48413441497971565,
+            0.4796180837440322
+          ],
+          "training_seed_standard_deviation": 0.0026425121205867095
+        },
+        "reference_probability_rmse": {
+          "mean": 0.31142400445513085,
+          "training_seed_values": [
+            0.3126003798798719,
+            0.3125714211103164,
+            0.30910021237520424
+          ],
+          "training_seed_standard_deviation": 0.0020125150622121355
+        }
+      },
+      "gru": {
+        "brier": {
+          "mean": 0.15590929841399712,
+          "training_seed_values": [
+            0.1467569617223008,
+            0.1596048935019797,
+            0.16136604001771082
+          ],
+          "training_seed_standard_deviation": 0.007974920654846411
+        },
+        "log_loss": {
+          "mean": 0.4990850392409019,
+          "training_seed_values": [
+            0.4812863162857388,
+            0.5071005806098452,
+            0.5088682208271218
+          ],
+          "training_seed_standard_deviation": 0.01543946378960168
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3257866256293846,
+          "training_seed_values": [
+            0.3106058842400115,
+            0.33179271252028086,
+            0.3349612801278614
+          ],
+          "training_seed_standard_deviation": 0.01324202163641266
+        }
+      },
+      "gru_shuffled_history": {
+        "brier": {
+          "mean": 0.15668668511006237,
+          "training_seed_values": [
+            0.14672335551158489,
+            0.16033534993871482,
+            0.1630013498798874
+          ],
+          "training_seed_standard_deviation": 0.008730855710496317
+        },
+        "log_loss": {
+          "mean": 0.5006980006473051,
+          "training_seed_values": [
+            0.4812201636327919,
+            0.5085596675462154,
+            0.5123141707629076
+          ],
+          "training_seed_standard_deviation": 0.016972438677868004
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3267201387222545,
+          "training_seed_values": [
+            0.3105205382941483,
+            0.3330566977460096,
+            0.3365831801266057
+          ],
+          "training_seed_standard_deviation": 0.01413963613456474
+        }
+      },
+      "history_mlp_shuffled_history": {
+        "brier": {
+          "mean": 0.14722127595161683,
+          "training_seed_values": [
+            0.1479681862718839,
+            0.1479369240430592,
+            0.1457587175399074
+          ],
+          "training_seed_standard_deviation": 0.001266709186231898
+        },
+        "log_loss": {
+          "mean": 0.4825493970539309,
+          "training_seed_values": [
+            0.48420052101632116,
+            0.4841342002902588,
+            0.4793134698552128
+          ],
+          "training_seed_standard_deviation": 0.00280259134306612
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3114248491944207,
+          "training_seed_values": [
+            0.3126034613060239,
+            0.31257343513214036,
+            0.30909765114509774
+          ],
+          "training_seed_standard_deviation": 0.0020154685468542675
+        }
+      },
+      "cue_counts": {
+        "brier": {
+          "mean": 0.15916477545551386,
+          "training_seed_values": [
+            0.15916477545551386,
+            0.15916477545551386,
+            0.15916477545551386
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.48794264814952787,
+          "training_seed_values": [
+            0.4879426481495278,
+            0.4879426481495278,
+            0.4879426481495278
+          ],
+          "training_seed_standard_deviation": 6.798699777552591e-17
+        },
+        "reference_probability_rmse": {
+          "mean": 0.31907886099910554,
+          "training_seed_values": [
+            0.31907886099910554,
+            0.31907886099910554,
+            0.31907886099910554
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      },
+      "public_history_bayes": {
+        "brier": {
+          "mean": 0.22161282815319097,
+          "training_seed_values": [
+            0.22161282815319097,
+            0.22161282815319097,
+            0.22161282815319097
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.6047040505972489,
+          "training_seed_values": [
+            0.6047040505972489,
+            0.6047040505972489,
+            0.6047040505972489
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.40672800155076144,
+          "training_seed_values": [
+            0.40672800155076144,
+            0.40672800155076144,
+            0.40672800155076144
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      },
+      "constant_prevalence": {
+        "brier": {
+          "mean": 0.14962844444444448,
+          "training_seed_values": [
+            0.14962844444444448,
+            0.14962844444444448,
+            0.14962844444444448
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.4877927371695369,
+          "training_seed_values": [
+            0.4877927371695369,
+            0.4877927371695369,
+            0.4877927371695369
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.31533333333333335,
+          "training_seed_values": [
+            0.31533333333333335,
+            0.31533333333333335,
+            0.31533333333333335
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      },
+      "hidden_state_reference": {
+        "brier": {
+          "mean": 0.05649999999999999,
+          "training_seed_values": [
+            0.05649999999999999,
+            0.05649999999999999,
+            0.05649999999999999
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.22795963313753698,
+          "training_seed_values": [
+            0.22795963313753698,
+            0.22795963313753698,
+            0.22795963313753698
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.0,
+          "training_seed_values": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      }
+    },
+    "reversal": {
+      "stateless": {
+        "brier": {
+          "mean": 0.23538337832544984,
+          "training_seed_values": [
+            0.23531724230559403,
+            0.23534364859814622,
+            0.23548924407260927
+          ],
+          "training_seed_standard_deviation": 9.262823752941574e-05
+        },
+        "log_loss": {
+          "mean": 0.6636587643177453,
+          "training_seed_values": [
+            0.6635131448956317,
+            0.663566089184562,
+            0.6638970588730422
+          ],
+          "training_seed_standard_deviation": 0.00020806007725099264
+        },
+        "reference_probability_rmse": {
+          "mean": 0.2994724419009416,
+          "training_seed_values": [
+            0.2993803295888821,
+            0.2995561651732787,
+            0.29948083094066397
+          ],
+          "training_seed_standard_deviation": 8.821745958494315e-05
+        }
+      },
+      "history_linear": {
+        "brier": {
+          "mean": 0.23543133664765956,
+          "training_seed_values": [
+            0.23569164194118525,
+            0.2354992521597935,
+            0.23510311584199992
+          ],
+          "training_seed_standard_deviation": 0.00030008353828040666
+        },
+        "log_loss": {
+          "mean": 0.6637577633692774,
+          "training_seed_values": [
+            0.6643226432400894,
+            0.6639049847589603,
+            0.6630456621087826
+          ],
+          "training_seed_standard_deviation": 0.0006510958497898183
+        },
+        "reference_probability_rmse": {
+          "mean": 0.2996894236882082,
+          "training_seed_values": [
+            0.2998379256880908,
+            0.29977948228516316,
+            0.29945086309137087
+          ],
+          "training_seed_standard_deviation": 0.00020865588083973953
+        }
+      },
+      "history_mlp": {
+        "brier": {
+          "mean": 0.23507631440502452,
+          "training_seed_values": [
+            0.23521043094799324,
+            0.23523230271340503,
+            0.23478620955367524
+          ],
+          "training_seed_standard_deviation": 0.00025147606667999425
+        },
+        "log_loss": {
+          "mean": 0.6629896146053426,
+          "training_seed_values": [
+            0.663278137360216,
+            0.6633256965654312,
+            0.6623650098903805
+          ],
+          "training_seed_standard_deviation": 0.0005414459871167243
+        },
+        "reference_probability_rmse": {
+          "mean": 0.2994561751314566,
+          "training_seed_values": [
+            0.2995244728746051,
+            0.29950546370756126,
+            0.29933858881220354
+          ],
+          "training_seed_standard_deviation": 0.00010227533409645893
+        }
+      },
+      "gru": {
+        "brier": {
+          "mean": 0.24384929214312354,
+          "training_seed_values": [
+            0.23584852930425262,
+            0.24416835353531133,
+            0.2515309935898066
+          ],
+          "training_seed_standard_deviation": 0.007846099135615571
+        },
+        "log_loss": {
+          "mean": 0.6814960435182438,
+          "training_seed_values": [
+            0.6646636181171496,
+            0.6819809057201502,
+            0.6978436067174316
+          ],
+          "training_seed_standard_deviation": 0.016595307451048917
+        },
+        "reference_probability_rmse": {
+          "mean": 0.31179486276359025,
+          "training_seed_values": [
+            0.2995713803884759,
+            0.31287039550138307,
+            0.32294281240091177
+          ],
+          "training_seed_standard_deviation": 0.011722778534994422
+        }
+      },
+      "gru_shuffled_history": {
+        "brier": {
+          "mean": 0.2385159402108569,
+          "training_seed_values": [
+            0.2353706545571946,
+            0.23807776551646204,
+            0.24209940055891405
+          ],
+          "training_seed_standard_deviation": 0.0033857057589252865
+        },
+        "log_loss": {
+          "mean": 0.6703414770321832,
+          "training_seed_values": [
+            0.6636375837648931,
+            0.6693063491724027,
+            0.6780804981592534
+          ],
+          "training_seed_standard_deviation": 0.00727688541309227
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3041445894426832,
+          "training_seed_values": [
+            0.29934016721793766,
+            0.30412926142747493,
+            0.30896433968263703
+          ],
+          "training_seed_standard_deviation": 0.004812104541529318
+        }
+      },
+      "history_mlp_shuffled_history": {
+        "brier": {
+          "mean": 0.23529908708851913,
+          "training_seed_values": [
+            0.23527218476351405,
+            0.23529376749640515,
+            0.23533130900563815
+          ],
+          "training_seed_standard_deviation": 2.9918932916821713e-05
+        },
+        "log_loss": {
+          "mean": 0.663467831770566,
+          "training_seed_values": [
+            0.6634113534510123,
+            0.6634581588183638,
+            0.663533983042322
+          ],
+          "training_seed_standard_deviation": 6.188439762514404e-05
+        },
+        "reference_probability_rmse": {
+          "mean": 0.2995052139006075,
+          "training_seed_values": [
+            0.29952086110666104,
+            0.29950827732463237,
+            0.29948650327052917
+          ],
+          "training_seed_standard_deviation": 1.7382567445089923e-05
+        }
+      },
+      "cue_counts": {
+        "brier": {
+          "mean": 0.30434264207536155,
+          "training_seed_values": [
+            0.30434264207536155,
+            0.30434264207536155,
+            0.30434264207536155
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.8223903727620159,
+          "training_seed_values": [
+            0.8223903727620159,
+            0.8223903727620159,
+            0.8223903727620159
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.3990074105317052,
+          "training_seed_values": [
+            0.3990074105317052,
+            0.3990074105317052,
+            0.3990074105317052
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      },
+      "public_history_bayes": {
+        "brier": {
+          "mean": 0.4331868850884966,
+          "training_seed_values": [
+            0.4331868850884967,
+            0.4331868850884967,
+            0.4331868850884967
+          ],
+          "training_seed_standard_deviation": 6.798699777552591e-17
+        },
+        "log_loss": {
+          "mean": 1.2700117754212625,
+          "training_seed_values": [
+            1.2700117754212625,
+            1.2700117754212625,
+            1.2700117754212625
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.5277716217401497,
+          "training_seed_values": [
+            0.5277716217401497,
+            0.5277716217401497,
+            0.5277716217401497
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      },
+      "constant_prevalence": {
+        "brier": {
+          "mean": 0.2352764444444445,
+          "training_seed_values": [
+            0.2352764444444445,
+            0.2352764444444445,
+            0.2352764444444445
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.6634208769837221,
+          "training_seed_values": [
+            0.6634208769837221,
+            0.6634208769837221,
+            0.6634208769837221
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.2995942441221312,
+          "training_seed_values": [
+            0.2995942441221312,
+            0.2995942441221312,
+            0.2995942441221312
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      },
+      "hidden_state_reference": {
+        "brier": {
+          "mean": 0.13642,
+          "training_seed_values": [
+            0.13642,
+            0.13642,
+            0.13642
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "log_loss": {
+          "mean": 0.4209191583750495,
+          "training_seed_values": [
+            0.4209191583750495,
+            0.4209191583750495,
+            0.4209191583750495
+          ],
+          "training_seed_standard_deviation": 0.0
+        },
+        "reference_probability_rmse": {
+          "mean": 0.0,
+          "training_seed_values": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seed_standard_deviation": 0.0
+        }
+      }
+    }
+  },
+  "prediction_artifacts": [
+    {
+      "seed": 42,
+      "condition": "stable",
+      "prediction_sha256": "a8f2f78c0c4d82f29e60c388f418f5cb421fbd37bb999b784e63712380a9b280"
+    },
+    {
+      "seed": 42,
+      "condition": "extinction",
+      "prediction_sha256": "818c501b5c33846f664e65df8af75d38fff3d5fdee4ce413e57df66a9cce9146"
+    },
+    {
+      "seed": 42,
+      "condition": "reversal",
+      "prediction_sha256": "4fd13f854540b01532e2be497a630d606add317f92f0d8f3b897de0196bda806"
+    },
+    {
+      "seed": 43,
+      "condition": "stable",
+      "prediction_sha256": "801075bae93815822a7f90020d5b55ad364d41196ec49ea0407132e64724c69e"
+    },
+    {
+      "seed": 43,
+      "condition": "extinction",
+      "prediction_sha256": "3d504b3bac022d6120fa1ff3a83df6ef1eccf1698cebbec8b06393f98fcba388"
+    },
+    {
+      "seed": 43,
+      "condition": "reversal",
+      "prediction_sha256": "b384ba9283faec473243bc140e96c95680942b2f45379c23feb5d50225172075"
+    },
+    {
+      "seed": 44,
+      "condition": "stable",
+      "prediction_sha256": "0b3ff39bb70ab9cc4fa0ca19c660cc5a6baaddd4c928d0050367467b5394cf02"
+    },
+    {
+      "seed": 44,
+      "condition": "extinction",
+      "prediction_sha256": "ed17d4d1c7d95aba097024540ebc0dda20a209dcfc281a245ea18ab0fc18d14e"
+    },
+    {
+      "seed": 44,
+      "condition": "reversal",
+      "prediction_sha256": "6555b48b4d9ec546a4dcbe3d65f5a2c7644b9ce6343fbc9975870b17d53a0000"
+    }
+  ],
+  "episode_bootstrap_notice": "Individual fit intervals omit training-seed variability; three fits use the same check episodes",
+  "verification": {
+    "new_history_checks": 19,
+    "new_history_checks_elapsed_s": 15.21,
+    "dataset_and_prediction_hashes": "passed",
+    "seed_groups_disjoint": "passed",
+    "saved_predictions_reproduce_scores": "passed",
+    "browser_review": "no new UI; previous rendering review remains pending",
+    "full_regression": {
+      "passed": 164,
+      "elapsed_s": 32.23
+    },
+    "compileall": "passed",
+    "scientific_figure": "plotted from saved measurements; visually reviewed"
+  },
+  "external_spend_usd": 0,
+  "package": {
+    "file": "artifacts\\packages\\build-08\\valor_aace-0.1.0-py3-none-any.whl",
+    "bytes": 110309,
+    "sha256": "88864bf02b6b8ff912761d0894a3f62a6b371dbe957c3f3da30a5f9137bd342c",
+    "files_compared": [
+      "aace/benchmarks/history.py",
+      "aace/learning/history.py",
+      "aace/cli.py",
+      "app.js",
+      "decision-paths.svg",
+      "evidence.js",
+      "index.html",
+      "rover.html",
+      "study.css",
+      "study.js",
+      "style.css"
+    ],
+    "licenses": "exact",
+    "build": "offline no-deps no-build-isolation no-index; setuptools 78.1.0, declared 80.3.1",
+    "fresh_install": "not tested"
+  },
+  "plot": {
+    "png": "reports/figures/history-pilot-v1.png",
+    "svg": "reports/figures/history-pilot-v1.svg",
+    "script": "scripts/Plot-HistoryPilot.py"
+  }
+}
