@@ -166,6 +166,10 @@ def main() -> None:
     continuation = commands.add_parser("continuation-pilot", help="Train and check scoped public-history action consequence models")
     continuation.add_argument("--output", type=Path, default=Path("artifacts/continuation-pilots"))
     continuation.add_argument("--smoke", action="store_true", help="Separate small engineering cohort, not the research pilot")
+    structured = commands.add_parser("structured-pilot", help="Compare coherent consequence models on fresh development checks")
+    structured.add_argument("--continuation-index", type=Path, required=True)
+    structured.add_argument("--output", type=Path, default=Path("artifacts/structured-pilots"))
+    structured.add_argument("--smoke", action="store_true", help="Requires a separate engineering continuation index")
     args = parser.parse_args()
     if args.command == "doctor":
         result = doctor()
@@ -228,6 +232,9 @@ def main() -> None:
     elif args.command == "continuation-pilot":
         from aace.learning.continuation_pilot import run_continuation_pilot
         result = run_continuation_pilot(args.output, smoke=args.smoke)
+    elif args.command == "structured-pilot":
+        from aace.learning.structured_pilot import run_structured_pilot
+        result = run_structured_pilot(args.continuation_index, args.output, smoke=args.smoke)
     elif args.command == "evaluate-history":
         from aace.learning.history import evaluate_history
         result = evaluate_history(args.checkpoint,args.check,args.output)

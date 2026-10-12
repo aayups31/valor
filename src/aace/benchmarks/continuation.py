@@ -17,6 +17,7 @@ from aace.telemetry import source_provenance
 from aace.decision import ActionIntent
 
 SCHEMA = "public-history-continuation-v1"
+STRUCTURED_SCHEMA = "structured-continuation-check-v2"
 ACTIONS = ("fast", "careful")
 CELLS = tuple((scene, action) for scene in SCENARIOS for action in ACTIONS)
 TERMINALS = ("completed", "irreversible_outage", "deadline_missed", "resource_exhausted")
@@ -24,6 +25,8 @@ QUANTITIES = ("work_completed", "harm_received", "recovery_units", "resource_use
 SCALES = np.array([6, .45, 6, 12, 14, 1], dtype=np.float64)
 SPLITS = {"train": (40000, 43000), "selection": (50000, 50500), "check": (60000, 60500)}
 ENGINEERING_SPLITS = {"train": (70000, 70064), "selection": (71000, 71032), "check": (72000, 72032)}
+STRUCTURED_SPLITS = {"check": (80000, 80500)}
+STRUCTURED_ENGINEERING_SPLITS = {"check": (81000, 81032)}
 PUBLIC_FEATURES = ("quota_fraction", "deadline_fraction", "fast", "careful")
 
 
@@ -94,8 +97,10 @@ def exact_consequences(scenario, action, probability):
     return tuple(float(value) for value in output)
 
 
-def collect_continuations(split, subjects, output: Path, *, condition="mixed", engineering=False, max_seconds=60):
-    intervals = ENGINEERING_SPLITS if engineering else SPLITS
+def collect_continuations(split, subjects, output: Path, *, condition="mixed", engineering=False, max_seconds=60, structured=False):
+    if type(engineering) is not bool or type(structured) is not bool:
+        raise ValueError("Continuation protocol flags must be explicit booleans")
+    intervals = (STRUCTURED_ENGINEERING_SPLITS if engineering else STRUCTURED_SPLITS) if structured else (ENGINEERING_SPLITS if engineering else SPLITS)
     if split not in intervals or type(subjects) is not int or not 1 <= subjects <= intervals[split][1]-intervals[split][0]:
         raise ValueError("Invalid continuation dataset split/capacity")
     if condition not in (CONDITIONS if split == "check" else ("mixed",)):
@@ -117,13 +122,13 @@ def collect_continuations(split, subjects, output: Path, *, condition="mixed", e
             environment.apply(ActionIntent(action))
             subject.append(outcome_vector(environment.state, SCENARIOS[scene][0]))
         targets.append(subject)
-    directory = output/f"continuation-{split}-{condition}-{uuid4().hex[:8]}"
+    directory = output/f"continuation-{'structured-' if structured else ''}{split}-{condition}-{uuid4().hex[:8]}"
     directory.mkdir(parents=True, exist_ok=False)
     np.savez_compressed(directory/"public-targets.npz", sequences=np.stack(sequences),
                         contexts=public_contexts(), targets=np.array(targets, dtype=np.float32))
     np.savez_compressed(directory/"audit.npz", episode_seeds=seeds,
                         latent_probability=np.array(latent), conditions=np.array(modes))
-    manifest = {"schema": SCHEMA, "split": split, "condition": condition, "engineering": engineering,
+    manifest = {"schema": STRUCTURED_SCHEMA if structured else SCHEMA, "split": split, "condition": condition, "engineering": engineering,
                 "subjects": subjects, "action_records": subjects*len(CELLS), "cells": CELLS,
                 "public_features": PUBLIC_FEATURES, "terminals": TERMINALS, "quantities": QUANTITIES,
                 "scales": SCALES.tolist(), "seed_interval": list(intervals[split]),
@@ -134,14 +139,16 @@ def collect_continuations(split, subjects, output: Path, *, condition="mixed", e
     return dict(manifest, directory=str(directory.resolve()))
 
 
-def load_continuations(directory: Path, expected_split):
+def load_continuations(directory: Path, expected_split, *, structured=False):
+    if type(structured) is not bool:
+        raise ValueError("Continuation protocol flag must be explicit")
     manifest = json.loads((directory/"manifest.json").read_text(encoding="utf-8"))
-    expected = {"schema": SCHEMA, "split": expected_split, "cells": [list(c) for c in CELLS],
+    expected = {"schema": STRUCTURED_SCHEMA if structured else SCHEMA, "split": expected_split, "cells": [list(c) for c in CELLS],
                 "public_features": list(PUBLIC_FEATURES), "terminals": list(TERMINALS),
                 "quantities": list(QUANTITIES), "scales": SCALES.tolist()}
     if any(manifest.get(key) != value for key, value in expected.items()) or type(manifest.get("engineering")) is not bool:
         raise ValueError("Continuation dataset contract mismatch")
-    intervals = ENGINEERING_SPLITS if manifest["engineering"] else SPLITS
+    intervals = (STRUCTURED_ENGINEERING_SPLITS if manifest["engineering"] else STRUCTURED_SPLITS) if structured else (ENGINEERING_SPLITS if manifest["engineering"] else SPLITS)
     if expected_split not in intervals or manifest.get("seed_interval") != list(intervals[expected_split]):
         raise ValueError("Continuation episode scope mismatch")
     if digest(directory/"public-targets.npz") != manifest["dataset_sha256"] or digest(directory/"audit.npz") != manifest["audit_sha256"]:

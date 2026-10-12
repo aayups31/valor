@@ -22,7 +22,7 @@ Adam 0.001, twenty epochs, subject batches 128, all six paired plans in each bat
 
 ## Comparisons
 
-Include the learned constant with matched decoder/data/updates as the primary control. Include all-count and recent-four cue likelihood mixtures under fixed Beta-state prior 0.5: observed cue damage likelihood uses p=0.05 versus 0.65, with no hidden schedule access. These stationary-window likelihood references are not exact posteriors under changing danger. Include v1 known-law smoothed-count plug-in controls and context/action empirical table. Retain all nine frozen black-box heads. A latent-law reference remains privileged audit-only.
+Include the learned constant with matched decoder/data/updates as the primary control. Include all-count and recent-four cue likelihood mixtures under fixed binary-state prior 0.5: observed cue damage likelihood uses p=0.05 versus 0.65, with no hidden schedule access. These stationary-window likelihood references are not exact posteriors under changing danger. Include v1 known-law smoothed-count plug-in controls and context/action empirical table. Retain all nine frozen black-box heads. A latent-law reference remains privileged audit-only. Pre-measurement terminology clarification: the prior is over two discrete states, not a Beta-distributed probability.
 
 Match information where possible and disclose added declared physics. Record model parameters, decoder provenance, fitted updates, inference and reference work separately. Historical raw heads lack structural decoder knowledge, so their difference is not evidence that a neural mechanism became more intelligent or emotional.
 
