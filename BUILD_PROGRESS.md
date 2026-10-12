@@ -1,5 +1,15 @@
 # Build progress
 
+### Stop 09 — adaptive history and returning danger, October 12
+
+- Added mixed changing-danger training, variable hidden schedules and new episode groups; recurrence is absent from fitting. Schedule metadata is hashed/audited and excluded from model inputs. V1 remains isolated and reproducible.
+- Added forgetting/window counts, per-cue change detection, a known-law Markov reference and a 169-parameter summary MLP. All control grids use selection episodes only; unrecorded setting changes are rejected.
+- Three frozen fits: 3,000 train / 500 selection / 500 paired checks per condition. Descriptive mean Brier over stable/extinction/reversal: recent window 0.15849, summary MLP 0.16208, GRU 0.19558. Compact summaries help, but no broad recurrent advantage is supported.
+- Returning danger remains underpredicted: high-probability queries have mean GRU 0.202 / summary 0.338 versus true simulator 0.65. No model is promoted to action authority; no subjective feeling, calibrated survival policy or AACE claim.
+- Full regression: 180 passed in 31.04 seconds. Measured three-fit training 25.76 seconds, sampled peak 278.16 MiB, CPU/two threads, external spend $0. Hashes, selection reproduction, paired queries, saved scores and offline package/source/licenses checked.
+- Three intermediate commits pushed through `632b591`; [full report 09](reports/2026-10-12-build-09.md) and current documents follow separately. No training job remains active; premium UI direction preserved.
+- Next: an offline proposal/decision rehearsal under fixed objectives and a separate labeled guard, measuring completion, damage, avoidance and recovery before any learned action integration.
+
 ### Stop 08 — learned survival-history prediction, October 12
 
 - Frozen repaired-body cue-history benchmark, separated/hashed data, public-history controls and shifted-condition checks implemented. Future query outcomes, latent assignments and seed metadata are excluded from inputs.

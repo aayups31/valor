@@ -8,7 +8,7 @@ Project-original source and documentation use [Apache 2.0](LICENSE), selected by
 
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
 
-Latest milestone: a repaired-body history benchmark and compact recurrent predictor now test anticipation from previous harm against simpler controls. Across three fitted seeds, simple cue counts outperform the GRU under stable danger; shifted danger remains unqualified. All 164 regression tests pass. See [build report 08](reports/2026-10-12-build-08.md) and [the frozen protocol](01_Architecture/HISTORY_SURVIVAL_PROTOCOL.md). The premium local demo still uses analytic service forecasts and a hand-specified observer without learned action influence. [Report 06](reports/2026-10-09-build-06.md) describes that observer; [report 05](reports/2026-10-09-build-05.md) retains the separate learned threat results; [report 04](reports/2026-10-06-build-04.md) retains rover controller/dynamics results. No felt fear or AACE advantage is established.
+Latest milestone: the adaptive history experiment trains on changing danger and compares forgetting, windows, change detection and learned history summaries. A 169-parameter summary head improves on the raw recurrent recipe, but simple adaptive controls remain strong and danger returning exposes substantial forecasting errors. All 180 regression tests pass. See [build report 09](reports/2026-10-12-build-09.md) and [the frozen adaptive protocol](01_Architecture/ADAPTIVE_HISTORY_PROTOCOL.md). [Report 08](reports/2026-10-12-build-08.md) retains the unchanged v1 result. The premium local demo still uses analytic service forecasts and a hand-specified observer without learned action influence. No felt fear, calibrated survival policy or AACE advantage is established.
 
 ## Open the demo
 
@@ -71,7 +71,15 @@ The package also declares a `valor` console entry point for fresh installs; the 
 
 ## Experimental learned threat head
 
-The separate repaired-body history experiment can be reproduced with:
+The adaptive repaired-body experiment can be reproduced with:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/Run-AdaptiveHistoryPilot.py
+```
+
+It trains on mixed stable/extinction/reversal histories and checks those conditions plus unseen recurrence. `collect-adaptive`, `train-history --adaptive` and `evaluate-history` expose individual stages. A compact learned summary model and adaptive count controls are included; settings are selected without check access. All outputs remain experimental. [Report 09](reports/2026-10-12-build-09.md) explains results and reproduction artifacts.
+
+The earlier frozen v1 experiment remains reproducible separately:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/Run-HistoryPilot.py

@@ -33,6 +33,8 @@ Time must be monotonic within an observer instance. Creating a new instance rese
 
 ## Integration and measurement sequence
 
+Further October 12 progress: [adaptive v2](ADAPTIVE_HISTORY_PROTOCOL.md) now trains on hidden changes and adds forgetting, windows, change detection and compact learned summaries. The summary head uses history more effectively than the raw GRU recipe, but stronger simple controls remain competitive and recurrence is badly underpredicted. [Report 09](../reports/2026-10-12-build-09.md) preserves the full limitations. Next, examine proposals and actual task behavior in a controlled offline rehearsal with unchanged external authority, rather than equating prediction with fear or survival competence.
+
 October 12 progress: [the repaired-body history probe](HISTORY_SURVIVAL_PROTOCOL.md) now supplies a controlled predictive task and matched comparisons. A compact recurrent head was trained across three seeds, but simple cue counts outperform it under stable danger. Shifts remain unqualified. This is separate from the hand-specified observer and does not supply an emotional policy or evidence of feeling. [Full measurements](../reports/2026-10-12-build-08.md). Strengthen adaptive history controls before action coupling; retain the failed frozen recipe unchanged.
 
 1. Keep the existing risk-constrained core as the stateless comparator. Qualify learned forecasts independently; an activation state cannot replace a risk bound.
