@@ -1,5 +1,7 @@
 # VALOR product experience
 
+October 12 owner-confirmed direction: [VALOR as an agent proctor](AGENT_PROCTOR_DIRECTION.md) specifies supervision of consequential proposed work and inspectable previews of anticipated consequences. Keep predictions, experienced harm, recovery options, selected/rejected alternatives and observed results distinct. Structured branch previews depend on scoped models and evidence; they do not imply access to subjective thoughts or every possible future.
+
 Design direction recorded October 9, 2026. This guides both the present local prototype and future learned decision models.
 
 ## Premise
