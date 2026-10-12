@@ -163,6 +163,9 @@ def main() -> None:
     rehearsal.add_argument("--pilot-index",type=Path,required=True)
     rehearsal.add_argument("--output",type=Path,default=Path("artifacts/decision-rehearsals"))
     rehearsal.add_argument("--smoke",action="store_true",help="Engineering examples on disjoint seeds, not the frozen pilot")
+    continuation = commands.add_parser("continuation-pilot", help="Train and check scoped public-history action consequence models")
+    continuation.add_argument("--output", type=Path, default=Path("artifacts/continuation-pilots"))
+    continuation.add_argument("--smoke", action="store_true", help="Separate small engineering cohort, not the research pilot")
     args = parser.parse_args()
     if args.command == "doctor":
         result = doctor()
@@ -222,6 +225,9 @@ def main() -> None:
     elif args.command == "decision-rehearsal":
         from aace.learning.rehearsal import run_rehearsal
         result = run_rehearsal(args.pilot_index,args.output,smoke=args.smoke)
+    elif args.command == "continuation-pilot":
+        from aace.learning.continuation_pilot import run_continuation_pilot
+        result = run_continuation_pilot(args.output, smoke=args.smoke)
     elif args.command == "evaluate-history":
         from aace.learning.history import evaluate_history
         result = evaluate_history(args.checkpoint,args.check,args.output)
