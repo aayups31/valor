@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-12",
+  "implementation_date": "2026-10-09",
+  "source": {
+    "html_nesting_and_unique_ids": "passed",
+    "external_font_or_asset_dependencies": 0,
+    "illustration_paths": 144,
+    "svg_xml": "passed",
+    "css_delimiters": "balanced (not a browser CSS parser)",
+    "static_total_bytes": 82110,
+    "rendered_ui_review": "pending: saved local-address browser permission"
+  },
+  "recorded_regression": {
+    "passed": 145,
+    "elapsed_s": 76.25
+  },
+  "external_spend_usd": 0,
+  "live": {
+    "health": {
+      "application": "valor",
+      "interface_version": 4,
+      "schema_version": "1.0"
+    },
+    "asset_routes": [
+      {
+        "route": "/",
+        "status": 200,
+        "bytes": 12184,
+        "sha256": "941d0b4bd0477e6233b77c3c7338ddf870516fbabf3e43339314d5908ee248fd"
+      },
+      {
+        "route": "/study.css",
+        "status": 200,
+        "bytes": 17688,
+        "sha256": "05601f4352af10cb9dd4ea1550eb5e5db4e796bbefa2496cb5d107c19eabf99c"
+      },
+      {
+        "route": "/decision-paths.svg",
+        "status": 200,
+        "bytes": 18906,
+        "sha256": "1fd52ecb5b345792d65f2843af2c50100143ee355ff7f47c3e21faaf3342c655"
+      },
+      {
+        "route": "/study.js",
+        "status": 200,
+        "bytes": 15104,
+        "sha256": "2a3c709dd4930838e0285772e267771605d1ee0b37a15945f872976e9f0cca0f"
+      },
+      {
+        "route": "/rover",
+        "status": 200,
+        "bytes": 10765,
+        "sha256": "9d0b60de315151eb6a9eee00d368b860a46c765270f3418e38531a170cc0e450"
+      }
+    ],
+    "examples": [
+      {
+        "scenario": "benign",
+        "seed": 42,
+        "status": "completed",
+        "decisions": 3,
+        "source": "e9a32382347bee1a37a2f47800c5703771883bd2",
+        "git_dirty": false
+      },
+      {
+        "scenario": "hazard",
+        "seed": 42,
+        "status": "completed",
+        "decisions": 8,
+        "source": "e9a32382347bee1a37a2f47800c5703771883bd2",
+        "git_dirty": false
+      },
+      {
+        "scenario": "degraded",
+        "seed": 42,
+        "status": "completed",
+        "decisions": 11,
+        "source": "e9a32382347bee1a37a2f47800c5703771883bd2",
+        "git_dirty": false
+      },
+      {
+        "scenario": "low_reserve",
+        "seed": 42,
+        "status": "abandoned",
+        "decisions": 1,
+        "source": "e9a32382347bee1a37a2f47800c5703771883bd2",
+        "git_dirty": false
+      },
+      {
+        "scenario": "deadline",
+        "seed": 42,
+        "status": "abandoned",
+        "decisions": 1,
+        "source": "e9a32382347bee1a37a2f47800c5703771883bd2",
+        "git_dirty": false
+      },
+      {
+        "scenario": "hazard",
+        "seed": 10028,
+        "status": "irreversible_outage",
+        "decisions": 5,
+        "source": "e9a32382347bee1a37a2f47800c5703771883bd2",
+        "git_dirty": false
+      }
+    ],
+    "scope": "engineering examples, not comparative research evidence"
+  },
+  "package": {
+    "path": "artifacts\\packages\\build-07\\valor_aace-0.1.0-py3-none-any.whl",
+    "bytes": 102617,
+    "sha256": "b6d82cfdcee5b8cf2c4139c3dcd3f29d72beb6de614e1240c632680455798fb2",
+    "static_files_compared": [
+      "index.html",
+      "rover.html",
+      "study.js",
+      "app.js",
+      "evidence.js",
+      "style.css",
+      "study.css",
+      "decision-paths.svg"
+    ],
+    "license_texts": "exact",
+    "build": "offline --no-deps --no-build-isolation --no-index",
+    "setuptools_used": "78.1.0",
+    "setuptools_declared": "80.3.1",
+    "fresh_install_verified": false
+  },
+  "launcher_reuse_retest": "October 12: establish healthy server, launch again, same recorded process and interface 4"
+}

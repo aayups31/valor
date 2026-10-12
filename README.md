@@ -12,7 +12,7 @@ Latest milestone: the main viewer now presents a general service decision study 
 
 ## Open the demo
 
-On this Windows computer, double-click **Start VALOR.cmd** in the project folder. It starts the engine quietly and opens the decision study in your default browser. Press **Begin the study**. **A short introduction** explains the task and controls. If an earlier interface is still running, the launcher asks you to open **Stop VALOR.cmd**, then start again.
+On this Windows computer, double-click **Start VALOR.cmd** in the project folder. It starts the engine quietly and opens the experiment in your default browser. Press **Try VALOR**, or choose a situation and use **Run this scenario** beside it. **How it works** explains the task and controls. If an earlier interface is still running, the launcher asks you to open **Stop VALOR.cmd**, then start again.
 
 Choose everyday work, pressure, damage, low reserves or a short deadline. The engine computes a finite simulated run; **Play record**, **Next decision** and the numbered timeline let you inspect it. Opening alternatives, internal state or complete evidence pauses playback. Download the complete record for all actual decisions and outcomes. Changing conditions clears the previous evidence.
 
@@ -20,7 +20,7 @@ Choose everyday work, pressure, damage, low reserves or a short deadline. The en
 
 The runtime is already installed on this laptop. On another Windows machine the launcher can set up the small demo environment if Python 3.11+ is installed; first setup needs internet. It does not install the optional neural training stack. No account or paid API is required.
 
-Your interface preferences are maintained in [UI design principles](UI_DESIGN_PRINCIPLES.md).
+Your interface preferences are maintained in [UI design principles](UI_DESIGN_PRINCIPLES.md) and [the product experience direction](01_Architecture/PRODUCT_EXPERIENCE_DIRECTION.md). The Scale-inspired redesign and its verification are recorded in [UI build report 07](reports/2026-10-12-build-07-ui.md).
 
 ## Developer setup and commands (Windows PowerShell)
 

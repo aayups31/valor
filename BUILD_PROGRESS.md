@@ -1,5 +1,13 @@
 # Build progress
 
+### Stop 07 — premium product interface, report completed October 12
+
+- Scale-inspired original scientific hero, quiet navigation, open experiment layout and contextual guidance implemented in `e9a3238`, with persistent product preferences in `ec3433c`; both pushed during work.
+- Both run controls share a request guard. Metric/evidence guidance pauses playback; reduced motion starts paused. No external fonts, assets or paid services. Interface version 4 and SVG package inclusion checked.
+- The recorded October 9 full regression passed 145 tests in 76.25 seconds. Actual local API examples and exact-source asset routes passed. Browser rendering remains pending under the saved local-address permission block.
+- Offline wheel retained separately at `artifacts/packages/build-07/`; exact static and license texts verified. External spend $0. Full details: [Build report 07](reports/2026-10-12-build-07-ui.md).
+- The report closes the preceding interrupted UI work; it does not claim new learned-model results. Research implementation continues with a history-dependent survival benchmark and matched controls.
+
 ### Stop 06 — persistent affect prototype and general interface
 
 - The owner's direction now includes vulnerability and persistent fear/survival mechanisms beyond instantaneous risk. [The research extension](01_Architecture/AFFECTIVE_SURVIVAL_RESEARCH_PLAN.md) defines internal needs, harm memory, recovery, extinction, a self-model and causal behavior experiments.
