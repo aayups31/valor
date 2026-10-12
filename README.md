@@ -8,7 +8,7 @@ Project-original source and documentation use [Apache 2.0](LICENSE), selected by
 
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
 
-Latest milestone: the adaptive history experiment trains on changing danger and compares forgetting, windows, change detection and learned history summaries. A 169-parameter summary head improves on the raw recurrent recipe, but simple adaptive controls remain strong and danger returning exposes substantial forecasting errors. All 180 regression tests pass. See [build report 09](reports/2026-10-12-build-09.md) and [the frozen adaptive protocol](01_Architecture/ADAPTIVE_HISTORY_PROTOCOL.md). [Report 08](reports/2026-10-12-build-08.md) retains the unchanged v1 result. The premium local demo still uses analytic service forecasts and a hand-specified observer without learned action influence. No felt fear, calibrated survival policy or AACE advantage is established.
+Latest milestone: frozen history estimates now rank proposals for actual offline task execution through the existing core and a separately labeled privileged analytic guard. In 38,400 paired rehearsals from 100 episode IDs, the strongest simple public rule achieves 84.5% completion with one guard forecast, versus mean GRU 82.94% / summary MLP 83.31%. Evaluating all three alternatives removes actor differences. All 204 regression tests pass. See [build report 10](reports/2026-10-12-build-10.md) and [the frozen decision protocol](01_Architecture/DECISION_REHEARSAL_PROTOCOL.md). [Report 09](reports/2026-10-12-build-09.md) and [report 08](reports/2026-10-12-build-08.md) retain earlier prediction results. The premium local demo still uses analytic service forecasts and a hand-specified observer without learned action influence. No felt fear, calibrated learned survival policy or AACE advantage is established.
 
 ## Open the demo
 
@@ -70,6 +70,14 @@ The service workflow is a local simulation of processing work under threat, quot
 The package also declares a `valor` console entry point for fresh installs; the existing `aace` command and `python -m aace` remain compatible. The browser's main study and these commands use the same service decision core. The rover probe applies no action with its unqualified evidence.
 
 ## Experimental learned threat head
+
+The offline behavior rehearsal reuses a completed adaptive v2 fit index:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/Run-DecisionRehearsal.py --pilot-index artifacts/adaptive-history-pilots/pilot-v2-0a91c83b/index.json
+```
+
+On a fresh checkout, run the adaptive pilot below first and use its printed index path. `aace decision-rehearsal --pilot-index PATH` exposes the same command; `--smoke` runs two separate engineering subjects. Frozen predictors rank experimental proposals only; qualified action evidence comes from a guard that knows this simulator's latent danger. This is separate from the browser demo and controls no real tools or services. [Report 10](reports/2026-10-12-build-10.md) explains the negative comparative result, actual failures, work accounting and limitations.
 
 The adaptive repaired-body experiment can be reproduced with:
 

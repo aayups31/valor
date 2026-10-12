@@ -1,5 +1,15 @@
 # Build progress
 
+### Stop 10 — guarded behavior rehearsal, October 12
+
+- Frozen history estimates now rank actual offline workload proposals through the existing decision engine and authority. Added fast/careful/preserve execution, irreversible outage, observed harm/repair costs, qualified oracle evidence and explicit abandonment/abstention records.
+- Sixteen actors, 100 new paired episode IDs, four history conditions, three resource/time contexts and two guard budgets: 38,400 rehearsals. Reserved final seeds untouched; no retraining or check-driven recipe tuning.
+- One guard forecast: strongest public rule and constant prior complete 1,014/1,200 contexts (84.5%); mean GRU 82.94%, summary MLP 83.31%. Three forecasts remove all paired actor differences: 1,021 completed / 19 failed / 160 abandoned. No learned survival or AACE advantage established.
+- Guard knows latent simulator risk, not future noise. Predictors remain experimental; only proposal ranking is learned. Guard calls are matched, not total computation. Histories precede a fixed-danger task; no online action-feedback learning is claimed.
+- Full regression: 204 passed in 55.10 seconds. Measured pilot 37.93 seconds, 249.41 MiB sampled peak process memory, CPU/two threads, $0 external spend. Record/hash/aggregate/policy audits and offline package/source/license checks passed; scientific figure visually reviewed.
+- Three intermediate commits pushed through `f4f1c0d`; [full report 10](reports/2026-10-12-build-10.md) and current documents form the fourth commit. Raw models/data/wheels remain local ignored artifacts. All build jobs finished; UI unchanged and local browser review still pending.
+- Next: action-conditioned public-history consequence evidence against the strongest simple control, with applicability/shift/bound qualification before replacing privileged guard evidence or changing demo authority.
+
 ### Stop 09 — adaptive history and returning danger, October 12
 
 - Added mixed changing-danger training, variable hidden schedules and new episode groups; recurrence is absent from fitting. Schedule metadata is hashed/audited and excluded from model inputs. V1 remains isolated and reproducible.
@@ -105,7 +115,7 @@ User authorized implementation, use of https://github.com/aayups31/valor for ver
 
 ### Current work
 
-The general decision core, two benchmark adapters and an isolated affect observer are implemented alongside earlier rover/model work. The main viewer now shows the service study and actual internal-state observations; the rover is available separately. Threat learning has an experimental numerical head; calibration and action authority remain pending. The SAC pilot's hazardous transfer and the dynamics model's damage forecasting remain insufficient. Learned affect/response coupling, qualified memory, matched comparisons and rendered UI review remain ahead. No build job remains active; the local demo server is running at the latest stop.
+The general decision core, two benchmark adapters and an isolated affect observer are implemented alongside earlier rover/model work. The main viewer shows the analytic service study; the rover is available separately. Experimental history estimates now affect offline proposal ordering under a privileged analytic guard, but do not beat the strongest public rule. Calibrated learned authority, qualified counterfactual memory, action-conditioned adaptation and rendered UI review remain ahead. SAC hazardous transfer and learned damage forecasting remain insufficient. No build job remains active; Start VALOR.cmd opens the existing local demo.
 
 ### Intermediate milestone: runtime and numerical core
 
