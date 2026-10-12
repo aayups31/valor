@@ -1,0 +1,111 @@
+{
+  "schema": "valor-consequence-preview-v1",
+  "scenario": "normal",
+  "model_reference": {
+    "actor": "summary_mlp_42",
+    "weights_sha256": "cd25fac0a4c70fac3261d1755575e92611f6ceb117653cd4735be680fcb268d4",
+    "training_sha256": "7b67b81820f7cc421f56a9faea960570218a2b5e80ca47462328a53c6f5d86b2"
+  },
+  "branches": [
+    {
+      "action": "fast",
+      "continuation": "fast_process_then_repair",
+      "terminal_probabilities": {
+        "completed": 0.9658011794090271,
+        "irreversible_outage": 0.034192148596048355,
+        "deadline_missed": 6.640680112468544e-06,
+        "resource_exhausted": 2.0188425153833123e-08
+      },
+      "any_harm_probability": 0.5772396922111511,
+      "expected_quantities": {
+        "work_completed": 5.9964845180511475,
+        "harm_received": 0.16593554466962815,
+        "recovery_units": 2.1577221751213074,
+        "resource_used": 8.085946798324585,
+        "elapsed_s": 3.8194782733917236,
+        "integrity": 0.9452036023139954
+      },
+      "failure_upper_bound": null,
+      "evidence_kind": "experimental",
+      "structural_consistency": {
+        "status": "contradiction_detected",
+        "reasons": [
+          "integrity_below_completed_mass"
+        ],
+        "notice": "Passing these checks would not qualify safety or authorize an action"
+      },
+      "decision_ready": false
+    },
+    {
+      "action": "careful",
+      "continuation": "careful_process_then_repair",
+      "terminal_probabilities": {
+        "completed": 0.9474887847900391,
+        "irreversible_outage": 0.01603992097079754,
+        "deadline_missed": 0.036470677703619,
+        "resource_exhausted": 5.890478291803447e-07
+      },
+      "any_harm_probability": 0.1757192462682724,
+      "expected_quantities": {
+        "work_completed": 5.72873067855835,
+        "harm_received": 0.025344913825392723,
+        "recovery_units": 0.40829305350780487,
+        "resource_used": 6.305844068527222,
+        "elapsed_s": 9.94733214378357,
+        "integrity": 0.9870930314064026
+      },
+      "failure_upper_bound": null,
+      "evidence_kind": "experimental",
+      "structural_consistency": {
+        "status": "contradiction_detected",
+        "reasons": [
+          "unsupported_deadline_terminal",
+          "elapsed_below_distribution_minimum",
+          "integrity_above_surviving_mass"
+        ],
+        "notice": "Passing these checks would not qualify safety or authorize an action"
+      },
+      "decision_ready": false
+    }
+  ],
+  "action_applied": false,
+  "scope": "Repaired body, declared fast/careful plans and fixed within-task cue danger in offline simulator",
+  "uncertainty": "Point estimates only; per-query risk bounds and shift qualification unavailable",
+  "notice": "Predicted expected outcomes, not a future recording or stepwise trajectory; no authority to execute",
+  "observed_offline_interventions": [
+    {
+      "action": "fast",
+      "terminal": "completed",
+      "any_harm": true,
+      "quantities": {
+        "work_completed": 6.0,
+        "harm_received": 0.45,
+        "recovery_units": 6.0,
+        "resource_used": 12.0,
+        "elapsed_s": 6.000000059604645,
+        "integrity": 1.0
+      }
+    },
+    {
+      "action": "careful",
+      "terminal": "completed",
+      "any_harm": false,
+      "quantities": {
+        "work_completed": 6.0,
+        "harm_received": 0.0,
+        "recovery_units": 0.0,
+        "resource_used": 6.0,
+        "elapsed_s": 12.00000011920929,
+        "integrity": 1.0
+      }
+    }
+  ],
+  "observation_notice": "Separate actual offline action interventions; not inputs to predicted branches",
+  "example_identity": {
+    "condition_audit_only": "stable",
+    "subject_seed_audit_only": 60000,
+    "pilot_source": "405c639b5496b9e37e50e0f31a779288e4eec585",
+    "actor": "summary_mlp_42"
+  },
+  "postprocessing_notice": "Same frozen predictions and observed example; public-law contradiction audit added after measurement, no retraining or rewritten predictions."
+}

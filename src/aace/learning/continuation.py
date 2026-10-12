@@ -246,21 +246,71 @@ def reliability_bins(probability, labels):
     return rows
 
 
+def structural_diagnostics(prediction):
+    """Audit declared fixture invariants; never adjust predictions or grant authority.
+
+    Expectations must agree with competing terminal probabilities. This uses
+    public task laws, not latent risk, labels or actual future draws.
+    """
+    from aace.benchmarks.rehearsal import SCENARIOS, operation
+    validate_predictions(prediction)
+    violations = {}
+    tolerance = 1e-5
+    for index, (scene, action) in enumerate(CELLS):
+        count, _, seconds, cost, _, _, ticks = operation(action, 0.)
+        repair_stages = (count*ticks+2)//3
+        minimum_complete = count*seconds
+        maximum_complete = minimum_complete+repair_stages
+        deadline = SCENARIOS[scene][1]
+        live_operations = min(count, int(deadline//seconds))
+        deadline_time = (live_operations+1)*seconds if minimum_complete > deadline else 0.
+        values = prediction[:, index]
+        complete, outage, late, resource = values[:, :4].T
+        work, harm, recovery, used, elapsed, integrity = (values[:, 5:]*SCALES).T
+        minimum_time = complete*minimum_complete+outage*seconds+late*deadline_time
+        maximum_time = complete*maximum_complete+outage*live_operations*seconds+late*deadline_time
+        flags = {
+            "unsupported_resource_terminal": resource > tolerance,
+            "unsupported_deadline_terminal": (late > tolerance) if maximum_complete <= deadline else np.zeros(len(values), dtype=bool),
+            "unsupported_completion_terminal": (complete > tolerance) if minimum_complete > deadline else np.zeros(len(values), dtype=bool),
+            "elapsed_below_distribution_minimum": elapsed < minimum_time-tolerance,
+            "elapsed_above_distribution_maximum": elapsed > maximum_time+tolerance,
+            "progress_below_completed_mass": work < 6*complete-tolerance,
+            "integrity_below_completed_mass": integrity < complete-tolerance,
+            "integrity_above_surviving_mass": integrity > 1-outage+tolerance,
+            "resources_below_processing_mass": used < count*cost*complete+cost*outage+live_operations*cost*late-tolerance,
+            "recovery_exceeds_completed_mass": recovery > repair_stages*2*complete+tolerance,
+            "recovery_exceeds_total_resource_use": recovery > used+tolerance,
+            "harm_above_event_mass": harm > values[:, 4]*live_operations*ticks*.05+tolerance,
+            "harm_below_event_mass": harm < values[:, 4]*ticks*.05-tolerance,
+        }
+        violations[f"{scene}/{action}"] = {"subjects": len(values),
+            "subjects_with_any_contradiction": int(np.logical_or.reduce(list(flags.values())).sum()),
+            "counts": {reason: int(mask.sum()) for reason, mask in flags.items()},
+            "notice": "Public-law consistency audit, not risk qualification; point predictions are unchanged"}
+    return violations
+
+
 def branch_preview(prediction, *, scenario, model_reference):
     """Structured predicted consequences; no action selection, observed label or latent p."""
     validate_predictions(prediction[None])
     if scenario not in {scene for scene, _ in CELLS}:
         raise ValueError("Unknown continuation preview context")
+    consistency = structural_diagnostics(prediction[None])
     branches = []
     for index, (scene, action) in enumerate(CELLS):
         if scene != scenario:
             continue
         values = prediction[index]
+        flags = consistency[f"{scene}/{action}"]["counts"]
+        reasons = [reason for reason, count in flags.items() if count]
         branches.append({"action": action, "continuation": f"{action}_process_then_repair",
                          "terminal_probabilities": dict(zip(TERMINALS, values[:4].tolist())),
                          "any_harm_probability": float(values[4]),
                          "expected_quantities": dict(zip(QUANTITIES, (values[5:]*SCALES).tolist())),
                          "failure_upper_bound": None, "evidence_kind": "experimental",
+                         "structural_consistency": {"status": "contradiction_detected" if reasons else "no_contradiction_detected",
+                             "reasons": reasons, "notice": "Passing these checks would not qualify safety or authorize an action"},
                          "decision_ready": False})
     return {"schema": "valor-consequence-preview-v1", "scenario": scenario, "model_reference": model_reference,
             "branches": branches, "action_applied": False,

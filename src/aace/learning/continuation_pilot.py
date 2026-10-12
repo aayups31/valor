@@ -12,7 +12,7 @@ from aace.benchmarks.continuation import (CELLS, QUANTITIES, SCALES, TERMINALS, 
                                          collect_continuations, load_continuations)
 from aace.learning.continuation import (ContinuationSettings, branch_preview, history_law_predictions,
     law_predictions, load_continuation_model, predict_continuations, reliability_bins, scores,
-    subject_losses, train_continuations)
+    structural_diagnostics, subject_losses, train_continuations)
 from aace.learning.history import paired_interval
 from aace.learning.resources import digest, memory_mb
 from aace.telemetry import source_provenance
@@ -83,6 +83,7 @@ def evaluate_continuations(checkpoints, checks, output: Path, *, engineering=Fal
                               "outage_reliability": reliability_bins(prediction[:, index, 1], data["targets"][:, index, 1]),
                               "point_estimate_below_policy_when_latent_risk_above": int(((prediction[:, index, 1] <= .05) & (reference[:, index, 1] > .05)).sum())})
             rows.append({"condition": condition, "actor": actor, "scores": scores(prediction, data["targets"]),
+                         "structural_diagnostics": structural_diagnostics(prediction),
                          "subject_paired_loss_difference_vs_empirical": paired_interval(subject_losses(prediction, data["targets"]), baseline),
                          "cells": cells, "decision_ready": False,
                          "qualification": {"per_query_failure_upper_bound": None, "applicability_shift_evidence": False,

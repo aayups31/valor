@@ -164,6 +164,7 @@ def test_preview_separates_predictions_and_has_no_permission_or_bounds():
     preview = branch_preview(prediction, scenario="normal", model_reference="reference-test")
     assert preview["action_applied"] is False and len(preview["branches"]) == 2
     assert all(b["failure_upper_bound"] is None and not b["decision_ready"] for b in preview["branches"])
+    assert all(b["structural_consistency"]["status"] == "no_contradiction_detected" for b in preview["branches"])
     assert "observed" not in preview and "latent_probability" not in preview
     assert preview["branches"][0]["expected_quantities"]["harm_received"] > 0
 
@@ -194,3 +195,27 @@ def test_invalid_learning_resources_are_rejected():
     from aace.learning.continuation import ContinuationSettings
     for changed in ({"threads": True}, {"max_seconds": float("nan")}, {"batch_size": 1}):
         with pytest.raises(ValueError): ContinuationSettings(**changed)
+
+
+@pytest.mark.parametrize("probability", [.05, .65])
+def test_known_law_expectations_pass_public_structural_invariants(probability):
+    pytest.importorskip("torch")
+    from aace.learning.continuation import law_predictions, structural_diagnostics
+    rows = structural_diagnostics(law_predictions(np.array([probability])))
+    assert all(r["subjects_with_any_contradiction"] == 0 for r in rows.values())
+
+
+def test_structural_audit_flags_contradictions_without_rewriting_predictions():
+    pytest.importorskip("torch")
+    from aace.learning.continuation import law_predictions, structural_diagnostics
+    prediction = law_predictions(np.array([.05]))
+    prediction[0, 0, 9] = 0  # Zero elapsed time despite probable completion.
+    prediction[0, 0, 10] = 0  # Zero integrity despite probable completion.
+    before = prediction.copy()
+    rows = structural_diagnostics(prediction)
+    assert rows["normal/fast"]["counts"]["elapsed_below_distribution_minimum"] == 1
+    assert rows["normal/fast"]["counts"]["integrity_below_completed_mass"] == 1
+    np.testing.assert_array_equal(prediction, before)
+    from aace.learning.continuation import branch_preview
+    preview = branch_preview(prediction[0], scenario="normal", model_reference="bad-test")
+    assert preview["branches"][0]["structural_consistency"]["status"] == "contradiction_detected"
