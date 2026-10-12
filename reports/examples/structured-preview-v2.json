@@ -1,0 +1,98 @@
+{
+  "schema": "valor-consequence-preview-v1",
+  "scenario": "normal",
+  "model_reference": {
+    "actor": "structured_summary_mlp_42",
+    "model_version": "structured-consequence-mixture-v2",
+    "weights_sha256": "98d1ba0c8349d86debf5259d6f65557e02aae11c9c188d84e36a09cfcacd8ab9",
+    "decoder_sha256": "5b2a3d62f99d93eaac9ab6f79dfb3c9ae0554896915c40a709bf39943b9b01b8"
+  },
+  "branches": [
+    {
+      "action": "fast",
+      "continuation": "fast_process_then_repair",
+      "terminal_probabilities": {
+        "completed": 0.973997175693512,
+        "irreversible_outage": 0.02600283734500408,
+        "deadline_missed": 0.0,
+        "resource_exhausted": 0.0
+      },
+      "any_harm_probability": 0.30649930238723755,
+      "expected_quantities": {
+        "work_completed": 5.895082712173462,
+        "harm_received": 0.0760030210018158,
+        "recovery_units": 0.9872104525566101,
+        "resource_used": 6.934298515319824,
+        "elapsed_s": 3.4671496152877808,
+        "integrity": 0.973997175693512
+      },
+      "failure_upper_bound": null,
+      "evidence_kind": "experimental",
+      "structural_consistency": {
+        "status": "no_contradiction_detected",
+        "reasons": [],
+        "notice": "Passing these checks would not qualify safety or authorize an action"
+      },
+      "decision_ready": false
+    },
+    {
+      "action": "careful",
+      "continuation": "careful_process_then_repair",
+      "terminal_probabilities": {
+        "completed": 0.9946972131729126,
+        "irreversible_outage": 0.00530278543010354,
+        "deadline_missed": 0.0,
+        "resource_exhausted": 0.0
+      },
+      "any_harm_probability": 0.09327905625104904,
+      "expected_quantities": {
+        "work_completed": 5.98140013217926,
+        "harm_received": 0.0052890898659825325,
+        "recovery_units": 0.18540450185537338,
+        "resource_used": 6.172107696533203,
+        "elapsed_s": 12.066108107566833,
+        "integrity": 0.9946972131729126
+      },
+      "failure_upper_bound": null,
+      "evidence_kind": "experimental",
+      "structural_consistency": {
+        "status": "no_contradiction_detected",
+        "reasons": [],
+        "notice": "Passing these checks would not qualify safety or authorize an action"
+      },
+      "decision_ready": false
+    }
+  ],
+  "action_applied": false,
+  "scope": "Repaired body, declared fast/careful plans and fixed within-task cue danger in offline simulator",
+  "uncertainty": "Point estimates only; per-query risk bounds and shift qualification unavailable",
+  "notice": "Predicted expected outcomes, not a future recording or stepwise trajectory; no authority to execute",
+  "history_condition_audit_only": "stable",
+  "supplied_knowledge": "Declared simulator transition laws and two possible danger levels; weight learned from public history",
+  "observed_offline_interventions": [
+    {
+      "action": "fast",
+      "terminal": "completed",
+      "quantities": {
+        "work_completed": 6.0,
+        "harm_received": 0.3000000089406967,
+        "recovery_units": 4.0000001192092896,
+        "resource_used": 9.999999761581421,
+        "elapsed_s": 5.0000001192092896,
+        "integrity": 1.0
+      }
+    },
+    {
+      "action": "careful",
+      "terminal": "completed",
+      "quantities": {
+        "work_completed": 6.0,
+        "harm_received": 0.05000000037252903,
+        "recovery_units": 2.0000000596046448,
+        "resource_used": 8.000000238418579,
+        "elapsed_s": 12.999999642372131,
+        "integrity": 1.0
+      }
+    }
+  ]
+}
