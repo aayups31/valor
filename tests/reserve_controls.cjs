@@ -27,6 +27,7 @@ vm.runInContext(fs.readFileSync(process.argv[2],"utf8"),context);
   assert.equal(get("screen-checks").children.length,3);
   assert.ok(get("screen-checks").children.every(item=>item.textContent.startsWith("Passed")));
   assert.match(get("step").textContent,/DECISION 1/);
+  assert.match(get("decision-why").textContent,/planner forecast .* highest-scoring alternative/);
   assert.equal(get("previous").attributes["aria-disabled"],"true");
   get("previous").events.click();
   assert.match(get("step").textContent,/DECISION 1/);

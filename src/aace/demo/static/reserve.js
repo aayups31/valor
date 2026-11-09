@@ -55,6 +55,13 @@ function renderStep() {
   const run = record[el("policy").value], decision = run.decisions[step], after = decision.after;
   el("step").textContent = `RELEASE ${decision.task+1} OF 2 · DECISION ${step+1} OF ${run.decisions.length}`;
   el("action").textContent = titles[decision.selected];
+  const chosen = decision.alternatives[decision.selected];
+  const other = Object.entries(decision.alternatives)
+    .filter(([action]) => action !== decision.selected)
+    .sort(([, a], [, b]) => b.expected_score - a.expected_score)[0];
+  el("decision-why").textContent = other
+    ? `The planner forecast ${number(chosen.expected_score)} points for this path. The highest-scoring alternative, ${titles[other[0]].toLowerCase()}, was forecast at ${number(other[1].expected_score)} points.`
+    : "This was the only option evaluated at this step.";
   const shock = decision.observed_shock === null ? "" : decision.observed_shock ? " A shock occurred." : " No shock occurred.";
   el("observed").textContent = `Observed: ${outcomes[after.status]}.${shock}`;
   const state = el("state");
@@ -71,7 +78,7 @@ function renderStep() {
   const options = el("options");
   options.replaceChildren();
   for (const [action, forecast] of Object.entries(decision.alternatives)) {
-    const row = line(options,"div","","option");
+    const row = line(options,"div","",action === decision.selected ? "option chosen-option" : "option");
     line(row,"strong",titles[action] + (action === decision.selected ? " · Selected" : ""));
     line(row,"span",`Expected score ${number(forecast.expected_score)} · expected terminal failures ${number(forecast.expected_failure_count)}`);
   }
