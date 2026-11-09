@@ -1,5 +1,12 @@
 # Build progress
 
+### Stop 15 — simpler-policy checkpoint 8 and scoped checkpoint 9, November 9
+
+- Two-task planning now accounts for shared reserves and persistent damage. A forecast-based comparison uses lookahead only when predicted completion and failure remain within declared margins.
+- The initial paired pilot was inconclusive for the guarded policy; unguarded lookahead sacrificed completion and trained memory did not beat matched controls. An independently frozen, unchanged-policy replication gained 2.47 score points and 3.52 completion points over myopic Markov on 2,048 pairs.
+- The selected candidate was pushed before opening four untouched shift cohorts (512 paired IDs each). All passed the frozen gates. This clears the scoped simulator milestones through the simpler-policy route; no trained-memory or production qualification claim.
+- 268 tests passed, 60 trace steps replayed and every replication/shift interval reproduced. $0 external spend. Seven intermediate commits pushed through `9f48e2b`; [report 15](reports/2026-11-09-build-15.md) is the eighth. Next: checkpoint 10 visual explanation.
+
 ### Stop 14 — checkpoint 7 implementation and checkpoint 8 evidence, November 9
 
 - Added repeated simulated tasks, carryover vulnerability, a trained recurrent predictor and a scoped, independently replayable incident bank. Trace evidence keeps actual outcomes separate from model-derived alternatives. Recalled actions are re-evaluated.
