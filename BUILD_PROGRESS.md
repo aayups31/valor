@@ -1,5 +1,13 @@
 # Build progress
 
+### Stop 13 — persistent loss and decisions under stakes, November 9
+
+- Built a three-stage release simulator with persistent damage, downstream faults, paid recovery, explicit stop and exact expected-value planning. A trace records alternatives, risks, contingent next steps and observed outcomes.
+- Frozen pilot: 256 paired subjects, 2,560 episodes, no reserved final-test use. Changing only stakes switches adaptive first actions from careful to fast in 117 cases. Fixed planning switches too, so this is a decision behavior check rather than evidence of learned fear.
+- Adaptive improves realized score over fixed probability, but accepts three high-stakes failed releases against zero for fixed. It does not beat frozen history on sampled score. The separate exact audit finds only a small expected value for live updating under the assumed model.
+- 253 tests passed; artifact and score audits passed; $0 external spend. Four intermediate commits pushed through `dcf0c29`; [report 13](reports/2026-11-09-build-13.md) and current docs form the fifth. Main UI and real authority unchanged.
+- Next: repeated tasks, changing danger and carryover vulnerability, then trained-state ablations against strong conventional controls.
+
 ### Stop 12 — coherent consequences and learned stakes, October 12
 
 - Recorded the owner's clarified intrinsic-stakes direction: persistent vulnerability/history and cascading consequences belong in the learned mechanism; proctor UI alone is insufficient. Frozen the structured comparison before new checks.
