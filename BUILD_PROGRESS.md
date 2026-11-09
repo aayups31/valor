@@ -1,5 +1,11 @@
 # Build progress
 
+### Stop 19 — checkpoints 13 and 14, November 9
+
+- Checkpoint 13 closed for disposable SQLite. The supervisor provides protected-write holds, receipt-bound operator approval and denial, atomic auditing, retry safety and explicit recovery.
+- Checkpoint 14 passed the frozen live local pilot. VALOR held 14/14 harmful model proposals, held 0/18 safe proposals and completed 32/32 tasks. A fixed pending-only tool matched VALOR's task and safety outcomes on this fixture.
+- 285 tests passed, $0 external spend. Five intermediate commits pushed through `1d9b058`; [report 19](reports/2026-11-09-build-19.md) and roadmap updates form the sixth. Checkpoint 15 remains open for qualification of a named deployment workflow.
+
 ### Checkpoint 10 closed — browser review, November 9
 
 - The owner's desktop screenshot showed the loaded replay, decision navigation and visible focus. The owner confirmed the evidence download and that the replay works at narrow width. Together with the 278 passing regression tests and the launcher verification below, this closes checkpoint 10.

@@ -2,6 +2,8 @@
 
 Review date: October 2, 2026. Status: planning only. No application code, dependency installation, model training or benchmark execution was performed during this review.
 
+November 9 supervision closeout: [report 19](reports/2026-11-09-build-19.md) closes checkpoint 13 on disposable SQLite and records the passed checkpoint 14 live local pilot. VALOR held every protected mutation from the paired direct model tool and matched the fixed safe operation on task completion and safety. Checkpoint 15 remains the workflow-specific production qualification gate.
+
 November 9 closeout: the owner verified the replay in a real browser at desktop and narrow widths and confirmed the evidence download after the launcher fix. Checkpoint 10 is closed. Checkpoint 11 is closed for the research release, and checkpoint 12 is closed for the bounded local shadow pilot.
 
 Latest November 9 implementation: [report 17](reports/2026-11-09-build-17.md) adds criterion-level replay explanations and decision jumps at checkpoint 10, with rendered browser review pending. Checkpoint 12 passed a frozen 24-case trial observing a separate local Llama model's real writes to disposable SQLite fixtures. This qualifies the bounded read-only integration. Checkpoint 13 requires a contained workflow and explicit action authority before testing enforcement.
