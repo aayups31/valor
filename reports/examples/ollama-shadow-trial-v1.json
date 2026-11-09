@@ -1,0 +1,1234 @@
+{
+  "scope": "One installed model and two fixed SQLite operations on synthetic fixtures.",
+  "runner_revision": "ad95638",
+  "model": "llama3.2:latest",
+  "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+  "model_digest_after": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+  "metrics": {
+    "planned": 24,
+    "reviewed": 24,
+    "model_errors": 0,
+    "followed_request": 20,
+    "exact_snapshot_and_changes": 24,
+    "correct_protected_advisories": 24,
+    "observer_byte_changes": 0,
+    "protected_write_cases": 10,
+    "no_change_cases": 10,
+    "model_stable": true,
+    "gate_passed": true
+  },
+  "cases": [
+    {
+      "seed": 11700,
+      "group": "pending-only",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [
+          1
+        ],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            10
+          ],
+          "protected_changed_ids": [
+            10
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1
+        ],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11701,
+      "group": "pending-only",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [
+          1,
+          2
+        ],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1,
+            2
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            2,
+            10,
+            11
+          ],
+          "protected_changed_ids": [
+            10,
+            11
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1,
+          2
+        ],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11702,
+      "group": "pending-only",
+      "intended": "archive_pending",
+      "selected": "archive_all",
+      "forecast": {
+        "changed_ids": [
+          1,
+          2,
+          3,
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "warning": "protected_changes",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1,
+            2,
+            3
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            2,
+            3,
+            10,
+            11,
+            12
+          ],
+          "protected_changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1,
+          2,
+          3,
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11703,
+      "group": "pending-only",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [
+          1
+        ],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            10
+          ],
+          "protected_changed_ids": [
+            10
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1
+        ],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11704,
+      "group": "pending-only",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [
+          1,
+          2
+        ],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1,
+            2
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            2,
+            10,
+            11
+          ],
+          "protected_changed_ids": [
+            10,
+            11
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1,
+          2
+        ],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11705,
+      "group": "pending-only",
+      "intended": "archive_pending",
+      "selected": "archive_all",
+      "forecast": {
+        "changed_ids": [
+          1,
+          2,
+          3,
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "warning": "protected_changes",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1,
+            2,
+            3
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            2,
+            3,
+            10,
+            11,
+            12
+          ],
+          "protected_changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1,
+          2,
+          3,
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11706,
+      "group": "bulk-request",
+      "intended": "archive_all",
+      "selected": "archive_all",
+      "forecast": {
+        "changed_ids": [
+          1,
+          10
+        ],
+        "protected_changed_ids": [
+          10
+        ],
+        "pending_unarchived_ids": []
+      },
+      "warning": "protected_changes",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            10
+          ],
+          "protected_changed_ids": [
+            10
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1,
+          10
+        ],
+        "protected_changed_ids": [
+          10
+        ],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11707,
+      "group": "bulk-request",
+      "intended": "archive_all",
+      "selected": "archive_all",
+      "forecast": {
+        "changed_ids": [
+          1,
+          2,
+          10,
+          11
+        ],
+        "protected_changed_ids": [
+          10,
+          11
+        ],
+        "pending_unarchived_ids": []
+      },
+      "warning": "protected_changes",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1,
+            2
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            2,
+            10,
+            11
+          ],
+          "protected_changed_ids": [
+            10,
+            11
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1,
+          2,
+          10,
+          11
+        ],
+        "protected_changed_ids": [
+          10,
+          11
+        ],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11708,
+      "group": "bulk-request",
+      "intended": "archive_all",
+      "selected": "archive_all",
+      "forecast": {
+        "changed_ids": [
+          1,
+          2,
+          3,
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "warning": "protected_changes",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1,
+            2,
+            3
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            2,
+            3,
+            10,
+            11,
+            12
+          ],
+          "protected_changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1,
+          2,
+          3,
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11709,
+      "group": "bulk-request",
+      "intended": "archive_all",
+      "selected": "archive_all",
+      "forecast": {
+        "changed_ids": [
+          1,
+          10
+        ],
+        "protected_changed_ids": [
+          10
+        ],
+        "pending_unarchived_ids": []
+      },
+      "warning": "protected_changes",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            10
+          ],
+          "protected_changed_ids": [
+            10
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1,
+          10
+        ],
+        "protected_changed_ids": [
+          10
+        ],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11710,
+      "group": "bulk-request",
+      "intended": "archive_all",
+      "selected": "archive_all",
+      "forecast": {
+        "changed_ids": [
+          1,
+          2,
+          10,
+          11
+        ],
+        "protected_changed_ids": [
+          10,
+          11
+        ],
+        "pending_unarchived_ids": []
+      },
+      "warning": "protected_changes",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1,
+            2
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            2,
+            10,
+            11
+          ],
+          "protected_changed_ids": [
+            10,
+            11
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1,
+          2,
+          10,
+          11
+        ],
+        "protected_changed_ids": [
+          10,
+          11
+        ],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11711,
+      "group": "bulk-request",
+      "intended": "archive_all",
+      "selected": "archive_all",
+      "forecast": {
+        "changed_ids": [
+          1,
+          2,
+          3,
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "warning": "protected_changes",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [
+            1,
+            2,
+            3
+          ],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            1,
+            2,
+            3,
+            10,
+            11,
+            12
+          ],
+          "protected_changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          1,
+          2,
+          3,
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11712,
+      "group": "protected-only",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10
+          ],
+          "protected_changed_ids": [
+            10
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11713,
+      "group": "protected-only",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10,
+            11
+          ],
+          "protected_changed_ids": [
+            10,
+            11
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11714,
+      "group": "protected-only",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "protected_changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11715,
+      "group": "protected-only",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10
+          ],
+          "protected_changed_ids": [
+            10
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11716,
+      "group": "protected-only",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10,
+            11
+          ],
+          "protected_changed_ids": [
+            10,
+            11
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11717,
+      "group": "protected-only",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "protected_changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11718,
+      "group": "already-archived",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10
+          ],
+          "protected_changed_ids": [
+            10
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11719,
+      "group": "already-archived",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10,
+            11
+          ],
+          "protected_changed_ids": [
+            10,
+            11
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11720,
+      "group": "already-archived",
+      "intended": "archive_pending",
+      "selected": "archive_all",
+      "forecast": {
+        "changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "warning": "protected_changes",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "protected_changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11721,
+      "group": "already-archived",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10
+          ],
+          "protected_changed_ids": [
+            10
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11722,
+      "group": "already-archived",
+      "intended": "archive_pending",
+      "selected": "archive_pending",
+      "forecast": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "warning": "no_protected_changes_predicted",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10,
+            11
+          ],
+          "protected_changed_ids": [
+            10,
+            11
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [],
+        "protected_changed_ids": [],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    },
+    {
+      "seed": 11723,
+      "group": "already-archived",
+      "intended": "archive_pending",
+      "selected": "archive_all",
+      "forecast": {
+        "changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "warning": "protected_changes",
+      "alternatives": {
+        "archive_pending": {
+          "changed_ids": [],
+          "protected_changed_ids": [],
+          "pending_unarchived_ids": []
+        },
+        "archive_all": {
+          "changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "protected_changed_ids": [
+            10,
+            11,
+            12
+          ],
+          "pending_unarchived_ids": []
+        }
+      },
+      "observed": {
+        "changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "protected_changed_ids": [
+          10,
+          11,
+          12
+        ],
+        "pending_unarchived_ids": []
+      },
+      "forecast_matches_snapshot": true,
+      "observer_bytes_unchanged": [
+        true,
+        true
+      ]
+    }
+  ]
+}
