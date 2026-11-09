@@ -1,5 +1,12 @@
 # Build progress
 
+### Stop 21 — decision control redesign, November 9
+
+- Rebuilt the home experience around the decision demo, Futures, Fear Memory, Execution and Lab. The decision view reads the actual engine record to explain danger, forecast and applied action. The Futures inspector keeps each evaluated plan's reason and evidence available. The damage observer is labeled as experimental and separate from action selection.
+- Restyled the paired replay to match and added a plain-language comparison with the highest-scoring alternative. Execution presents one audited intervention alongside the 32-case trial summary. The Lab presents the measured guarded-planning improvement, its baseline and the limits of the learned-memory evidence.
+- 289 tests passed. The running server returned the redesigned home and replay. Rendered desktop and narrow-screen review of this new design is still outstanding. No new execution authority or research result. $0 external spend.
+- Design and replay commits `0fcf159` and `8e6beb1` pushed to main before this closeout.
+
 ### Stop 20 — checkpoint 15 local qualification, November 9
 
 - Closed checkpoint 15 for the owner's selected disposable SQLite scope. Checked 32 databases and 46 receipts, detected an unlogged write, restored a verified copy and resumed safely on the restored file.
