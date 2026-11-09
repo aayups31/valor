@@ -1,4 +1,6 @@
 from dataclasses import replace
+from pathlib import Path
+import runpy
 
 import numpy as np
 import pytest
@@ -64,3 +66,31 @@ def test_shifts_preserve_public_reserve_stakes_and_random_tape():
         assert shifted[1] == nominal[1]
         np.testing.assert_array_equal(shifted[-1], nominal[-1])
     assert subject(117002, "damaged")[0].faults == 1
+
+
+def test_runner_selection_requires_completion_and_rejects_mismatched_source(tmp_path):
+    pytest.importorskip("torch")
+    runner = runpy.run_path(str(Path(__file__).resolve().parents[1]/"scripts/Run-SharedReserve.py"))
+    keys = ("trained_vs_markov", "trained_vs_reset", "trained_vs_myopic",
+            "markov_vs_myopic", "guarded_vs_myopic")
+    results = {key: {"passed": False} for key in keys}
+    results["trained_vs_markov"]["passed"] = True
+    results["trained_vs_myopic"]["passed"] = True
+    results["guarded_vs_myopic"]["passed"] = True
+    assert runner["selection"](results) == GUARDED
+    manifest = {"phase": "development", "engineering": False, "git_dirty": False,
+                "fingerprints": {"runner": "old"}}
+    with pytest.raises(ValueError, match="clean frozen"):
+        runner["holdout"](tmp_path, None, manifest=manifest, metadata={"fingerprints": {"runner": "changed"}})
+    assert not list(tmp_path.iterdir())
+
+
+def test_runner_does_not_call_higher_score_a_win_if_completion_drops():
+    pytest.importorskip("torch")
+    runner = runpy.run_path(str(Path(__file__).resolve().parents[1]/"scripts/Run-SharedReserve.py"))
+    baseline = [{"seed": i, "score": 10, "completion_rate": 1, "failure_rate": 0} for i in range(8)]
+    candidate = [{**r, "score": 50, "completion_rate": .5} for r in baseline]
+    result = runner["compare"](candidate, baseline)
+    assert result["gates"]["score"]
+    assert not result["gates"]["completion"]
+    assert not result["passed"]
