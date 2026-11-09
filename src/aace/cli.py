@@ -170,6 +170,9 @@ def main() -> None:
     structured.add_argument("--continuation-index", type=Path, required=True)
     structured.add_argument("--output", type=Path, default=Path("artifacts/structured-pilots"))
     structured.add_argument("--smoke", action="store_true", help="Requires a separate engineering continuation index")
+    cascade = commands.add_parser("cascade-pilot", help="Test persistent damage and decisions under different stakes")
+    cascade.add_argument("--output", type=Path, default=Path("artifacts/cascade-pilots"))
+    cascade.add_argument("--smoke", action="store_true", help="Run a separate eight-subject engineering cohort")
     args = parser.parse_args()
     if args.command == "doctor":
         result = doctor()
@@ -235,6 +238,9 @@ def main() -> None:
     elif args.command == "structured-pilot":
         from aace.learning.structured_pilot import run_structured_pilot
         result = run_structured_pilot(args.continuation_index, args.output, smoke=args.smoke)
+    elif args.command == "cascade-pilot":
+        from aace.benchmarks.cascade_pilot import run_cascade
+        result = run_cascade(args.output, smoke=args.smoke)
     elif args.command == "evaluate-history":
         from aace.learning.history import evaluate_history
         result = evaluate_history(args.checkpoint,args.check,args.output)
