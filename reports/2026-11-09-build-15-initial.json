@@ -1,0 +1,328 @@
+{
+  "git_revision": "122b2ea794d0c38285057220d8869a5bb2d88a2d",
+  "git_dirty": false,
+  "python_source_sha256": "e713cab46fa0787070b9880a696b02354523fa9ad2cabfaa8741ee2c4ae99d0d",
+  "fingerprints": {
+    "python_source_sha256": "e713cab46fa0787070b9880a696b02354523fa9ad2cabfaa8741ee2c4ae99d0d",
+    "runner_sha256": "39a60744db0e811b0f40c8355054f29156667665051a13880e730d40428afc19",
+    "protocol_sha256": "d1e8554ebb2ef46b27cb054bbcea35ae57ef2546b490fa683118efd11ab4a60d",
+    "model_sha256": "89c6b3be7867407f04df5174ec9731f44626df70d558c0ea0f9c58bbbcb201f4"
+  },
+  "scope": "Local supplied-law simulation, not production or a risk certificate",
+  "decision_ready": false,
+  "external_spend_usd": 0,
+  "phase": "development",
+  "engineering": false,
+  "subjects": 512,
+  "seed_range_inclusive": [
+    112000,
+    112511
+  ],
+  "summary": {
+    "myopic_markov": {
+      "score": 65.196484375,
+      "completion_rate": 0.91796875,
+      "failure_rate": 0.0,
+      "shocks": 0.43359375,
+      "incidents": 0.16015625,
+      "repairs": 0.35546875,
+      "stopped": 0.1640625,
+      "new_search_nodes": 9.5625,
+      "lookahead_executed_rate": 0.0,
+      "seconds": 0.24851170000329148
+    },
+    "horizon_fixed": {
+      "score": 68.07148437500001,
+      "completion_rate": 0.88671875,
+      "failure_rate": 0.0,
+      "shocks": 0.33984375,
+      "incidents": 0.181640625,
+      "repairs": 0.2890625,
+      "stopped": 0.2265625,
+      "new_search_nodes": 11.0625,
+      "lookahead_executed_rate": 1.0,
+      "seconds": 0.2218398000113666
+    },
+    "horizon_markov": {
+      "score": 68.0603515625,
+      "completion_rate": 0.8935546875,
+      "failure_rate": 0.0,
+      "shocks": 0.37890625,
+      "incidents": 0.169921875,
+      "repairs": 0.322265625,
+      "stopped": 0.212890625,
+      "new_search_nodes": 98.482421875,
+      "lookahead_executed_rate": 1.0,
+      "seconds": 0.7943404999969061
+    },
+    "horizon_trained": {
+      "score": 68.1400390625,
+      "completion_rate": 0.8935546875,
+      "failure_rate": 0.0,
+      "shocks": 0.35546875,
+      "incidents": 0.17578125,
+      "repairs": 0.306640625,
+      "stopped": 0.212890625,
+      "new_search_nodes": 290.357421875,
+      "lookahead_executed_rate": 1.0,
+      "seconds": 5.167756499999086
+    },
+    "horizon_reset": {
+      "score": 68.07148437500001,
+      "completion_rate": 0.88671875,
+      "failure_rate": 0.0,
+      "shocks": 0.33984375,
+      "incidents": 0.181640625,
+      "repairs": 0.2890625,
+      "stopped": 0.2265625,
+      "new_search_nodes": 12.375,
+      "lookahead_executed_rate": 1.0,
+      "seconds": 0.38954020000528544
+    },
+    "guarded_markov": {
+      "score": 66.3337890625,
+      "completion_rate": 0.9462890625,
+      "failure_rate": 0.0,
+      "shocks": 0.359375,
+      "incidents": 0.1328125,
+      "repairs": 0.294921875,
+      "stopped": 0.107421875,
+      "new_search_nodes": 110.09375,
+      "lookahead_executed_rate": 0.2734375,
+      "seconds": 0.6133459999982733
+    }
+  },
+  "comparisons": {
+    "markov_vs_myopic": {
+      "score": {
+        "mean": 2.863867187499999,
+        "interval": [
+          1.1591748046874994,
+          4.6307373046875
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "completion_rate": {
+        "mean": -0.0244140625,
+        "interval": [
+          -0.04296875,
+          -0.0078125
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "failure_rate": {
+        "mean": 0.0,
+        "interval": [
+          0.0,
+          0.0
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "gates": {
+        "score": true,
+        "completion": false,
+        "failure": true
+      },
+      "passed": false
+    },
+    "markov_vs_fixed": {
+      "score": {
+        "mean": -0.011132812499999478,
+        "interval": [
+          -1.2726855468749994,
+          1.215078125000001
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "completion_rate": {
+        "mean": 0.0068359375,
+        "interval": [
+          -0.00390625,
+          0.0185546875
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "failure_rate": {
+        "mean": 0.0,
+        "interval": [
+          0.0,
+          0.0
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "gates": {
+        "score": false,
+        "completion": true,
+        "failure": true
+      },
+      "passed": false
+    },
+    "trained_vs_markov": {
+      "score": {
+        "mean": 0.07968749999999941,
+        "interval": [
+          -0.6494140625000006,
+          0.9037304687499995
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "completion_rate": {
+        "mean": 0.0,
+        "interval": [
+          -0.005859375,
+          0.005859375
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "failure_rate": {
+        "mean": 0.0,
+        "interval": [
+          0.0,
+          0.0
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "gates": {
+        "score": false,
+        "completion": true,
+        "failure": true
+      },
+      "passed": false
+    },
+    "trained_vs_reset": {
+      "score": {
+        "mean": 0.06855468749999996,
+        "interval": [
+          -0.8619384765625001,
+          0.9675927734375
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "completion_rate": {
+        "mean": 0.0068359375,
+        "interval": [
+          -0.001953125,
+          0.0166015625
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "failure_rate": {
+        "mean": 0.0,
+        "interval": [
+          0.0,
+          0.0
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "gates": {
+        "score": false,
+        "completion": true,
+        "failure": true
+      },
+      "passed": false
+    },
+    "trained_vs_myopic": {
+      "score": {
+        "mean": 2.943554687499999,
+        "interval": [
+          1.160502929687499,
+          4.8006982421875
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "completion_rate": {
+        "mean": -0.0244140625,
+        "interval": [
+          -0.0419921875,
+          -0.0078125
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "failure_rate": {
+        "mean": 0.0,
+        "interval": [
+          0.0,
+          0.0
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "gates": {
+        "score": true,
+        "completion": false,
+        "failure": true
+      },
+      "passed": false
+    },
+    "guarded_vs_myopic": {
+      "score": {
+        "mean": 1.1373046875,
+        "interval": [
+          -0.006845703125000271,
+          2.2971337890625
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "completion_rate": {
+        "mean": 0.0283203125,
+        "interval": [
+          0.0185546875,
+          0.0380859375
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "failure_rate": {
+        "mean": 0.0,
+        "interval": [
+          0.0,
+          0.0
+        ],
+        "subjects": 512,
+        "resamples": 4000,
+        "alpha": 0.05
+      },
+      "gates": {
+        "score": false,
+        "completion": true,
+        "failure": true
+      },
+      "passed": false
+    }
+  },
+  "selected": "myopic_markov",
+  "rows_sha256": "5fb0f1586d7e758db21a787e7f504d33681ce6e6e3e52126ca1ca4791ae047f8",
+  "elapsed_s": 7.787794500007294
+}
