@@ -60,3 +60,38 @@ def test_shortlisted_recall_is_reevaluated_and_never_applied_directly():
         assert decision["recalled_candidate"] is None or decision["recalled_candidate"] in scores
     other = campaign(120014)
     np.testing.assert_array_equal(other[2], campaign(120014)[2])
+
+
+def test_checkpoint_replays_torch_probabilities_and_rejects_invalid_parameters():
+    torch = pytest.importorskip("torch")
+    from aace.learning.repeated import Net, Predictor, VERSION
+
+    torch.manual_seed(42)
+    net = Net()
+    events = [0, 1, 2, 0, 2]
+    x = torch.nn.functional.one_hot(torch.tensor([events]), 3).float()
+    expected = net(x).detach().numpy()[0]
+    checkpoint = {"version": VERSION, "parameters": net.export()}
+    model = Predictor(checkpoint)
+    state, values = model.initial, []
+    for event in events:
+        values.append(model.probability(state))
+        state = model.update(state, event)
+    np.testing.assert_allclose(values, expected, atol=1e-7)
+    checkpoint["parameters"]["head_bias"] = [float("nan")]
+    with pytest.raises(ValueError):
+        Predictor(checkpoint)
+
+
+def test_fitting_updates_parameters_with_public_observations():
+    pytest.importorskip("torch")
+    from aace.benchmarks.repeated import training_tokens
+    from aace.learning.repeated import Predictor, fit, fit_markov
+
+    tokens = training_tokens(range(120100, 120132))
+    q, losses = fit_markov(tokens)
+    assert losses[q] == min(losses.values())
+    result = fit(tokens, 42, epochs=2)
+    assert result["updates"] == 2
+    predictor = Predictor(result)
+    assert predictor.update(predictor.initial, SHOCK) != predictor.initial

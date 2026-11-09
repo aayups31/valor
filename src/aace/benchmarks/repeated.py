@@ -163,6 +163,7 @@ def play(seed, predictor, *, reset=False, bank=None, retrieval="full", trace=Fal
                 candidates = ("stop", *order[:2])
             action, forecasts = search.choose(state, memory, candidates)
             p = predictor.probability(memory)
+            prior = memory
             after, memory, shock = apply_observed(predictor, state, memory, action, danger[task], draws[task])
             totals["root_candidates"] += len(forecasts)
             if action == "fast":
@@ -170,7 +171,10 @@ def play(seed, predictor, *, reset=False, bank=None, retrieval="full", trace=Fal
             if trace:
                 records.append({"task": task, "stakes": value, "before": asdict(state), "after": asdict(after),
                                 "shock_probability": p, "observed_shock": shock if action == "fast" else None,
+                                "public_predictor_state_before": prior, "public_predictor_state_after": memory,
                                 "selected": action, "recalled_candidate": recall,
+                                "recall_evidence": bank.evidence(state, value, model_switch=predictor.switch)
+                                if recall is not None else None,
                                 "evaluated": {a: {**asdict(f), "score": f.score} for a, f in forecasts.items()},
                                 "legal_not_evaluated": [a for a in available(state) if a not in forecasts]})
             state = after

@@ -2,6 +2,7 @@
 
 from collections import OrderedDict
 from dataclasses import asdict, dataclass
+from math import isfinite
 
 from aace.benchmarks.cascade import HIGH, LOW, ReleaseState, available, mixture, terminal_outcomes, transition
 from aace.benchmarks.repeated import BOUNDARY, CLEAR, SHOCK, TASKS, Search, apply_observed, campaign, carry
@@ -59,8 +60,12 @@ class Bank:
     def put(self, record):
         if record.version != VERSION or record.observed_action not in available(record.state):
             raise ValueError("Invalid record scope")
+        shock = record.observed_after.shocks == record.state.shocks+1
+        if transition(record.state, record.observed_action, shock=shock) != record.observed_after:
+            raise ValueError("Observed transition does not replay")
         if record.recourse is not None and (record.recourse not in available(record.state)
-                or len(record.endpoint_deltas) != 2 or any(score < 1 or risk > 0 for score, risk in record.endpoint_deltas)):
+                or len(record.endpoint_deltas) != 2 or any(not isfinite(score) or not isfinite(risk)
+                    or score < 1 or risk > 0 for score, risk in record.endpoint_deltas)):
             raise ValueError("Recourse does not pass both declared regime checks")
         key = record.state, record.stakes, record.model_switch
         self._records[key] = record
@@ -77,6 +82,10 @@ class Bank:
         if mode == "verified" and record.recourse is not None:
             return record.recourse
         return record.observed_action if record.observed_task_status == "completed" else None
+
+    def evidence(self, state, stakes, *, model_switch):
+        record = self._records.get((state, stakes, model_switch))
+        return asdict(record) if record is not None else None
 
     def records(self):
         return [asdict(record) for record in self._records.values()]
