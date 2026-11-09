@@ -22,14 +22,34 @@ function renderSummary() {
   }
   const screen = record.guarded.forecast_screen;
   el("screen-text").textContent = screen.accepted
-    ? "Lookahead selected. It predicted a higher score while keeping completion and failure within the comparison limits."
-    : "One-release planning retained. Lookahead did not meet all comparison conditions.";
+    ? "Lookahead selected. It passed all three checks against the simpler plan."
+    : "One-release planning retained. Lookahead missed at least one of the checks below.";
+  const checks = el("screen-checks");
+  checks.replaceChildren();
+  for (const [key, description] of [
+    ["higher_score", "Predict a higher score"],
+    ["completion_within_limit", "Predict at most 0.04 fewer completed releases"],
+    ["failures_within_limit", "Predict at most 0.02 more terminal failures"],
+  ]) {
+    const result = record.screen_checks[key] ? "Passed" : "Missed";
+    line(checks,"li",`${result} · ${description}`);
+  }
   const details = el("screen-values");
   details.replaceChildren();
   for (const [key, name] of [["lookahead","Lookahead"],["myopic","One-release"]]) {
     const [score, failures, completed] = screen[key];
     line(details,"p",`${name} forecast across both releases: ${number(score)} score, ${number(completed)} expected completions, ${number(failures)} expected terminal failures.`);
   }
+}
+function resetPath() {
+  step = 0;
+  const jump = el("jump");
+  jump.replaceChildren();
+  record[el("policy").value].decisions.forEach((decision, index) => {
+    const option = line(jump,"option",`Decision ${index+1} · Release ${decision.task+1}`);
+    option.value = String(index);
+  });
+  renderStep();
 }
 function renderStep() {
   const run = record[el("policy").value], decision = run.decisions[step], after = decision.after;
@@ -55,8 +75,9 @@ function renderStep() {
     line(row,"strong",titles[action] + (action === decision.selected ? " · Selected" : ""));
     line(row,"span",`Expected score ${number(forecast.expected_score)} · expected terminal failures ${number(forecast.expected_failure_count)}`);
   }
-  el("previous").disabled = step === 0;
-  el("next").disabled = step+1 >= run.decisions.length;
+  el("jump").value = String(step);
+  el("previous").setAttribute("aria-disabled", String(step === 0));
+  el("next").setAttribute("aria-disabled", String(step+1 >= run.decisions.length));
   el("status").textContent = `Replay ready. ${el("step").textContent.toLowerCase()}.`;
 }
 async function load() {
@@ -70,10 +91,10 @@ async function load() {
     const data = await response.json();
     if (current !== request) return;
     if (data.schema !== "shared-reserve-replay-v1") throw new Error("Unexpected replay format.");
-    record = data; step = 0;
+    record = data;
     el("policy").value = "guarded";
     el("screen").open = false; el("alternatives").open = false;
-    renderSummary(); renderStep();
+    renderSummary(); resetPath();
     el("replay").hidden = false;
   } catch {
     if (current === request) el("status").textContent = "The replay couldn’t load. Check the local server and try again.";
@@ -83,9 +104,10 @@ async function load() {
 }
 el("controls").addEventListener("submit",event=>{event.preventDefault();load();});
 el("scenario").addEventListener("change",()=>{request++;record=null;el("run").disabled=false;el("replay").hidden=true;el("status").textContent="Load this situation to start its replay.";});
-el("policy").addEventListener("change",()=>{step=0;renderStep();});
+el("policy").addEventListener("change",resetPath);
+el("jump").addEventListener("change",()=>{step=Number(el("jump").value);renderStep();});
 el("previous").addEventListener("click",()=>{if(step>0){step--;renderStep();}});
-el("next").addEventListener("click",()=>{if(step+1<record[el("policy").value].decisions.length){step++;renderStep();}});
+el("next").addEventListener("click",()=>{if(record && step+1<record[el("policy").value].decisions.length){step++;renderStep();}});
 el("download").addEventListener("click",()=>{
   const url = URL.createObjectURL(new Blob([JSON.stringify(record,null,2)],{type:"application/json"}));
   const link = document.createElement("a");

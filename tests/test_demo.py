@@ -101,8 +101,11 @@ def test_reserve_replay_matches_the_frozen_damaged_case(server):
     assert payload["guarded"] == evidence["selected"]
     assert payload["baseline"] == evidence["baseline"]
     assert payload["guarded"]["forecast_screen"]["accepted"]
+    assert all(payload["screen_checks"].values())
     for scenario in ("nominal", "volatile", "harsher"):
-        assert json.loads(request(server, f"/api/reserve/{scenario}")[2])["scenario"] == scenario
+        replay = json.loads(request(server, f"/api/reserve/{scenario}")[2])
+        assert replay["scenario"] == scenario
+        assert all(replay["screen_checks"].values()) == replay["guarded"]["forecast_screen"]["accepted"]
     with pytest.raises(HTTPError) as error:
         request(server, "/api/reserve/unknown")
     assert error.value.code == 404

@@ -29,11 +29,12 @@
       <div id="replay" hidden>
         <div class="result-band" id="outcomes"></div>
         <p class="fine">One simulated pair with the same starting conditions and potential shocks. These outcomes are examples, not benchmark averages.</p>
-        <details id="screen"><summary>Why use lookahead or fall back?</summary><p id="screen-text"></p><div id="screen-values"></div></details>
+        <details id="screen"><summary>Why plan ahead or keep the simpler plan?</summary><p id="screen-text"></p><ul id="screen-checks"></ul><div id="screen-values"></div></details>
         <div class="view-controls">
           <label for="policy">Decision path</label>
           <select id="policy"><option value="guarded">Guarded planning</option><option value="baseline">One release at a time</option></select>
-          <div class="step-buttons"><button id="previous" type="button">← Previous</button><button id="next" type="button">Next decision →</button></div>
+          <label for="jump">Decision</label><select id="jump"></select>
+          <div class="step-buttons"><button id="previous" type="button" aria-disabled="true">← Previous</button><button id="next" type="button" aria-disabled="true">Next decision →</button></div>
         </div>
         <article aria-labelledby="action"><p class="label" id="step"></p><h3 id="action"></h3><p id="observed"></p><dl class="state-line" id="state"></dl></article>
         <details id="alternatives"><summary>Compare evaluated actions</summary><p id="forecast-scope" class="fine"></p><div id="options"></div></details>

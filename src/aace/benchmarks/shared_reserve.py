@@ -115,11 +115,18 @@ class PairPlanner:
         return tuple(a*(1-p)+b*p for a, b in zip(clear, shock))
 
 
-def choose_policy(horizon, myopic):
+def screen_checks(horizon, myopic):
     score, failures, completed = horizon
     base_score, base_failures, base_completed = myopic
-    return (score > base_score + 1e-10 and completed >= base_completed-.04-1e-10
-            and failures <= base_failures+.02+1e-10)
+    return {
+        "higher_score": score > base_score + 1e-10,
+        "completion_within_limit": completed >= base_completed - .04 - 1e-10,
+        "failures_within_limit": failures <= base_failures + .02 + 1e-10,
+    }
+
+
+def choose_policy(horizon, myopic):
+    return all(screen_checks(horizon, myopic).values())
 
 
 def play_pair(seed, scenario, actor, planners, *, trained=None, trace=False):
