@@ -1,0 +1,603 @@
+{
+  "protocol": "repeated-stakes-v1",
+  "engineering": false,
+  "scheduled_tasks_per_campaign": 8,
+  "campaigns": 256,
+  "actor_campaigns": 3072,
+  "seed_ranges_inclusive": {
+    "training": [
+      100000,
+      101023
+    ],
+    "bank": [
+      102000,
+      102255
+    ],
+    "check": [
+      110000,
+      110255
+    ]
+  },
+  "public_training_sha256": "8364c1ddd4fa5b7227fca734ab9d9e06cdcc18b9c4363e28bb60024367b52de4",
+  "markov_switch": 0.2,
+  "markov_train_nll": {
+    "0.0": 8966.829981347424,
+    "0.05": 8794.91742946923,
+    "0.1": 8734.152796939023,
+    "0.15": 8708.628211965663,
+    "0.2": 8700.708467629873,
+    "0.25": 8703.003608176923,
+    "0.3": 8711.760614697365,
+    "0.4": 8741.224903836548,
+    "0.5": 8781.057939057033
+  },
+  "fits": [
+    {
+      "file": "fit-42.json",
+      "sha256": "89c6b3be7867407f04df5174ec9731f44626df70d558c0ea0f9c58bbbcb201f4",
+      "version": "release-public-gru4-v1",
+      "seed": 42,
+      "epochs": 30,
+      "updates": 240,
+      "train_loss": [
+        0.5424622893333435,
+        0.541523277759552,
+        0.5406577587127686,
+        0.5396392345428467,
+        0.5383205413818359,
+        0.5366637110710144,
+        0.5348724126815796,
+        0.5333986282348633,
+        0.5325720310211182,
+        0.5323148369789124,
+        0.5322167277336121,
+        0.5321181416511536,
+        0.5320414900779724,
+        0.5319890379905701,
+        0.5319471955299377,
+        0.5319254994392395,
+        0.5318755507469177,
+        0.531853437423706,
+        0.5318351984024048,
+        0.5318637490272522,
+        0.5318763852119446,
+        0.5317794680595398,
+        0.531731128692627,
+        0.531713604927063,
+        0.531699001789093,
+        0.5316937565803528,
+        0.5316689014434814,
+        0.5316722393035889,
+        0.5316402912139893,
+        0.5316295027732849
+      ],
+      "elapsed_s": 8.712399899988668
+    },
+    {
+      "file": "fit-43.json",
+      "sha256": "99458457b0c101f4c91c04f8d454b32d269fedb797d414dc9dbc8e7d7db0fbba",
+      "version": "release-public-gru4-v1",
+      "seed": 43,
+      "epochs": 30,
+      "updates": 240,
+      "train_loss": [
+        0.5399081110954285,
+        0.5383097529411316,
+        0.5364633798599243,
+        0.5343981981277466,
+        0.5327827334403992,
+        0.5323946475982666,
+        0.5322860479354858,
+        0.5321877598762512,
+        0.5321548581123352,
+        0.5321382284164429,
+        0.5320847034454346,
+        0.5320339798927307,
+        0.5319869518280029,
+        0.5319947600364685,
+        0.5320141911506653,
+        0.5319036245346069,
+        0.5318717360496521,
+        0.5318710207939148,
+        0.5318769812583923,
+        0.5317887663841248,
+        0.5317559242248535,
+        0.5317265391349792,
+        0.5317068099975586,
+        0.531679630279541,
+        0.5316665172576904,
+        0.5316522717475891,
+        0.5316217541694641,
+        0.5316051244735718,
+        0.5315893888473511,
+        0.5316584706306458
+      ],
+      "elapsed_s": 3.879408999986481
+    },
+    {
+      "file": "fit-44.json",
+      "sha256": "7d65f1b4efeb0e6f7cd31ffd5e3b070fa7e9f4c274dbc6246cf2f865ab7b49cd",
+      "version": "release-public-gru4-v1",
+      "seed": 44,
+      "epochs": 30,
+      "updates": 240,
+      "train_loss": [
+        0.5405223965644836,
+        0.5388622879981995,
+        0.5367957353591919,
+        0.5343130826950073,
+        0.532749354839325,
+        0.5325246453285217,
+        0.5322185754776001,
+        0.5321114659309387,
+        0.5320414900779724,
+        0.531966507434845,
+        0.5318668484687805,
+        0.5318028330802917,
+        0.5317509770393372,
+        0.5317516922950745,
+        0.5317211151123047,
+        0.5317789912223816,
+        0.5317039489746094,
+        0.5316387414932251,
+        0.5315709114074707,
+        0.5315690636634827,
+        0.5315812230110168,
+        0.5315209627151489,
+        0.5315701961517334,
+        0.531633734703064,
+        0.5316694378852844,
+        0.5314850211143494,
+        0.5314794182777405,
+        0.5314657092094421,
+        0.531470537185669,
+        0.5314728021621704
+      ],
+      "elapsed_s": 3.76108729999396
+    }
+  ],
+  "bank_work": {
+    "endpoint_nodes": 172210,
+    "continuation_forecasts": 146901
+  },
+  "bank_records": 169,
+  "qualified_records": 50,
+  "bank_sha256": "5c1176810e280d2fe150b91bb443e8e1933613e70ee5b1f4605f6785827fc92d",
+  "rows_sha256": "189bd8711e3f524a6017a23146d49f31692af567d301fdbd529a0d2f07e449c1",
+  "summary": {
+    "fixed": {
+      "score": 293.144921875,
+      "completed": 7.96875,
+      "stopped": 0.0078125,
+      "outage": 0.0,
+      "release_failure": 0.0234375,
+      "shocks": 1.88671875,
+      "incidents": 0.80078125,
+      "repairs": 1.625,
+      "fast_attempts": 8.04296875,
+      "brier_sum": 1.4443011718749998,
+      "root_candidates": 82.140625,
+      "forecast_calls": 597.32421875,
+      "recall_hits": 0.0,
+      "completion_rate": 0.99609375,
+      "failure_rate": 0.0029296875,
+      "observed_attempt_brier": 0.17957314230208837
+    },
+    "window": {
+      "score": 285.9484375,
+      "completed": 7.87109375,
+      "stopped": 0.02734375,
+      "outage": 0.0,
+      "release_failure": 0.1015625,
+      "shocks": 1.98828125,
+      "incidents": 0.90234375,
+      "repairs": 1.70703125,
+      "fast_attempts": 9.5078125,
+      "brier_sum": 1.580068017795139,
+      "root_candidates": 82.8203125,
+      "forecast_calls": 634.66015625,
+      "recall_hits": 0.0,
+      "completion_rate": 0.98388671875,
+      "failure_rate": 0.0126953125,
+      "observed_attempt_brier": 0.16618628289053228
+    },
+    "markov": {
+      "score": 294.97421875,
+      "completed": 8.0,
+      "stopped": 0.0,
+      "outage": 0.0,
+      "release_failure": 0.0,
+      "shocks": 1.82421875,
+      "incidents": 0.80078125,
+      "repairs": 1.56640625,
+      "fast_attempts": 7.984375,
+      "brier_sum": 1.3925106244746548,
+      "root_candidates": 82.015625,
+      "forecast_calls": 607.55859375,
+      "recall_hits": 0.0,
+      "completion_rate": 1.0,
+      "failure_rate": 0.0,
+      "observed_attempt_brier": 0.17440446177373367
+    },
+    "heuristic": {
+      "score": 294.97421875,
+      "completed": 8.0,
+      "stopped": 0.0,
+      "outage": 0.0,
+      "release_failure": 0.0,
+      "shocks": 1.82421875,
+      "incidents": 0.80078125,
+      "repairs": 1.56640625,
+      "fast_attempts": 7.984375,
+      "brier_sum": 1.3925106244746548,
+      "root_candidates": 76.69921875,
+      "forecast_calls": 587.03515625,
+      "recall_hits": 0.0,
+      "completion_rate": 1.0,
+      "failure_rate": 0.0,
+      "observed_attempt_brier": 0.17440446177373367
+    },
+    "factual": {
+      "score": 290.0875,
+      "completed": 8.0,
+      "stopped": 0.0,
+      "outage": 0.0,
+      "release_failure": 0.0,
+      "shocks": 1.56640625,
+      "incidents": 0.0,
+      "repairs": 1.56640625,
+      "fast_attempts": 7.18359375,
+      "brier_sum": 1.2185171178943017,
+      "root_candidates": 76.69921875,
+      "forecast_calls": 557.9921875,
+      "recall_hits": 17.1640625,
+      "completion_rate": 1.0,
+      "failure_rate": 0.0,
+      "observed_attempt_brier": 0.16962500390480764
+    },
+    "verified": {
+      "score": 294.97421875,
+      "completed": 8.0,
+      "stopped": 0.0,
+      "outage": 0.0,
+      "release_failure": 0.0,
+      "shocks": 1.82421875,
+      "incidents": 0.80078125,
+      "repairs": 1.56640625,
+      "fast_attempts": 7.984375,
+      "brier_sum": 1.3925106244746548,
+      "root_candidates": 76.69921875,
+      "forecast_calls": 587.03515625,
+      "recall_hits": 17.42578125,
+      "completion_rate": 1.0,
+      "failure_rate": 0.0,
+      "observed_attempt_brier": 0.17440446177373367
+    },
+    "trained_42": {
+      "score": 294.80859375,
+      "completed": 8.0,
+      "stopped": 0.0,
+      "outage": 0.0,
+      "release_failure": 0.0,
+      "shocks": 1.81640625,
+      "incidents": 0.80078125,
+      "repairs": 1.55859375,
+      "fast_attempts": 7.8671875,
+      "brier_sum": 1.3897659446522275,
+      "root_candidates": 81.9765625,
+      "forecast_calls": 623.59765625,
+      "recall_hits": 0.0,
+      "completion_rate": 1.0,
+      "failure_rate": 0.0,
+      "observed_attempt_brier": 0.17665346664894252
+    },
+    "reset_42": {
+      "score": 294.80859375,
+      "completed": 8.0,
+      "stopped": 0.0,
+      "outage": 0.0,
+      "release_failure": 0.0,
+      "shocks": 1.81640625,
+      "incidents": 0.80078125,
+      "repairs": 1.55859375,
+      "fast_attempts": 7.8671875,
+      "brier_sum": 1.3899299467856012,
+      "root_candidates": 81.9765625,
+      "forecast_calls": 623.59765625,
+      "recall_hits": 0.0,
+      "completion_rate": 1.0,
+      "failure_rate": 0.0,
+      "observed_attempt_brier": 0.17667431299757394
+    },
+    "trained_43": {
+      "score": 294.80859375,
+      "completed": 8.0,
+      "stopped": 0.0,
+      "outage": 0.0,
+      "release_failure": 0.0,
+      "shocks": 1.81640625,
+      "incidents": 0.80078125,
+      "repairs": 1.55859375,
+      "fast_attempts": 7.8671875,
+      "brier_sum": 1.387985238460278,
+      "root_candidates": 81.9765625,
+      "forecast_calls": 623.59765625,
+      "recall_hits": 0.0,
+      "completion_rate": 1.0,
+      "failure_rate": 0.0,
+      "observed_attempt_brier": 0.1764271206781684
+    },
+    "reset_43": {
+      "score": 294.80859375,
+      "completed": 8.0,
+      "stopped": 0.0,
+      "outage": 0.0,
+      "release_failure": 0.0,
+      "shocks": 1.81640625,
+      "incidents": 0.80078125,
+      "repairs": 1.55859375,
+      "fast_attempts": 7.8671875,
+      "brier_sum": 1.3891034431973177,
+      "root_candidates": 81.9765625,
+      "forecast_calls": 623.59765625,
+      "recall_hits": 0.0,
+      "completion_rate": 1.0,
+      "failure_rate": 0.0,
+      "observed_attempt_brier": 0.17656925593769282
+    },
+    "trained_44": {
+      "score": 294.80859375,
+      "completed": 8.0,
+      "stopped": 0.0,
+      "outage": 0.0,
+      "release_failure": 0.0,
+      "shocks": 1.81640625,
+      "incidents": 0.80078125,
+      "repairs": 1.55859375,
+      "fast_attempts": 7.8671875,
+      "brier_sum": 1.388496174853768,
+      "root_candidates": 81.9765625,
+      "forecast_calls": 623.59765625,
+      "recall_hits": 0.0,
+      "completion_rate": 1.0,
+      "failure_rate": 0.0,
+      "observed_attempt_brier": 0.1764920659198434
+    },
+    "reset_44": {
+      "score": 294.80859375,
+      "completed": 8.0,
+      "stopped": 0.0,
+      "outage": 0.0,
+      "release_failure": 0.0,
+      "shocks": 1.81640625,
+      "incidents": 0.80078125,
+      "repairs": 1.55859375,
+      "fast_attempts": 7.8671875,
+      "brier_sum": 1.3897767781386063,
+      "root_candidates": 81.9765625,
+      "forecast_calls": 623.59765625,
+      "recall_hits": 0.0,
+      "completion_rate": 1.0,
+      "failure_rate": 0.0,
+      "observed_attempt_brier": 0.1766548436958705
+    }
+  },
+  "actor_wall_seconds": {
+    "fixed": 1.807687699998496,
+    "window": 1.9695994000067003,
+    "markov": 1.9103389999945648,
+    "heuristic": 1.9086703000066336,
+    "factual": 1.8134028999920702,
+    "verified": 2.006607899995288,
+    "trained_42": 6.360826899996027,
+    "reset_42": 6.662430199998198,
+    "trained_43": 6.8620930000033695,
+    "reset_43": 6.478649699987727,
+    "trained_44": 6.913336900004651,
+    "reset_44": 7.362161400000332
+  },
+  "comparisons": {
+    "trained_minus_markov": {
+      "score": {
+        "mean_delta": -0.16562499999999725,
+        "bootstrap_95_percent": [
+          -0.39374999999999366,
+          0.05468750000000259
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "completion_rate": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "failure_rate": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "passes_predeclared_gate": false
+    },
+    "trained_minus_reset": {
+      "score": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "completion_rate": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "failure_rate": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "passes_predeclared_gate": false
+    },
+    "verified_minus_factual": {
+      "score": {
+        "mean_delta": 4.886718750000002,
+        "bootstrap_95_percent": [
+          4.007812500000002,
+          5.731347656249998
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "completion_rate": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "failure_rate": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "passes_predeclared_gate": true
+    }
+  },
+  "failure_notice": "Outage is absorbing. Scheduled tasks after outage count as uncompleted, not additional failures.",
+  "forecast_notice": "Observed-attempt scores are conditional on each policy's attempts, not a matched forecasting set.",
+  "scope": "Local development simulator. No felt fear, authority, deployment or final holdout validation.",
+  "decision_ready": false,
+  "external_spend_usd": 0,
+  "elapsed_s": 72.34018440000364,
+  "git_revision": "914cada876ff77c6bb643ba3f2d957dbb6352148",
+  "git_dirty": false,
+  "python_source_sha256": "4953c1f7e2f5742c15ac95ecd66d30b8807be2089a7db20af1e6337aec579093",
+  "pilot_artifact": "artifacts\\repeated-stakes\\pilot-repeated-49264787",
+  "verification": {
+    "artifact_hashes": "verified",
+    "split_and_training_stream": "verified",
+    "paired_aggregates": "verified",
+    "replayed_decisions": 287,
+    "regression": {
+      "passed": 260,
+      "elapsed_s": 32.29
+    }
+  },
+  "exploratory_secondary": {
+    "verified_minus_heuristic": {
+      "score": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "completion_rate": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "failure_rate": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "root_candidates": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      },
+      "forecast_calls": {
+        "mean_delta": 0.0,
+        "bootstrap_95_percent": [
+          0.0,
+          0.0
+        ],
+        "subjects": 256,
+        "notice": "Paired subject bootstrap, descriptive development check"
+      }
+    },
+    "verified_score_differs_from_factual_campaigns": 100,
+    "common_public_probes": {
+      "scope": "Post-pilot forecasting diagnostic on identical exogenous observations, not a policy test",
+      "seed_range_inclusive": [
+        111000,
+        111255
+      ],
+      "markov": {
+        "observations": 4076,
+        "brier": 0.17212027510903072,
+        "log_loss": 0.526067388534614
+      },
+      "trained_42": {
+        "observations": 4076,
+        "brier": 0.1726491480323873,
+        "log_loss": 0.527564773601099
+      },
+      "reset_42": {
+        "observations": 4076,
+        "brier": 0.1742313549174169,
+        "log_loss": 0.5322605887754872
+      },
+      "trained_43": {
+        "observations": 4076,
+        "brier": 0.17262738883728437,
+        "log_loss": 0.5274446766723895
+      },
+      "reset_43": {
+        "observations": 4076,
+        "brier": 0.17397822511515612,
+        "log_loss": 0.5315712531830643
+      },
+      "trained_44": {
+        "observations": 4076,
+        "brier": 0.17253546207444787,
+        "log_loss": 0.5273664733450242
+      },
+      "reset_44": {
+        "observations": 4076,
+        "brier": 0.1740079744834479,
+        "log_loss": 0.5317404970757904
+      }
+    }
+  }
+}
