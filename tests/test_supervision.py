@@ -1,4 +1,6 @@
 import sqlite3
+import subprocess
+import sys
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import closing
 
@@ -68,6 +70,29 @@ def test_audit_failure_rolls_back_the_write(supervisor, monkeypatch):
     with pytest.raises(sqlite3.OperationalError, match="audit unavailable"):
         supervisor.propose("req", "archive_pending")
     assert state(supervisor) == ([(0,), (0,)], 0)
+
+
+def test_process_exit_before_commit_leaves_no_write_or_receipt(supervisor):
+    script = """
+import os
+import sys
+from aace.supervision import ArchiveSupervisor
+
+supervisor = ArchiveSupervisor(sys.argv[1])
+record = supervisor._record
+
+def crash(db, *args):
+    record(db, *args)
+    os._exit(17)
+
+supervisor._record = crash
+supervisor.propose("req", "archive_pending")
+"""
+    child = subprocess.run([sys.executable, "-c", script, str(supervisor.path)], timeout=10)
+    assert child.returncode == 17
+    assert state(supervisor) == ([(0,), (0,)], 0)
+    assert supervisor.propose("req", "archive_pending")["status"] == "applied"
+    assert state(supervisor) == ([(1,), (0,)], 1)
 
 
 def test_rejects_foreign_schema_and_invalid_operations(supervisor):
