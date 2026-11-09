@@ -90,6 +90,10 @@ async function load() {
     if (!response.ok) throw new Error("Replay unavailable.");
     const data = await response.json();
     if (current !== request) return;
+    if (data.schema === "shared-reserve-replay-v1" && !data.screen_checks) {
+      el("status").textContent = "An older VALOR is still open. Double-click Stop VALOR, then Start VALOR and reopen the replay.";
+      return;
+    }
     if (data.schema !== "shared-reserve-replay-v1") throw new Error("Unexpected replay format.");
     record = data;
     el("policy").value = "guarded";

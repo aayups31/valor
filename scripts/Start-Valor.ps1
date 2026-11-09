@@ -17,11 +17,12 @@ $projectHash = [BitConverter]::ToString($hashAlgorithm.ComputeHash($projectBytes
 $hashAlgorithm.Dispose()
 $launcherMutex = [System.Threading.Mutex]::new($false, "Local\ValorDemo-$projectHash-$Port")
 $mutexHeld = $false
+$requiredInterfaceVersion = 6
 
 function Get-ValorHealth {
     try {
         $health = Invoke-RestMethod "$demoUrl/api/health" -TimeoutSec 2
-        if ($health.application -eq 'valor' -and $health.interface_version -in @(2, 3, 4, 5)) { return $health }
+        if ($health.application -eq 'valor' -and $health.interface_version -in @(2..$requiredInterfaceVersion)) { return $health }
     } catch { }
     return $null
 }
@@ -63,7 +64,7 @@ try {
     Write-Host 'VALOR'
     Write-Host 'Preparing your local demo...'
     $health = Get-ValorHealth
-    if ($health -and $health.interface_version -lt 5) {
+    if ($health -and $health.interface_version -lt $requiredInterfaceVersion) {
         throw 'An earlier VALOR interface is still running. Double-click Stop VALOR, then Start VALOR to open the new experiment.'
     }
     if (-not $health) {
@@ -110,6 +111,9 @@ try {
             if ($serverProcess.HasExited) { throw "VALOR could not start. Details are saved in $errorLog" }
         } while (-not $health -and [DateTime]::UtcNow -lt $startupDeadline)
         if (-not $health) { throw "VALOR took too long to start. Details are saved in $errorLog" }
+        if ($health.interface_version -lt $requiredInterfaceVersion) {
+            throw 'VALOR started an earlier installed version. Double-click Stop VALOR and ask for help refreshing the local setup.'
+        }
     }
     Write-Host "Ready: $demoUrl"
     if (-not $NoBrowser) { Start-Process $demoUrl }

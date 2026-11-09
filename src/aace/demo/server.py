@@ -200,7 +200,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         path = urlsplit(self.path).path
         if path == "/api/health":
-            return self._respond({"application": "valor", "interface_version": 5,
+            return self._respond({"application": "valor", "interface_version": 6,
                                   "schema_version": SCHEMA_VERSION})
         if path == "/api/scenarios":
             return self._respond({"scenarios": list(SCENARIOS), "controllers": CONTROLLERS,
