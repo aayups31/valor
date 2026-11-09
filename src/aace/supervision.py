@@ -40,10 +40,14 @@ class ArchiveSupervisor:
         with closing(sqlite3.connect(self.path.as_uri() + "?mode=rw", uri=True, timeout=1)) as db, db:
             db.execute("PRAGMA trusted_schema = OFF")
             db.execute("BEGIN IMMEDIATE")
-            schema = db.execute("SELECT sql FROM sqlite_schema WHERE sql IS NOT NULL ORDER BY name LIMIT 3").fetchall()
-            if schema != [(AUDIT,), (TABLE,)] or db.execute("PRAGMA application_id").fetchone()[0] != APP_ID:
-                raise ValueError("Unsupported supervised database")
+            self._validate(db)
             yield db
+
+    @staticmethod
+    def _validate(db):
+        schema = db.execute("SELECT sql FROM sqlite_schema WHERE sql IS NOT NULL ORDER BY name LIMIT 3").fetchall()
+        if schema != [(AUDIT,), (TABLE,)] or db.execute("PRAGMA application_id").fetchone()[0] != APP_ID:
+            raise ValueError("Unsupported supervised database")
 
     @staticmethod
     def _rows(db):
