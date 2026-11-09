@@ -80,12 +80,32 @@ def test_http_assets_and_session_export(server):
 
 def test_launcher_health_identifies_interface_and_all_frontend_assets(server):
     _, _, body = request(server, "/api/health")
-    assert json.loads(body) == {"application": "valor", "interface_version": 4,
+    assert json.loads(body) == {"application": "valor", "interface_version": 5,
                                 "schema_version": "1.0"}
     for path in ("/app.js", "/evidence.js", "/style.css"):
         status, headers, body = request(server, path)
         assert status == 200 and body
         assert "no-store" == headers["Cache-Control"]
+
+
+def test_reserve_replay_matches_the_frozen_damaged_case(server):
+    from pathlib import Path
+
+    _, _, page = request(server, "/reserve")
+    assert b'id="alternatives"' in page and b"/reserve.js" in page
+    for asset in ("/reserve.css", "/reserve.js"):
+        assert request(server, asset)[0] == 200
+    _, _, body = request(server, "/api/reserve/damaged")
+    payload = json.loads(body)
+    evidence = json.loads((Path(__file__).parents[1]/"reports/examples/shared-reserve-damaged-v1.json").read_text())
+    assert payload["guarded"] == evidence["selected"]
+    assert payload["baseline"] == evidence["baseline"]
+    assert payload["guarded"]["forecast_screen"]["accepted"]
+    for scenario in ("nominal", "volatile", "harsher"):
+        assert json.loads(request(server, f"/api/reserve/{scenario}")[2])["scenario"] == scenario
+    with pytest.raises(HTTPError) as error:
+        request(server, "/api/reserve/unknown")
+    assert error.value.code == 404
 
 
 def test_cross_origin_and_unknown_assets_are_rejected(server):

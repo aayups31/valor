@@ -12,6 +12,7 @@ from aace.envs.scenarios import SCENARIOS
 from aace.runtime import Session
 from aace.schemas import SCHEMA_VERSION
 from aace.demo.study import create_study
+from aace.demo.reserve import reserve_replay
 
 CONTROLLERS = ("heuristic_direct", "heuristic_detour", "oracle_planner")
 STATIC = Path(__file__).parent/"static"
@@ -199,11 +200,16 @@ class Handler(BaseHTTPRequestHandler):
             return
         path = urlsplit(self.path).path
         if path == "/api/health":
-            return self._respond({"application": "valor", "interface_version": 4,
+            return self._respond({"application": "valor", "interface_version": 5,
                                   "schema_version": SCHEMA_VERSION})
         if path == "/api/scenarios":
             return self._respond({"scenarios": list(SCENARIOS), "controllers": CONTROLLERS,
                                   "forecast_notice": "Oracle dynamics, finite samples; learned predictions pending"})
+        if path.startswith("/api/reserve/"):
+            try:
+                return self._respond(reserve_replay(path.removeprefix("/api/reserve/")))
+            except ValueError as error:
+                return self._respond({"error": str(error)}, 404)
         if path.startswith("/api/session/"):
             segments = path.strip("/").split("/")
             try:
@@ -216,6 +222,9 @@ class Handler(BaseHTTPRequestHandler):
                 return self._respond({"error": str(error)}, 404)
         assets = {"/": ("index.html", "text/html; charset=utf-8"),
                   "/rover": ("rover.html", "text/html; charset=utf-8"),
+                  "/reserve": ("reserve.html", "text/html; charset=utf-8"),
+                  "/reserve.css": ("reserve.css", "text/css; charset=utf-8"),
+                  "/reserve.js": ("reserve.js", "text/javascript; charset=utf-8"),
                   "/study.js": ("study.js", "text/javascript; charset=utf-8"),
                   "/study.css": ("study.css", "text/css; charset=utf-8"),
                   "/decision-paths.svg": ("decision-paths.svg", "image/svg+xml"),
