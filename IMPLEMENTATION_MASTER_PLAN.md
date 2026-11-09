@@ -2,6 +2,8 @@
 
 Review date: October 2, 2026. Status: planning only. No application code, dependency installation, model training or benchmark execution was performed during this review.
 
+November 9 closeout: the owner verified the replay in a real browser at desktop and narrow widths and confirmed the evidence download after the launcher fix. Checkpoint 10 is closed. Checkpoint 11 is closed for the research release, and checkpoint 12 is closed for the bounded local shadow pilot.
+
 Latest November 9 implementation: [report 17](reports/2026-11-09-build-17.md) adds criterion-level replay explanations and decision jumps at checkpoint 10, with rendered browser review pending. Checkpoint 12 passed a frozen 24-case trial observing a separate local Llama model's real writes to disposable SQLite fixtures. This qualifies the bounded read-only integration. Checkpoint 13 requires a contained workflow and explicit action authority before testing enforcement.
 
 Latest November 9 implementation: [report 16](reports/2026-11-09-build-16.md) adds checkpoint 10's local visual replay (browser render check blocked), checkpoint 11's reproducible v0.2.0 research package, and a narrow checkpoint 12 SQLite shadow pilot alongside actual coding-agent writes on disposable data. No unattended external-agent trial or enforcement authority. Checkpoints 13–15 remain contained supervision, limited live pilot, and workflow-qualified production release, respectively.

@@ -1,5 +1,10 @@
 # Build progress
 
+### Checkpoint 10 closed — browser review, November 9
+
+- The owner's desktop screenshot showed the loaded replay, decision navigation and visible focus. The owner confirmed the evidence download and that the replay works at narrow width. Together with the 278 passing regression tests and the launcher verification below, this closes checkpoint 10.
+- Checkpoints 11 and 12 were already closed for the research release and bounded local shadow pilot, respectively. Checkpoint 13 is next.
+
 ### Stop 18 — replay launcher compatibility, November 9
 
 - Reproduced the reported load failure. A running interface-5 server returned replay data without the comparison checks required by the updated page. Interface 6 makes the launcher flag older servers, and the replay gives a specific restart message if it receives older data.
