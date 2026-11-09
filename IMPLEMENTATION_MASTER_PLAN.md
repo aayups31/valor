@@ -2,6 +2,8 @@
 
 Review date: October 2, 2026. Status: planning only. No application code, dependency installation, model training or benchmark execution was performed during this review.
 
+Latest November 9 implementation: [report 14](reports/2026-11-09-build-14.md) completes the scoped checkpoint 7 implementation and checkpoint 8 comparison. Verified recall beats factual recall but ties a no-memory heuristic; trained state does not improve decisions over its reset control or Markov baseline. Keep checkpoint 8 open as a superiority gate. The next experiment must test longer cross-task consequences and changed danger dynamics on a new cohort.
+
 Latest November 9 implementation: [report 13](reports/2026-11-09-build-13.md) completes the persistent-loss/recovery/dependency benchmark and paired stakes comparison. Higher stakes can justify risk without changing action permissions. Updating the public belief does not beat the frozen-history control in the sampled pilot. Next, test trained persistent state in a repeated task with changing danger and carryover vulnerability. Subjective fear, calibrated bounds and real agent superiority remain unproven.
 
 October 12 implementation: [report 12](reports/2026-10-12-build-12.md) completes the fresh coherent consequence comparison. A learned history weight and supplied-law decoder eliminate contradictions within the fixture. The summary model beats its matched constant, while strong likelihood controls remain close and recurrent benefit is absent.

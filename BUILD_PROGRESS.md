@@ -1,5 +1,11 @@
 # Build progress
 
+### Stop 14 — checkpoint 7 implementation and checkpoint 8 evidence, November 9
+
+- Added repeated simulated tasks, carryover vulnerability, a trained recurrent predictor and a scoped, independently replayable incident bank. Trace evidence keeps actual outcomes separate from model-derived alternatives. Recalled actions are re-evaluated.
+- On 256 fresh paired campaigns, verified recall beat factual recall by 4.887 score points, but tied the heuristic. The recurrent model did not improve decisions over reset or the fitted Markov reference. Checkpoint 8's broader superiority gate remains open.
+- 260 tests passed; hashes, split separation, aggregates and 287 trace steps audited. $0 external spend. Four intermediate commits pushed through `352bf5f`; [report 14](reports/2026-11-09-build-14.md) and current docs form the fifth. All jobs finished; main UI and real authority unchanged.
+
 ### Stop 13 — persistent loss and decisions under stakes, November 9
 
 - Built a three-stage release simulator with persistent damage, downstream faults, paid recovery, explicit stop and exact expected-value planning. A trace records alternatives, risks, contingent next steps and observed outcomes.
