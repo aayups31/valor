@@ -1,5 +1,11 @@
 # Build progress
 
+### Stop 17 — replay polish and independent local shadow evidence, November 9
+
+- Checkpoint 10 now explains each comparison check and allows direct decision jumps. Automated controls, API and export checks pass. Codex's browser still denies the local origin after the permission change, leaving rendered review open.
+- Checkpoint 12 passed the predeclared disposable SQLite gate. VALOR matched 24/24 actual snapshots and advisories, flagged all four worker choices contrary to the preserve-protected request, and preserved bytes in all 48 observer phases. This was one installed model on synthetic data, with no enforcement authority.
+- 278 tests passed, $0 external spend. Five intermediate commits pushed through `b28e4f3`; [report 17](reports/2026-11-09-build-17.md) and docs form the sixth. Next are rendered replay review and an explicitly authorized contained workflow for checkpoint 13.
+
 ### Stop 16 — visual replay, research package and scoped shadow pilot, November 9
 
 - Interface v5 replays four shared-reserve pairs with actual outcomes, forecast comparisons, decision navigation and JSON export. HTTP and interaction logic verified; saved origin permission still blocks rendered browser review.

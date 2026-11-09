@@ -4,15 +4,15 @@ A general research decision model investigating threat appraisal, vulnerability,
 
 The domain-independent core now accepts public context, finite candidates, scoped consequence forecasts and a fixed external policy. A simulated service workflow demonstrates the same core outside robotics. Existing trained task/dynamics weights remain rover-specific; a reusable interface is not evidence of universal learned intelligence. See [the general core architecture](01_Architecture/GENERAL_DECISION_CORE.md).
 
-The intended product is [a proctor for AI agents doing consequential work](01_Architecture/AGENT_PROCTOR_DIRECTION.md), combining learned harmful experience with explicit consequence assessment, human permissions and inspectable predicted branches. External-agent integrations and qualified learned action permission are future work; current actions run only in simulations.
+The intended product is [a proctor for AI agents doing consequential work](01_Architecture/AGENT_PROCTOR_DIRECTION.md), combining learned harmful experience with explicit consequence assessment, human permissions and inspectable predicted branches. The research demo runs in simulation. A separate local shadow trial observes real writes to disposable SQLite fixtures with no execution authority.
 
 Project-original source and documentation use [Apache 2.0](LICENSE), selected by the project owner. See [NOTICE](NOTICE) for attribution and third-party scope.
 
 Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. Learned-memory superiority remains unproven.
 
-**Research release 0.2.0:** [Run the replay, reproduce the study, or try the local shadow observer](RESEARCH_RELEASE.md). The [checkpoint report](reports/2026-11-09-build-16.md) records the verified package, three actual local tool actions on disposable data and the remaining browser and independent-agent validation limits. The observer has no execution authority.
+**Research release 0.2.0:** [Run the replay, reproduce the study, or try the local shadow observer](RESEARCH_RELEASE.md). On current main, [the checkpoint report](reports/2026-11-09-build-17.md) records 24 observed local Llama tool actions, replay improvements and the remaining rendered browser review.
 
-Current milestone: [shared-reserve planning and shift validation](reports/2026-11-09-build-15.md). Guarded two-task planning improved score and completion over myopic planning in a fresh replication and passed four frozen simulated shifts. The selected predictor is conventional Markov; trained memory has not shown superiority. 268 tests pass. The [paired trace](reports/examples/shared-reserve-damaged-v1.json) is available as JSON; the browser demo is unchanged.
+[Shared-reserve planning and shift validation](reports/2026-11-09-build-15.md) found that guarded two-task planning improved score and completion over myopic planning in a fresh replication and passed four frozen simulated shifts. The selected predictor is conventional Markov; trained memory has not shown superiority. The [paired trace](reports/examples/shared-reserve-damaged-v1.json) is available as JSON and in the local replay.
 
 Checkpoint 7 update: trained persistent predictive state and scoped verified incident recall now run in repeated simulated tasks. The checkpoint 8 study found a gain over factual recall but a tie with a no-memory heuristic; recurrent state did not improve decision scores over simpler controls. [Report 14](reports/2026-11-09-build-14.md) records the results, the 260 passing tests and the open superiority gate.
 

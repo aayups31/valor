@@ -2,6 +2,8 @@
 
 Review date: October 2, 2026. Status: planning only. No application code, dependency installation, model training or benchmark execution was performed during this review.
 
+Latest November 9 implementation: [report 17](reports/2026-11-09-build-17.md) adds criterion-level replay explanations and decision jumps at checkpoint 10, with rendered browser review pending. Checkpoint 12 passed a frozen 24-case trial observing a separate local Llama model's real writes to disposable SQLite fixtures. This qualifies the bounded read-only integration. Checkpoint 13 requires a contained workflow and explicit action authority before testing enforcement.
+
 Latest November 9 implementation: [report 16](reports/2026-11-09-build-16.md) adds checkpoint 10's local visual replay (browser render check blocked), checkpoint 11's reproducible v0.2.0 research package, and a narrow checkpoint 12 SQLite shadow pilot alongside actual coding-agent writes on disposable data. No unattended external-agent trial or enforcement authority. Checkpoints 13–15 remain contained supervision, limited live pilot, and workflow-qualified production release, respectively.
 
 Latest November 9 implementation: [report 15](reports/2026-11-09-build-15.md) clears the scoped checkpoint 8 simpler-policy route and checkpoint 9 shift gates. Guarded two-task planning improves score and completion on fresh replication subjects and passes four predeclared simulated shifts. It uses a conventional Markov predictor, with no established gain from trained memory. Next is checkpoint 10 visual explanation; real-agent authority and production remain later gates.
