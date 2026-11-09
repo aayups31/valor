@@ -1,5 +1,11 @@
 # Build progress
 
+### Stop 18 — replay launcher compatibility, November 9
+
+- Reproduced the reported load failure. A running interface-5 server returned replay data without the comparison checks required by the updated page. Interface 6 makes the launcher flag older servers, and the replay gives a specific restart message if it receives older data.
+- Replaced the verified stale process through a fresh Windows launcher start. All four replay endpoints returned the new evidence and the replay page returned HTTP 200. Left the launcher-managed demo running for manual review. Rendered desktop and narrow-window review is still pending.
+- 278 tests passed. The fix is on GitHub as `5f144e3`; this progress entry follows it. External spend was $0.
+
 ### Stop 17 — replay polish and independent local shadow evidence, November 9
 
 - Checkpoint 10 now explains each comparison check and allows direct decision jumps. Automated controls, API and export checks pass. Codex's browser still denies the local origin after the permission change, leaving rendered review open.
