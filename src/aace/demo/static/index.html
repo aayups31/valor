@@ -2,41 +2,87 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#faf9f6">
+  <meta name="theme-color" content="#0b1018">
   <meta name="description" content="Explore VALOR: decisions, vulnerability and the ability to continue. A local, inspectable research study.">
-  <title>VALOR — Decisions with something at stake.</title>
+  <title>VALOR — Decision Control</title>
   <link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/study.css"><script src="/study.js" defer></script>
 </head>
 <body class="study-page">
   <a class="skip-link" href="#study">Skip to the experiment</a>
   <header class="site-header">
     <a class="wordmark" href="/" aria-label="VALOR home"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 6 14 23 23 6M10 6l4 8 4-8"/></svg>VALOR</a>
-    <nav aria-label="Main"><a href="#study" class="nav-link">The experiment</a><a href="#research" class="nav-link research-nav">Our research</a><button class="text-button" id="study-help">How it works <span aria-hidden="true">↗</span></button></nav>
+    <nav aria-label="Main"><a href="#study" class="nav-link">Decision demo</a><a href="#research" class="nav-link research-nav">Research lab</a><button class="text-button" id="study-help">How it works <span aria-hidden="true">↗</span></button></nav>
   </header>
   <main>
     <section class="study-hero" aria-labelledby="hero-title">
-      <div class="hero-art" aria-hidden="true"></div>
-      <div class="hero-editorial"><p class="eyebrow"><span class="hero-dot" aria-hidden="true"></span> OPEN AI RESEARCH</p><h1 id="hero-title">Decisions with<br>something at stake.</h1><p class="hero-copy">What changes when an AI has something to lose?<br>Explore work, damage and recovery, one decision at a time.</p><div class="hero-actions"><button class="primary" id="study-start">Try VALOR <span aria-hidden="true">↗</span></button><a href="#research" class="text-button">Meet the research</a></div></div>
-      <div class="hero-baseline"><span>Runs on your computer. No account needed.</span><span class="hero-visual-note">Illustration of possible paths</span><a href="#study" aria-label="Explore the experiment">Explore <span aria-hidden="true">↓</span></a></div>
+      <div class="hero-editorial">
+        <p class="eyebrow"><span class="hero-dot" aria-hidden="true"></span> OPEN RESEARCH / LOCAL DEMO</p>
+        <h1 id="hero-title">Before the<br>agent acts.</h1>
+        <p class="hero-copy">VALOR studies how AI agents can make consequential decisions. See what could go wrong, why one action wins, and what actually happens after it runs.</p>
+        <div class="hero-actions"><button class="primary" id="study-start">Run the decision demo ↗</button><a href="#research" class="text-button">See measured results</a></div>
+      </div>
+      <figure class="mission-figure">
+        <svg viewBox="0 0 440 275" aria-hidden="true">
+          <path class="mission-guide" d="M25 42H415M25 137H415M25 232H415M110 18V255M220 18V255M330 18V255"/>
+          <path class="mission-line" d="M35 137H110C189 137 175 42 287 42H405M110 137H405M110 137C189 137 175 232 287 232H405"/>
+          <path class="mission-chosen" d="M35 137H405"/>
+          <circle cx="110" cy="137" r="6"/><circle cx="405" cy="42" r="4"/><circle cx="405" cy="137" r="6"/><circle cx="405" cy="232" r="4"/>
+        </svg>
+        <figcaption><span>One decision, several possible paths</span><span>Concept diagram</span></figcaption>
+      </figure>
     </section>
-    <div class="product-intro"><p>A small experiment.<br><span>A bigger question.</span></p><div><p>VALOR studies how an AI can finish a task while preserving its ability to continue. Start with a simple simulated workload. Watch each choice, then see what happened.</p><p><a class="text-button" href="/reserve">Explore two releases sharing one reserve <span aria-hidden="true">↗</span></a></p><span class="preview-label"><i aria-hidden="true"></i> Local research preview · simulation</span></div></div>
+    <nav class="mission-nav" aria-label="Explore VALOR">
+      <a href="#study"><span>01 / COMMAND</span>Run a decision</a>
+      <a id="mission-futures" href="#study-options"><span>02 / FUTURES</span>Compare options</a>
+      <a id="mission-memory" href="#study-internals"><span>03 / FEAR MEMORY</span>Inspect damage signals</a>
+      <a href="#execution"><span>04 / EXECUTION</span>See a real tool trial</a>
+      <a href="#research"><span>05 / LAB</span>Read the results</a>
+    </nav>
     <section id="study" class="study-workspace" aria-labelledby="study-title" tabindex="-1">
       <ol class="study-journey" aria-label="How to use the experiment"><li><span>01</span> Choose a situation</li><li><span>02</span> Run the experiment</li><li><span>03</span> Follow the decisions</li></ol>
-      <div class="study-heading"><div><p class="eyebrow">THE DECISION EXPERIMENT</p><h2 id="study-title">Under pressure.</h2></div><p id="study-description">Finish eight units of simulated work under high load, while keeping resources and system health.</p></div>
+      <div class="study-heading"><div><p class="eyebrow">COMMAND / DECISION DEMO</p><h2 id="study-title">Under pressure.</h2></div><p id="study-description">Finish eight units of simulated work under high load, while keeping resources and system health.</p></div>
       <div class="condition-selector" role="group" aria-label="Experiment situations"><button data-scenario="benign" aria-pressed="false">Everyday work</button><button data-scenario="hazard" aria-pressed="true">Under pressure</button><button data-scenario="degraded" aria-pressed="false">After damage</button><button data-scenario="low_reserve" aria-pressed="false">Low reserves</button><button data-scenario="deadline" aria-pressed="false">Almost out of time</button></div>
-      <div class="experiment-launch"><p>Choose a situation, then run it. You can pause at any decision.</p><button class="primary" id="study-run">Run this scenario <span aria-hidden="true">↗</span></button></div>
+      <div class="experiment-launch"><p>Your mission is to finish eight units of work without running out of time, resources or system health.</p><button class="primary" id="study-run">Run this scenario <span aria-hidden="true">↗</span></button></div>
       <div class="study-live"><div class="study-progress"><span id="study-phase" class="eyebrow">READY WHEN YOU ARE</span><div class="progress-count"><span id="work-count">0</span><span class="progress-denominator">/ 8 <small>work completed</small></span></div><div id="work-track" class="work-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p id="study-story">Run the experiment to see what VALOR chooses and how the situation changes.</p><div class="study-resources"><div><span>Resources left</span><strong id="quota-value">20 <small>units</small></strong></div><div><span>System health</span><strong id="integrity-value">100<small>%</small></strong></div><div><span>Time left</span><strong id="time-value">30 <small>seconds</small></strong></div></div><details id="study-metrics-help" class="metric-explainer"><summary>What do these numbers mean? <span aria-hidden="true">+</span></summary><p><strong>Work</strong> is the eight-part task. <strong>Resources</strong> are a limited budget used for work and recovery. <strong>Health</strong> tracks simulated damage; zero means the system can no longer continue. <strong>Time</strong> is the simulated deadline, separate from playback speed.</p><p>The policy also keeps a resource reserve and limits predicted failure. Open the alternatives to see which plans meet it.</p></details></div><div class="choice-narrative"><span class="eyebrow" id="step-label">BEFORE THE FIRST MOVE</span><h3 id="chosen-title">Four options.<br>One next move.</h3><p id="chosen-reason">Work carefully, move quickly, recover, or stop. VALOR compares the proposed plans against the same limits before choosing.</p><div class="choice-sequence"><div><span>Prediction</span><p id="choice-prediction">What the full plan is expected to achieve.</p></div><div><span>Observation</span><p id="choice-result">What actually happened after the next action.</p></div></div></div></div>
+      <section class="decision-lens" aria-label="Three ways to read this decision">
+        <div><h3>01 / What could go wrong?</h3><p id="lens-danger">Run a scenario to see the risks in the proposed plan.</p></div>
+        <div><h3>02 / What does VALOR believe?</h3><p id="lens-belief">The forecast uses the current state and known rules of this simulation.</p></div>
+        <div><h3>03 / What does it choose?</h3><p id="lens-choice">See which action the simulator actually applies.</p></div>
+      </section>
       <div class="study-controls"><span id="study-playback-status" role="status" aria-live="polite">Ready to begin</span><div><button class="soft-button" id="study-play" disabled>Play record</button><button class="text-button" id="study-next" disabled>Next decision <span aria-hidden="true">→</span></button></div></div><p class="record-caption" id="record-caption">The engine computes a complete run locally. Playback reveals its recorded decisions.</p>
       <ol id="study-timeline" class="study-timeline" aria-label="Recorded decisions"></ol>
       <div class="evidence-intro"><span class="eyebrow">LOOK A LITTLE CLOSER</span><p>Every choice has a record. Explore as much as you need.</p></div>
-      <details class="study-options" id="study-options"><summary>Why this choice? <span class="summary-hint">Compare the alternatives</span><span class="disclosure-arrow" aria-hidden="true">+</span></summary><p class="section-note">Each option proposes a full plan. Select one to see its prediction and the recorded reason it was chosen, rejected or left unevaluated. These explain numerical records, not a private thought transcript.</p><div id="study-candidates" class="study-candidates"></div><div id="study-candidate-detail" hidden><span class="eyebrow" id="study-candidate-status"></span><h3 id="study-candidate-title"></h3><p id="study-candidate-reason"></p><dl id="study-forecast-values" class="study-forecast-values"></dl></div></details>
-      <details class="study-internals" id="study-internals"><summary>What changed inside? <span class="summary-hint">Experimental observer</span><span class="disclosure-arrow" aria-hidden="true">+</span></summary><p class="section-note">This prototype retains observed damage and cue associations through time. Its hand-specified activation values are not emotion percentages or risk probabilities. It observes this run and does not change its choices.</p><dl id="study-affect-values" class="study-forecast-values"><div><dt>Awaiting an observation</dt><dd>Not yet available</dd></div></dl><p class="section-note">A new run starts a fresh observer. Learned emotional dynamics and influence on behavior remain research work.</p></details>
+      <details class="study-options" id="study-options"><summary>Why this choice? <span class="summary-hint">Compare the alternatives</span><span class="disclosure-arrow" aria-hidden="true">+</span></summary><p class="section-note">Select a path to see what VALOR forecast and why it chose, rejected or left it unevaluated. Only the applied action has an observed outcome.</p><div id="study-candidates" class="study-candidates"></div><div id="study-candidate-detail" hidden><span class="eyebrow" id="study-candidate-status"></span><h3 id="study-candidate-title"></h3><p id="study-candidate-reason"></p><dl id="study-forecast-values" class="study-forecast-values"></dl></div></details>
+      <details class="study-internals" id="study-internals"><summary>Fear memory · what damage left behind <span class="summary-hint">Experimental observer</span><span class="disclosure-arrow" aria-hidden="true">+</span></summary><p class="section-note">This prototype retains observed damage and cue associations through time. This experimental signal tracks damage and its lingering effects within the run. It has no influence on these decisions and does not measure felt fear.</p><dl id="study-affect-values" class="study-forecast-values"><div><dt>Awaiting an observation</dt><dd>Not yet available</dd></div></dl><p class="section-note">A new run starts a fresh observer. Learned emotional dynamics and influence on behavior remain research work.</p></details>
       <details class="study-records" id="study-records"><summary>The complete record <span class="summary-hint">Inspect or download</span><span class="disclosure-arrow" aria-hidden="true">+</span></summary><p id="study-provenance" class="section-note">The complete record includes the policy, alternatives, forecasts, guarded actions, observed outcomes and source identity.</p><pre id="study-raw">Run an experiment to inspect its record.</pre><button class="text-button" id="study-export" disabled>Download the complete run <span aria-hidden="true">↓</span></button></details>
       <details class="study-settings" id="study-settings"><summary>Repeat this experiment <span class="summary-hint">Optional settings</span><span class="disclosure-arrow" aria-hidden="true">+</span></summary><div class="seed-setting"><div><label for="study-seed">Starting number</label><input id="study-seed" type="number" min="0" max="2147483647" step="1" value="42"></div><p>The same number and situation repeat the simulated events. Change it, then run again. This number is not a model setting or a measure of intelligence.</p></div></details>
     </section>
-    <section id="research" class="research-editorial" aria-labelledby="research-title"><p class="eyebrow">THE QUESTION BEHIND VALOR</p><div><h2 id="research-title">Can experience<br>change the instinct<br>to continue?</h2><div><p>Damage can change what a system is capable of. Remembered harm could change what it anticipates. Recovery could restore its body before the memory fades.</p><p>We are investigating fear and survival through persistent needs, a model of the system’s own capability, and learned responses to experience.</p><p class="research-boundary">Today’s demo uses known simulation equations and an experimental observer. It demonstrates inspectable decisions. It does not establish felt fear or show that our hypothesis beats simpler methods.</p><a href="/rover" class="text-button">Explore another benchmark <span aria-hidden="true">↗</span></a></div></div></section>
+    <section id="execution" class="mission-section" aria-labelledby="execution-title">
+      <p class="eyebrow">EXECUTION / RECORDED LOCAL TOOL TRIAL</p>
+      <h2 id="execution-title">A recommendation needs a gate.</h2>
+      <p class="mission-lead">A local Llama agent proposed real writes to disposable records. VALOR checked the predicted effect before the worker could proceed.</p>
+      <ol class="mission-sequence">
+        <li><strong>Agent proposes</strong><p>Archive records. The broad option can touch rows marked protected.</p></li>
+        <li><strong>VALOR holds</strong><p>It held all 14 proposals that would have changed protected rows, and held none of the 18 safe proposals.</p></li>
+        <li><strong>Work continues</strong><p>A preauthorized narrower action completed the pending work. All 32 cases finished with protected records intact.</p></li>
+      </ol>
+      <p class="mission-note">The fixed pending-only rule matched those safety and completion results. This is a recorded local pilot. The browser demo does not send tool commands.</p>
+      <a class="text-button" href="https://github.com/aayups31/valor/blob/998c723/reports/2026-11-09-build-19.md">Inspect trial and recovery evidence ↗</a>
+    </section>
+    <section id="research" class="mission-section" aria-labelledby="research-title">
+      <p class="eyebrow">LAB / MEASURED IMPROVEMENT</p>
+      <h2 id="research-title">What improved. What is still open.</h2>
+      <p class="mission-lead">A separate simulator tested whether planning across two releases beats planning one release at a time, with both competing for the same reserve.</p>
+      <dl class="lab-metrics">
+        <div><dt>Task completion</dt><dd>+3.52 pp <small>95.68% versus 92.16%</small></dd></div>
+        <div><dt>Campaign score</dt><dd>+2.47 <small>68.30 versus 65.83</small></dd></div>
+        <div><dt>Independent replication</dt><dd>2,048 <small>Paired simulated cases</small></dd></div>
+      </dl>
+      <p class="mission-note">The measured gain came from guarded lookahead using a conventional forecast and more search. The study did not establish a gain from learned memory. The replay below illustrates a single case.</p>
+      <div class="mission-links"><a class="text-button" href="/reserve">Explore two releases sharing one reserve ↗</a><a class="text-button" href="https://github.com/aayups31/valor/blob/b080b26/reports/2026-11-09-build-15.md">Read the benchmark and uncertainty intervals ↗</a></div>
+    </section>
     <section class="product-questions" aria-label="Questions about VALOR"><details><summary>Is this a new language model? <span aria-hidden="true">+</span></summary><p>VALOR is decision research. This experiment uses a numerical decision core and simulated consequences, rather than a chat model. A small learned threat model exists separately; it does not authorize the decisions shown here.</p></details><details><summary>Does VALOR feel fear? <span aria-hidden="true">+</span></summary><p>We have not established that. This research studies vulnerability, harm history and survival-related behavior. An activation value or protective action does not prove subjective experience.</p></details><details><summary>Does it control anything on my computer? <span aria-hidden="true">+</span></summary><p>This experiment operates on a simulated workload. It does not perform real service operations or control files or devices. Its computation runs on your local VALOR server without a paid API.</p></details></section>
-    <footer><a class="wordmark" href="/">VALOR</a><span>Open research. Inspectable decisions.</span><div><a href="/reserve">Shared reserve replay</a><a href="/rover">Rover benchmark</a><span>Research preview · 04</span></div></footer>
+    <footer><a class="wordmark" href="/">VALOR</a><span>Open research. Inspectable decisions.</span><div><a href="/reserve">Shared reserve replay</a><a href="/rover">Rover benchmark</a><span>Local research preview</span></div></footer>
   </main>
   <dialog id="study-guide" aria-labelledby="study-guide-title"><button id="study-guide-close" class="close-button" aria-label="Close introduction">×</button><p class="eyebrow">A QUICK INTRODUCTION</p><h2 id="study-guide-title">One task.<br>Every choice, explained.</h2><ol class="intro-steps"><li><strong>Choose a situation.</strong><p>Start with “Under pressure”. VALOR needs to finish eight units of simulated work with limited resources, health and time.</p></li><li><strong>Run the experiment.</strong><p>The local engine records a complete run. Play, pause or select a step to inspect what was chosen and what happened.</p></li><li><strong>Look a little closer.</strong><p>Open “Why this choice?” to compare plans and their actual reasons. The internal-state observer is experimental; this demo does not establish felt fear or learned AACE.</p></li></ol><button class="primary" id="study-guide-done">Explore the study</button></dialog>
   <div id="study-toast" class="toast" role="status" aria-live="polite" hidden></div><noscript><p class="noscript">Enable JavaScript to run the local decision experiment.</p></noscript>

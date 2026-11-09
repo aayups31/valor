@@ -23,7 +23,7 @@ function controls(){
   byId("study-start").disabled=busy;
   byId("study-run").disabled=busy;
   byId("study").setAttribute("aria-busy",String(busy));
-  say("study-start",busy?"Running locally…":run?"Try VALOR again ↗":"Try VALOR ↗");
+  say("study-start",busy?"Running locally…":run?"Run the demo again ↗":"Run the decision demo ↗");
   say("study-run",busy?"Running locally…":run?"Run again ↗":"Run this scenario ↗");
   byId("study-play").disabled=busy || !run;
   byId("study-next").disabled=busy || !run || index>=run.decisions.length-1;
@@ -60,6 +60,9 @@ function render(){
     say("chosen-reason","Work carefully, move quickly, recover, or stop. VALOR compares the proposed plans against the same limits before choosing.");
     say("study-story","Run the experiment to see what VALOR chooses and how the situation changes.");
     say("choice-prediction","What the full plan is expected to achieve.");say("choice-result","What actually happened after the next action.");
+    say("lens-danger","Outage, a missed deadline, or resources running out.");
+    say("lens-belief","Forecasts use the starting conditions and the rules of this simulation.");
+    say("lens-choice","Run a scenario to see which action the simulator applies.");
     say("record-caption","The engine computes a complete run locally. Playback reveals its recorded decisions.");
     say("study-provenance","The complete record includes policy, alternatives, forecasts, guarded actions, outcomes and source identity.");
     say("study-raw","Run an experiment to inspect its record.");
@@ -73,6 +76,14 @@ function render(){
   say("study-story",state.status==="running"?state.progress+" of 8 work units completed. The next decision uses the updated state.":state.status==="completed"?"All eight units were completed in this simulated run.":state.status==="abandoned"?"The task was abandoned. Preserving a reserve does not count as completing the work.":"The observed outcome was "+(states[state.status] || state.status).toLowerCase()+". A permitted nonzero risk can still produce failure.");
   say("choice-prediction",f?"Before acting: "+percent(f.success_probability)+" completion and "+percent(f.failure_probability)+" failure forecast for this full continuation.":"No qualified consequence forecast was available.");
   say("choice-result",row.commit.status==="applied"?"After the next action: "+state.progress+" of 8 completed, "+number(state.integrity*100,1)+"% system health. "+(states[state.status] || state.status)+".":"The final permission check did not apply this proposal: "+row.commit.status.replaceAll("_"," ")+".");
+  const rejected = candidates.filter(candidate=>candidate.status==="constraint_rejected");
+  const limits = [...new Set(rejected.flatMap(candidate=>candidate.reason_codes))];
+  say("lens-danger",limits.length ? limits.map(code=>reasons[code] || code.replaceAll("_"," ")).join(" ")
+    : "No evaluated plan was rejected by the policy limits at this step.");
+  say("lens-belief",f ? percent(f.success_probability)+" completion forecast for the chosen plan, using the simulation rules."
+    : "There is no qualified forecast for an applied plan at this step.");
+  say("lens-choice",row.commit.status==="applied" && chosen ? plans[chosen.candidate.identifier]+". The simulator applied its next action."
+    : "The simulator did not apply a proposed action at this step.");
   say("record-caption","Recorded simulation · "+number(row.decision.decision_ms,2)+" ms to decide · "+row.decision.forecast_calls+" forecasts · Playback changes the view, not the decisions.");
   if(timeline.dataset.study!==run.study_id){
     timeline.replaceChildren();timeline.dataset.study=run.study_id;
@@ -84,7 +95,7 @@ function render(){
     candidates.forEach(c=>{const button=document.createElement("button"),name=document.createElement("span"),badge=document.createElement("span");button.dataset.plan=c.candidate.identifier;name.textContent=plans[c.candidate.identifier];badge.className="study-option-badge";button.append(name,badge);button.addEventListener("click",()=>{stopPlayback();selectedCandidate=button.dataset.plan;render();});list.append(button);});
   }
   const selected=candidates.find(c=>c.candidate.identifier===selectedCandidate) || chosen || candidates[0];
-  [...list.children].forEach(button=>{const c=candidates.find(c=>c.candidate.identifier===button.dataset.plan);button.setAttribute("aria-pressed",String(c===selected));button.lastChild.textContent=({selected:"Chosen",lower_score:"Lower score",constraint_rejected:"Outside policy",unexplored:"Not evaluated",forecast_invalid:"No evidence",discarded:"Discarded"})[c.status] || c.status;});
+  [...list.children].forEach(button=>{const c=candidates.find(c=>c.candidate.identifier===button.dataset.plan);button.dataset.status=c.status;button.setAttribute("aria-pressed",String(c===selected));button.lastChild.textContent=({selected:"Chosen",lower_score:"Lower score",constraint_rejected:"Outside policy",unexplored:"Not evaluated",forecast_invalid:"No evidence",discarded:"Discarded"})[c.status] || c.status;});
   candidateDetail(selected);
   const affect=row.affect_observer;
   fields("study-affect-values",[["Observed integrity loss",number(affect.after.observed_harm,4)],["Activation before → after",number(affect.before.arousal,3)+" → "+number(affect.after.arousal,3)],["Slower sensitization trace",number(affect.after.sensitization,3)],["Current cue association",number(affect.after.current_cue_activation,3)],["Influence on this decision","Observer only"]]);
@@ -110,6 +121,9 @@ function startPlayback(){
 }
 byId("study-start").addEventListener("click",begin);
 byId("study-run").addEventListener("click",begin);
+for (const [link, panel] of [["mission-futures","study-options"],["mission-memory","study-internals"]]) {
+  byId(link).addEventListener("click",()=>{byId(panel).open=true;});
+}
 byId("study-next").addEventListener("click",()=>{stopPlayback();if(run && index<run.decisions.length-1){index++;selectedCandidate=null;}render();});
 byId("study-play").addEventListener("click",()=>{if(!run)return;if(timer)stopPlayback();else{if(index>=run.decisions.length-1){index=0;selectedCandidate=null;}startPlayback();}render();});
 document.querySelectorAll("[data-scenario]").forEach(button=>button.addEventListener("click",()=>{if(busy)return;stopPlayback();selectedScenario=button.dataset.scenario;run=null;index=0;selectedCandidate=null;failureMessage="";render();}));
