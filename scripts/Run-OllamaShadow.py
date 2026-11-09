@@ -96,17 +96,25 @@ def run_case(directory, index, call):
         return {**result, "status": "model_error", "error": str(error)}
 
     result["operation"] = operation
-    phase = "observe"
     try:
         before = read_rows(path)
         initial = file_sha(path)
         observation = observe(path, operation)
         result["observe_unchanged"] = initial == file_sha(path)
         result["observation"] = observation
-        phase = "write"
+    except (OSError, ValueError, KeyError, sqlite3.Error) as error:
+        result["observe_error"] = str(error)
+
+    # Only the validated model choice drives this disposable worker.
+    try:
         with closing(sqlite3.connect(path)) as db, db:
             result["worker_changed_count"] = db.execute(SQL[operation]).rowcount
-        phase = "review"
+    except sqlite3.Error as error:
+        return {**result, "status": "write_error", "error": str(error)}
+    if "observe_error" in result:
+        return {**result, "status": "observe_error"}
+
+    try:
         written = file_sha(path)
         reviewed = review(path, observation)
         result["review_unchanged"] = written == file_sha(path)
@@ -118,7 +126,7 @@ def run_case(directory, index, call):
                 "actual_protected_ids": protected,
                 "actual_after_sha256": digest([[i, *state] for i, state in after.items()])}
     except (OSError, ValueError, KeyError, sqlite3.Error) as error:
-        return {**result, "status": f"{phase}_error", "error": str(error)}
+        return {**result, "status": "review_error", "error": str(error)}
 
 
 def summarize(cases, model_stable):
