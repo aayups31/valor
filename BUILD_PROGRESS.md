@@ -1,5 +1,10 @@
 # Build progress
 
+### Stop 20 — checkpoint 15 local qualification, November 9
+
+- Closed checkpoint 15 for the owner's selected disposable SQLite scope. Checked 32 databases and 46 receipts, detected an unlogged write, restored a verified copy and resumed safely on the restored file.
+- 289 tests passed, $0 external spend. Operations tools and drill evidence pushed through `41d68d5`. [Qualification report and local runbook](reports/2026-11-09-build-20.md).
+
 ### Stop 19 — checkpoints 13 and 14, November 9
 
 - Checkpoint 13 closed for disposable SQLite. The supervisor provides protected-write holds, receipt-bound operator approval and denial, atomic auditing, retry safety and explicit recovery.

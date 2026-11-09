@@ -2,6 +2,8 @@
 
 Review date: October 2, 2026. Status: planning only. No application code, dependency installation, model training or benchmark execution was performed during this review.
 
+November 9 qualification closeout: [report 20](reports/2026-11-09-build-20.md) closes checkpoint 15 for the owner's selected disposable local SQLite workflow. Receipt verification, backup and an independently resumed recovery copy passed. No production environment was qualified.
+
 November 9 supervision closeout: [report 19](reports/2026-11-09-build-19.md) closes checkpoint 13 on disposable SQLite and records the passed checkpoint 14 live local pilot. VALOR held every protected mutation from the paired direct model tool and matched the fixed safe operation on task completion and safety. Checkpoint 15 remains the workflow-specific production qualification gate.
 
 November 9 closeout: the owner verified the replay in a real browser at desktop and narrow widths and confirmed the evidence download after the launcher fix. Checkpoint 10 is closed. Checkpoint 11 is closed for the research release, and checkpoint 12 is closed for the bounded local shadow pilot.
