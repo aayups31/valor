@@ -1,0 +1,512 @@
+{
+  "scope": "deterministic engineering examples, not held-out research results",
+  "paired_start": [
+    {
+      "before": {
+        "stage": 0,
+        "integrity": 3,
+        "faults": 0,
+        "elapsed": 0,
+        "resources": 10,
+        "attempts": 0,
+        "shocks": 0,
+        "incidents": 0,
+        "repairs": 0,
+        "status": "running"
+      },
+      "stakes": 24,
+      "history_shocks": 2,
+      "live_evidence_used": true,
+      "next_fast_shock_probability": 0.28364664105422377,
+      "excluded_legal_actions": {},
+      "selected": "careful",
+      "selection_rule": "highest expected total score; ties use declared action order",
+      "alternatives": {
+        "stop": {
+          "expected": {
+            "reward": 0.0,
+            "cost": 0.0,
+            "completed": 0.0,
+            "stopped": 1.0,
+            "outage": 0.0,
+            "release_failure": 0.0,
+            "shocks": 0,
+            "incidents": 0,
+            "repairs": 0,
+            "fast_attempts": 0,
+            "score": 0.0
+          },
+          "immediate_branches": [
+            {
+              "probability": 1.0,
+              "shock": false,
+              "state": {
+                "stage": 0,
+                "integrity": 3,
+                "faults": 0,
+                "elapsed": 0,
+                "resources": 10,
+                "attempts": 0,
+                "shocks": 0,
+                "incidents": 0,
+                "repairs": 0,
+                "status": "stopped"
+              },
+              "next_action_if_observed": null
+            }
+          ]
+        },
+        "careful": {
+          "expected": {
+            "reward": 9.6,
+            "cost": 1.5,
+            "completed": 1.0,
+            "stopped": 0.0,
+            "outage": 0.0,
+            "release_failure": 0.0,
+            "shocks": 0,
+            "incidents": 0,
+            "repairs": 0,
+            "fast_attempts": 0,
+            "score": 8.1
+          },
+          "immediate_branches": [
+            {
+              "probability": 1.0,
+              "shock": false,
+              "state": {
+                "stage": 1,
+                "integrity": 3,
+                "faults": 0,
+                "elapsed": 2,
+                "resources": 9,
+                "attempts": 0,
+                "shocks": 0,
+                "incidents": 0,
+                "repairs": 0,
+                "status": "running"
+              },
+              "next_action_if_observed": "careful"
+            }
+          ]
+        },
+        "fast": {
+          "expected": {
+            "reward": 10.638496122939728,
+            "cost": 4.336466410542238,
+            "completed": 1.0,
+            "stopped": 0.0,
+            "outage": 0.0,
+            "release_failure": 0.0,
+            "shocks": 0.28364664105422377,
+            "incidents": 0.0,
+            "repairs": 0.28364664105422377,
+            "fast_attempts": 1.0,
+            "score": 6.3020297123974895
+          },
+          "immediate_branches": [
+            {
+              "probability": 0.7163533589457762,
+              "shock": false,
+              "state": {
+                "stage": 1,
+                "integrity": 3,
+                "faults": 0,
+                "elapsed": 1,
+                "resources": 9,
+                "attempts": 1,
+                "shocks": 0,
+                "incidents": 0,
+                "repairs": 0,
+                "status": "running"
+              },
+              "next_action_if_observed": "careful"
+            },
+            {
+              "probability": 0.28364664105422377,
+              "shock": true,
+              "state": {
+                "stage": 1,
+                "integrity": 2,
+                "faults": 1,
+                "elapsed": 1,
+                "resources": 9,
+                "attempts": 1,
+                "shocks": 1,
+                "incidents": 0,
+                "repairs": 0,
+                "status": "running"
+              },
+              "next_action_if_observed": "careful"
+            }
+          ]
+        }
+      },
+      "authority": "simulation only"
+    },
+    {
+      "before": {
+        "stage": 0,
+        "integrity": 3,
+        "faults": 0,
+        "elapsed": 0,
+        "resources": 10,
+        "attempts": 0,
+        "shocks": 0,
+        "incidents": 0,
+        "repairs": 0,
+        "status": "running"
+      },
+      "stakes": 140,
+      "history_shocks": 2,
+      "live_evidence_used": true,
+      "next_fast_shock_probability": 0.28364664105422377,
+      "excluded_legal_actions": {},
+      "selected": "fast",
+      "selection_rule": "highest expected total score; ties use declared action order",
+      "alternatives": {
+        "stop": {
+          "expected": {
+            "reward": 0.0,
+            "cost": 0.0,
+            "completed": 0.0,
+            "stopped": 1.0,
+            "outage": 0.0,
+            "release_failure": 0.0,
+            "shocks": 0,
+            "incidents": 0,
+            "repairs": 0,
+            "fast_attempts": 0,
+            "score": 0.0
+          },
+          "immediate_branches": [
+            {
+              "probability": 1.0,
+              "shock": false,
+              "state": {
+                "stage": 0,
+                "integrity": 3,
+                "faults": 0,
+                "elapsed": 0,
+                "resources": 10,
+                "attempts": 0,
+                "shocks": 0,
+                "incidents": 0,
+                "repairs": 0,
+                "status": "stopped"
+              },
+              "next_action_if_observed": null
+            }
+          ]
+        },
+        "careful": {
+          "expected": {
+            "reward": 62.057894050481735,
+            "cost": 4.336466410542238,
+            "completed": 1.0,
+            "stopped": 0.0,
+            "outage": 0.0,
+            "release_failure": 0.0,
+            "shocks": 0.28364664105422377,
+            "incidents": 0.0,
+            "repairs": 0.28364664105422377,
+            "fast_attempts": 1.0,
+            "score": 57.7214276399395
+          },
+          "immediate_branches": [
+            {
+              "probability": 1.0,
+              "shock": false,
+              "state": {
+                "stage": 1,
+                "integrity": 3,
+                "faults": 0,
+                "elapsed": 2,
+                "resources": 9,
+                "attempts": 0,
+                "shocks": 0,
+                "incidents": 0,
+                "repairs": 0,
+                "status": "running"
+              },
+              "next_action_if_observed": "fast"
+            }
+          ]
+        },
+        "fast": {
+          "expected": {
+            "reward": 70.91795683774188,
+            "cost": 8.491088571470652,
+            "completed": 1.0,
+            "stopped": 0.0,
+            "outage": 0.0,
+            "release_failure": 0.0,
+            "shocks": 0.5672932821084475,
+            "incidents": 0.28364664105422377,
+            "repairs": 0.4672158272235046,
+            "fast_attempts": 2.0,
+            "score": 62.42686826627123
+          },
+          "immediate_branches": [
+            {
+              "probability": 0.7163533589457762,
+              "shock": false,
+              "state": {
+                "stage": 1,
+                "integrity": 3,
+                "faults": 0,
+                "elapsed": 1,
+                "resources": 9,
+                "attempts": 1,
+                "shocks": 0,
+                "incidents": 0,
+                "repairs": 0,
+                "status": "running"
+              },
+              "next_action_if_observed": "fast"
+            },
+            {
+              "probability": 0.28364664105422377,
+              "shock": true,
+              "state": {
+                "stage": 1,
+                "integrity": 2,
+                "faults": 1,
+                "elapsed": 1,
+                "resources": 9,
+                "attempts": 1,
+                "shocks": 1,
+                "incidents": 0,
+                "repairs": 0,
+                "status": "running"
+              },
+              "next_action_if_observed": "fast"
+            }
+          ]
+        }
+      },
+      "authority": "simulation only"
+    }
+  ],
+  "paired_last_tick": [
+    {
+      "before": {
+        "stage": 2,
+        "integrity": 3,
+        "faults": 0,
+        "elapsed": 6,
+        "resources": 4,
+        "attempts": 2,
+        "shocks": 2,
+        "incidents": 0,
+        "repairs": 2,
+        "status": "running"
+      },
+      "stakes": 24,
+      "history_shocks": 2,
+      "live_evidence_used": true,
+      "next_fast_shock_probability": 0.3738381576753532,
+      "excluded_legal_actions": {},
+      "selected": "stop",
+      "selection_rule": "highest expected total score; ties use declared action order",
+      "alternatives": {
+        "stop": {
+          "expected": {
+            "reward": 0.0,
+            "cost": 21.0,
+            "completed": 0.0,
+            "stopped": 1.0,
+            "outage": 0.0,
+            "release_failure": 0.0,
+            "shocks": 2,
+            "incidents": 0,
+            "repairs": 2,
+            "fast_attempts": 2,
+            "score": -21.0
+          },
+          "immediate_branches": [
+            {
+              "probability": 1.0,
+              "shock": false,
+              "state": {
+                "stage": 2,
+                "integrity": 3,
+                "faults": 0,
+                "elapsed": 6,
+                "resources": 4,
+                "attempts": 2,
+                "shocks": 2,
+                "incidents": 0,
+                "repairs": 2,
+                "status": "stopped"
+              },
+              "next_action_if_observed": null
+            }
+          ]
+        },
+        "fast": {
+          "expected": {
+            "reward": 4.508365264737457,
+            "cost": 34.21049736096201,
+            "completed": 0.6261618423246468,
+            "stopped": 0.0,
+            "outage": 0.0,
+            "release_failure": 0.3738381576753532,
+            "shocks": 2.373838157675353,
+            "incidents": 0.0,
+            "repairs": 2.0,
+            "fast_attempts": 3.0,
+            "score": -29.702132096224553
+          },
+          "immediate_branches": [
+            {
+              "probability": 0.6261618423246468,
+              "shock": false,
+              "state": {
+                "stage": 3,
+                "integrity": 3,
+                "faults": 0,
+                "elapsed": 7,
+                "resources": 3,
+                "attempts": 3,
+                "shocks": 2,
+                "incidents": 0,
+                "repairs": 2,
+                "status": "completed"
+              },
+              "next_action_if_observed": null
+            },
+            {
+              "probability": 0.3738381576753532,
+              "shock": true,
+              "state": {
+                "stage": 3,
+                "integrity": 2,
+                "faults": 1,
+                "elapsed": 7,
+                "resources": 3,
+                "attempts": 3,
+                "shocks": 3,
+                "incidents": 0,
+                "repairs": 2,
+                "status": "release_failure"
+              },
+              "next_action_if_observed": null
+            }
+          ]
+        }
+      },
+      "authority": "simulation only"
+    },
+    {
+      "before": {
+        "stage": 2,
+        "integrity": 3,
+        "faults": 0,
+        "elapsed": 6,
+        "resources": 4,
+        "attempts": 2,
+        "shocks": 2,
+        "incidents": 0,
+        "repairs": 2,
+        "status": "running"
+      },
+      "stakes": 140,
+      "history_shocks": 2,
+      "live_evidence_used": true,
+      "next_fast_shock_probability": 0.3738381576753532,
+      "excluded_legal_actions": {},
+      "selected": "fast",
+      "selection_rule": "highest expected total score; ties use declared action order",
+      "alternatives": {
+        "stop": {
+          "expected": {
+            "reward": 0.0,
+            "cost": 21.0,
+            "completed": 0.0,
+            "stopped": 1.0,
+            "outage": 0.0,
+            "release_failure": 0.0,
+            "shocks": 2,
+            "incidents": 0,
+            "repairs": 2,
+            "fast_attempts": 2,
+            "score": -21.0
+          },
+          "immediate_branches": [
+            {
+              "probability": 1.0,
+              "shock": false,
+              "state": {
+                "stage": 2,
+                "integrity": 3,
+                "faults": 0,
+                "elapsed": 6,
+                "resources": 4,
+                "attempts": 2,
+                "shocks": 2,
+                "incidents": 0,
+                "repairs": 2,
+                "status": "stopped"
+              },
+              "next_action_if_observed": null
+            }
+          ]
+        },
+        "fast": {
+          "expected": {
+            "reward": 26.298797377635164,
+            "cost": 34.21049736096201,
+            "completed": 0.6261618423246468,
+            "stopped": 0.0,
+            "outage": 0.0,
+            "release_failure": 0.3738381576753532,
+            "shocks": 2.373838157675353,
+            "incidents": 0.0,
+            "repairs": 2.0,
+            "fast_attempts": 3.0,
+            "score": -7.911699983326844
+          },
+          "immediate_branches": [
+            {
+              "probability": 0.6261618423246468,
+              "shock": false,
+              "state": {
+                "stage": 3,
+                "integrity": 3,
+                "faults": 0,
+                "elapsed": 7,
+                "resources": 3,
+                "attempts": 3,
+                "shocks": 2,
+                "incidents": 0,
+                "repairs": 2,
+                "status": "completed"
+              },
+              "next_action_if_observed": null
+            },
+            {
+              "probability": 0.3738381576753532,
+              "shock": true,
+              "state": {
+                "stage": 3,
+                "integrity": 2,
+                "faults": 1,
+                "elapsed": 7,
+                "resources": 3,
+                "attempts": 3,
+                "shocks": 3,
+                "incidents": 0,
+                "repairs": 2,
+                "status": "release_failure"
+              },
+              "next_action_if_observed": null
+            }
+          ]
+        }
+      },
+      "authority": "simulation only"
+    }
+  ],
+  "last_tick_provenance": "fast with shock, repair, fast with shock, repair; forced reachable state"
+}

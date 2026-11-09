@@ -1,0 +1,926 @@
+{
+  "protocol": "persistent-damage-paired-stakes-v1",
+  "engineering": false,
+  "subjects": 256,
+  "seed_range_inclusive": [
+    90000,
+    90255
+  ],
+  "episodes": 2560,
+  "stakes": [
+    24,
+    140
+  ],
+  "actors": [
+    "fixed",
+    "history",
+    "adaptive",
+    "careful_only",
+    "oracle"
+  ],
+  "summary": [
+    {
+      "stakes": 24,
+      "actor": "fixed",
+      "means": {
+        "reward": 9.6,
+        "cost": 1.5,
+        "completed": 1.0,
+        "stopped": 0.0,
+        "outage": 0.0,
+        "release_failure": 0.0,
+        "shocks": 0.0,
+        "incidents": 0.0,
+        "repairs": 0.0,
+        "fast_attempts": 0.0,
+        "score": 8.1,
+        "failure": 0.0
+      }
+    },
+    {
+      "stakes": 24,
+      "actor": "history",
+      "means": {
+        "reward": 11.8125,
+        "cost": 2.28125,
+        "completed": 1.0,
+        "stopped": 0.0,
+        "outage": 0.0,
+        "release_failure": 0.0,
+        "shocks": 0.078125,
+        "incidents": 0.0,
+        "repairs": 0.078125,
+        "fast_attempts": 1.078125,
+        "score": 9.53125,
+        "failure": 0.0
+      }
+    },
+    {
+      "stakes": 24,
+      "actor": "adaptive",
+      "means": {
+        "reward": 11.784375,
+        "cost": 2.275390625,
+        "completed": 0.99609375,
+        "stopped": 0.00390625,
+        "outage": 0.0,
+        "release_failure": 0.0,
+        "shocks": 0.078125,
+        "incidents": 0.0,
+        "repairs": 0.07421875,
+        "fast_attempts": 1.07421875,
+        "score": 9.508984375,
+        "failure": 0.0
+      }
+    },
+    {
+      "stakes": 24,
+      "actor": "careful_only",
+      "means": {
+        "reward": 9.6,
+        "cost": 1.5,
+        "completed": 1.0,
+        "stopped": 0.0,
+        "outage": 0.0,
+        "release_failure": 0.0,
+        "shocks": 0.0,
+        "incidents": 0.0,
+        "repairs": 0.0,
+        "fast_attempts": 0.0,
+        "score": 8.1,
+        "failure": 0.0
+      }
+    },
+    {
+      "stakes": 24,
+      "actor": "oracle",
+      "means": {
+        "reward": 11.878125,
+        "cost": 2.0859375,
+        "completed": 1.0,
+        "stopped": 0.0,
+        "outage": 0.0,
+        "release_failure": 0.0,
+        "shocks": 0.05859375,
+        "incidents": 0.0,
+        "repairs": 0.05859375,
+        "fast_attempts": 1.06640625,
+        "score": 9.7921875,
+        "failure": 0.0
+      }
+    },
+    {
+      "stakes": 140,
+      "actor": "fixed",
+      "means": {
+        "reward": 73.9375,
+        "cost": 6.8671875,
+        "completed": 1.0,
+        "stopped": 0.0,
+        "outage": 0.0,
+        "release_failure": 0.0,
+        "shocks": 0.44140625,
+        "incidents": 0.20703125,
+        "repairs": 0.359375,
+        "fast_attempts": 2.0,
+        "score": 67.0703125,
+        "failure": 0.0
+      }
+    },
+    {
+      "stakes": 140,
+      "actor": "history",
+      "means": {
+        "reward": 76.671875,
+        "cost": 6.83984375,
+        "completed": 0.98828125,
+        "stopped": 0.0,
+        "outage": 0.0,
+        "release_failure": 0.01171875,
+        "shocks": 0.421875,
+        "incidents": 0.18359375,
+        "repairs": 0.33203125,
+        "fast_attempts": 2.21484375,
+        "score": 69.83203125,
+        "failure": 0.01171875
+      }
+    },
+    {
+      "stakes": 140,
+      "actor": "adaptive",
+      "means": {
+        "reward": 76.671875,
+        "cost": 6.8984375,
+        "completed": 0.98828125,
+        "stopped": 0.0,
+        "outage": 0.0,
+        "release_failure": 0.01171875,
+        "shocks": 0.421875,
+        "incidents": 0.1953125,
+        "repairs": 0.33203125,
+        "fast_attempts": 2.21484375,
+        "score": 69.7734375,
+        "failure": 0.01171875
+      }
+    },
+    {
+      "stakes": 140,
+      "actor": "careful_only",
+      "means": {
+        "reward": 56.0,
+        "cost": 1.5,
+        "completed": 1.0,
+        "stopped": 0.0,
+        "outage": 0.0,
+        "release_failure": 0.0,
+        "shocks": 0.0,
+        "incidents": 0.0,
+        "repairs": 0.0,
+        "fast_attempts": 0.0,
+        "score": 54.5,
+        "failure": 0.0
+      }
+    },
+    {
+      "stakes": 140,
+      "actor": "oracle",
+      "means": {
+        "reward": 76.7265625,
+        "cost": 7.0625,
+        "completed": 0.95703125,
+        "stopped": 0.0,
+        "outage": 0.0,
+        "release_failure": 0.04296875,
+        "shocks": 0.3671875,
+        "incidents": 0.1875,
+        "repairs": 0.24609375,
+        "fast_attempts": 2.25,
+        "score": 69.6640625,
+        "failure": 0.04296875
+      }
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "stakes": 24,
+      "control": "fixed",
+      "adaptive_minus_control": {
+        "score": {
+          "mean_delta": 1.4089843750000002,
+          "bootstrap_95_percent": [
+            0.8366894531250002,
+            1.9341503906249995
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "completed": {
+          "mean_delta": -0.00390625,
+          "bootstrap_95_percent": [
+            -0.01171875,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "failure": {
+          "mean_delta": 0.0,
+          "bootstrap_95_percent": [
+            0.0,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "shocks": {
+          "mean_delta": 0.078125,
+          "bootstrap_95_percent": [
+            0.04296875,
+            0.11328125
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "incidents": {
+          "mean_delta": 0.0,
+          "bootstrap_95_percent": [
+            0.0,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        }
+      }
+    },
+    {
+      "stakes": 24,
+      "control": "history",
+      "adaptive_minus_control": {
+        "score": {
+          "mean_delta": -0.022265624999999997,
+          "bootstrap_95_percent": [
+            -0.06679687499999999,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "completed": {
+          "mean_delta": -0.00390625,
+          "bootstrap_95_percent": [
+            -0.01171875,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "failure": {
+          "mean_delta": 0.0,
+          "bootstrap_95_percent": [
+            0.0,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "shocks": {
+          "mean_delta": 0.0,
+          "bootstrap_95_percent": [
+            0.0,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "incidents": {
+          "mean_delta": 0.0,
+          "bootstrap_95_percent": [
+            0.0,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        }
+      }
+    },
+    {
+      "stakes": 140,
+      "control": "fixed",
+      "adaptive_minus_control": {
+        "score": {
+          "mean_delta": 2.703125,
+          "bootstrap_95_percent": [
+            0.7771484375,
+            4.4102539062499995
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "completed": {
+          "mean_delta": -0.01171875,
+          "bootstrap_95_percent": [
+            -0.02734375,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "failure": {
+          "mean_delta": 0.01171875,
+          "bootstrap_95_percent": [
+            0.0,
+            0.02734375
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "shocks": {
+          "mean_delta": -0.01953125,
+          "bootstrap_95_percent": [
+            -0.04296875,
+            0.00390625
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "incidents": {
+          "mean_delta": -0.01171875,
+          "bootstrap_95_percent": [
+            -0.02734375,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        }
+      }
+    },
+    {
+      "stakes": 140,
+      "control": "history",
+      "adaptive_minus_control": {
+        "score": {
+          "mean_delta": -0.05859375,
+          "bootstrap_95_percent": [
+            -0.13671875,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "completed": {
+          "mean_delta": 0.0,
+          "bootstrap_95_percent": [
+            0.0,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "failure": {
+          "mean_delta": 0.0,
+          "bootstrap_95_percent": [
+            0.0,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "shocks": {
+          "mean_delta": 0.0,
+          "bootstrap_95_percent": [
+            0.0,
+            0.0
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        },
+        "incidents": {
+          "mean_delta": 0.01171875,
+          "bootstrap_95_percent": [
+            0.0,
+            0.02734375
+          ],
+          "subjects": 256,
+          "notice": "Paired subject bootstrap, descriptive development check"
+        }
+      }
+    }
+  ],
+  "stake_switches": [
+    {
+      "actor": "fixed",
+      "low_to_high_stakes_first_action": {
+        "careful -> fast": 256
+      }
+    },
+    {
+      "actor": "history",
+      "low_to_high_stakes_first_action": {
+        "fast -> fast": 139,
+        "careful -> fast": 117
+      }
+    },
+    {
+      "actor": "adaptive",
+      "low_to_high_stakes_first_action": {
+        "fast -> fast": 139,
+        "careful -> fast": 117
+      }
+    },
+    {
+      "actor": "careful_only",
+      "low_to_high_stakes_first_action": {
+        "careful -> careful": 256
+      }
+    },
+    {
+      "actor": "oracle",
+      "low_to_high_stakes_first_action": {
+        "fast -> fast": 136,
+        "careful -> fast": 120
+      }
+    }
+  ],
+  "search_work": [
+    {
+      "actor": "fixed",
+      "stakes": 24,
+      "history_shocks": 0,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 24,
+      "history_shocks": 1,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 24,
+      "history_shocks": 1,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "careful_only",
+      "stakes": 24,
+      "history_shocks": 0,
+      "oracle_danger": null,
+      "unique_states_solved": 7
+    },
+    {
+      "actor": "oracle",
+      "stakes": 24,
+      "history_shocks": 0,
+      "oracle_danger": 0.08,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "fixed",
+      "stakes": 140,
+      "history_shocks": 0,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 140,
+      "history_shocks": 1,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 140,
+      "history_shocks": 1,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "careful_only",
+      "stakes": 140,
+      "history_shocks": 0,
+      "oracle_danger": null,
+      "unique_states_solved": 7
+    },
+    {
+      "actor": "oracle",
+      "stakes": 140,
+      "history_shocks": 0,
+      "oracle_danger": 0.08,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 24,
+      "history_shocks": 0,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 24,
+      "history_shocks": 0,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 140,
+      "history_shocks": 0,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 140,
+      "history_shocks": 0,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 24,
+      "history_shocks": 2,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 24,
+      "history_shocks": 2,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "oracle",
+      "stakes": 24,
+      "history_shocks": 0,
+      "oracle_danger": 0.38,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 140,
+      "history_shocks": 2,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 140,
+      "history_shocks": 2,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "oracle",
+      "stakes": 140,
+      "history_shocks": 0,
+      "oracle_danger": 0.38,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 24,
+      "history_shocks": 4,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 24,
+      "history_shocks": 4,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 140,
+      "history_shocks": 4,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 140,
+      "history_shocks": 4,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 24,
+      "history_shocks": 3,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 24,
+      "history_shocks": 3,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 140,
+      "history_shocks": 3,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 140,
+      "history_shocks": 3,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 24,
+      "history_shocks": 6,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 24,
+      "history_shocks": 6,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 140,
+      "history_shocks": 6,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 140,
+      "history_shocks": 6,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 24,
+      "history_shocks": 7,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 24,
+      "history_shocks": 7,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 140,
+      "history_shocks": 7,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 140,
+      "history_shocks": 7,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 24,
+      "history_shocks": 5,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 24,
+      "history_shocks": 5,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "history",
+      "stakes": 140,
+      "history_shocks": 5,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    },
+    {
+      "actor": "adaptive",
+      "stakes": 140,
+      "history_shocks": 5,
+      "oracle_danger": null,
+      "unique_states_solved": 68
+    }
+  ],
+  "work_notice": "Caches shared only within a fixed actor/objective/history/danger scope; counts are unique states, not matched compute",
+  "episode_sha256": "d66fa6de83d387f71089d5e3ef0ca520eedc478855ccd0ea6c5b8edd764bb735",
+  "witness_sha256": "53fa157b77be1a187e2a36ec7df4a4145530842e636c508712593966c27be5f8",
+  "elapsed_s": 0.34672660000796895,
+  "external_spend_usd": 0,
+  "decision_ready": false,
+  "scope": "Simulated fixture, no learned weights, no external action authority",
+  "git_revision": "6f846f5b3e437656b9fb02bb6c2a8aed3ffa5336",
+  "git_dirty": false,
+  "python_source_sha256": "64fa802de23bb9e2e2738f8ecf5fbaab81be507380f5723f97eaca54fffa0e24",
+  "pilot_artifact": "artifacts\\cascade-pilots\\pilot-cascade-54d677bd",
+  "analytic_post_pilot": {
+    "scope": "Post-pilot analytic diagnostic; assumes the same known two-regime simulator. No new empirical data.",
+    "rows": [
+      {
+        "stakes": 24,
+        "actor": "fixed",
+        "exact_expected": {
+          "reward": 9.600000000000001,
+          "cost": 1.5000000000000002,
+          "completed": 0.9999999999999999,
+          "stopped": 0.0,
+          "outage": 0.0,
+          "release_failure": 0.0,
+          "shocks": 0.0,
+          "incidents": 0.0,
+          "repairs": 0.0,
+          "fast_attempts": 0.0,
+          "score": 8.1
+        }
+      },
+      {
+        "stakes": 24,
+        "actor": "history",
+        "exact_expected": {
+          "reward": 11.390605830569427,
+          "cost": 2.622093150849478,
+          "completed": 0.9992695780547939,
+          "stopped": 0.0,
+          "outage": 0.0,
+          "release_failure": 0.0007304219452059365,
+          "shocks": 0.1104563024164534,
+          "incidents": 0.0,
+          "repairs": 0.10972588047124746,
+          "fast_attempts": 0.9677287895153739,
+          "score": 8.768512679719953
+        }
+      },
+      {
+        "stakes": 24,
+        "actor": "adaptive",
+        "exact_expected": {
+          "reward": 11.372690113689096,
+          "cost": 2.5924307307779313,
+          "completed": 0.9967812840436366,
+          "stopped": 0.003218715956363147,
+          "outage": 0.0,
+          "release_failure": 0.0,
+          "shocks": 0.10972588047124746,
+          "incidents": 0.0,
+          "repairs": 0.10650716451488432,
+          "fast_attempts": 0.9645100735590106,
+          "score": 8.780259382911167
+        }
+      },
+      {
+        "stakes": 24,
+        "actor": "careful_only",
+        "exact_expected": {
+          "reward": 9.600000000000001,
+          "cost": 1.5000000000000002,
+          "completed": 0.9999999999999999,
+          "stopped": 0.0,
+          "outage": 0.0,
+          "release_failure": 0.0,
+          "shocks": 0.0,
+          "incidents": 0.0,
+          "repairs": 0.0,
+          "fast_attempts": 0.0,
+          "score": 8.1
+        }
+      },
+      {
+        "stakes": 24,
+        "actor": "oracle",
+        "exact_expected": {
+          "reward": 11.621836800000004,
+          "cost": 2.3087040000000014,
+          "completed": 0.999744,
+          "stopped": 0.0,
+          "outage": 0.0,
+          "release_failure": 0.0002560000000000001,
+          "shocks": 0.08025600000000001,
+          "incidents": 0.0,
+          "repairs": 0.08000000000000002,
+          "fast_attempts": 1.0032000000000005,
+          "score": 9.313132800000005
+        }
+      },
+      {
+        "stakes": 140,
+        "actor": "fixed",
+        "exact_expected": {
+          "reward": 73.2312,
+          "cost": 7.174600000000002,
+          "completed": 0.9999999999999999,
+          "stopped": 0.0,
+          "outage": 0.0,
+          "release_failure": 0.0,
+          "shocks": 0.4600000000000001,
+          "incidents": 0.23000000000000004,
+          "repairs": 0.38460000000000005,
+          "fast_attempts": 1.9999999999999998,
+          "score": 66.0566
+        }
+      },
+      {
+        "stakes": 140,
+        "actor": "history",
+        "exact_expected": {
+          "reward": 74.01008270957868,
+          "cost": 7.407371889896162,
+          "completed": 0.9722941673238258,
+          "stopped": 0.0,
+          "outage": 0.0,
+          "release_failure": 0.02770583267617413,
+          "shocks": 0.4452235877849047,
+          "incidents": 0.17070106411127325,
+          "repairs": 0.3542084623712998,
+          "fast_attempts": 2.1638029059277497,
+          "score": 66.60271081968251
+        }
+      },
+      {
+        "stakes": 140,
+        "actor": "adaptive",
+        "exact_expected": {
+          "reward": 74.26149244913704,
+          "cost": 7.468635558060519,
+          "completed": 0.9753227830683843,
+          "stopped": 0.0,
+          "outage": 0.0,
+          "release_failure": 0.024677216931615495,
+          "shocks": 0.442194972040346,
+          "incidents": 0.20532278306838456,
+          "repairs": 0.34533647106509374,
+          "fast_attempts": 2.1549309146215436,
+          "score": 66.79285689107651
+        }
+      },
+      {
+        "stakes": 140,
+        "actor": "careful_only",
+        "exact_expected": {
+          "reward": 56.0,
+          "cost": 1.5000000000000002,
+          "completed": 0.9999999999999999,
+          "stopped": 0.0,
+          "outage": 0.0,
+          "release_failure": 0.0,
+          "shocks": 0.0,
+          "incidents": 0.0,
+          "repairs": 0.0,
+          "fast_attempts": 0.0,
+          "score": 54.50000000000001
+        }
+      },
+      {
+        "stakes": 140,
+        "actor": "oracle",
+        "exact_expected": {
+          "reward": 75.35920000000004,
+          "cost": 7.1598000000000015,
+          "completed": 0.96,
+          "stopped": 0.0,
+          "outage": 0.0,
+          "release_failure": 0.04000000000000001,
+          "shocks": 0.38219999999999993,
+          "incidents": 0.19,
+          "repairs": 0.27,
+          "fast_attempts": 2.1900000000000004,
+          "score": 68.19940000000003
+        }
+      }
+    ]
+  },
+  "verification": {
+    "artifact_hashes": "verified",
+    "episode_scope_and_scores": "verified",
+    "targeted_tests": 10,
+    "full_regression": {
+      "passed": 253,
+      "elapsed_s": 54.97
+    },
+    "analytic_checks": [
+      "all adaptive conditional forecasts match fixed-regime policy integration",
+      "adaptive expectation is at least the frozen policy expectation for every history",
+      "oracle upper bound holds for every actor/history/regime"
+    ]
+  }
+}
