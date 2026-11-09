@@ -8,7 +8,9 @@ The intended product is [a proctor for AI agents doing consequential work](01_Ar
 
 Project-original source and documentation use [Apache 2.0](LICENSE), selected by the project owner. See [NOTICE](NOTICE) for attribution and third-party scope.
 
-Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. No research advantage has been established.
+Implementation began October 3, 2026. The numerical rover, public observation interface, snapshots, heuristic controls, action guard and decision records are implemented. Learned-memory superiority remains unproven.
+
+**Research release 0.2.0:** [Run the replay, reproduce the study, or try the local shadow observer](RESEARCH_RELEASE.md). The [checkpoint report](reports/2026-11-09-build-16.md) records the verified package, three actual local tool actions on disposable data and the remaining browser and independent-agent validation limits. The observer has no execution authority.
 
 Current milestone: [shared-reserve planning and shift validation](reports/2026-11-09-build-15.md). Guarded two-task planning improved score and completion over myopic planning in a fresh replication and passed four frozen simulated shifts. The selected predictor is conventional Markov; trained memory has not shown superiority. 268 tests pass. The [paired trace](reports/examples/shared-reserve-damaged-v1.json) is available as JSON; the browser demo is unchanged.
 

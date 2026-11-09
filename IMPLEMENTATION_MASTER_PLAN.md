@@ -2,6 +2,8 @@
 
 Review date: October 2, 2026. Status: planning only. No application code, dependency installation, model training or benchmark execution was performed during this review.
 
+Latest November 9 implementation: [report 16](reports/2026-11-09-build-16.md) adds checkpoint 10's local visual replay (browser render check blocked), checkpoint 11's reproducible v0.2.0 research package, and a narrow checkpoint 12 SQLite shadow pilot alongside actual coding-agent writes on disposable data. No unattended external-agent trial or enforcement authority. Checkpoints 13–15 remain contained supervision, limited live pilot, and workflow-qualified production release, respectively.
+
 Latest November 9 implementation: [report 15](reports/2026-11-09-build-15.md) clears the scoped checkpoint 8 simpler-policy route and checkpoint 9 shift gates. Guarded two-task planning improves score and completion on fresh replication subjects and passes four predeclared simulated shifts. It uses a conventional Markov predictor, with no established gain from trained memory. Next is checkpoint 10 visual explanation; real-agent authority and production remain later gates.
 
 Latest November 9 implementation: [report 14](reports/2026-11-09-build-14.md) completes the scoped checkpoint 7 implementation and checkpoint 8 comparison. Verified recall beats factual recall but ties a no-memory heuristic; trained state does not improve decisions over its reset control or Markov baseline. Keep checkpoint 8 open as a superiority gate. The next experiment must test longer cross-task consequences and changed danger dynamics on a new cohort.

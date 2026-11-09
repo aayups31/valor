@@ -1,5 +1,12 @@
 # Build progress
 
+### Stop 16 — visual replay, research package and scoped shadow pilot, November 9
+
+- Interface v5 replays four shared-reserve pairs with actual outcomes, forecast comparisons, decision navigation and JSON export. HTTP and interaction logic verified; saved origin permission still blocks rendered browser review.
+- Research version 0.2.0: deterministic wheel, separate-install checks, and byte-identical replication/shift output plus matched intervals from a disposable clean clone.
+- The read-only SQLite observer predicted or detected all three predeclared cases while a tool-using coding agent executed actual local writes on synthetic data. No enforcement or external workflow trial.
+- 275 regression tests passed, $0 external spend. Four intermediate commits pushed through `3ac088b`; [report 16](reports/2026-11-09-build-16.md) and docs form the fifth. Before enforcement: independent shadow validation and an authorized contained workflow.
+
 ### Stop 15 — simpler-policy checkpoint 8 and scoped checkpoint 9, November 9
 
 - Two-task planning now accounts for shared reserves and persistent damage. A forecast-based comparison uses lookahead only when predicted completion and failure remain within declared margins.
