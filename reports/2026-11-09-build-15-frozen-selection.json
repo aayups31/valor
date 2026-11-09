@@ -1,0 +1,88 @@
+{
+  "phase": "replication",
+  "seed_range_inclusive": [
+    130000,
+    132047
+  ],
+  "subjects": 2048,
+  "selected": "guarded_markov",
+  "comparison": {
+    "score": {
+      "mean": 2.4664550781249996,
+      "interval": [
+        1.8128515624999997,
+        3.1816015625
+      ],
+      "subjects": 2048,
+      "resamples": 4000,
+      "alpha": 0.05
+    },
+    "completion_rate": {
+      "mean": 0.03515625,
+      "interval": [
+        0.02978515625,
+        0.040771484375
+      ],
+      "subjects": 2048,
+      "resamples": 4000,
+      "alpha": 0.05
+    },
+    "failure_rate": {
+      "mean": 0.0,
+      "interval": [
+        0.0,
+        0.0
+      ],
+      "subjects": 2048,
+      "resamples": 4000,
+      "alpha": 0.05
+    },
+    "gates": {
+      "score": true,
+      "completion": true,
+      "failure": true
+    },
+    "passed": true
+  },
+  "selected_summary": {
+    "score": 68.29921875000001,
+    "completion_rate": 0.956787109375,
+    "failure_rate": 0.0,
+    "shocks": 0.330078125,
+    "incidents": 0.125,
+    "repairs": 0.263671875,
+    "stopped": 0.08642578125,
+    "new_search_nodes": 27.9482421875,
+    "lookahead_executed_rate": 0.30419921875,
+    "seconds": 1.299134499990032
+  },
+  "baseline_summary": {
+    "score": 65.832763671875,
+    "completion_rate": 0.921630859375,
+    "failure_rate": 0.0,
+    "shocks": 0.42919921875,
+    "incidents": 0.1640625,
+    "repairs": 0.34814453125,
+    "stopped": 0.15673828125,
+    "new_search_nodes": 2.6298828125,
+    "lookahead_executed_rate": 0.0,
+    "seconds": 0.6040058999933535
+  },
+  "git_revision": "db071624652558f297801995258080b0250c1580",
+  "git_dirty": false,
+  "python_source_sha256": "e713cab46fa0787070b9880a696b02354523fa9ad2cabfaa8741ee2c4ae99d0d",
+  "fingerprints": {
+    "python_source_sha256": "e713cab46fa0787070b9880a696b02354523fa9ad2cabfaa8741ee2c4ae99d0d",
+    "runner_sha256": "39a60744db0e811b0f40c8355054f29156667665051a13880e730d40428afc19",
+    "protocol_sha256": "d1e8554ebb2ef46b27cb054bbcea35ae57ef2546b490fa683118efd11ab4a60d",
+    "model_sha256": "89c6b3be7867407f04df5174ec9731f44626df70d558c0ea0f9c58bbbcb201f4",
+    "initial_report_sha256": "69f37729f166b2e9a5db49df66265204b9f4378558c72e1c59be8b70479ecfb2",
+    "replication_runner_sha256": "c2424913662cbf755debd838f7ab8e0b294f8864241f5b759b3233fe03242110",
+    "replication_protocol_sha256": "70a441cf157eeebc7f1540bbbc389d939cacc51dba2a722d36e4fbc5484a5e5d"
+  },
+  "scope": "Local simulator only; no individual risk bounds or authority",
+  "decision_ready": false,
+  "external_spend_usd": 0,
+  "elapsed_s": 2.087771199992858,
+  "rows_sha256": "17479653fbf2b57c124125b4b7027685c2143f0ce1c401a69dbbe3af0c1fd68f"
+}
