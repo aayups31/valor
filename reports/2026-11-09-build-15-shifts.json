@@ -1,0 +1,360 @@
+{
+  "phase": "shift",
+  "selected": "guarded_markov",
+  "scenarios": {
+    "nominal": {
+      "seed_range_inclusive": [
+        113000,
+        113511
+      ],
+      "subjects": 512,
+      "selected_summary": {
+        "score": 73.6994140625,
+        "completion_rate": 0.9560546875,
+        "failure_rate": 0.0,
+        "shocks": 0.30859375,
+        "incidents": 0.123046875,
+        "repairs": 0.25,
+        "stopped": 0.087890625,
+        "new_search_nodes": 111.79296875,
+        "lookahead_executed_rate": 0.341796875,
+        "seconds": 0.8043140000081621
+      },
+      "baseline_summary": {
+        "score": 72.4125,
+        "completion_rate": 0.9267578125,
+        "failure_rate": 0.0,
+        "shocks": 0.3984375,
+        "incidents": 0.154296875,
+        "repairs": 0.328125,
+        "stopped": 0.146484375,
+        "new_search_nodes": 9.84375,
+        "lookahead_executed_rate": 0.0,
+        "seconds": 0.1901308000087738
+      },
+      "comparison": {
+        "score": {
+          "mean": 1.2869140624999993,
+          "interval": [
+            -0.6661660766601566,
+            3.460451049804684
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "completion_rate": {
+          "mean": 0.029296875,
+          "interval": [
+            0.015625,
+            0.0458984375
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "failure_rate": {
+          "mean": 0.0,
+          "interval": [
+            0.0,
+            0.0
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "failure_count_underprediction": {
+          "mean": 0.0,
+          "interval": [
+            0.0,
+            0.0
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "gates": {
+          "score": true,
+          "completion": true,
+          "failure": true,
+          "forecast": true
+        },
+        "passed": true
+      }
+    },
+    "volatile": {
+      "seed_range_inclusive": [
+        114000,
+        114511
+      ],
+      "subjects": 512,
+      "selected_summary": {
+        "score": 66.5025390625,
+        "completion_rate": 0.9462890625,
+        "failure_rate": 0.0,
+        "shocks": 0.32421875,
+        "incidents": 0.109375,
+        "repairs": 0.26171875,
+        "stopped": 0.107421875,
+        "new_search_nodes": 111.79296875,
+        "lookahead_executed_rate": 0.296875,
+        "seconds": 0.7665322000102606
+      },
+      "baseline_summary": {
+        "score": 64.66601562500001,
+        "completion_rate": 0.9169921875,
+        "failure_rate": 0.0,
+        "shocks": 0.419921875,
+        "incidents": 0.146484375,
+        "repairs": 0.33984375,
+        "stopped": 0.166015625,
+        "new_search_nodes": 9.828125,
+        "lookahead_executed_rate": 0.0,
+        "seconds": 0.1755505000037374
+      },
+      "comparison": {
+        "score": {
+          "mean": 1.8365234374999997,
+          "interval": [
+            0.0014108276367185077,
+            3.9173355102539036
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "completion_rate": {
+          "mean": 0.029296875,
+          "interval": [
+            0.015625,
+            0.0458984375
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "failure_rate": {
+          "mean": 0.0,
+          "interval": [
+            0.0,
+            0.0
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "failure_count_underprediction": {
+          "mean": 0.0,
+          "interval": [
+            0.0,
+            0.0
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "gates": {
+          "score": true,
+          "completion": true,
+          "failure": true,
+          "forecast": true
+        },
+        "passed": true
+      }
+    },
+    "harsher": {
+      "seed_range_inclusive": [
+        115000,
+        115511
+      ],
+      "subjects": 512,
+      "selected_summary": {
+        "score": 58.86796875000001,
+        "completion_rate": 0.9462890625,
+        "failure_rate": 0.0,
+        "shocks": 0.4453125,
+        "incidents": 0.18359375,
+        "repairs": 0.333984375,
+        "stopped": 0.107421875,
+        "new_search_nodes": 111.79296875,
+        "lookahead_executed_rate": 0.28515625,
+        "seconds": 0.686089599999832
+      },
+      "baseline_summary": {
+        "score": 56.081054687500014,
+        "completion_rate": 0.90234375,
+        "failure_rate": 0.0,
+        "shocks": 0.552734375,
+        "incidents": 0.2265625,
+        "repairs": 0.4296875,
+        "stopped": 0.1953125,
+        "new_search_nodes": 10.224609375,
+        "lookahead_executed_rate": 0.0,
+        "seconds": 0.14153769999393262
+      },
+      "comparison": {
+        "score": {
+          "mean": 2.7869140624999997,
+          "interval": [
+            0.6295358276367189,
+            5.06426879882811
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "completion_rate": {
+          "mean": 0.0439453125,
+          "interval": [
+            0.0263671875,
+            0.0634765625
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "failure_rate": {
+          "mean": 0.0,
+          "interval": [
+            0.0,
+            0.0
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "failure_count_underprediction": {
+          "mean": 0.0,
+          "interval": [
+            0.0,
+            0.0
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "gates": {
+          "score": true,
+          "completion": true,
+          "failure": true,
+          "forecast": true
+        },
+        "passed": true
+      }
+    },
+    "damaged": {
+      "seed_range_inclusive": [
+        116000,
+        116511
+      ],
+      "subjects": 512,
+      "selected_summary": {
+        "score": 47.4046875,
+        "completion_rate": 0.6787109375,
+        "failure_rate": 0.00390625,
+        "shocks": 0.39453125,
+        "incidents": 0.66796875,
+        "repairs": 1.1640625,
+        "stopped": 0.634765625,
+        "new_search_nodes": 148.6171875,
+        "lookahead_executed_rate": 0.626953125,
+        "seconds": 1.0721505000110483
+      },
+      "baseline_summary": {
+        "score": 35.639843750000004,
+        "completion_rate": 0.607421875,
+        "failure_rate": 0.0087890625,
+        "shocks": 0.439453125,
+        "incidents": 0.578125,
+        "repairs": 1.0859375,
+        "stopped": 0.767578125,
+        "new_search_nodes": 15.28125,
+        "lookahead_executed_rate": 0.0,
+        "seconds": 0.1981309999973746
+      },
+      "comparison": {
+        "score": {
+          "mean": 11.76484375,
+          "interval": [
+            8.3759619140625,
+            15.234133605957028
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "completion_rate": {
+          "mean": 0.0712890625,
+          "interval": [
+            0.0478515625,
+            0.09765625
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "failure_rate": {
+          "mean": -0.0048828125,
+          "interval": [
+            -0.0126953125,
+            0.0
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "failure_count_underprediction": {
+          "mean": -0.004825513647277918,
+          "interval": [
+            -0.014301812433260635,
+            0.00836263435789622
+          ],
+          "subjects": 512,
+          "resamples": 20000,
+          "alpha": 0.003125
+        },
+        "gates": {
+          "score": true,
+          "completion": true,
+          "failure": true,
+          "forecast": true
+        },
+        "passed": true
+      }
+    }
+  },
+  "frozen_selection_sha256": "fde29c47e10eb4fa2d5cedc56ec3d60c4bbf530d0814af039d764caca9b2c356",
+  "passes_scoped_shift_gate": true,
+  "git_revision": "a2ccfdccc4fc52351ad7c8859b2eee56a5603490",
+  "git_dirty": false,
+  "python_source_sha256": "e713cab46fa0787070b9880a696b02354523fa9ad2cabfaa8741ee2c4ae99d0d",
+  "fingerprints": {
+    "python_source_sha256": "e713cab46fa0787070b9880a696b02354523fa9ad2cabfaa8741ee2c4ae99d0d",
+    "runner_sha256": "39a60744db0e811b0f40c8355054f29156667665051a13880e730d40428afc19",
+    "protocol_sha256": "d1e8554ebb2ef46b27cb054bbcea35ae57ef2546b490fa683118efd11ab4a60d",
+    "model_sha256": "89c6b3be7867407f04df5174ec9731f44626df70d558c0ea0f9c58bbbcb201f4",
+    "initial_report_sha256": "69f37729f166b2e9a5db49df66265204b9f4378558c72e1c59be8b70479ecfb2",
+    "replication_runner_sha256": "c2424913662cbf755debd838f7ab8e0b294f8864241f5b759b3233fe03242110",
+    "replication_protocol_sha256": "70a441cf157eeebc7f1540bbbc389d939cacc51dba2a722d36e4fbc5484a5e5d"
+  },
+  "scope": "Local simulator only; no individual risk bounds or authority",
+  "decision_ready": false,
+  "external_spend_usd": 0,
+  "elapsed_s": 5.274817900004564,
+  "rows_sha256": "a0e8bfa18c9bc2ff7c985b2f2df621eecb858c20b67b032a9c2860532d6e991c",
+  "artifacts": {
+    "initial": "artifacts/shared-reserve/dev-e19ca9a2",
+    "replication": "artifacts/shared-reserve/replication-0d4ffceb",
+    "shift": "artifacts/shared-reserve/shift-234efb16"
+  },
+  "verification": {
+    "hashes": "verified",
+    "distinct_subjects": 4096,
+    "replayed_decisions": 60,
+    "all_intervals_reproduced": true,
+    "full_regression": {
+      "passed": 268,
+      "elapsed_s": 32.0
+    }
+  }
+}

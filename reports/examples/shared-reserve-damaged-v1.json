@@ -1,0 +1,579 @@
+{
+  "scope": "First recorded pair from the frozen damaged-start cohort; illustrative trace, not aggregate evidence",
+  "selected": {
+    "seed": 116000,
+    "score": 81.5,
+    "completed": 1.0,
+    "stopped": 1.0,
+    "outage": 0.0,
+    "release_failure": 0.0,
+    "shocks": 0.0,
+    "incidents": 0.0,
+    "repairs": 1.0,
+    "fast_attempts": 2.0,
+    "completion_rate": 0.5,
+    "failure_rate": 0.0,
+    "initial_expected_pair_score": 62.824602357519744,
+    "initial_expected_pair_failures": 0.0,
+    "initial_expected_pair_completed": 1.0,
+    "executed_policy": "horizon_markov",
+    "new_search_nodes": 2746,
+    "public_precursor": [
+      2,
+      2,
+      1
+    ],
+    "forecast_screen": {
+      "lookahead": [
+        62.824602357519744,
+        0.0,
+        1.0
+      ],
+      "myopic": [
+        36.71174055308162,
+        0.0,
+        1.0
+      ],
+      "accepted": true
+    },
+    "decisions": [
+      {
+        "task": 0,
+        "stakes": 140,
+        "before": {
+          "stage": 0,
+          "integrity": 2,
+          "faults": 1,
+          "elapsed": 0,
+          "resources": 7,
+          "attempts": 0,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 0,
+          "status": "running"
+        },
+        "after": {
+          "stage": 0,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 2,
+          "resources": 5,
+          "attempts": 0,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 1,
+          "status": "running"
+        },
+        "predictor_state": 0.6832690940388428,
+        "shock_probability": 0.2849807282116528,
+        "observed_shock": null,
+        "selected": "repair",
+        "alternatives": {
+          "stop": {
+            "expected_score": 37.21448433184897,
+            "expected_failure_count": 0.0,
+            "expected_completed_count": 1.0
+          },
+          "careful": {
+            "expected_score": 53.0,
+            "expected_failure_count": 0,
+            "expected_completed_count": 1
+          },
+          "repair": {
+            "expected_score": 62.824602357519744,
+            "expected_failure_count": 0.0,
+            "expected_completed_count": 1.0
+          },
+          "fast": {
+            "expected_score": 45.43517344609513,
+            "expected_failure_count": 0.0,
+            "expected_completed_count": 1.0
+          }
+        }
+      },
+      {
+        "task": 0,
+        "stakes": 140,
+        "before": {
+          "stage": 0,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 2,
+          "resources": 5,
+          "attempts": 0,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 1,
+          "status": "running"
+        },
+        "after": {
+          "stage": 0,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 2,
+          "resources": 5,
+          "attempts": 0,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 1,
+          "status": "stopped"
+        },
+        "predictor_state": 0.6832690940388428,
+        "shock_probability": 0.2849807282116528,
+        "observed_shock": null,
+        "selected": "stop",
+        "alternatives": {
+          "stop": {
+            "expected_score": 62.824602357519744,
+            "expected_failure_count": 0.0,
+            "expected_completed_count": 1.0
+          },
+          "careful": {
+            "expected_score": 53.0,
+            "expected_failure_count": 0,
+            "expected_completed_count": 1
+          },
+          "fast": {
+            "expected_score": 36.4272669167384,
+            "expected_failure_count": 0.06303662702540881,
+            "expected_completed_count": 0.8362722379972309
+          }
+        }
+      },
+      {
+        "task": 1,
+        "stakes": 140,
+        "before": {
+          "stage": 0,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 0,
+          "resources": 5,
+          "attempts": 0,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 0,
+          "status": "running"
+        },
+        "after": {
+          "stage": 1,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 1,
+          "resources": 4,
+          "attempts": 1,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 0,
+          "status": "running"
+        },
+        "predictor_state": 0.6099614564233057,
+        "shock_probability": 0.2629884369269917,
+        "observed_shock": false,
+        "selected": "fast",
+        "alternatives": {
+          "stop": {
+            "expected_score": 0.0,
+            "expected_failure_count": 0,
+            "expected_completed_count": 0
+          },
+          "careful": {
+            "expected_score": 58.50643939677431,
+            "expected_failure_count": 0.0,
+            "expected_completed_count": 1.0
+          },
+          "fast": {
+            "expected_score": 63.824602357519744,
+            "expected_failure_count": 0.0,
+            "expected_completed_count": 1.0
+          }
+        }
+      },
+      {
+        "task": 1,
+        "stakes": 140,
+        "before": {
+          "stage": 1,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 1,
+          "resources": 4,
+          "attempts": 1,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 0,
+          "status": "running"
+        },
+        "after": {
+          "stage": 2,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 2,
+          "resources": 3,
+          "attempts": 2,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 0,
+          "status": "running"
+        },
+        "predictor_state": 0.5131209901315855,
+        "shock_probability": 0.23393629703947566,
+        "observed_shock": false,
+        "selected": "fast",
+        "alternatives": {
+          "stop": {
+            "expected_score": -0.5,
+            "expected_failure_count": 0,
+            "expected_completed_count": 0
+          },
+          "careful": {
+            "expected_score": 68.5,
+            "expected_failure_count": 0,
+            "expected_completed_count": 1
+          },
+          "fast": {
+            "expected_score": 73.61042071249993,
+            "expected_failure_count": 0.0,
+            "expected_completed_count": 1.0
+          }
+        }
+      },
+      {
+        "task": 1,
+        "stakes": 140,
+        "before": {
+          "stage": 2,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 2,
+          "resources": 3,
+          "attempts": 2,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 0,
+          "status": "running"
+        },
+        "after": {
+          "stage": 3,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 4,
+          "resources": 2,
+          "attempts": 2,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 0,
+          "status": "completed"
+        },
+        "predictor_state": 0.41528532503513826,
+        "shock_probability": 0.20458559751054148,
+        "observed_shock": null,
+        "selected": "careful",
+        "alternatives": {
+          "stop": {
+            "expected_score": -1.0,
+            "expected_failure_count": 0,
+            "expected_completed_count": 0
+          },
+          "careful": {
+            "expected_score": 82.5,
+            "expected_failure_count": 0,
+            "expected_completed_count": 1
+          },
+          "fast": {
+            "expected_score": 69.49470112860853,
+            "expected_failure_count": 0.20458559751054148,
+            "expected_completed_count": 0.7954144024894585
+          }
+        }
+      }
+    ]
+  },
+  "baseline": {
+    "seed": 116000,
+    "score": 43.5,
+    "completed": 1.0,
+    "stopped": 1.0,
+    "outage": 0.0,
+    "release_failure": 0.0,
+    "shocks": 0.0,
+    "incidents": 2.0,
+    "repairs": 1.0,
+    "fast_attempts": 2.0,
+    "completion_rate": 0.5,
+    "failure_rate": 0.0,
+    "initial_expected_pair_score": null,
+    "initial_expected_pair_failures": null,
+    "initial_expected_pair_completed": null,
+    "executed_policy": "myopic_markov",
+    "new_search_nodes": 154,
+    "public_precursor": [
+      2,
+      2,
+      1
+    ],
+    "forecast_screen": null,
+    "decisions": [
+      {
+        "task": 0,
+        "stakes": 140,
+        "before": {
+          "stage": 0,
+          "integrity": 2,
+          "faults": 1,
+          "elapsed": 0,
+          "resources": 7,
+          "attempts": 0,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 0,
+          "status": "running"
+        },
+        "after": {
+          "stage": 1,
+          "integrity": 2,
+          "faults": 1,
+          "elapsed": 1,
+          "resources": 6,
+          "attempts": 1,
+          "shocks": 0,
+          "incidents": 1,
+          "repairs": 0,
+          "status": "running"
+        },
+        "predictor_state": 0.6832690940388428,
+        "shock_probability": 0.2849807282116528,
+        "observed_shock": false,
+        "selected": "fast",
+        "alternatives": {
+          "stop": {
+            "expected_score": 0.0,
+            "expected_failure_count": 0,
+            "expected_completed_count": 0
+          },
+          "careful": {
+            "expected_score": 31.935173446095128,
+            "expected_failure_count": 0.0,
+            "expected_completed_count": 1.0
+          },
+          "repair": {
+            "expected_score": 27.571042661078483,
+            "expected_failure_count": 0.12607325405081765,
+            "expected_completed_count": 0.7732356109718221
+          },
+          "fast": {
+            "expected_score": 36.71174055308162,
+            "expected_failure_count": 0.0,
+            "expected_completed_count": 1.0
+          }
+        }
+      },
+      {
+        "task": 0,
+        "stakes": 140,
+        "before": {
+          "stage": 1,
+          "integrity": 2,
+          "faults": 1,
+          "elapsed": 1,
+          "resources": 6,
+          "attempts": 1,
+          "shocks": 0,
+          "incidents": 1,
+          "repairs": 0,
+          "status": "running"
+        },
+        "after": {
+          "stage": 2,
+          "integrity": 2,
+          "faults": 1,
+          "elapsed": 2,
+          "resources": 5,
+          "attempts": 2,
+          "shocks": 0,
+          "incidents": 2,
+          "repairs": 0,
+          "status": "running"
+        },
+        "predictor_state": 0.592469119391065,
+        "shock_probability": 0.2577407358173195,
+        "observed_shock": false,
+        "selected": "fast",
+        "alternatives": {
+          "stop": {
+            "expected_score": -5.5,
+            "expected_failure_count": 0,
+            "expected_completed_count": 0
+          },
+          "careful": {
+            "expected_score": 34.5,
+            "expected_failure_count": 0,
+            "expected_completed_count": 1
+          },
+          "repair": {
+            "expected_score": 35.614006216210846,
+            "expected_failure_count": 0.08816073847596696,
+            "expected_completed_count": 0.911839261524033
+          },
+          "fast": {
+            "expected_score": 41.180333377644125,
+            "expected_failure_count": 0.0,
+            "expected_completed_count": 1.0
+          }
+        }
+      },
+      {
+        "task": 0,
+        "stakes": 140,
+        "before": {
+          "stage": 2,
+          "integrity": 2,
+          "faults": 1,
+          "elapsed": 2,
+          "resources": 5,
+          "attempts": 2,
+          "shocks": 0,
+          "incidents": 2,
+          "repairs": 0,
+          "status": "running"
+        },
+        "after": {
+          "stage": 2,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 4,
+          "resources": 3,
+          "attempts": 2,
+          "shocks": 0,
+          "incidents": 2,
+          "repairs": 1,
+          "status": "running"
+        },
+        "predictor_state": 0.49488214125146296,
+        "shock_probability": 0.2284646423754389,
+        "observed_shock": null,
+        "selected": "repair",
+        "alternatives": {
+          "stop": {
+            "expected_score": -11.0,
+            "expected_failure_count": 0,
+            "expected_completed_count": 0
+          },
+          "careful": {
+            "expected_score": -36.5,
+            "expected_failure_count": 1,
+            "expected_completed_count": 0
+          },
+          "repair": {
+            "expected_score": 43.5,
+            "expected_failure_count": 0,
+            "expected_completed_count": 1
+          },
+          "fast": {
+            "expected_score": -43.55618178137895,
+            "expected_failure_count": 1.0,
+            "expected_completed_count": 0.0
+          }
+        }
+      },
+      {
+        "task": 0,
+        "stakes": 140,
+        "before": {
+          "stage": 2,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 4,
+          "resources": 3,
+          "attempts": 2,
+          "shocks": 0,
+          "incidents": 2,
+          "repairs": 1,
+          "status": "running"
+        },
+        "after": {
+          "stage": 3,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 6,
+          "resources": 2,
+          "attempts": 2,
+          "shocks": 0,
+          "incidents": 2,
+          "repairs": 1,
+          "status": "completed"
+        },
+        "predictor_state": 0.49488214125146296,
+        "shock_probability": 0.2284646423754389,
+        "observed_shock": null,
+        "selected": "careful",
+        "alternatives": {
+          "stop": {
+            "expected_score": -12.0,
+            "expected_failure_count": 0,
+            "expected_completed_count": 0
+          },
+          "careful": {
+            "expected_score": 43.5,
+            "expected_failure_count": 0,
+            "expected_completed_count": 1
+          },
+          "fast": {
+            "expected_score": 33.73967719295436,
+            "expected_failure_count": 0.2284646423754389,
+            "expected_completed_count": 0.7715353576245612
+          }
+        }
+      },
+      {
+        "task": 1,
+        "stakes": 140,
+        "before": {
+          "stage": 0,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 0,
+          "resources": 2,
+          "attempts": 0,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 0,
+          "status": "running"
+        },
+        "after": {
+          "stage": 0,
+          "integrity": 3,
+          "faults": 0,
+          "elapsed": 0,
+          "resources": 2,
+          "attempts": 0,
+          "shocks": 0,
+          "incidents": 0,
+          "repairs": 0,
+          "status": "stopped"
+        },
+        "predictor_state": 0.4969292847508778,
+        "shock_probability": 0.22907878542526333,
+        "observed_shock": null,
+        "selected": "stop",
+        "alternatives": {
+          "stop": {
+            "expected_score": 0.0,
+            "expected_failure_count": 0,
+            "expected_completed_count": 0
+          },
+          "careful": {
+            "expected_score": -0.5,
+            "expected_failure_count": 0,
+            "expected_completed_count": 0
+          },
+          "fast": {
+            "expected_score": -2.56170906882737,
+            "expected_failure_count": 0.0,
+            "expected_completed_count": 0.0
+          }
+        }
+      }
+    ]
+  }
+}
