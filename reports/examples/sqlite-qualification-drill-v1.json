@@ -1,0 +1,22 @@
+{
+  "scope": "Disposable local SQLite qualification",
+  "ops_revision": "95fa6c4",
+  "pilot_databases_checked": 32,
+  "pilot_audit_events_checked": 46,
+  "operator_hold_approve_and_recover": true,
+  "verified_backup": {
+    "status": "ok",
+    "audit_events": 3,
+    "audit_head_sha256": "ab721c7f879381028f99d1e3173400ef37780df03b1193a9b7712dfccd03c51d",
+    "event_counts": {
+      "proposal:held": 1,
+      "resolution:applied": 1,
+      "recovery:restored": 1
+    },
+    "rows_sha256": "8edd7f2b999d7adfce359287f3677ee5c9082dbb127c7e89f05c96595887e012"
+  },
+  "unlogged_write_health_exit": 1,
+  "recovery_copy_resumed": true,
+  "recovery_and_resume_ms": 775.35,
+  "original_retained_for_inspection": true
+}
