@@ -18,7 +18,7 @@ const number=(v,d=1)=>Number.isFinite(v)?Number(v).toFixed(d):"Not estimated";
 const percent=v=>Number.isFinite(v)?number(100*v,1)+"%":"Not estimated";
 const pretty=v=>JSON.stringify(v,null,2);
 function toast(message){clearTimeout(toastTimer);say("study-toast",message);byId("study-toast").hidden=false;toastTimer=setTimeout(()=>{byId("study-toast").hidden=true;},6500);}
-function stopPlayback(){clearInterval(timer);timer=null;}
+function stopPlayback(){clearInterval(timer);timer=null;stopFlow();}
 function controls(){
   byId("study-start").disabled=busy;
   byId("study-run").disabled=busy;
@@ -102,9 +102,113 @@ byId("tour-next").addEventListener("click",()=>{
   say("tour-next",tourStep===3?"Restart guide ↺":"Next tip →");
   render();
 });
+let flowTimer=null, flowPhase=0;
+function stopFlow(){
+  clearInterval(flowTimer);flowTimer=null;
+  say("flow-play","Animate flow ▷");
+}
+function renderFlow(){
+  const row=run?.decisions[index],chosen=row?.decision.candidates.find(c=>c.status==="selected");
+  byId("gateway-flow").setAttribute("data-phase",String(flowPhase));
+  const work=byId("command-work");work.replaceChildren();
+  for(let i=0;i<8;i++){
+    const unit=document.createElement("span");
+    const completed=!!row && i<row.actual_outcome.progress;
+    unit.classList.toggle("complete",completed);
+    unit.setAttribute("aria-label","Work unit "+(i+1)+(completed?" completed":" pending"));
+    unit.textContent=completed?"✓":String(i+1);work.append(unit);
+  }
+  const stages=["Proposal","Logic + signal","Policy decision","Observed result"];
+  say("flow-step-label","0"+(flowPhase+1)+" · "+stages[flowPhase]);
+  say("flow-proposal",row ? row.decision.candidates.length+" candidate plans" : "Candidate plans arrive here.");
+  say("flow-logic",chosen ? plans[chosen.candidate.identifier] : "Awaiting plans");
+  say("flow-fear",row ? number(row.affect_observer.before.arousal,3)+" · observer only" : "Observer only");
+  say("flow-outcome",row ? states[row.actual_outcome.status] || row.actual_outcome.status : "The observed result appears here.");
+  const captions=row ? [
+    "The simulator proposed "+row.decision.candidates.length+" plans for the current state.",
+    "VALOR compared their forecasts with the fixed policy. The fear signal was recorded separately.",
+    chosen ? plans[chosen.candidate.identifier]+" was selected. Permission status · "+row.commit.status : "No supported plan was selected.",
+    row.actual_outcome.progress+" of 8 work units completed after this action."
+  ] : ["Run a scenario to trace a proposal through the simulation."];
+  say("flow-caption",captions[flowPhase] || captions[0]);
+  byId("flow-play").disabled=!row;
+  byId("flow-step").disabled=!row;
+}
+byId("flow-step").addEventListener("click",()=>{
+  stopPlayback();flowPhase=(flowPhase+1)%4;renderFlow();controls();
+});
+byId("flow-play").addEventListener("click",()=>{
+  if(flowTimer){stopFlow();return;}
+  stopPlayback();flowPhase=0;renderFlow();controls();
+  if(reducedMotion.matches){toast("Use Next stage to explore the flow with reduced motion.");return;}
+  say("flow-play","Pause flow Ⅱ");
+  flowTimer=setInterval(()=>{
+    flowPhase++;renderFlow();
+    if(flowPhase===3)stopFlow();
+  },1700);
+});
+function renderInstruments(row){
+  renderFlow();
+  say("instrument-position",row ? "Decision "+(index+1)+" / "+run.decisions.length : "Run a scenario in Command");
+  byId("instrument-previous").disabled=!row || index===0;
+  byId("instrument-next").disabled=!row || index>=run.decisions.length-1;
+  const candidates=row?.decision.candidates || [];
+  const chosen=candidates.find(c=>c.status==="selected");
+  const inspected=candidates.find(c=>c.candidate.identifier===selectedCandidate) || chosen;
+  say("future-origin",row ? "Decision "+(index+1) : "Awaiting a decision");
+  const branches=byId("future-branches");
+  branches.replaceChildren();
+  for(const candidate of candidates){
+    const button=document.createElement("button");
+    button.setAttribute("data-status",candidate.status);
+    button.setAttribute("aria-pressed",String(candidate===inspected));
+    const title=document.createElement("strong"),metric=document.createElement("span");
+    title.textContent=plans[candidate.candidate.identifier];
+    metric.textContent=candidate.forecast ? percent(candidate.forecast.failure_probability)+" failure forecast · "+candidate.status.replaceAll("_"," ") : "Forecast unavailable";
+    button.append(title,metric);
+    button.addEventListener("click",()=>{
+      stopPlayback();selectedCandidate=candidate.candidate.identifier;render();
+      byId("future-name").focus();
+    });
+    branches.append(button);
+  }
+  say("future-label",inspected ? inspected.status.replaceAll("_"," ").toUpperCase() : "SELECT A BRANCH");
+  say("future-name",inspected ? plans[inspected.candidate.identifier] : "Run a scenario to begin.");
+  say("future-reason",inspected ? inspected.reason_codes.map(code=>reasons[code] || code.replaceAll("_"," ")).join(" ") : "");
+  const forecast=inspected?.forecast;
+  fields("future-metrics",forecast ? [["Completion",percent(forecast.success_probability)],["Failure",percent(forecast.failure_probability)],["Duration",number(forecast.duration_s)+" s"],["Score",number(inspected.score,3)]] : []);
+  const trace=byId("memory-trace");trace.replaceChildren();
+  const history=run ? run.decisions.slice(0,index+1) : [];
+  say("memory-summary",row ? history.length+" recorded steps · "+number(row.affect_observer.after.arousal,3)+" current activation" : "Run a scenario to inspect the signal history.");
+  const ceiling=Math.max(1,...history.flatMap(entry=>[entry.affect_observer.after.arousal,entry.affect_observer.after.observed_harm]));
+  for(const [position,entry] of history.entries()){
+    const event=document.createElement("div"),label=document.createElement("button");
+    label.textContent="Decision "+(position+1);
+    label.setAttribute("aria-current",position===index?"step":"false");
+    label.addEventListener("click",()=>{stopPlayback();index=position;selectedCandidate=null;render();byId("memory-title").focus();});
+    event.append(label);
+    for(const [key,name] of [["observed_harm","Observed harm"],["arousal","Activation"]]){
+      const cell=document.createElement("label"),bar=document.createElement("meter"),value=document.createElement("span");
+      bar.setAttribute("aria-label",name+" at decision "+(position+1));bar.setAttribute("max",String(ceiling));
+      bar.value=entry.affect_observer.after[key];
+      value.textContent=number(bar.value,3);
+      cell.append(bar,value);event.append(cell);
+    }
+    trace.append(event);
+  }
+  say("chamber-status",row ? "POLICY DECISION / "+row.commit.status.toUpperCase() : "AWAITING A RUN");
+  say("chamber-action",chosen ? plans[chosen.candidate.identifier] : "No selected plan");
+  say("chamber-reason",chosen ? chosen.reason_codes.map(code=>reasons[code] || code.replaceAll("_"," ")).join(" ") : "Run a scenario from Command.");
+  const f=chosen?.forecast;
+  fields("chamber-metrics",f ? [["Expected score",number(chosen.score,3)],["Failure forecast",percent(f.failure_probability)],["Time required",number(f.duration_s)+" s"],["Fear influence","Observer only"]] : []);
+  const alternative=candidates.filter(c=>c!==chosen && Number.isFinite(c.score)).sort((a,b)=>b.score-a.score)[0];
+  say("chamber-alternative",alternative ? plans[alternative.candidate.identifier]+" · score "+number(alternative.score,3)+" · "+alternative.status.replaceAll("_"," ") : "No other scored plan.");
+  say("chamber-outcome",row ? row.actual_outcome.progress+" / 8 completed · "+percent(row.actual_outcome.integrity)+" health · "+(states[row.actual_outcome.status] || row.actual_outcome.status) : "No outcome yet.");
+}
 function render(){
   const config=scenarios[selectedScenario],row=run?.decisions[index],state=row?.actual_outcome || {quota:config[2],integrity:config[3],progress:0,elapsed_s:0,status:"running"};
   renderScene(state,row,config);
+  renderInstruments(row);
   say("study-title",config[0]);say("study-description",config[1]);
   say("work-count",state.progress);say("quota-value",number(state.quota,0)+" units");say("integrity-value",number(state.integrity*100,1)+"%");say("time-value",number(Math.max(0,config[4]-state.elapsed_s),0)+" seconds");
   [...byId("work-track").children].forEach((point,i)=>point.classList.toggle("done",i<state.progress));
@@ -168,7 +272,7 @@ async function begin(){
   try{
     const response=await fetch("/api/study",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({scenario:selectedScenario,seed}),signal:AbortSignal.timeout(10000)});
     const data=await response.json();if(!response.ok)throw new Error(data.error || "The study could not start.");
-    run=data;index=0;selectedCandidate=null;byId("study-timeline").dataset.study="";byId("study-candidates").replaceChildren();
+    flowPhase=0;run=data;index=0;selectedCandidate=null;byId("study-timeline").dataset.study="";byId("study-candidates").replaceChildren();
     if(run.decisions.length>1 && !reducedMotion.matches && !inspectionIds.some(id=>byId(id).open))startPlayback();
     byId("study").scrollIntoView({behavior:reducedMotion.matches?"instant":"smooth",block:"start"});byId("study").focus({preventScroll:true});
   }catch(error){toast(error instanceof TypeError || error.name==="TimeoutError"?"The local engine is not responding. Reopen Start VALOR, then refresh this page.":error.message);failureMessage=run?"The new study could not start. The previous record is still available.":"The study could not start. Reopen Start VALOR, then try again.";}
@@ -181,13 +285,21 @@ byId("study-start").addEventListener("click",begin);
 byId("study-run").addEventListener("click",begin);
 function showWorkspace(view){
   stopPlayback();
-  for(const [name,panel] of [["simulation","study"],["execution","execution"],["research","research"]]){
+  byId("instrument-navigation").hidden=!["futures","memory","chamber"].includes(view);
+  for(const [name,panel] of [["simulation","study"],["futures","futures"],["memory","memory"],["chamber","chamber"],["execution","execution"],["research","research"]]){
     byId(panel).hidden=name!==view;
     byId("nav-"+name).setAttribute("aria-pressed",String(name===view));
   }
 }
-for(const name of ["simulation","execution","research"]){
+for(const name of ["simulation","futures","memory","chamber","execution","research"]){
   byId("nav-"+name).addEventListener("click",()=>{showWorkspace(name);render();});
+}
+byId("instrument-command").addEventListener("click",()=>{showWorkspace("simulation");render();});
+for(const [id,delta] of [["instrument-previous",-1],["instrument-next",1]]){
+  byId(id).addEventListener("click",()=>{
+    if(!run)return;
+    stopPlayback();index=Math.max(0,Math.min(run.decisions.length-1,index+delta));selectedCandidate=null;flowPhase=0;render();
+  });
 }
 byId("inspector-close").addEventListener("click",()=>{byId("study-options").open=false;byId("study-run").focus();});
 for (const [link, panel] of [["mission-futures","study-options"],["mission-memory","study-internals"]]) {

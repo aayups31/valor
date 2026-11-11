@@ -16,7 +16,11 @@
   <main>
     <aside class="app-sidebar" aria-label="Workspace navigation">
       <p class="eyebrow">WORKSPACE</p>
-      <button id="nav-simulation" aria-pressed="true">◈ Simulation</button>
+      <button id="nav-simulation" aria-pressed="true">◈ Command</button>
+      <button id="nav-futures" aria-pressed="false">⌁ Futures</button>
+      <button id="nav-memory" aria-pressed="false">◎ Fear Memory</button>
+      <button id="nav-chamber" aria-pressed="false">◇ Decision Chamber</button>
+      <div class="sidebar-divider"></div>
       <button id="nav-execution" aria-pressed="false">↗ Tool trials</button>
       <button id="nav-research" aria-pressed="false">⌁ Research</button>
       <div class="sidebar-divider"></div>
@@ -31,7 +35,19 @@
       <div class="study-heading"><div><p class="eyebrow">SIMULATION / WORKLOAD</p><h1 id="study-title">Under pressure.</h1></div><p id="study-description">Complete eight work units.</p></div>
       <div class="condition-selector" role="group" aria-label="Experiment situations"><button data-scenario="benign" aria-pressed="false">Everyday work</button><button data-scenario="hazard" aria-pressed="true">Under pressure</button><button data-scenario="degraded" aria-pressed="false">After damage</button><button data-scenario="low_reserve" aria-pressed="false">Low reserves</button><button data-scenario="deadline" aria-pressed="false">Almost out of time</button></div>
       <div class="experiment-launch"><p>8 work units · Limited resources · Simulated actions</p><button class="primary" id="study-run">Run this scenario <span aria-hidden="true">↗</span></button></div>
-      <section class="simulation-stage" aria-label="Visual simulation of the recorded workload">
+      <section class="gateway-stage" aria-label="Agent to VALOR to work">
+        <div class="gateway-caption"><span class="eyebrow">THE PROCTOR / ILLUSTRATED RECORD</span><span id="flow-step-label">01 · Proposal</span></div>
+        <div class="gateway-flow" id="gateway-flow" data-phase="0">
+          <div class="gateway-node agent-node"><span class="node-symbol">↗</span><span class="eyebrow">YOUR AGENT</span><h2>Proposes.</h2><p id="flow-proposal">Candidate plans arrive here.</p></div>
+          <div class="flow-wire wire-in" aria-hidden="true"><i></i></div>
+          <div class="gateway-node valor-node"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M18 20 50 82 82 20M36 20 50 48 64 20"/><path class="mark-frame" d="M50 2 94 26V74L50 98 6 74V26Z"/></svg><span class="eyebrow">VALOR</span><h2>Considers.</h2><div class="reason-channels"><span>Logic <b id="flow-logic">Awaiting plans</b></span><span class="fear-channel">Fear signal <b id="flow-fear">Observer only</b></span></div></div>
+          <div class="flow-wire wire-out" aria-hidden="true"><i></i></div>
+          <div class="gateway-node work-node"><span class="node-symbol">⤴</span><span class="eyebrow">THE WORK</span><h2>Changes.</h2><p id="flow-outcome">The observed result appears here.</p><div id="command-work" class="command-work" aria-label="Observed work completion"></div></div>
+        </div>
+        <div class="flow-foot"><p id="flow-caption">Run a scenario to trace a proposal through the simulation.</p><div><button id="flow-play" class="text-button" disabled>Animate flow ▷</button><button id="flow-step" class="text-button" disabled>Next stage →</button></div></div>
+        <p class="flow-boundary">Simulation record. Fear is an experimental observer here. External agent connections remain future integration work.</p>
+      </section>
+      <details class="workload-disclosure"><summary>Inspect workload and resources</summary><section class="simulation-stage" aria-label="Visual simulation of the recorded workload">
         <div class="stage-topline"><span>SIMULATED WORKLOAD</span><span id="scene-position">Awaiting a run</span></div>
         <div class="scene-body">
           <div class="scene-inputs"><p class="eyebrow">WHAT THE TASK NEEDS</p>
@@ -48,7 +64,7 @@
         <div class="scene-inspection"><span class="eyebrow" id="scene-inspection-label">YOUR MISSION</span><p id="scene-inspection-copy">Complete the eight work units. Each action spends time and resources. Select a situation above, then run it.</p></div>
         <div class="stage-key"><span>● Selected</span><span>○ Alternative</span><span>Schematic · Recorded state</span></div>
       </section>
-      <div class="study-controls"><span id="study-playback-status" role="status" aria-live="polite">Ready to begin</span><div><button class="soft-button" id="study-play" disabled>Play record</button><button class="text-button" id="study-next" disabled>Next decision <span aria-hidden="true">→</span></button></div></div><p class="record-caption" id="record-caption">The engine computes a complete run locally. Playback reveals its recorded decisions.</p>
+      </details><div class="study-controls"><span id="study-playback-status" role="status" aria-live="polite">Ready to begin</span><div><button class="soft-button" id="study-play" disabled>Play record</button><button class="text-button" id="study-next" disabled>Next decision <span aria-hidden="true">→</span></button></div></div><p class="record-caption" id="record-caption">The engine computes a complete run locally. Playback reveals its recorded decisions.</p>
       <ol id="study-timeline" class="study-timeline" aria-label="Recorded decisions"></ol>
       <details class="inline-guide"><summary>Quick tour</summary><aside class="guided-strip" aria-label="Simulation walkthrough">
         <span id="tour-count" class="eyebrow">GUIDE 01 / 04</span><p id="tour-copy">Choose a situation above. Start with Under pressure to see why faster work can be rejected.</p><button id="tour-next" class="text-button">Next tip →</button>
@@ -65,6 +81,26 @@
       <details class="study-records" id="study-records"><summary>The complete record <span class="summary-hint">Inspect or download</span><span class="disclosure-arrow" aria-hidden="true">+</span></summary><p id="study-provenance" class="section-note">The complete record includes the policy, alternatives, forecasts, guarded actions, observed outcomes and source identity.</p><pre id="study-raw">Run an experiment to inspect its record.</pre><button class="text-button" id="study-export" disabled>Download the complete run <span aria-hidden="true">↓</span></button></details>
       <details class="study-settings" id="study-settings"><summary>Repeat this experiment <span class="summary-hint">Optional settings</span><span class="disclosure-arrow" aria-hidden="true">+</span></summary><div class="seed-setting"><div><label for="study-seed">Starting number</label><input id="study-seed" type="number" min="0" max="2147483647" step="1" value="42"></div><p>The same number and situation repeat the simulated events. Change it, then run again. This number is not a model setting or a measure of intelligence.</p></div></details>
     </section>
+    <section id="futures" class="instrument-view" hidden aria-labelledby="futures-title">
+      <div class="instrument-heading"><p class="eyebrow">02 / FUTURES</p><h1 id="futures-title">Every path has a price.</h1><p>Choose a branch to inspect the forecast at the current decision.</p></div>
+      <div class="future-network"><div class="future-origin"><span class="node-symbol">◇</span><strong id="future-origin">Awaiting a decision</strong><small>Same state · Different plans</small></div><div id="future-branches" class="future-branches"></div></div>
+      <section class="future-detail" aria-label="Selected branch"><span id="future-label" class="eyebrow">SELECT A BRANCH</span><h2 id="future-name" tabindex="-1">Run a scenario to begin.</h2><p id="future-reason"></p><dl id="future-metrics" class="study-forecast-values"></dl></section>
+      <p class="instrument-note">Forecasts cover each proposed plan. Only the applied action has an observed outcome. These are finite evaluated alternatives.</p>
+    </section>
+    <section id="memory" class="instrument-view" hidden aria-labelledby="memory-title">
+      <div class="instrument-heading"><p class="eyebrow">03 / FEAR MEMORY</p><h1 id="memory-title" tabindex="-1">What damage leaves behind.</h1><p id="memory-summary">Run a scenario to inspect the signal history.</p></div>
+      <div class="memory-legend"><span>Observed harm</span><span>Activation after the event</span><span>Recorded steps through the current decision</span></div>
+      <div id="memory-trace" class="memory-trace"></div>
+      <div class="memory-boundary"><strong>Influence on this decision</strong><span>Observer only</span><p>This signal persists within a run. It currently has no effect on forecasts or action selection. A new run resets it.</p></div>
+    </section>
+    <section id="chamber" class="instrument-view" hidden aria-labelledby="chamber-title">
+      <div class="instrument-heading"><p class="eyebrow">04 / DECISION CHAMBER</p><h1 id="chamber-title">The reason to act.</h1><p>Inspect the reward, risk and policy behind the recorded choice.</p></div>
+      <div class="chamber-choice"><span class="eyebrow" id="chamber-status">AWAITING A RUN</span><h2 id="chamber-action">One choice.<br>Its consequences.</h2><p id="chamber-reason">Run a scenario from Command.</p></div>
+      <dl id="chamber-metrics" class="chamber-metrics"></dl>
+      <div class="chamber-comparison"><div><span class="eyebrow">STRONGEST SCORED ALTERNATIVE</span><p id="chamber-alternative">No evaluated alternatives yet.</p></div><div><span class="eyebrow">OBSERVED AFTER THE ACTION</span><p id="chamber-outcome">No outcome yet.</p></div></div>
+      <p class="instrument-note">The current policy selects the highest-scoring supported plan within fixed limits. The fear observer has no voting weight in this demo.</p>
+    </section>
+    <div id="instrument-navigation" class="instrument-navigation" hidden><span id="instrument-position">No run loaded</span><button id="instrument-previous">← Previous decision</button><button id="instrument-next">Next decision →</button><button id="instrument-command">Return to Command ↗</button></div>
     <section id="execution" class="mission-section" hidden aria-labelledby="execution-title">
       <p class="eyebrow">EXECUTION / RECORDED LOCAL TOOL TRIAL</p>
       <h2 id="execution-title">A recommendation needs a gate.</h2>
