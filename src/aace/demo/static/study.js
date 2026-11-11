@@ -23,8 +23,8 @@ function controls(){
   byId("study-start").disabled=busy;
   byId("study-run").disabled=busy;
   byId("study").setAttribute("aria-busy",String(busy));
-  say("study-start",busy?"Running locally…":run?"Run the demo again ↗":"Run the decision demo ↗");
-  say("study-run",busy?"Running locally…":run?"Run again ↗":"Run this scenario ↗");
+  say("study-start",busy?"Running…":"New run ↗");
+  say("study-run",busy?"Running…":run?"Run again ↗":"Run simulation ↗");
   byId("study-play").disabled=busy || !run;
   byId("study-next").disabled=busy || !run || index>=run.decisions.length-1;
   byId("study-export").disabled=busy || !run;
@@ -79,7 +79,7 @@ function renderScene(state, row, config) {
     button.setAttribute("aria-pressed",String(selectedCandidate ? candidate.candidate.identifier===selectedCandidate : candidate.status==="selected"));
     button.addEventListener("click",()=>{
       stopPlayback();selectedCandidate=candidate.candidate.identifier;
-      byId("study-options").open=true;render();
+      byId("study-options").open=true;render();byId("inspector-close").focus();
     });
     options.append(button);
   }
@@ -161,6 +161,7 @@ function render(){
 }
 async function begin(){
   if(busy)return;
+  showWorkspace("simulation");
   const seed=Number(byId("study-seed").value);
   if(!Number.isInteger(seed)||seed<0||seed>=2147483648){byId("study-settings").open=true;byId("study-seed").focus();toast("Use a whole starting number from 0 to 2147483647.");return;}
   stopPlayback();failureMessage="";busy=true;render();
@@ -178,8 +179,23 @@ function startPlayback(){
 }
 byId("study-start").addEventListener("click",begin);
 byId("study-run").addEventListener("click",begin);
+function showWorkspace(view){
+  stopPlayback();
+  for(const [name,panel] of [["simulation","study"],["execution","execution"],["research","research"]]){
+    byId(panel).hidden=name!==view;
+    byId("nav-"+name).setAttribute("aria-pressed",String(name===view));
+  }
+}
+for(const name of ["simulation","execution","research"]){
+  byId("nav-"+name).addEventListener("click",()=>{showWorkspace(name);render();});
+}
+byId("inspector-close").addEventListener("click",()=>{byId("study-options").open=false;byId("study-run").focus();});
 for (const [link, panel] of [["mission-futures","study-options"],["mission-memory","study-internals"]]) {
-  byId(link).addEventListener("click",()=>{byId(panel).open=true;});
+  byId(link).addEventListener("click",()=>{
+    showWorkspace("simulation");byId(panel).open=true;render();
+    if(panel==="study-options")byId("inspector-close").focus();
+    else byId(panel).scrollIntoView({block:"center",behavior:"instant"});
+  });
 }
 byId("study-next").addEventListener("click",()=>{stopPlayback();if(run && index<run.decisions.length-1){index++;selectedCandidate=null;}render();});
 byId("study-play").addEventListener("click",()=>{if(!run)return;if(timer)stopPlayback();else{if(index>=run.decisions.length-1){index=0;selectedCandidate=null;}startPlayback();}render();});

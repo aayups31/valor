@@ -282,3 +282,50 @@ details[open] > summary .disclosure-arrow, .product-questions details[open] > su
 .progress-count>span:first-child{font-size:64px}
 @media(max-width:900px){.scene-body{grid-template-columns:150px minmax(190px,1fr)}.scene-paths{grid-column:1/-1}.scene-paths #scene-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.observatory-intro{gap:25px}}
 @media(max-width:600px){.observatory-intro{grid-template-columns:1fr;padding:30px 5%;gap:20px}.scene-body{grid-template-columns:1fr;padding:18px}.scene-inputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.scene-inputs>.eyebrow{grid-column:1/-1}.scene-inputs label{margin-top:0;font-size:11px}.scene-system{min-height:260px}.scene-paths{grid-column:auto}.guided-strip{flex-wrap:wrap;gap:9px 18px}.guided-strip p{flex-basis:75%}.scene-inspection{padding:18px}.stage-topline,.stage-key{padding:14px 18px}}
+
+/* Application shell: a persistent workspace rail and one active surface. */
+.app-page .site-header{max-width:none;height:64px;padding:0 28px;border-bottom:1px solid var(--line)}
+.app-mode{font:10px ui-monospace,monospace;color:var(--muted);letter-spacing:.1em}
+.app-page main{max-width:none;margin:0;padding:0 28px 0 234px}
+.app-sidebar{position:fixed;left:0;top:64px;bottom:0;width:206px;border-right:1px solid var(--line);padding:26px 16px;background:#10100e;display:flex;flex-direction:column;gap:5px}
+.app-sidebar>.eyebrow{padding:10px 12px;color:#9c9488}
+.app-sidebar>button:not(.primary),.app-sidebar>a{padding:11px 12px;text-align:left;border-radius:9px;min-height:42px;font-size:13px}
+.app-sidebar>button[aria-pressed=true]{background:#d7b67418;color:#edce94}
+.app-sidebar>button:hover,.app-sidebar>a:hover{background:#ffffff08}
+.sidebar-divider{height:1px;background:var(--line);margin:17px 10px}
+.sidebar-status{margin-top:auto;padding:20px 10px;font-size:11px;color:#d4cab9}
+.sidebar-status p{font-size:10px;color:var(--muted);margin-top:7px}
+.status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#d8b879;margin-right:5px}
+.app-page .study-workspace{max-width:none;border:0;padding-top:25px;margin:0}
+.app-page .study-heading{align-items:center;gap:20px}
+.app-page .study-heading h1{font-size:25px;letter-spacing:-.03em;font-weight:500;margin-top:7px}
+.app-page .study-heading>p{font-size:12px;max-width:340px;line-height:1.6}
+.app-page .condition-selector{margin-top:18px;gap:5px}
+.app-page .condition-selector button{font-size:12px;padding:9px 14px}
+.app-page .experiment-launch{padding:12px 0;margin-top:6px}
+.app-page .experiment-launch .primary{padding:10px 18px;min-height:42px}
+.app-page .simulation-stage{margin-top:0;border-top:0}
+.app-page .scene-body{min-height:310px;grid-template-columns:145px minmax(200px,1fr) 190px}
+.app-page .scene-system{min-height:245px}
+.app-page .scene-inputs label{margin-top:18px}
+.app-page .scene-inspection{min-height:80px;padding:14px 22px}
+.app-page .scene-inspection p{font-size:12px;line-height:1.65}
+.app-page .stage-key{padding:10px 22px}
+.app-page .study-controls{background:#13120f;padding:12px 18px;border-top:0}
+.app-page .record-caption{font-size:10px;margin-top:8px}
+.app-page .study-timeline{margin:10px 0 18px;gap:6px}
+.app-page .study-workspace>details{padding:12px 0}
+.app-page .study-workspace>details>summary{font-size:12px}
+.app-page .study-options[open]{position:fixed;right:0;top:64px;bottom:0;width:min(430px,100%);z-index:15;background:#151410;padding:24px;overflow:auto;border-left:1px solid #6b5736;box-shadow:-30px 0 90px #0008}
+.app-page .study-options[open]>summary{font-size:17px}
+.app-page .study-options[open] .summary-hint{display:none}
+.app-page .study-options[open] .section-note{font-size:12px}
+.app-page #study-candidate-detail h3{font-size:26px}
+.app-page .study-forecast-values{gap:20px}
+.app-page .outcome-details .study-live{padding-top:25px}
+.app-page .mission-section{margin:0 auto;padding-top:40px}
+.app-page footer{max-width:none;margin-top:25px;padding-block:14px}
+.app-page .study-guide .product-questions{padding-bottom:0}
+.app-page .guided-strip{border:0;padding:12px 0}
+@media(max-width:1100px){.app-page .scene-body{grid-template-columns:125px minmax(180px,1fr)}.app-page .scene-paths{grid-column:1/-1}.app-page .scene-paths #scene-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 10px}.app-page .scene-paths button{padding:10px}}
+@media(max-width:740px){.app-page .site-header{padding-inline:18px}.app-page main{padding:0 16px}.app-sidebar{position:static;width:auto;flex-direction:row;flex-wrap:wrap;border:0;padding:12px 0;background:transparent}.app-sidebar>.eyebrow,.sidebar-divider,.sidebar-status,.app-sidebar>.primary,.app-sidebar>a,#mission-memory,#mission-futures{display:none}.app-sidebar>button:not(.primary){flex:1;text-align:center;padding-inline:5px}.app-page .study-workspace{padding-top:8px}.app-page .study-heading>p{display:none}.app-page .experiment-launch{flex-direction:row;align-items:center}.app-page .experiment-launch p{max-width:160px}.app-page .scene-body{grid-template-columns:1fr;padding:16px}.app-page .scene-inputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.app-page .scene-inputs>.eyebrow{grid-column:1/-1}.app-page .scene-inputs label{margin-top:0}.app-page .scene-paths{grid-column:auto}.app-page .study-controls{flex-direction:column}.app-page .study-options[open]{top:0}.app-page .mission-section h2{font-size:32px}}
