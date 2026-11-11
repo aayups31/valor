@@ -46,8 +46,65 @@ function candidateDetail(candidate){
   say("study-candidate-reason",candidate.reason_codes.map(code=>reasons[code] || code.replaceAll("_"," ")).join(" "));
   fields("study-forecast-values",f?[["Completion forecast",percent(f.success_probability)],["Failure forecast",percent(f.failure_probability)],["Plan duration",number(f.duration_s)+" seconds"],["Resources required",number(Object.fromEntries(f.resource_costs).processing_quota)+" units"],["Score",number(candidate.score,3)],["Evidence",f.evidence.kind==="analytic"?"Known simulation equations":f.evidence.kind]]:[["Forecast","Not available"]]);
 }
+function renderScene(state, row, config) {
+  for (const [id, value, maximum, label] of [
+    ["resources",state.quota,config[2],number(state.quota,0)+" units"],
+    ["health",state.integrity,1,percent(state.integrity)],
+    ["time",Math.max(0,config[4]-state.elapsed_s),config[4],number(Math.max(0,config[4]-state.elapsed_s),0)+" seconds"]
+  ]) {
+    byId("scene-"+id).value=value;
+    byId("scene-"+id).setAttribute("max",String(maximum));
+    say("scene-"+id+"-text",label);
+  }
+  say("scene-progress",state.progress+" / 8");
+  say("scene-state",row ? states[state.status] || state.status : "Ready to begin");
+  say("scene-position",row ? "Recorded decision "+(index+1)+" of "+run.decisions.length : "Awaiting a run");
+  const work=byId("scene-work");
+  work.replaceChildren();
+  for(let i=0;i<8;i++){
+    const unit=document.createElement("span");
+    unit.textContent=String(i+1);
+    unit.classList.toggle("complete",i<state.progress);
+    unit.setAttribute("aria-label","Work unit "+(i+1)+(i<state.progress?" completed":" pending"));
+    work.append(unit);
+  }
+  const options=byId("scene-options");
+  options.replaceChildren();
+  const candidates=row?.decision.candidates || [];
+  for(const candidate of candidates){
+    const button=document.createElement("button");
+    const label=({selected:"Chosen",constraint_rejected:"Outside policy",lower_score:"Lower score"})[candidate.status] || candidate.status.replaceAll("_"," ");
+    button.textContent=plans[candidate.candidate.identifier]+" · "+label;
+    button.setAttribute("data-status",candidate.status);
+    button.setAttribute("aria-pressed",String(selectedCandidate ? candidate.candidate.identifier===selectedCandidate : candidate.status==="selected"));
+    button.addEventListener("click",()=>{
+      stopPlayback();selectedCandidate=candidate.candidate.identifier;
+      byId("study-options").open=true;render();
+    });
+    options.append(button);
+  }
+  const inspected=candidates.find(c=>c.candidate.identifier===selectedCandidate) || candidates.find(c=>c.status==="selected");
+  say("scene-inspection-label",inspected ? "PLAN FORECAST / "+plans[inspected.candidate.identifier].toUpperCase() : "YOUR MISSION");
+  say("scene-inspection-copy",inspected ? (inspected.forecast ? percent(inspected.forecast.success_probability)+" completion forecast. " : "")+
+    inspected.reason_codes.map(code=>reasons[code] || code.replaceAll("_"," ")).join(" ")
+    : "Complete the eight work units. Each action spends time and resources. Run a situation to reveal the evaluated plans.");
+}
+let tourStep=0;
+const tourSteps=[
+  "Choose a situation above. Start with Under pressure to see why faster work can be rejected.",
+  "Run the simulation. The meters and eight work markers show the observed state at the displayed decision.",
+  "Select a plan on the right. Its forecast and recorded selection reason appear below the scene. Red marks a policy rejection.",
+  "Use Next decision or the numbered timeline below to follow the outcome. Open the complete record to verify or download the evidence."
+];
+byId("tour-next").addEventListener("click",()=>{
+  stopPlayback();tourStep=(tourStep+1)%tourSteps.length;
+  say("tour-count","GUIDE 0"+(tourStep+1)+" / 04");say("tour-copy",tourSteps[tourStep]);
+  say("tour-next",tourStep===3?"Restart guide ↺":"Next tip →");
+  render();
+});
 function render(){
   const config=scenarios[selectedScenario],row=run?.decisions[index],state=row?.actual_outcome || {quota:config[2],integrity:config[3],progress:0,elapsed_s:0,status:"running"};
+  renderScene(state,row,config);
   say("study-title",config[0]);say("study-description",config[1]);
   say("work-count",state.progress);say("quota-value",number(state.quota,0)+" units");say("integrity-value",number(state.integrity*100,1)+"%");say("time-value",number(Math.max(0,config[4]-state.elapsed_s),0)+" seconds");
   [...byId("work-track").children].forEach((point,i)=>point.classList.toggle("done",i<state.progress));

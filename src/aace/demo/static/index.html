@@ -14,22 +14,9 @@
     <nav aria-label="Main"><a href="#study" class="nav-link">Decision demo</a><a href="#research" class="nav-link research-nav">Research lab</a><button class="text-button" id="study-help">How it works <span aria-hidden="true">↗</span></button></nav>
   </header>
   <main>
-    <section class="study-hero" aria-labelledby="hero-title">
-      <div class="hero-editorial">
-        <p class="eyebrow"><span class="hero-dot" aria-hidden="true"></span> OPEN RESEARCH / LOCAL DEMO</p>
-        <h1 id="hero-title">Before the<br>agent acts.</h1>
-        <p class="hero-copy">VALOR studies how AI agents can make consequential decisions. See what could go wrong, why one action wins, and what actually happens after it runs.</p>
-        <div class="hero-actions"><button class="primary" id="study-start">Run the decision demo ↗</button><a href="#research" class="text-button">See measured results</a></div>
-      </div>
-      <figure class="mission-figure">
-        <svg viewBox="0 0 440 275" aria-hidden="true">
-          <path class="mission-guide" d="M25 42H415M25 137H415M25 232H415M110 18V255M220 18V255M330 18V255"/>
-          <path class="mission-line" d="M35 137H110C189 137 175 42 287 42H405M110 137H405M110 137C189 137 175 232 287 232H405"/>
-          <path class="mission-chosen" d="M35 137H405"/>
-          <circle cx="110" cy="137" r="6"/><circle cx="405" cy="42" r="4"/><circle cx="405" cy="137" r="6"/><circle cx="405" cy="232" r="4"/>
-        </svg>
-        <figcaption><span>One decision, several possible paths</span><span>Concept diagram</span></figcaption>
-      </figure>
+    <section class="observatory-intro" aria-labelledby="hero-title">
+      <div><p class="eyebrow">VALOR / DECISION OBSERVATORY</p><h1 id="hero-title">See the decision.<br>Understand the stakes.</h1></div>
+      <div><p>A guided simulation of an AI doing work under pressure. Watch its options, inspect the tradeoff, and follow the outcome.</p><button class="primary" id="study-start">Enter the simulation ↗</button></div>
     </section>
     <nav class="mission-nav" aria-label="Explore VALOR">
       <a href="#study"><span>01 / COMMAND</span>Run a decision</a>
@@ -43,6 +30,26 @@
       <div class="study-heading"><div><p class="eyebrow">COMMAND / DECISION DEMO</p><h2 id="study-title">Under pressure.</h2></div><p id="study-description">Finish eight units of simulated work under high load, while keeping resources and system health.</p></div>
       <div class="condition-selector" role="group" aria-label="Experiment situations"><button data-scenario="benign" aria-pressed="false">Everyday work</button><button data-scenario="hazard" aria-pressed="true">Under pressure</button><button data-scenario="degraded" aria-pressed="false">After damage</button><button data-scenario="low_reserve" aria-pressed="false">Low reserves</button><button data-scenario="deadline" aria-pressed="false">Almost out of time</button></div>
       <div class="experiment-launch"><p>Your mission is to finish eight units of work without running out of time, resources or system health.</p><button class="primary" id="study-run">Run this scenario <span aria-hidden="true">↗</span></button></div>
+      <section class="simulation-stage" aria-label="Visual simulation of the recorded workload">
+        <div class="stage-topline"><span>SIMULATED WORKLOAD</span><span id="scene-position">Awaiting a run</span></div>
+        <div class="scene-body">
+          <div class="scene-inputs"><p class="eyebrow">WHAT THE TASK NEEDS</p>
+            <label>Resources <meter id="scene-resources" min="0" max="20" value="20"></meter><span id="scene-resources-text">20 units</span></label>
+            <label>System health <meter id="scene-health" min="0" max="1" value="1"></meter><span id="scene-health-text">100%</span></label>
+            <label>Time remaining <meter id="scene-time" min="0" max="30" value="30"></meter><span id="scene-time-text">30 seconds</span></label>
+          </div>
+          <div class="scene-system"><div class="scene-orbit orbit-one"></div><div class="scene-orbit orbit-two"></div>
+            <div class="scene-core"><span class="eyebrow">OBSERVED PROGRESS</span><strong id="scene-progress">0 / 8</strong><span id="scene-state">Ready to begin</span></div>
+            <div id="scene-work" class="scene-work" aria-label="Eight units of work"></div>
+          </div>
+          <div class="scene-paths"><p class="eyebrow">INSPECT A POSSIBLE PLAN</p><div id="scene-options"></div></div>
+        </div>
+        <div class="scene-inspection"><span class="eyebrow" id="scene-inspection-label">YOUR MISSION</span><p id="scene-inspection-copy">Complete the eight work units. Each action spends time and resources. Select a situation above, then run it.</p></div>
+        <div class="stage-key"><span>Gold · selected plan</span><span>Red · outside policy</span><span>Filled work markers · observed completion</span><span>Layout is a schematic</span></div>
+      </section>
+      <aside class="guided-strip" aria-label="Simulation walkthrough">
+        <span id="tour-count" class="eyebrow">GUIDE 01 / 04</span><p id="tour-copy">Choose a situation above. Start with Under pressure to see why faster work can be rejected.</p><button id="tour-next" class="text-button">Next tip →</button>
+      </aside>
       <div class="study-live"><div class="study-progress"><span id="study-phase" class="eyebrow">READY WHEN YOU ARE</span><div class="progress-count"><span id="work-count">0</span><span class="progress-denominator">/ 8 <small>work completed</small></span></div><div id="work-track" class="work-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p id="study-story">Run the experiment to see what VALOR chooses and how the situation changes.</p><div class="study-resources"><div><span>Resources left</span><strong id="quota-value">20 <small>units</small></strong></div><div><span>System health</span><strong id="integrity-value">100<small>%</small></strong></div><div><span>Time left</span><strong id="time-value">30 <small>seconds</small></strong></div></div><details id="study-metrics-help" class="metric-explainer"><summary>What do these numbers mean? <span aria-hidden="true">+</span></summary><p><strong>Work</strong> is the eight-part task. <strong>Resources</strong> are a limited budget used for work and recovery. <strong>Health</strong> tracks simulated damage; zero means the system can no longer continue. <strong>Time</strong> is the simulated deadline, separate from playback speed.</p><p>The policy also keeps a resource reserve and limits predicted failure. Open the alternatives to see which plans meet it.</p></details></div><div class="choice-narrative"><span class="eyebrow" id="step-label">BEFORE THE FIRST MOVE</span><h3 id="chosen-title">Four options.<br>One next move.</h3><p id="chosen-reason">Work carefully, move quickly, recover, or stop. VALOR compares the proposed plans against the same limits before choosing.</p><div class="choice-sequence"><div><span>Prediction</span><p id="choice-prediction">What the full plan is expected to achieve.</p></div><div><span>Observation</span><p id="choice-result">What actually happened after the next action.</p></div></div></div></div>
       <section class="decision-lens" aria-label="Three ways to read this decision">
         <div><h3>01 / What could go wrong?</h3><p id="lens-danger">Run a scenario to see the risks in the proposed plan.</p></div>
