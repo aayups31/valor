@@ -1,5 +1,12 @@
 # Build progress
 
+### Stop 22 — black and gold simulation observatory, November 11
+
+- Replaced the introductory illustration with a compact launch area and an interactive simulation stage. Eight work markers, resource/health/time meters, status and plan selectors follow the real decision record. Selecting a plan pauses playback and reveals its forecast and selection reason.
+- Added a four-step walkthrough, black-and-gold styling, responsive stage layout, and a matching paired replay palette. The spatial layout is labeled schematic. The stage supports the existing decision timeline and raw evidence export.
+- 21 targeted tests passed, covering the engine responses, replay controls, new state displays and walkthrough. Rendered desktop and phone-width review remains outstanding. No browser tool is available in this turn. Commit `a01f7ed` pushed before the documentation closeout. External spend $0.
+- Reference concepts came from [NASA Eyes](https://science.nasa.gov/eyes/) and [Foundry Ontology](https://www.palantir.com/explore/platforms/foundry/ontology/). The former emphasizes exploration of underlying data; the latter connects objects and actions to operations.
+
 ### Stop 21 — decision control redesign, November 9
 
 - Rebuilt the home experience around the decision demo, Futures, Fear Memory, Execution and Lab. The decision view reads the actual engine record to explain danger, forecast and applied action. The Futures inspector keeps each evaluated plan's reason and evidence available. The damage observer is labeled as experimental and separate from action selection.
