@@ -1,5 +1,11 @@
 # Build progress
 
+### Stop 23 — application workspace, November 11
+
+- Replaced the introductory hero and long main flow with a workspace rail and separate Simulation, Tool Trials and Research views. The simulation and playback controls lead. Tutorials and detailed outcomes are collapsed.
+- Selecting a plan opens a side inspector. Closing it returns keyboard focus to the run control. Switching views pauses playback. Narrow layouts use a compact navigation row.
+- 21 targeted checks passed for engine responses, navigation, inspector state and replay. Rendered layout review remains outstanding. Implementation pushed as `1f7d210`; documentation follows. $0 external spend.
+
 ### Stop 22 — black and gold simulation observatory, November 11
 
 - Replaced the introductory illustration with a compact launch area and an interactive simulation stage. Eight work markers, resource/health/time meters, status and plan selectors follow the real decision record. Selecting a plan pauses playback and reveals its forecast and selection reason.
