@@ -131,13 +131,15 @@ function renderFlow(){
     row.actual_outcome.progress+" of 8 work units completed after this action."
   ] : ["Run a scenario to trace a proposal through the simulation."];
   say("flow-caption",captions[flowPhase] || captions[0]);
-  byId("flow-play").disabled=!row;
-  byId("flow-step").disabled=!row;
+  byId("flow-play").disabled=busy || !row;
+  byId("flow-step").disabled=busy || !row;
 }
 byId("flow-step").addEventListener("click",()=>{
+  if(busy || !run)return;
   stopPlayback();flowPhase=(flowPhase+1)%4;renderFlow();controls();
 });
 byId("flow-play").addEventListener("click",()=>{
+  if(busy || !run)return;
   if(flowTimer){stopFlow();return;}
   stopPlayback();flowPhase=0;renderFlow();controls();
   if(reducedMotion.matches){toast("Use Next stage to explore the flow with reduced motion.");return;}
@@ -181,6 +183,7 @@ function renderInstruments(row){
   const history=run ? run.decisions.slice(0,index+1) : [];
   say("memory-summary",row ? history.length+" recorded steps · "+number(row.affect_observer.after.arousal,3)+" current activation" : "Run a scenario to inspect the signal history.");
   const ceiling=Math.max(1,...history.flatMap(entry=>[entry.affect_observer.after.arousal,entry.affect_observer.after.observed_harm]));
+  say("memory-scale",row ? "Raw signal values · shared scale 0–"+number(ceiling,3)+" · not probabilities" : "Raw signal values, not probabilities.");
   for(const [position,entry] of history.entries()){
     const event=document.createElement("div"),label=document.createElement("button");
     label.textContent="Decision "+(position+1);
