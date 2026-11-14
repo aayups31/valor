@@ -92,9 +92,9 @@ function renderScene(state, row, config) {
 let tourStep=0;
 const tourSteps=[
   "Choose a situation above. Start with Under pressure to see why faster work can be rejected.",
-  "Run the simulation. The meters and eight work markers show the observed state at the displayed decision.",
-  "Select a plan on the right. Its forecast and recorded selection reason appear below the scene. Red marks a policy rejection.",
-  "Use Next decision or the numbered timeline below to follow the outcome. Open the complete record to verify or download the evidence."
+  "Run the simulation, then Animate flow. Follow the proposal, forecast, policy decision and observed result. Next stage lets you move at your own pace.",
+  "Select a proposed plan to open Futures. Compare its forecast and rejection reason. Fear Memory shows the damage signal through the current step.",
+  "Open Decision Chamber for the selected plan and its tradeoff. Use the decision controls to move through the record. Download the complete run for the evidence."
 ];
 byId("tour-next").addEventListener("click",()=>{
   stopPlayback();tourStep=(tourStep+1)%tourSteps.length;
@@ -124,6 +124,23 @@ function renderFlow(){
   say("flow-logic",chosen ? plans[chosen.candidate.identifier] : "Awaiting plans");
   say("flow-fear",row ? number(row.affect_observer.before.arousal,3)+" · observer only" : "Observer only");
   say("flow-outcome",row ? states[row.actual_outcome.status] || row.actual_outcome.status : "The observed result appears here.");
+  const proposals=byId("flow-plans");proposals.replaceChildren();
+  for(const [id,label] of Object.entries(plans)){
+    const candidate=row?.decision.candidates.find(c=>c.candidate.identifier===id);
+    const button=document.createElement("button"),name=document.createElement("span"),status=document.createElement("span");
+    button.disabled=busy || !candidate;
+    button.setAttribute("data-status",candidate?.status || "pending");
+    name.textContent=label;
+    status.textContent=candidate?.status==="selected" ? "Selected ↗" : candidate?.status==="constraint_rejected" ? "Outside limits" : candidate ? "Inspect ↗" : "—";
+    button.append(name,status);
+    button.addEventListener("click",()=>{selectedCandidate=id;showWorkspace("futures");render();byId("future-name").focus();});
+    proposals.append(button);
+  }
+  fields("flow-resources",row ? [["Health",percent(row.actual_outcome.integrity)],["Reserve",number(row.actual_outcome.quota,0)+" units"]] : [["Health",percent(scenarios[selectedScenario][3])],["Reserve",number(scenarios[selectedScenario][2],0)+" units"]]);
+  for(let phase=0;phase<4;phase++){
+    byId("flow-phase-"+phase).setAttribute("aria-pressed",String(phase===flowPhase));
+    byId("flow-phase-"+phase).disabled=busy || !row;
+  }
   const captions=row ? [
     "The simulator proposed "+row.decision.candidates.length+" plans for the current state.",
     "VALOR compared their forecasts with the fixed policy. The fear signal was recorded separately.",
@@ -134,14 +151,20 @@ function renderFlow(){
   byId("flow-play").disabled=busy || !row;
   byId("flow-step").disabled=busy || !row;
 }
+for(let phase=0;phase<4;phase++){
+  byId("flow-phase-"+phase).addEventListener("click",()=>{
+    if(busy || !run)return;
+    stopPlayback();flowPhase=phase;render();
+  });
+}
 byId("flow-step").addEventListener("click",()=>{
   if(busy || !run)return;
-  stopPlayback();flowPhase=(flowPhase+1)%4;renderFlow();controls();
+  stopPlayback();flowPhase=(flowPhase+1)%4;render();
 });
 byId("flow-play").addEventListener("click",()=>{
   if(busy || !run)return;
   if(flowTimer){stopFlow();return;}
-  stopPlayback();flowPhase=0;renderFlow();controls();
+  stopPlayback();flowPhase=0;render();
   if(reducedMotion.matches){toast("Use Next stage to explore the flow with reduced motion.");return;}
   say("flow-play","Pause flow Ⅱ");
   flowTimer=setInterval(()=>{
@@ -168,6 +191,13 @@ function renderInstruments(row){
     title.textContent=plans[candidate.candidate.identifier];
     metric.textContent=candidate.forecast ? percent(candidate.forecast.failure_probability)+" failure forecast · "+candidate.status.replaceAll("_"," ") : "Forecast unavailable";
     button.append(title,metric);
+    if(candidate.forecast){
+      const rail=document.createElement("meter");
+      rail.className="forecast-rail";rail.setAttribute("aria-hidden","true");
+      rail.setAttribute("min","0");rail.setAttribute("max","1");
+      rail.value=candidate.forecast.failure_probability;
+      button.append(rail);
+    }
     button.addEventListener("click",()=>{
       stopPlayback();selectedCandidate=candidate.candidate.identifier;render();
       byId("future-name").focus();
@@ -184,6 +214,18 @@ function renderInstruments(row){
   say("memory-summary",row ? history.length+" recorded steps · "+number(row.affect_observer.after.arousal,3)+" current activation" : "Run a scenario to inspect the signal history.");
   const ceiling=Math.max(1,...history.flatMap(entry=>[entry.affect_observer.after.arousal,entry.affect_observer.after.observed_harm]));
   say("memory-scale",row ? "Raw signal values · shared scale 0–"+number(ceiling,3)+" · not probabilities" : "Raw signal values, not probabilities.");
+  const plotPoint=(entry,position,key)=>[35+(history.length>1 ? position/(history.length-1)*830 : 0),205-entry.affect_observer.after[key]/ceiling*180];
+  for(const [id,key] of [["memory-harm-line","observed_harm"],["memory-activation-line","arousal"]]){
+    byId(id).setAttribute("points",history.map((entry,position)=>plotPoint(entry,position,key).join(",")).join(" "));
+  }
+  if(row)byId("memory-current-point").removeAttribute("hidden");
+  else byId("memory-current-point").setAttribute("hidden","");
+  if(row){
+    const [x,y]=plotPoint(row,history.length-1,"arousal");
+    byId("memory-current-point").setAttribute("cx",String(x));byId("memory-current-point").setAttribute("cy",String(y));
+  }
+  say("memory-chart-position",row ? "Decision "+(index+1)+" · "+history.length+" observations" : "No observations yet");
+  say("memory-chart-description",row ? "Recorded harm and activation through decision "+(index+1)+" on a shared zero to "+number(ceiling,3)+" scale. Exact values are available under Inspect individual observations." : "Run a scenario to see recorded signal values.");
   for(const [position,entry] of history.entries()){
     const event=document.createElement("div"),label=document.createElement("button");
     label.textContent="Decision "+(position+1);
@@ -206,6 +248,9 @@ function renderInstruments(row){
   fields("chamber-metrics",f ? [["Expected score",number(chosen.score,3)],["Failure forecast",percent(f.failure_probability)],["Time required",number(f.duration_s)+" s"],["Fear influence","Observer only"]] : []);
   const alternative=candidates.filter(c=>c!==chosen && Number.isFinite(c.score)).sort((a,b)=>b.score-a.score)[0];
   say("chamber-alternative",alternative ? plans[alternative.candidate.identifier]+" · score "+number(alternative.score,3)+" · "+alternative.status.replaceAll("_"," ") : "No other scored plan.");
+  say("chamber-alternative-reason",alternative ? alternative.reason_codes.map(code=>reasons[code] || code.replaceAll("_"," ")).join(" ") : "");
+  byId("chamber-inspect").disabled=!alternative;
+  byId("chamber-inspect").dataset.plan=alternative?.candidate.identifier || "";
   say("chamber-outcome",row ? row.actual_outcome.progress+" / 8 completed · "+percent(row.actual_outcome.integrity)+" health · "+(states[row.actual_outcome.status] || row.actual_outcome.status) : "No outcome yet.");
 }
 function render(){
@@ -292,12 +337,18 @@ function showWorkspace(view){
   for(const [name,panel] of [["simulation","study"],["futures","futures"],["memory","memory"],["chamber","chamber"],["execution","execution"],["research","research"]]){
     byId(panel).hidden=name!==view;
     byId("nav-"+name).setAttribute("aria-pressed",String(name===view));
+    if(name===view)byId(panel).scrollIntoView({block:"start",behavior:"instant"});
   }
 }
 for(const name of ["simulation","futures","memory","chamber","execution","research"]){
   byId("nav-"+name).addEventListener("click",()=>{showWorkspace(name);render();});
 }
 byId("instrument-command").addEventListener("click",()=>{showWorkspace("simulation");render();});
+byId("chamber-inspect").addEventListener("click",()=>{
+  if(!run || !byId("chamber-inspect").dataset.plan)return;
+  selectedCandidate=byId("chamber-inspect").dataset.plan;
+  showWorkspace("futures");render();byId("future-name").focus();
+});
 for(const [id,delta] of [["instrument-previous",-1],["instrument-next",1]]){
   byId(id).addEventListener("click",()=>{
     if(!run)return;

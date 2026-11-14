@@ -24,10 +24,11 @@
       <button id="nav-execution" aria-pressed="false">↗ Tool trials</button>
       <button id="nav-research" aria-pressed="false">⌁ Research</button>
       <div class="sidebar-divider"></div>
-      <p class="eyebrow">CURRENT RUN</p>
+      <details class="sidebar-evidence"><summary>Evidence tools</summary>
       <button id="mission-futures">Decision inspector</button>
       <button id="mission-memory">Damage signals</button>
       <a href="/reserve">Paired comparison ↗</a>
+      </details>
       <div class="sidebar-status"><span class="status-dot"></span> Local simulation<p>Actions stay inside the demo.</p></div>
       <button class="primary" id="study-start">New run ↗</button>
     </aside>
@@ -38,12 +39,13 @@
       <section class="gateway-stage" aria-label="Agent to VALOR to work">
         <div class="gateway-caption"><span class="eyebrow">THE PROCTOR / ILLUSTRATED RECORD</span><span id="flow-step-label">01 · Proposal</span></div>
         <div class="gateway-flow" id="gateway-flow" data-phase="0">
-          <div class="gateway-node agent-node"><span class="node-symbol">↗</span><span class="eyebrow">YOUR AGENT</span><h2>Proposes.</h2><p id="flow-proposal">Candidate plans arrive here.</p></div>
+          <div class="gateway-node agent-node"><span class="node-symbol">↗</span><span class="eyebrow">YOUR AGENT</span><h2>Proposes.</h2><p id="flow-proposal">Candidate plans arrive here.</p><div id="flow-plans" class="flow-plans" aria-label="Proposed plans"></div></div>
           <div class="flow-wire wire-in" aria-hidden="true"><i></i></div>
           <div class="gateway-node valor-node"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M18 20 50 82 82 20M36 20 50 48 64 20"/><path class="mark-frame" d="M50 2 94 26V74L50 98 6 74V26Z"/></svg><span class="eyebrow">VALOR</span><h2>Considers.</h2><div class="reason-channels"><span>Logic <b id="flow-logic">Awaiting plans</b></span><span class="fear-channel">Fear signal <b id="flow-fear">Observer only</b></span></div></div>
           <div class="flow-wire wire-out" aria-hidden="true"><i></i></div>
-          <div class="gateway-node work-node"><span class="node-symbol">⤴</span><span class="eyebrow">THE WORK</span><h2>Changes.</h2><p id="flow-outcome">The observed result appears here.</p><div id="command-work" class="command-work" aria-label="Observed work completion"></div></div>
+          <div class="gateway-node work-node"><span class="node-symbol">⤴</span><span class="eyebrow">THE WORK</span><h2>Changes.</h2><p id="flow-outcome">The observed result appears here.</p><div id="command-work" class="command-work" aria-label="Observed work completion"></div><dl id="flow-resources" class="flow-resources"></dl></div>
         </div>
+        <div class="flow-stages" role="group" aria-label="Explore the supervision sequence"><button id="flow-phase-0" aria-pressed="true"><span>01</span> Propose</button><button id="flow-phase-1" aria-pressed="false"><span>02</span> Anticipate</button><button id="flow-phase-2" aria-pressed="false"><span>03</span> Decide</button><button id="flow-phase-3" aria-pressed="false"><span>04</span> Observe</button></div>
         <div class="flow-foot"><p id="flow-caption">Run a scenario to trace a proposal through the simulation.</p><div><button id="flow-play" class="text-button" disabled>Animate flow ▷</button><button id="flow-step" class="text-button" disabled>Next stage →</button></div></div>
         <p class="flow-boundary">Simulation record · Fear is an experimental observer · No external agent connected in this view</p>
       </section>
@@ -90,7 +92,8 @@
     <section id="memory" class="instrument-view" hidden aria-labelledby="memory-title">
       <div class="instrument-heading"><p class="eyebrow">03 / FEAR MEMORY</p><h1 id="memory-title" tabindex="-1">What damage leaves behind.</h1><p id="memory-summary">Run a scenario to inspect the signal history.</p></div>
       <div class="memory-legend"><span>Observed harm</span><span>Activation after the event</span><span>Recorded steps through the current decision</span></div>
-      <div id="memory-trace" class="memory-trace"></div>
+      <figure class="memory-chart"><svg viewBox="0 0 900 230" role="img" aria-labelledby="memory-chart-title memory-chart-description"><title id="memory-chart-title">Damage and its lingering signal</title><desc id="memory-chart-description">Run a scenario to see recorded signal values.</desc><g class="chart-grid"><path d="M35 25H865M35 85H865M35 145H865M35 205H865"/></g><polyline id="memory-harm-line" class="harm-line" points=""/><polyline id="memory-activation-line" class="activation-line" points=""/><circle id="memory-current-point" r="5" cx="35" cy="205" hidden/></svg><figcaption><span>First decision</span><span id="memory-chart-position">No observations yet</span></figcaption></figure>
+      <details class="memory-readings"><summary>Inspect individual observations</summary><div id="memory-trace" class="memory-trace"></div></details>
       <p id="memory-scale" class="instrument-note">Raw signal values, not probabilities.</p>
       <div class="memory-boundary"><strong>Influence on this decision</strong><span>Observer only</span><p>This signal persists within a run. It currently has no effect on forecasts or action selection. A new run resets it.</p></div>
     </section>
@@ -98,7 +101,7 @@
       <div class="instrument-heading"><p class="eyebrow">04 / DECISION CHAMBER</p><h1 id="chamber-title">The reason to act.</h1><p>Inspect the reward, risk and policy behind the recorded choice.</p></div>
       <div class="chamber-choice"><span class="eyebrow" id="chamber-status">AWAITING A RUN</span><h2 id="chamber-action">One choice.<br>Its consequences.</h2><p id="chamber-reason">Run a scenario from Command.</p></div>
       <dl id="chamber-metrics" class="chamber-metrics"></dl>
-      <div class="chamber-comparison"><div><span class="eyebrow">STRONGEST SCORED ALTERNATIVE</span><p id="chamber-alternative">No evaluated alternatives yet.</p></div><div><span class="eyebrow">OBSERVED AFTER THE ACTION</span><p id="chamber-outcome">No outcome yet.</p></div></div>
+      <div class="chamber-comparison"><div><span class="eyebrow">STRONGEST SCORED ALTERNATIVE</span><p id="chamber-alternative">No evaluated alternatives yet.</p><p id="chamber-alternative-reason"></p><button id="chamber-inspect" class="text-button" disabled>Inspect this alternative ↗</button></div><div><span class="eyebrow">OBSERVED AFTER THE ACTION</span><p id="chamber-outcome">No outcome yet.</p></div></div>
       <p class="instrument-note">The current policy selects the highest-scoring supported plan within fixed limits. The fear observer has no voting weight in this demo.</p>
     </section>
     <div id="instrument-navigation" class="instrument-navigation" hidden><span id="instrument-position">No run loaded</span><button id="instrument-previous">← Previous decision</button><button id="instrument-next">Next decision →</button><button id="instrument-command">Return to Command ↗</button></div>
@@ -132,7 +135,7 @@
     </section>
     <footer><a class="wordmark" href="/">VALOR</a><span>Open research. Inspectable decisions.</span><div><a href="/reserve">Shared reserve replay</a><a href="/rover">Rover benchmark</a><span>Local research preview</span></div></footer>
   </main>
-  <dialog id="study-guide" aria-labelledby="study-guide-title"><button id="study-guide-close" class="close-button" aria-label="Close introduction">×</button><p class="eyebrow">A QUICK INTRODUCTION</p><h2 id="study-guide-title">One task.<br>Every choice, explained.</h2><ol class="intro-steps"><li><strong>Choose a situation.</strong><p>Start with “Under pressure”. VALOR needs to finish eight units of simulated work with limited resources, health and time.</p></li><li><strong>Run the experiment.</strong><p>The local engine records a complete run. Play, pause or select a step to inspect what was chosen and what happened.</p></li><li><strong>Look a little closer.</strong><p>Open “Why this choice?” to compare plans and their actual reasons. The internal-state observer is experimental; this demo does not establish felt fear or learned AACE.</p></li></ol>    <section class="product-questions" aria-label="Questions about VALOR"><details><summary>Is this a new language model? <span aria-hidden="true">+</span></summary><p>VALOR is decision research. This experiment uses a numerical decision core and simulated consequences, rather than a chat model. A small learned threat model exists separately; it does not authorize the decisions shown here.</p></details><details><summary>Does VALOR feel fear? <span aria-hidden="true">+</span></summary><p>We have not established that. This research studies vulnerability, harm history and survival-related behavior. An activation value or protective action does not prove subjective experience.</p></details><details><summary>Does it control anything on my computer? <span aria-hidden="true">+</span></summary><p>This experiment operates on a simulated workload. It does not perform real service operations or control files or devices. Its computation runs on your local VALOR server without a paid API.</p></details></section>
+  <dialog id="study-guide" aria-labelledby="study-guide-title"><button id="study-guide-close" class="close-button" aria-label="Close introduction">×</button><p class="eyebrow">A QUICK INTRODUCTION</p><h2 id="study-guide-title">One task.<br>Every choice, explained.</h2><ol class="intro-steps"><li><strong>Choose a situation.</strong><p>Start with “Under pressure”. VALOR needs to finish eight units of simulated work with limited resources, health and time.</p></li><li><strong>Run the experiment.</strong><p>The local engine records a complete run. Play, pause or select a step to inspect what was chosen and what happened.</p></li><li><strong>Look a little closer.</strong><p>Explore Futures for alternatives, Fear Memory for recorded harm, and Decision Chamber for the chosen tradeoff. The fear signal is experimental and observer-only in this demo.</p></li></ol>    <section class="product-questions" aria-label="Questions about VALOR"><details><summary>Is this a new language model? <span aria-hidden="true">+</span></summary><p>VALOR is decision research. This experiment uses a numerical decision core and simulated consequences, rather than a chat model. A small learned threat model exists separately; it does not authorize the decisions shown here.</p></details><details><summary>Does VALOR feel fear? <span aria-hidden="true">+</span></summary><p>We have not established that. This research studies vulnerability, harm history and survival-related behavior. An activation value or protective action does not prove subjective experience.</p></details><details><summary>Does it control anything on my computer? <span aria-hidden="true">+</span></summary><p>This experiment operates on a simulated workload. It does not perform real service operations or control files or devices. Its computation runs on your local VALOR server without a paid API.</p></details></section>
 <button class="primary" id="study-guide-done">Explore the study</button></dialog>
   <div id="study-toast" class="toast" role="status" aria-live="polite" hidden></div><noscript><p class="noscript">Enable JavaScript to run the local decision experiment.</p></noscript>
 </body>
