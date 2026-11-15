@@ -117,7 +117,7 @@ try {
     }
     Write-Host "Ready: $demoUrl"
     if (-not $NoBrowser) { Start-Process $demoUrl }
-    Write-Host 'Press Try VALOR on the page. Use Stop VALOR when you are finished.'
+    Write-Host 'Choose Run simulation in VALOR. Use Stop VALOR when you are finished.'
 } catch {
     Write-Host ''
     Write-Host 'VALOR needs a little help starting.' -ForegroundColor Yellow

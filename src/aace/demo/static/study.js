@@ -11,6 +11,7 @@ const scenarios={
   deadline:["Time is running short.","Eight units of work, five simulated seconds left. A quicker plan may still carry too much risk.",20,1,5]
 };
 const plans={checked:"Work carefully",fast:"Move quickly",restore:"Restore capacity",defer:"Stop this task"};
+const candidateStatus={selected:"Chosen",lower_score:"Lower score",constraint_rejected:"Outside policy",unexplored:"Not evaluated",forecast_invalid:"No evidence",discarded:"Discarded"};
 const states={running:"Work continues",completed:"Work completed",abandoned:"Task set aside",irreversible_outage:"Irreversible outage",deadline_missed:"Deadline missed",quota_depleted:"Resources exhausted"};
 const reasons={failure_limit:"The forecast exceeds the permitted failure risk.",insufficient_recovery_reserve:"The full plan would leave less than the required resource reserve.",capability_floor:"Projected capability is below the required minimum.",mission_deadline:"The full plan exceeds the available task time.",lower_score:"Another admissible plan has a higher score under the same objective.",best_admissible_score:"This plan has the highest score among the supported options that meet the fixed policy.",unqualified_forecast:"The forecast evidence is not qualified for a decision.",unknown_consequences:"Some required consequences are unknown.",not_evaluated:"This option was not evaluated within the budget.",forecast_invalid:"The forecaster did not return usable evidence.",unknown_resource_requirements:"The resource or recovery requirements are incomplete.",forecast_identity_mismatch:"The forecast belongs to a different state or continuation.",forecast_scope_mismatch:"The forecast applies to a different domain.",insufficient_forecast_horizon:"The forecast does not cover the required horizon."};
 let selectedScenario="hazard",run=null,index=0,selectedCandidate=null,busy=false,timer=null,toastTimer=null,guideReturn=null,failureMessage="";
@@ -23,14 +24,17 @@ function controls(){
   byId("study-start").disabled=busy;
   byId("study-run").disabled=busy;
   byId("study").setAttribute("aria-busy",String(busy));
-  say("study-start",busy?"Running…":"New run ↗");
-  say("study-run",busy?"Running…":run?"Run again ↗":"Run simulation ↗");
+  say("study-start",busy?"Running…":"New run");
+  say("study-run",busy?"Running…":run?"Run again":"Run simulation");
   byId("study-play").disabled=busy || !run;
   byId("study-next").disabled=busy || !run || index>=run.decisions.length-1;
   byId("study-export").disabled=busy || !run;
   byId("study-seed").disabled=busy;
   document.querySelectorAll("[data-scenario]").forEach(b=>{b.disabled=busy;b.setAttribute("aria-pressed",String(b.dataset.scenario===selectedScenario));});
-  say("study-play",timer?"Pause":run && index===run.decisions.length-1?"Replay record":"Play record");
+  say("study-play",timer?"Pause run":run && index===run.decisions.length-1?"Replay run":"Play run");
+}
+function explain(candidate){
+  return candidate.reason_codes.map(code=>reasons[code] || code.replaceAll("_"," ")).join(" ");
 }
 function fields(target,entries){
   const container=byId(target);container.replaceChildren();
@@ -92,7 +96,7 @@ function renderScene(state, row, config) {
 let tourStep=0;
 const tourSteps=[
   "Choose a situation above. Start with Under pressure to see why faster work can be rejected.",
-  "Run the simulation, then Animate flow. Follow the proposal, forecast, policy decision and observed result. Next stage lets you move at your own pace.",
+  "Run the simulation, then select Animate trace. Follow the proposal, forecast, policy decision and observed result. Next stage lets you move at your own pace.",
   "Select a proposed plan to open Futures. Compare its forecast and rejection reason. Fear Memory shows the damage signal through the current step.",
   "Open Decision Chamber for the selected plan and its tradeoff. Use the decision controls to move through the record. Download the complete run for the evidence."
 ];
@@ -105,25 +109,29 @@ byId("tour-next").addEventListener("click",()=>{
 let flowTimer=null, flowPhase=0;
 function stopFlow(){
   clearInterval(flowTimer);flowTimer=null;
-  say("flow-play","Animate flow ▷");
+  say("flow-play","Animate trace");
 }
 function renderFlow(){
   const row=run?.decisions[index],chosen=row?.decision.candidates.find(c=>c.status==="selected");
+  const config=scenarios[selectedScenario];
+  const state=row?.actual_outcome;
   byId("gateway-flow").setAttribute("data-phase",String(flowPhase));
+  byId("gateway-flow").setAttribute("data-ready",String(!!row));
   const work=byId("command-work");work.replaceChildren();
   for(let i=0;i<8;i++){
     const unit=document.createElement("span");
     const completed=!!row && i<row.actual_outcome.progress;
     unit.classList.toggle("complete",completed);
     unit.setAttribute("aria-label","Work unit "+(i+1)+(completed?" completed":" pending"));
-    unit.textContent=completed?"✓":String(i+1);work.append(unit);
+    unit.textContent=completed?"✓":"";work.append(unit);
   }
   const stages=["Proposal","Logic + signal","Policy decision","Observed result"];
-  say("flow-step-label","0"+(flowPhase+1)+" · "+stages[flowPhase]);
-  say("flow-proposal",row ? row.decision.candidates.length+" candidate plans" : "Candidate plans arrive here.");
-  say("flow-logic",chosen ? plans[chosen.candidate.identifier] : "Awaiting plans");
+  say("flow-step-label",row ? stages[flowPhase] : "Ready");
+  say("flow-proposal",row ? row.decision.candidates.length+" proposed plans" : "Simulated proposals");
+  say("flow-logic",chosen ? plans[chosen.candidate.identifier] : "Awaiting proposals");
   say("flow-fear",row ? number(row.affect_observer.before.arousal,3)+" · observer only" : "Observer only");
-  say("flow-outcome",row ? states[row.actual_outcome.status] || row.actual_outcome.status : "The observed result appears here.");
+  say("flow-outcome",state ? states[state.status] || state.status : "Awaiting a decision");
+  say("flow-progress",(state?.progress ?? 0)+" / 8");
   const proposals=byId("flow-plans");proposals.replaceChildren();
   for(const [id,label] of Object.entries(plans)){
     const candidate=row?.decision.candidates.find(c=>c.candidate.identifier===id);
@@ -131,12 +139,12 @@ function renderFlow(){
     button.disabled=busy || !candidate;
     button.setAttribute("data-status",candidate?.status || "pending");
     name.textContent=label;
-    status.textContent=candidate?.status==="selected" ? "Selected ↗" : candidate?.status==="constraint_rejected" ? "Outside limits" : candidate ? "Inspect ↗" : "—";
+    status.textContent=candidate ? candidateStatus[candidate.status] || candidate.status : "";
     button.append(name,status);
     button.addEventListener("click",()=>{selectedCandidate=id;showWorkspace("futures");render();byId("future-name").focus();});
     proposals.append(button);
   }
-  fields("flow-resources",row ? [["Health",percent(row.actual_outcome.integrity)],["Reserve",number(row.actual_outcome.quota,0)+" units"]] : [["Health",percent(scenarios[selectedScenario][3])],["Reserve",number(scenarios[selectedScenario][2],0)+" units"]]);
+  fields("flow-resources",[["Health",percent(state?.integrity ?? config[3])],["Reserve",number(state?.quota ?? config[2],0)+" units"]]);
   for(let phase=0;phase<4;phase++){
     byId("flow-phase-"+phase).setAttribute("aria-pressed",String(phase===flowPhase));
     byId("flow-phase-"+phase).disabled=busy || !row;
@@ -150,6 +158,9 @@ function renderFlow(){
   say("flow-caption",captions[flowPhase] || captions[0]);
   byId("flow-play").disabled=busy || !row;
   byId("flow-step").disabled=busy || !row;
+  byId("review-choice").hidden=!row;
+  say("review-action",chosen ? plans[chosen.candidate.identifier] : "No supported action");
+  say("review-reason",chosen ? explain(chosen) : "No proposal was applied.");
 }
 for(let phase=0;phase<4;phase++){
   byId("flow-phase-"+phase).addEventListener("click",()=>{
@@ -166,7 +177,7 @@ byId("flow-play").addEventListener("click",()=>{
   if(flowTimer){stopFlow();return;}
   stopPlayback();flowPhase=0;render();
   if(reducedMotion.matches){toast("Use Next stage to explore the flow with reduced motion.");return;}
-  say("flow-play","Pause flow Ⅱ");
+  say("flow-play","Pause trace");
   flowTimer=setInterval(()=>{
     flowPhase++;renderFlow();
     if(flowPhase===3)stopFlow();
@@ -189,7 +200,8 @@ function renderInstruments(row){
     button.setAttribute("aria-pressed",String(candidate===inspected));
     const title=document.createElement("strong"),metric=document.createElement("span");
     title.textContent=plans[candidate.candidate.identifier];
-    metric.textContent=candidate.forecast ? percent(candidate.forecast.failure_probability)+" failure forecast · "+candidate.status.replaceAll("_"," ") : "Forecast unavailable";
+    const status=candidateStatus[candidate.status] || candidate.status;
+    metric.textContent=candidate.forecast ? percent(candidate.forecast.failure_probability)+" failure forecast · "+status : "Forecast unavailable · "+status;
     button.append(title,metric);
     if(candidate.forecast){
       const rail=document.createElement("meter");
@@ -204,7 +216,7 @@ function renderInstruments(row){
     });
     branches.append(button);
   }
-  say("future-label",inspected ? inspected.status.replaceAll("_"," ").toUpperCase() : "SELECT A BRANCH");
+  say("future-label",inspected ? candidateStatus[inspected.status] || inspected.status : "Plan details");
   say("future-name",inspected ? plans[inspected.candidate.identifier] : "Run a scenario to begin.");
   say("future-reason",inspected ? inspected.reason_codes.map(code=>reasons[code] || code.replaceAll("_"," ")).join(" ") : "");
   const forecast=inspected?.forecast;
@@ -315,13 +327,13 @@ async function begin(){
   if(busy)return;
   showWorkspace("simulation");
   const seed=Number(byId("study-seed").value);
-  if(!Number.isInteger(seed)||seed<0||seed>=2147483648){byId("study-settings").open=true;byId("study-seed").focus();toast("Use a whole starting number from 0 to 2147483647.");return;}
+  byId("scenario-menu").open=false;
+  if(!Number.isInteger(seed)||seed<0||seed>=2147483648){byId("technical-evidence").open=true;byId("study-settings").open=true;byId("study-seed").focus();toast("Use a whole starting number from 0 to 2147483647.");return;}
   stopPlayback();failureMessage="";busy=true;render();
   try{
     const response=await fetch("/api/study",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({scenario:selectedScenario,seed}),signal:AbortSignal.timeout(10000)});
     const data=await response.json();if(!response.ok)throw new Error(data.error || "The study could not start.");
     flowPhase=0;run=data;index=0;selectedCandidate=null;byId("study-timeline").dataset.study="";byId("study-candidates").replaceChildren();
-    if(run.decisions.length>1 && !reducedMotion.matches && !inspectionIds.some(id=>byId(id).open))startPlayback();
     byId("study").scrollIntoView({behavior:reducedMotion.matches?"instant":"smooth",block:"start"});byId("study").focus({preventScroll:true});
   }catch(error){toast(error instanceof TypeError || error.name==="TimeoutError"?"The local engine is not responding. Reopen Start VALOR, then refresh this page.":error.message);failureMessage=run?"The new study could not start. The previous record is still available.":"The study could not start. Reopen Start VALOR, then try again.";}
   finally{busy=false;render();}
@@ -344,6 +356,7 @@ for(const name of ["simulation","futures","memory","chamber","execution","resear
   byId("nav-"+name).addEventListener("click",()=>{showWorkspace(name);render();});
 }
 byId("instrument-command").addEventListener("click",()=>{showWorkspace("simulation");render();});
+byId("review-inspect").addEventListener("click",()=>{showWorkspace("chamber");render();byId("chamber-title").focus();});
 byId("chamber-inspect").addEventListener("click",()=>{
   if(!run || !byId("chamber-inspect").dataset.plan)return;
   selectedCandidate=byId("chamber-inspect").dataset.plan;
@@ -358,14 +371,20 @@ for(const [id,delta] of [["instrument-previous",-1],["instrument-next",1]]){
 byId("inspector-close").addEventListener("click",()=>{byId("study-options").open=false;byId("study-run").focus();});
 for (const [link, panel] of [["mission-futures","study-options"],["mission-memory","study-internals"]]) {
   byId(link).addEventListener("click",()=>{
-    showWorkspace("simulation");byId(panel).open=true;render();
+    showWorkspace("simulation");byId("technical-evidence").open=true;byId(panel).open=true;render();
     if(panel==="study-options")byId("inspector-close").focus();
     else byId(panel).scrollIntoView({block:"center",behavior:"instant"});
   });
 }
 byId("study-next").addEventListener("click",()=>{stopPlayback();if(run && index<run.decisions.length-1){index++;selectedCandidate=null;}render();});
 byId("study-play").addEventListener("click",()=>{if(!run)return;if(timer)stopPlayback();else{if(index>=run.decisions.length-1){index=0;selectedCandidate=null;}startPlayback();}render();});
-document.querySelectorAll("[data-scenario]").forEach(button=>button.addEventListener("click",()=>{if(busy)return;stopPlayback();selectedScenario=button.dataset.scenario;run=null;index=0;selectedCandidate=null;failureMessage="";render();}));
+document.querySelectorAll("[data-scenario]").forEach(button=>button.addEventListener("click",()=>{
+  if(busy)return;
+  byId("scenario-menu").open=false;
+  byId("scenario-label").focus();
+  if(selectedScenario===button.dataset.scenario)return;
+  stopPlayback();selectedScenario=button.dataset.scenario;run=null;index=0;flowPhase=0;selectedCandidate=null;failureMessage="";render();
+}));
 for(const id of inspectionIds)byId(id).addEventListener("toggle",()=>{if(byId(id).open){stopPlayback();render();}});
 reducedMotion.addEventListener?.("change",()=>{if(reducedMotion.matches){stopPlayback();render();}});
 document.addEventListener("visibilitychange",()=>{if(document.hidden){stopPlayback();render();}});
