@@ -39,6 +39,7 @@ const get=id=>elements.get(id);
   assert.equal(get("research").hidden,true);
   await get("study-start").emit("click");
   assert.equal(get("work-count").textContent,studies.hazard.decisions[0].actual_outcome.progress);
+  assert.equal(get("flow-progress").textContent,"0 / 8","the proposal starts at the pre-action state");
   assert.match(get("lens-danger").textContent,/permitted failure risk/);
   assert.match(get("lens-belief").textContent,/completion forecast for the chosen plan/);
   assert.match(get("lens-choice").textContent,/simulator applied its next action/);
@@ -179,6 +180,7 @@ const get=id=>elements.get(id);
     assert.equal(get("gateway-flow").attributes["data-phase"],String(phase));
   }
   assert.equal(intervals.size,0,"illustrated flow stops after the observed result");
+  assert.equal(get("flow-progress").textContent,row.actual_outcome.progress+" / 8");
   assert.equal(get("command-work").children.filter(e=>e.classes.has("complete")).length,row.actual_outcome.progress);
   get("flow-play").emit("click");
   get("nav-memory").emit("click");

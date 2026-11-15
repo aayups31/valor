@@ -114,23 +114,30 @@ function stopFlow(){
 function renderFlow(){
   const row=run?.decisions[index],chosen=row?.decision.candidates.find(c=>c.status==="selected");
   const config=scenarios[selectedScenario];
-  const state=row?.actual_outcome;
+  const before=index ? run?.decisions[index-1]?.actual_outcome : run?.initial_state;
+  const observing=flowPhase===3;
+  const state=observing ? row?.actual_outcome : before;
   byId("gateway-flow").setAttribute("data-phase",String(flowPhase));
   byId("gateway-flow").setAttribute("data-ready",String(!!row));
   const work=byId("command-work");work.replaceChildren();
   for(let i=0;i<8;i++){
     const unit=document.createElement("span");
-    const completed=!!row && i<row.actual_outcome.progress;
+    const completed=i<(state?.progress ?? 0);
     unit.classList.toggle("complete",completed);
     unit.setAttribute("aria-label","Work unit "+(i+1)+(completed?" completed":" pending"));
     unit.textContent=completed?"✓":"";work.append(unit);
   }
   const stages=["Proposal","Logic + signal","Policy decision","Observed result"];
   say("flow-step-label",row ? stages[flowPhase] : "Ready");
-  say("flow-proposal",row ? row.decision.candidates.length+" proposed plans" : "Simulated proposals");
-  say("flow-logic",chosen ? plans[chosen.candidate.identifier] : "Awaiting proposals");
+  say("flow-proposal",row ? row.decision.candidates.length+" proposed plans" : "Possible plans");
+  let logic="Awaiting proposals";
+  if(row && flowPhase===0)logic="Plans received";
+  if(row && flowPhase===1)logic=row.decision.forecast_calls+" forecasts compared";
+  if(row && flowPhase>=2)logic=chosen ? plans[chosen.candidate.identifier] : "No supported plan";
+  say("flow-logic",logic);
   say("flow-fear",row ? number(row.affect_observer.before.arousal,3)+" · observer only" : "Observer only");
-  say("flow-outcome",state ? states[state.status] || state.status : "Awaiting a decision");
+  const workStatus=row && state ? observing ? states[state.status] || state.status : "Before this action" : "Awaiting a decision";
+  say("flow-outcome",workStatus);
   say("flow-progress",(state?.progress ?? 0)+" / 8");
   const proposals=byId("flow-plans");proposals.replaceChildren();
   for(const [id,label] of Object.entries(plans)){
@@ -139,12 +146,13 @@ function renderFlow(){
     button.disabled=busy || !candidate;
     button.setAttribute("data-status",candidate?.status || "pending");
     name.textContent=label;
-    status.textContent=candidate ? candidateStatus[candidate.status] || candidate.status : "";
+    status.textContent=candidate && flowPhase>=2 ? candidateStatus[candidate.status] || candidate.status : "";
     button.append(name,status);
     button.addEventListener("click",()=>{selectedCandidate=id;showWorkspace("futures");render();byId("future-name").focus();});
     proposals.append(button);
   }
-  fields("flow-resources",[["Health",percent(state?.integrity ?? config[3])],["Reserve",number(state?.quota ?? config[2],0)+" units"]]);
+  const remainingTime=Math.max(0,(run?.deadline_s ?? config[4])-(state?.elapsed_s ?? 0));
+  fields("flow-resources",[["Health",percent(state?.integrity ?? config[3])],["Reserve",number(state?.quota ?? config[2],0)+" units"],["Time left",number(remainingTime,0)+" s"]]);
   for(let phase=0;phase<4;phase++){
     byId("flow-phase-"+phase).setAttribute("aria-pressed",String(phase===flowPhase));
     byId("flow-phase-"+phase).disabled=busy || !row;
@@ -153,7 +161,7 @@ function renderFlow(){
     "The simulator proposed "+row.decision.candidates.length+" plans for the current state.",
     "VALOR compared their forecasts with the fixed policy. The fear signal was recorded separately.",
     chosen ? plans[chosen.candidate.identifier]+" was selected. Permission status · "+row.commit.status : "No supported plan was selected.",
-    row.actual_outcome.progress+" of 8 work units completed after this action."
+    observedChange(before,row.actual_outcome)
   ] : ["Run a scenario to trace a proposal through the simulation."];
   say("flow-caption",captions[flowPhase] || captions[0]);
   byId("flow-play").disabled=busy || !row;
@@ -161,6 +169,12 @@ function renderFlow(){
   byId("review-choice").hidden=!row;
   say("review-action",chosen ? plans[chosen.candidate.identifier] : "No supported action");
   say("review-reason",chosen ? explain(chosen) : "No proposal was applied.");
+}
+function observedChange(before,after){
+  if(!before)return after.progress+" of 8 work units completed.";
+  if(after.progress!==before.progress)return before.progress+" → "+after.progress+" of 8 work units completed.";
+  if(after.integrity!==before.integrity)return "System health changed from "+percent(before.integrity)+" to "+percent(after.integrity)+".";
+  return (states[after.status] || after.status)+" · "+after.progress+" of 8 work units completed.";
 }
 for(let phase=0;phase<4;phase++){
   byId("flow-phase-"+phase).addEventListener("click",()=>{
@@ -308,7 +322,7 @@ function render(){
   say("record-caption","Recorded simulation · "+number(row.decision.decision_ms,2)+" ms to decide · "+row.decision.forecast_calls+" forecasts · Playback changes the view, not the decisions.");
   if(timeline.dataset.study!==run.study_id){
     timeline.replaceChildren();timeline.dataset.study=run.study_id;
-    run.decisions.forEach((decision,i)=>{const li=document.createElement("li"),button=document.createElement("button");button.textContent=String(i+1).padStart(2,"0");button.setAttribute("aria-label","Inspect decision "+(i+1));button.addEventListener("click",()=>{stopPlayback();index=i;selectedCandidate=null;render();});li.append(button);timeline.append(li);});
+    run.decisions.forEach((decision,i)=>{const li=document.createElement("li"),button=document.createElement("button");button.textContent=String(i+1).padStart(2,"0");button.setAttribute("aria-label","Inspect decision "+(i+1));button.addEventListener("click",()=>{stopPlayback();index=i;flowPhase=3;selectedCandidate=null;render();});li.append(button);timeline.append(li);});
   }
   [...timeline.children].forEach((li,i)=>{if(i===index)li.firstChild.setAttribute("aria-current","step");else li.firstChild.removeAttribute("aria-current");});
   const list=byId("study-candidates");
@@ -334,12 +348,12 @@ async function begin(){
     const response=await fetch("/api/study",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({scenario:selectedScenario,seed}),signal:AbortSignal.timeout(10000)});
     const data=await response.json();if(!response.ok)throw new Error(data.error || "The study could not start.");
     flowPhase=0;run=data;index=0;selectedCandidate=null;byId("study-timeline").dataset.study="";byId("study-candidates").replaceChildren();
-    byId("study").scrollIntoView({behavior:reducedMotion.matches?"instant":"smooth",block:"start"});byId("study").focus({preventScroll:true});
+    if(!byId("study").hidden)byId("study").focus({preventScroll:true});
   }catch(error){toast(error instanceof TypeError || error.name==="TimeoutError"?"The local engine is not responding. Reopen Start VALOR, then refresh this page.":error.message);failureMessage=run?"The new study could not start. The previous record is still available.":"The study could not start. Reopen Start VALOR, then try again.";}
   finally{busy=false;render();}
 }
 function startPlayback(){
-  stopPlayback();timer=setInterval(()=>{if(index>=run.decisions.length-1){stopPlayback();}else{index++;selectedCandidate=null;if(index===run.decisions.length-1)stopPlayback();}render();},1400);
+  stopPlayback();flowPhase=3;timer=setInterval(()=>{if(index>=run.decisions.length-1){stopPlayback();}else{index++;selectedCandidate=null;if(index===run.decisions.length-1)stopPlayback();}render();},1400);
 }
 byId("study-start").addEventListener("click",begin);
 byId("study-run").addEventListener("click",begin);
@@ -349,7 +363,11 @@ function showWorkspace(view){
   for(const [name,panel] of [["simulation","study"],["futures","futures"],["memory","memory"],["chamber","chamber"],["execution","execution"],["research","research"]]){
     byId(panel).hidden=name!==view;
     byId("nav-"+name).setAttribute("aria-pressed",String(name===view));
-    if(name===view)byId(panel).scrollIntoView({block:"start",behavior:"instant"});
+    if(name===view){
+      byId("skip-content").setAttribute("href","#"+panel);
+      byId(panel).setAttribute("tabindex","-1");
+      byId(panel).scrollIntoView({block:"start",behavior:"instant"});
+    }
   }
 }
 for(const name of ["simulation","futures","memory","chamber","execution","research"]){
@@ -376,7 +394,7 @@ for (const [link, panel] of [["mission-futures","study-options"],["mission-memor
     else byId(panel).scrollIntoView({block:"center",behavior:"instant"});
   });
 }
-byId("study-next").addEventListener("click",()=>{stopPlayback();if(run && index<run.decisions.length-1){index++;selectedCandidate=null;}render();});
+byId("study-next").addEventListener("click",()=>{stopPlayback();if(run && index<run.decisions.length-1){index++;selectedCandidate=null;flowPhase=3;}render();});
 byId("study-play").addEventListener("click",()=>{if(!run)return;if(timer)stopPlayback();else{if(index>=run.decisions.length-1){index=0;selectedCandidate=null;}startPlayback();}render();});
 document.querySelectorAll("[data-scenario]").forEach(button=>button.addEventListener("click",()=>{
   if(busy)return;

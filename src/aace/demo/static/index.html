@@ -11,7 +11,7 @@
   <script src="/study.js" defer></script>
 </head>
 <body class="study-page app-page">
-  <a class="skip-link" href="#study">Skip to the experiment</a>
+  <a class="skip-link" id="skip-content" href="#study">Skip to the active view</a>
   <header class="site-header">
     <a class="wordmark" href="/" aria-label="VALOR home"><svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h4l5 12 5-12h4L12 22zM10 5l2 5 2-5z"/></svg><span>VALOR</span></a>
     <span class="header-context">Supervision workspace</span>
@@ -29,7 +29,6 @@
         <button id="nav-execution" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 5h6v6m0-6-8 8m7 1v4H6V6h4"/></svg><span>Tool trials</span></button><button id="nav-research" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4h6m-5 0v6l-5 8a1 1 0 0 0 1 2h12a1 1 0 0 0 1-2l-5-8V4M8 15h8"/></svg><span>Research</span></button>
         <a href="/reserve"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 6h12m-4-3 4 3-4 3M17 18H5m4-3-4 3 4 3"/></svg><span>Comparison</span></a>
       </div>
-      <div class="rail-bottom"><span class="status-dot"></span> Simulation environment</div>
     </aside>
     <section id="study" class="study-workspace" aria-labelledby="command-title" tabindex="-1">
       <div class="view-heading">
@@ -54,20 +53,20 @@
         <div class="gateway-caption"><h2>Supervision trace</h2><span id="flow-step-label">Ready</span></div>
         <div class="gateway-flow" id="gateway-flow" data-phase="0">
           <div class="gateway-node agent-node">
-            <div class="node-heading"><span class="node-symbol"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l4 4-4 4m7 0h7"/></svg></span><div><h3>Agent</h3><p id="flow-proposal">Simulated proposals</p></div></div>
+            <div class="node-heading"><span class="node-symbol"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l4 4-4 4m7 0h7"/></svg></span><div><h3>Agent</h3><p id="flow-proposal">Possible plans</p></div></div>
             <div id="flow-plans" class="flow-plans" aria-label="Proposed plans"></div>
           </div>
           <div class="flow-wire wire-in" aria-hidden="true"><i></i></div>
           <div class="gateway-node valor-node">
             <div class="core-dial" aria-hidden="true"><div class="dial-ring"></div><svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h4l5 12 5-12h4L12 22zM10 5l2 5 2-5z"/></svg></div>
             <h3>VALOR</h3>
-            <div class="reason-channels"><span>Policy check<b id="flow-logic">Awaiting proposals</b></span><span class="fear-channel">Fear memory<b id="flow-fear">Observer only</b></span></div>
+            <div class="reason-channels"><span>Logic · Policy check<b id="flow-logic">Awaiting proposals</b></span><span class="fear-channel">Fear memory<b id="flow-fear">Observer only</b></span></div>
           </div>
           <div class="flow-wire wire-out" aria-hidden="true"><i></i></div>
           <div class="gateway-node work-node">
             <div class="node-heading"><span class="node-symbol"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4-8 4-8-4Zm0 4 8 4 8-4m-16 4 8 4 8-4"/></svg></span><div><h3>Work</h3><p id="flow-outcome">Awaiting a decision</p></div></div>
             <div class="work-readout"><strong id="flow-progress">0 / 8</strong><span>units completed</span></div>
-            <div id="command-work" class="command-work" aria-label="Observed work completion"></div>
+            <div id="command-work" class="command-work" aria-label="Work completion at this stage"></div>
             <dl id="flow-resources" class="flow-resources"></dl>
           </div>
         </div>

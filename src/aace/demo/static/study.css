@@ -43,7 +43,7 @@
 }
 .header-actions { display: flex; align-items: center; gap: 16px; margin-left: auto; }
 .app-mode { color: var(--muted); font-size: 11px; white-space: nowrap; }
-.app-mode i, .status-dot {
+.app-mode i {
   display: inline-block;
   width: 6px;
   height: 6px;
@@ -115,7 +115,6 @@
 .app-sidebar button[aria-pressed="true"] { color: var(--accent); background: #242119; border-color: #3a3223; }
 .app-sidebar .icon { width: 16px; height: 16px; }
 .rail-secondary { margin-top: 16px; padding-top: 9px; border-top: 1px solid var(--line); }
-.rail-bottom { margin-top: auto; padding: 15px 9px 0; color: var(--muted); font-size: 11px; }
 .study-page main > section { padding: 27px 0 0; scroll-margin-top: calc(var(--bar) + 8px); }
 .view-heading { margin: 0 0 20px; }
 .view-heading h1 { color: var(--ink); font-size: clamp(29px, 3.4vw, 43px); font-weight: 590; letter-spacing: -.05em; }
@@ -216,7 +215,7 @@
 }
 .node-heading { display: flex; gap: 9px; align-items: center; padding: 1px 0 10px; }
 .node-heading h3 { font-size: 14px; font-weight: 620; letter-spacing: -.015em; }
-.node-heading p { margin-top: 3px; color: var(--muted); font-size: 10px; line-height: 1.3; }
+.node-heading p { margin-top: 3px; color: var(--muted); font-size: 11px; line-height: 1.3; }
 .flow-plans { min-height: 116px; border-top: 1px solid var(--line); }
 .flow-plans button {
   display: flex;
@@ -228,7 +227,7 @@
   min-height: 31px;
   border-bottom: 1px solid #292a2e;
   text-align: left;
-  font-size: 11px;
+  font-size: 12px;
 }
 .flow-plans button:last-child { border-bottom: 0; }
 .flow-plans button:disabled { opacity: .72; }
@@ -273,7 +272,7 @@
 .command-work { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; margin: 9px 0 13px; }
 .command-work span { height: 14px; border: 1px solid #3b3d42; border-radius: 3px; text-align: center; font: 9px/12px var(--mono); }
 .command-work .complete { background: #243b30; border-color: #55866c; color: #ccead6; }
-.flow-resources { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin: 0; padding-top: 8px; border-top: 1px solid var(--line); }
+.flow-resources { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0; padding-top: 8px; border-top: 1px solid var(--line); }
 .flow-resources dt { font-size: 10px; color: var(--muted); }
 .flow-resources dd { margin: 2px 0 0; font: 12px var(--mono); }
 .flow-wire { position: relative; height: 1px; background: #8b7851; }
@@ -419,10 +418,10 @@
 @media (max-width: 790px) {
   .study-page { --bar: 50px; }
   .study-page main { padding-inline: 14px; }
-  .study-page main > section { padding-top: 17px; scroll-margin-top: 147px; }
+  .study-page main > section { padding-top: 17px; scroll-margin-top: 155px; }
   .app-sidebar { position: sticky; top: var(--bar); inset-inline: auto; bottom: auto; width: auto; margin-inline: -14px; padding: 6px 12px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-right: 0; border-bottom: 1px solid var(--line); }
-  .app-sidebar > .rail-label, .rail-secondary .rail-label, .rail-bottom { display: none; }
-  .app-sidebar button, .app-sidebar a { justify-content: center; padding: 4px; gap: 4px; font-size: 11px; min-height: 34px; }
+  .app-sidebar > .rail-label, .rail-secondary .rail-label { display: none; }
+  .app-sidebar button, .app-sidebar a { justify-content: center; padding: 4px; gap: 4px; font-size: 11px; min-height: 44px; white-space: normal; text-align: center; line-height: 1.25; }
   .rail-secondary { grid-column: 1/-1; display: flex; margin: 0; padding: 0; border: 0; }
   .rail-secondary > * { flex: 1; }
   .gateway-flow { min-height: 274px; }
