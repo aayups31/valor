@@ -300,6 +300,8 @@
   .study-page { --rail: 161px; }
 }
 @media (max-width: 650px) {
+  .study-page .header-actions { gap: 4px; }
+  .study-page .header-actions .app-mode { display: none; }
   .command-bar { flex-wrap: wrap; }
   .command-bar h1 { width: 100%; }
   .command-bar .scenario-menu { flex: 1; min-width: 0; }

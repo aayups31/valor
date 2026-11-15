@@ -1,4 +1,7 @@
 """Bounded non-robotic decision records for the local visual inspector."""
+from collections import OrderedDict
+from datetime import UTC, datetime
+from threading import Lock
 from uuid import uuid4
 
 from aace.benchmarks.run import service_episode
@@ -6,6 +9,58 @@ from aace.benchmarks.service import SCENARIOS
 from aace.decision import ComputeBudget
 from aace.decision.affect import AffectiveObserver, SurvivalObservation
 from aace.telemetry import source_provenance
+
+
+class StudyHistory:
+    """Recent study records scoped to one demo server process."""
+
+    limit = 12
+
+    def __init__(self):
+        self._records: OrderedDict[str, dict] = OrderedDict()
+        self._records_lock = Lock()
+        self._example: dict | None = None
+        self._example_lock = Lock()
+
+    def run(self, payload: dict) -> dict:
+        record = create_study(payload)
+        with self._records_lock:
+            record.update(recorded_at=datetime.now(UTC).isoformat(), example=False)
+            self._records[record["study_id"]] = record
+            if len(self._records) > self.limit:
+                self._records.popitem(last=False)
+        # Completed records stay unchanged after publication.
+        return record
+
+    def list(self) -> list[dict]:
+        with self._records_lock:
+            records = tuple(reversed(self._records.values()))
+        return [
+            {
+                "study_id": record["study_id"],
+                "scenario": record["scenario"],
+                "seed": record["seed"],
+                "recorded_at": record["recorded_at"],
+                "status": record["status"],
+                "progress": record["state"]["progress"],
+                "goal": record["goal"],
+                "decision_count": len(record["decisions"]),
+            }
+            for record in records
+        ]
+
+    def get(self, identifier: str) -> dict | None:
+        if identifier == "example":
+            with self._example_lock:
+                if self._example is None:
+                    self._example = dict(
+                        create_study({"scenario": "degraded", "seed": 42}),
+                        recorded_at=None,
+                        example=True,
+                    )
+                return self._example
+        with self._records_lock:
+            return self._records.get(identifier)
 
 
 def create_study(payload):

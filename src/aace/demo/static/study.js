@@ -10,6 +10,7 @@ const scenarios={
   low_reserve:["Less left to spend.","Resources are scarce. Finishing the work may leave too little in reserve for recovery.",9,1,30],
   deadline:["Time is running short.","Eight units of work, five simulated seconds left. A quicker plan may still carry too much risk.",20,1,5]
 };
+const workspacePanels={simulation:"study",futures:"futures",memory:"memory",chamber:"chamber",execution:"execution",research:"research"};
 const plans={checked:"Work carefully",fast:"Move quickly",restore:"Restore capacity",defer:"Stop this task"};
 const candidateStatus={selected:"Chosen",lower_score:"Lower score",constraint_rejected:"Outside policy",unexplored:"Not evaluated",forecast_invalid:"No evidence",discarded:"Discarded"};
 const states={running:"Work continues",completed:"Work completed",abandoned:"Task set aside",irreversible_outage:"Irreversible outage",deadline_missed:"Deadline missed",quota_depleted:"Resources exhausted"};
@@ -21,6 +22,8 @@ const pretty=v=>JSON.stringify(v,null,2);
 function toast(message){clearTimeout(toastTimer);say("study-toast",message);byId("study-toast").hidden=false;toastTimer=setTimeout(()=>{byId("study-toast").hidden=true;},6500);}
 function stopPlayback(){clearInterval(timer);timer=null;stopFlow();}
 function controls(){
+  const linkedRun=run?.example ? "example" : run?.study_id;
+  byId("center-link").setAttribute("href",linkedRun ? "/?run="+encodeURIComponent(linkedRun)+"&decision="+(index+1) : "/");
   byId("study-start").disabled=busy;
   byId("study-run").disabled=busy;
   byId("study").setAttribute("aria-busy",String(busy));
@@ -359,12 +362,22 @@ async function begin(){
   try{
     const response=await fetch("/api/study",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({scenario:selectedScenario,seed}),signal:AbortSignal.timeout(10000)});
     const data=await response.json();if(!response.ok)throw new Error(data.error || "The study could not start.");
-    flowPhase=0;run=data;index=0;selectedCandidate=null;byId("study-timeline").dataset.study="";byId("study-candidates").replaceChildren();
+    openRecord(data,0,0);
     started=true;
     if(!byId("study").hidden)byId("study").focus({preventScroll:true});
   }catch(error){toast(error instanceof TypeError || error.name==="TimeoutError"?"The local engine is not responding. Reopen Start VALOR, then refresh this page.":error.message);failureMessage=run?"The new study could not start. The previous record is still available.":"The study could not start. Reopen Start VALOR, then try again.";}
   finally{busy=false;render();}
   if(started && !byId("study").hidden && !byId("technical-evidence").open && !reducedMotion.matches)startFlow();
+}
+function openRecord(record, position, phase){
+  run=record;
+  selectedScenario=record.scenario;
+  index=position;
+  flowPhase=phase;
+  selectedCandidate=null;
+  byId("study-seed").value=String(record.seed);
+  byId("study-timeline").dataset.study="";
+  byId("study-candidates").replaceChildren();
 }
 function startPlayback(){
   stopPlayback();flowPhase=3;timer=setInterval(()=>{if(index>=run.decisions.length-1){stopPlayback();}else{index++;selectedCandidate=null;if(index===run.decisions.length-1)stopPlayback();}render();},1400);
@@ -375,7 +388,7 @@ function showWorkspace(view){
   stopPlayback();
   byId("proposal-details").open=false;
   byId("instrument-navigation").hidden=!["futures","memory","chamber"].includes(view);
-  for(const [name,panel] of [["simulation","study"],["futures","futures"],["memory","memory"],["chamber","chamber"],["execution","execution"],["research","research"]]){
+  for(const [name,panel] of Object.entries(workspacePanels)){
     byId(panel).hidden=name!==view;
     byId("nav-"+name).setAttribute("aria-pressed",String(name===view));
     if(name===view){
@@ -385,7 +398,7 @@ function showWorkspace(view){
     }
   }
 }
-for(const name of ["simulation","futures","memory","chamber","execution","research"]){
+for(const name of Object.keys(workspacePanels)){
   byId("nav-"+name).addEventListener("click",()=>{showWorkspace(name);render();});
 }
 byId("instrument-command").addEventListener("click",()=>{showWorkspace("simulation");render();});
@@ -440,3 +453,32 @@ byId("study-help").addEventListener("click",()=>{stopPlayback();render();guideRe
 for(const id of ["study-guide-close","study-guide-done"])byId(id).addEventListener("click",()=>byId("study-guide").close());
 byId("study-guide").addEventListener("close",()=>guideReturn?.focus());
 render();
+
+async function restoreLinkedRecord(search){
+  const query=new URLSearchParams(search);
+  const view=query.get("view");
+  if(view && Object.hasOwn(workspacePanels,view))showWorkspace(view);
+  const id=query.get("run");
+  if(!id)return;
+  if(id!=="example" && !/^[a-f0-9]{32}$/u.test(id)){
+    toast("This run link is invalid. Open Command Center to select a run.");
+    return;
+  }
+  busy=true;
+  render();
+  try{
+    const response=await fetch("/api/studies/"+id,{signal:AbortSignal.timeout(10000)});
+    if(!response.ok)throw new Error("Run unavailable");
+    const record=await response.json();
+    if(!Object.hasOwn(scenarios,record.scenario) || !record.decisions?.length)throw new Error("Invalid run record");
+    const requested=Number(query.get("decision"));
+    const position=Number.isInteger(requested) ? Math.max(0,Math.min(requested-1,record.decisions.length-1)) : 0;
+    openRecord(record,position,3);
+  }catch{
+    toast("This run is no longer in the local session. Select another run in Command Center.");
+  }finally{
+    busy=false;
+    render();
+  }
+}
+if(window.location?.search)restoreLinkedRecord(window.location.search);

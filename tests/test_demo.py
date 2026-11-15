@@ -63,6 +63,9 @@ def test_external_stop_has_a_real_record():
 
 def test_http_assets_and_session_export(server):
     status, headers, html = request(server, "/")
+    assert status == 200 and b'/dashboard.js' in html
+    assert "frame-ancestors 'none'" in headers["Content-Security-Policy"]
+    status, headers, html = request(server, "/studio")
     assert status == 200 and b'id="study-records"' in html
     assert "frame-ancestors 'none'" in headers["Content-Security-Policy"]
     _, _, body = request(server, "/api/session", {"scenario": "benign", "seed": 20,
@@ -80,9 +83,9 @@ def test_http_assets_and_session_export(server):
 
 def test_launcher_health_identifies_interface_and_all_frontend_assets(server):
     _, _, body = request(server, "/api/health")
-    assert json.loads(body) == {"application": "valor", "interface_version": 7,
+    assert json.loads(body) == {"application": "valor", "interface_version": 8,
                                 "schema_version": "1.0"}
-    for path in ("/app.js", "/evidence.js", "/style.css"):
+    for path in ("/app.js", "/evidence.js", "/style.css", "/dashboard.js", "/dashboard.css"):
         status, headers, body = request(server, path)
         assert status == 200 and body
         assert "no-store" == headers["Cache-Control"]
@@ -114,6 +117,9 @@ def test_reserve_replay_matches_the_frozen_damaged_case(server):
 def test_cross_origin_and_unknown_assets_are_rejected(server):
     with pytest.raises(HTTPError) as error:
         request(server, "/api/session", {}, {"Origin": "https://example.com"})
+    assert error.value.code == 403
+    with pytest.raises(HTTPError) as error:
+        request(server, "/api/studies/example", headers={"Origin": "https://example.com"})
     assert error.value.code == 403
     with pytest.raises(HTTPError) as error:
         request(server, "/../pyproject.toml")

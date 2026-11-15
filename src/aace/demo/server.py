@@ -11,7 +11,7 @@ from uuid import uuid4
 from aace.envs.scenarios import SCENARIOS
 from aace.runtime import Session
 from aace.schemas import SCHEMA_VERSION
-from aace.demo.study import create_study
+from aace.demo.study import StudyHistory
 from aace.demo.reserve import reserve_replay
 
 CONTROLLERS = ("heuristic_direct", "heuristic_detour", "oracle_planner")
@@ -160,6 +160,7 @@ class DemoServer(ThreadingHTTPServer):
 
     def __init__(self, port: int):
         self.manager = SessionManager()
+        self.studies = StudyHistory()
         super().__init__(("127.0.0.1", port), Handler)
 
     def server_close(self):
@@ -200,8 +201,16 @@ class Handler(BaseHTTPRequestHandler):
             return
         path = urlsplit(self.path).path
         if path == "/api/health":
-            return self._respond({"application": "valor", "interface_version": 7,
+            return self._respond({"application": "valor", "interface_version": 8,
                                   "schema_version": SCHEMA_VERSION})
+        if path == "/api/studies":
+            return self._respond({"runs": self.server.studies.list()})
+        if path.startswith("/api/studies/"):
+            identifier = path.removeprefix("/api/studies/")
+            record = self.server.studies.get(identifier)
+            if record is None:
+                return self._respond({"error": "Run not found. It may have expired from this session."}, 404)
+            return self._respond(record)
         if path == "/api/scenarios":
             return self._respond({"scenarios": list(SCENARIOS), "controllers": CONTROLLERS,
                                   "forecast_notice": "Oracle dynamics, finite samples; learned predictions pending"})
@@ -220,7 +229,10 @@ class Handler(BaseHTTPRequestHandler):
                     return self._respond(pair.view())
             except ValueError as error:
                 return self._respond({"error": str(error)}, 404)
-        assets = {"/": ("index.html", "text/html; charset=utf-8"),
+        assets = {"/": ("dashboard.html", "text/html; charset=utf-8"),
+                  "/studio": ("index.html", "text/html; charset=utf-8"),
+                  "/dashboard.css": ("dashboard.css", "text/css; charset=utf-8"),
+                  "/dashboard.js": ("dashboard.js", "text/javascript; charset=utf-8"),
                   "/rover": ("rover.html", "text/html; charset=utf-8"),
                   "/reserve": ("reserve.html", "text/html; charset=utf-8"),
                   "/reserve.css": ("reserve.css", "text/css; charset=utf-8"),
@@ -251,7 +263,7 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError("Expected a JSON object")
             path = urlsplit(self.path).path
             if path == "/api/study":
-                return self._respond(create_study(payload), 201)
+                return self._respond(self.server.studies.run(payload), 201)
             if path == "/api/session":
                 return self._respond(self.server.manager.create(payload).view(), 201)
             segments = path.strip("/").split("/")

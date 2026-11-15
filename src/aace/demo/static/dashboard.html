@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101011">
+  <meta name="description" content="Inspect VALOR's local simulation decisions, forecasts, and observed outcomes.">
+  <title>VALOR · Command Center</title>
+  <link rel="stylesheet" href="/dashboard.css">
+  <script src="/dashboard.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#overview">Skip to Command Center</a>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="VALOR home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h4l5 12 5-12h4L12 22zM10 5l2 5 2-5z"/></svg> VALOR</a>
+    <div class="workspace-identity"><span></span> Supervision workspace</div>
+    <div class="environment"><i></i> Local simulation</div>
+  </header>
+
+  <nav class="sidebar" aria-label="Workspace">
+    <p class="nav-caption">Workspace</p>
+    <a href="#overview" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="3"/><path d="M8 9h3v3H8zm0 7h8m-2-7h2m-2 3h2"/></svg><span>Command Center</span></a>
+    <a href="#runs"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v4l3 2"/></svg><span>Runs</span></a>
+    <a href="#evidence"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 18h14M7 14v-3m5 3V6m5 8V9"/></svg><span>Evidence</span></a>
+    <div class="sidebar-group">
+      <p class="nav-caption">Inspect a decision</p>
+      <a id="studio-link" href="/studio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18v12H3zM8 8l2-4h4l2 4"/><circle cx="12" cy="14" r="2.5"/></svg><span>Visual Studio</span></a>
+      <a id="futures-link" href="/studio?view=futures"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h6m0 0 6-6m-6 6 6 6"/><circle cx="5" cy="12" r="2"/><circle cx="18" cy="5" r="2"/><circle cx="18" cy="19" r="2"/></svg><span>Futures</span></a>
+      <a id="memory-link" href="/studio?view=memory"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><span>Fear Memory</span></a>
+      <a id="chamber-link" href="/studio?view=chamber"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 9-9 9-9-9 9-9Zm-3 9 2 2 4-4"/></svg><span>Decision Chamber</span></a>
+    </div>
+    <div class="sidebar-note"><span>Research preview</span><p>Simulations and recorded trials</p></div>
+  </nav>
+
+  <main id="overview" tabindex="-1">
+    <div class="page-heading">
+      <div><h1>Command Center</h1><p>Agent decisions, VALOR’s findings, and what happened.</p></div>
+      <form id="run-form" class="run-form">
+        <div class="scenario-field"><label for="scenario-select">Scenario</label><select id="scenario-select" name="scenario">
+          <option value="hazard">Under pressure</option>
+          <option value="benign">Everyday work</option>
+          <option value="degraded">After damage</option>
+          <option value="low_reserve">Low reserves</option>
+          <option value="deadline">Almost out of time</option>
+        </select></div>
+        <button type="submit" id="run-submit" class="primary-button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7z"/></svg> Run simulation</button>
+      </form>
+    </div>
+    <p id="dashboard-status" class="dashboard-status" role="status" aria-live="polite"></p>
+    <noscript><p>Enable JavaScript to run a simulation and inspect its decisions.</p></noscript>
+
+    <section class="run-overview" aria-labelledby="run-title">
+      <div class="run-header">
+        <div><span class="run-label" id="run-source">Selected run</span><h2 id="run-title">Loading telemetry</h2><p id="run-reference"></p></div>
+        <button class="quiet-button" id="export-run" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m-4-4 4 4 4-4M5 16v4h14v-4"/></svg><span>Export record</span></button>
+      </div>
+      <div class="metrics" aria-label="Selected run summary">
+        <div class="metric metric-work">
+          <svg class="work-dial" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="19" class="ring-track"/><circle cx="24" cy="24" r="19" class="ring-fill" pathLength="100" stroke-dasharray="0 100" id="work-ring"/></svg>
+          <div><span>Work completed</span><strong id="metric-work">—</strong></div>
+        </div>
+        <div class="metric"><span>Decisions</span><strong id="metric-decisions">—</strong></div>
+        <div class="metric"><span>Plans outside policy</span><strong id="metric-excluded">—</strong></div>
+        <div class="metric"><span>Median decision time</span><strong id="metric-latency">—</strong></div>
+      </div>
+    </section>
+
+    <section id="trace" class="trace-workspace" aria-label="Decision trace">
+      <div class="route-visual">
+        <div class="route-heading"><h2>Decision trace</h2><span id="trace-position">Loading</span></div>
+        <div class="route-scene">
+          <img src="/supervision-cell.webp" alt="" class="route-art" decoding="async" aria-hidden="true">
+          <div class="route-nodes" role="group" aria-label="Trace stage">
+            <button type="button" data-trace="proposal" aria-pressed="false"><span class="stage-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8l4 4-4 4m7 0h7"/></svg></span><span class="node-copy"><b>Agent</b><span id="agent-preview">Proposals</span></span></button>
+            <button type="button" data-trace="policy" aria-pressed="true"><span class="stage-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h4l4 10 4-10h4l-8 16z"/></svg></span><span class="node-copy"><b>VALOR</b><span id="valor-preview">Policy check</span></span></button>
+            <button type="button" data-trace="outcome" aria-pressed="false"><span class="stage-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 8 8-4 8 4-8 4-8-4Zm0 4 8 4 8-4m-16 4 8 4 8-4"/></svg></span><span class="node-copy"><b>Work</b><span id="work-preview">Observed result</span></span></button>
+          </div>
+        </div>
+        <div class="trace-transport" aria-label="Browse recorded decisions">
+          <button id="trace-prev" type="button" class="transport-button" aria-label="Previous decision" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+          <div id="decision-strip" class="decision-strip" role="group" aria-label="Recorded decisions"></div>
+          <button id="trace-next" type="button" class="transport-button" aria-label="Next decision" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+        </div>
+      </div>
+      <div class="trace-inspector">
+        <p class="trace-source" id="trace-source">VALOR’s finding</p>
+        <div id="trace-content" class="trace-content" aria-live="polite"><p class="dashboard-empty">Loading the decision record…</p></div>
+      </div>
+    </section>
+
+    <div class="dashboard-library">
+      <section id="runs" class="library-panel" aria-labelledby="runs-title">
+        <div class="library-heading"><div><h2 id="runs-title">Recent runs</h2><p>Current local session</p></div><button type="button" id="example-run" class="quiet-button">Open example</button></div>
+        <div id="recent-runs" class="recent-runs"><p class="dashboard-empty">Loading recent runs…</p></div>
+      </section>
+      <section id="evidence" class="library-panel" aria-labelledby="evidence-title">
+        <div class="library-heading"><div><h2 id="evidence-title">Evidence</h2><p>Recorded trials and benchmarks</p></div></div>
+        <ul class="evidence-list">
+          <li><a href="/studio?view=execution"><span class="evidence-value">14 / 14</span><span><strong>Tool trials</strong><small>Harmful proposals held in the local SQLite trial</small></span><span aria-hidden="true">↗</span></a></li>
+          <li><a href="/studio?view=research"><span class="evidence-value">+3.52 pp</span><span><strong>Research</strong><small>Completion gain in the paired simulation benchmark</small></span><span aria-hidden="true">↗</span></a></li>
+          <li><a href="/reserve"><span class="evidence-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6h12m-4-3 4 3-4 3M17 18H5m4-3-4 3 4 3"/></svg></span><span><strong>Comparison replay</strong><small>Two releases sharing one reserve</small></span><span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </section>
+    </div>
+    <footer><span>VALOR research preview</span><a href="/rover">Rover benchmark ↗</a></footer>
+  </main>
+</body>
+</html>

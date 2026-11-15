@@ -1,7 +1,9 @@
 import json
+from datetime import datetime, timedelta
 from pathlib import Path
 import shutil
 import subprocess
+from urllib.error import HTTPError
 
 import pytest
 
@@ -43,6 +45,36 @@ def test_http_study_is_local_bounded_and_exports_provenance(server):
     status, headers, body = request(server, "/supervision-cell.webp")
     assert status == 200 and headers["Content-Type"] == "image/webp"
     assert body[:4] == b"RIFF" and body[8:12] == b"WEBP"
+
+
+def test_recent_studies_are_replayable_and_expire_in_completion_order(server):
+    assert json.loads(request(server, "/api/studies")[2]) == {"runs": []}
+
+    example = json.loads(request(server, "/api/studies/example")[2])
+    assert example["example"] is True and example["recorded_at"] is None
+    assert (example["scenario"], example["seed"]) == ("degraded", 42)
+    assert json.loads(request(server, "/api/studies")[2]) == {"runs": []}
+
+    runs = [json.loads(request(server, "/api/study", {"scenario": "low_reserve", "seed": seed})[2])
+            for seed in range(13)]
+    latest = runs[-1]
+    assert latest["example"] is False
+    assert datetime.fromisoformat(latest["recorded_at"]).utcoffset() == timedelta(0)
+    selected = json.loads(request(server, f"/api/studies/{latest['study_id']}")[2])
+    assert selected == latest
+
+    summaries = json.loads(request(server, "/api/studies")[2])["runs"]
+    assert [entry["study_id"] for entry in summaries] == [run["study_id"] for run in reversed(runs[1:])]
+    assert summaries[0] == {
+        "study_id": latest["study_id"], "scenario": "low_reserve", "seed": 12,
+        "recorded_at": latest["recorded_at"], "status": "abandoned", "progress": 0,
+        "goal": latest["goal"], "decision_count": 1,
+    }
+
+    with pytest.raises(HTTPError) as error:
+        request(server, f"/api/studies/{runs[0]['study_id']}")
+    assert error.value.code == 404
+    assert json.loads(request(server, "/api/studies/example")[2]) == example
 
 
 def test_frontend_record_semantics_without_browser():

@@ -17,6 +17,7 @@
   <header class="site-header">
     <a class="wordmark" href="/" aria-label="VALOR home"><svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h4l5 12 5-12h4L12 22zM10 5l2 5 2-5z"/></svg><span>VALOR</span></a>
     <div class="header-actions">
+      <a class="quiet-button" id="center-link" href="/">← Command Center</a>
       <span class="app-mode"><i></i> Local simulation</span>
       <button id="study-help" class="quiet-button"><span class="help-icon" aria-hidden="true">?</span> Guide</button>
     </div>
@@ -33,7 +34,7 @@
     </aside>
     <section id="study" class="study-workspace" aria-labelledby="command-title" tabindex="-1">
       <div class="command-bar">
-        <h1 id="command-title">Command</h1>
+        <h1 id="command-title">Visual Studio</h1>
         <details id="scenario-menu" class="scenario-menu">
           <summary id="scenario-label"><span class="scenario-copy"><small>Scenario</small><strong id="study-title">Under pressure</strong></span><span class="chevron" aria-hidden="true"></span></summary>
           <div class="condition-selector" role="group" aria-label="Simulation scenarios">
@@ -196,7 +197,7 @@
         </details>
       </div>
     </section>
-    <div id="instrument-navigation" class="instrument-navigation" hidden><span id="instrument-position">No run loaded</span><button id="instrument-previous">← Previous decision</button><button id="instrument-next">Next decision →</button><button id="instrument-command">Return to Command ↗</button></div>
+    <div id="instrument-navigation" class="instrument-navigation" hidden><span id="instrument-position">No run loaded</span><button id="instrument-previous">← Previous decision</button><button id="instrument-next">Next decision →</button><button id="instrument-command">Return to Studio ↗</button></div>
     <section id="execution" class="mission-section" hidden aria-labelledby="execution-title">
       <div class="view-heading"><h1 id="execution-title">Tool trials</h1><p>Recorded local SQLite trial</p></div>
       <p class="mission-lead">A local Llama agent proposed real writes to disposable records. VALOR checked the predicted effect before the worker could proceed.</p>
