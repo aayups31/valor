@@ -1,5 +1,21 @@
 # Build progress
 
+### Stop 25 — supervision workspace, November 15
+
+- Redesigned the primary app around one scenario picker, a supervision canvas and a decision timeline. A run opens on its first decision. The trace animates proposal, forecast, policy decision and observation, with manual controls and reduced-motion support. The Work readout shows health, time and reserves before the action, then the observed outcome.
+- Redesigned Futures, Fear Memory and Decision Chamber around the selected decision. Plan rows link to their forecasts. Evidence, exports and optional controls open on demand. Tool trials and Research remain separate from the demo.
+- 21 targeted tests passed in 8.36 seconds. The isolated browser exercised all four instruments, the 390-pixel layout, trace completion, branch selection and a low-reserve case. The local preview is available at http://127.0.0.1:8765/. Zero external spend. [Full report](reports/2026-11-15-supervision-workspace.md).
+- Implementation commits `3c5772b` and `4ca4c5d`. The simulation's fear signal remains observer-only. The redesigned canvas presents simulation results and does not expand the scope of the validated research or tool trials.
+
+### Stop 24 — four decision instruments, November 13
+
+- Implemented Command, Futures, Fear Memory and Decision Chamber around one shared simulation record. Added a finite Agent → VALOR → Work animation with manual stages, clickable proposals, observed work markers, resources and health. Technical detail stays behind disclosures.
+- Futures visualizes evaluated branches and their failure forecasts. Fear Memory plots observed harm and activation only through the current decision, with exact readings and a declared shared scale. Decision Chamber explains the selected plan, strongest scored alternative, rejection reason and observed outcome.
+- Browser review completed at desktop and 390-pixel phone viewport settings. Exercised normal, recovery and low-reserve examples; inspected all four screens, branch selection, shared decision state and mobile navigation. Fixed stale playback wording, view-switch scroll position and forecast bars that were initially blocked by the page's security policy. No security policy was loosened. Final browser error log was empty; measured Command/Futures widths did not overflow.
+- 21 targeted engine, HTTP, frontend-record and paired-replay checks passed in 8.91 seconds. JavaScript syntax and whitespace checks passed. Full model/training regression was not rerun for this UI-only change.
+- Implementation pushed as `e635b2e`, `135f95d` and `a9fc535`; this closeout records verification. Local server remains available through Start VALOR or http://127.0.0.1:8765/. External spend $0.
+- This is a presentation and interaction milestone, not new evidence that fear improves decisions. The service-study signal is observer-only, forecasts use declared simulation equations, and the diagram does not connect a real external agent. [Full report](reports/2026-11-13-ui-instruments.md).
+
 ### Stop 23 — application workspace, November 11
 
 - Replaced the introductory hero and long main flow with a workspace rail and separate Simulation, Tool Trials and Research views. The simulation and playback controls lead. Tutorials and detailed outcomes are collapsed.
