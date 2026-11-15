@@ -200,7 +200,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         path = urlsplit(self.path).path
         if path == "/api/health":
-            return self._respond({"application": "valor", "interface_version": 6,
+            return self._respond({"application": "valor", "interface_version": 7,
                                   "schema_version": SCHEMA_VERSION})
         if path == "/api/scenarios":
             return self._respond({"scenarios": list(SCENARIOS), "controllers": CONTROLLERS,
@@ -227,6 +227,9 @@ class Handler(BaseHTTPRequestHandler):
                   "/reserve.js": ("reserve.js", "text/javascript; charset=utf-8"),
                   "/study.js": ("study.js", "text/javascript; charset=utf-8"),
                   "/study.css": ("study.css", "text/css; charset=utf-8"),
+                  "/studio.css": ("studio.css", "text/css; charset=utf-8"),
+                  "/instruments.css": ("instruments.css", "text/css; charset=utf-8"),
+                  "/supervision-cell.webp": ("supervision-cell.webp", "image/webp"),
                   "/decision-paths.svg": ("decision-paths.svg", "image/svg+xml"),
                   "/app.js": ("app.js", "text/javascript; charset=utf-8"),
                   "/evidence.js": ("evidence.js", "text/javascript; charset=utf-8"),

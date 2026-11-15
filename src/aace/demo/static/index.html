@@ -8,13 +8,14 @@
   <title>VALOR · Supervision workspace</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/study.css">
+  <link rel="stylesheet" href="/studio.css">
+  <link rel="stylesheet" href="/instruments.css">
   <script src="/study.js" defer></script>
 </head>
 <body class="study-page app-page">
   <a class="skip-link" id="skip-content" href="#study">Skip to the active view</a>
   <header class="site-header">
     <a class="wordmark" href="/" aria-label="VALOR home"><svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h4l5 12 5-12h4L12 22zM10 5l2 5 2-5z"/></svg><span>VALOR</span></a>
-    <span class="header-context">Supervision workspace</span>
     <div class="header-actions">
       <span class="app-mode"><i></i> Local simulation</span>
       <button id="study-help" class="quiet-button"><span class="help-icon" aria-hidden="true">?</span> Guide</button>
@@ -31,14 +32,11 @@
       </div>
     </aside>
     <section id="study" class="study-workspace" aria-labelledby="command-title" tabindex="-1">
-      <div class="view-heading">
+      <div class="command-bar">
         <h1 id="command-title">Command</h1>
-        <p>Follow a proposed action through VALOR before it reaches the work.</p>
-      </div>
-      <div class="run-bar">
         <details id="scenario-menu" class="scenario-menu">
-          <summary id="scenario-label"><span class="scenario-mark" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l4 4-4 4m7 0h7"/></svg></span><span><small>Scenario</small><strong id="study-title">Under pressure</strong></span><span class="chevron" aria-hidden="true"></span></summary>
-          <div class="condition-selector" role="group" aria-label="Experiment situations">
+          <summary id="scenario-label"><span class="scenario-copy"><small>Scenario</small><strong id="study-title">Under pressure</strong></span><span class="chevron" aria-hidden="true"></span></summary>
+          <div class="condition-selector" role="group" aria-label="Simulation scenarios">
             <button data-scenario="benign" aria-pressed="false">Everyday work</button>
             <button data-scenario="hazard" aria-pressed="true">Under pressure</button>
             <button data-scenario="degraded" aria-pressed="false">After damage</button>
@@ -46,50 +44,60 @@
             <button data-scenario="deadline" aria-pressed="false">Almost out of time</button>
           </div>
         </details>
-        <p id="study-description">Complete eight units of work under high load.</p>
         <button id="study-run" class="primary">Run simulation</button>
       </div>
-      <section class="gateway-stage" aria-label="Agent to VALOR to work">
-        <div class="gateway-caption"><h2>Supervision trace</h2><span id="flow-step-label">Ready</span></div>
-        <div class="gateway-flow" id="gateway-flow" data-phase="0">
-          <div class="gateway-node agent-node">
-            <div class="node-heading"><span class="node-symbol"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l4 4-4 4m7 0h7"/></svg></span><div><h3>Agent</h3><p id="flow-proposal">Possible plans</p></div></div>
-            <div id="flow-plans" class="flow-plans" aria-label="Proposed plans"></div>
+      <section class="studio" aria-label="Illustrated supervision simulation">
+        <div id="gateway-flow" class="studio-scene" data-phase="0" data-ready="false">
+          <div class="studio-picture" aria-hidden="true">
+            <img class="studio-render" src="/supervision-cell.webp" alt="" fetchpriority="high" decoding="async">
+            <div class="studio-vignette"></div>
+            <i class="scene-light scene-light-input"></i>
+            <i class="scene-light scene-light-core"></i>
+            <i class="scene-light scene-light-output"></i>
+            <i class="scene-packet"></i>
           </div>
-          <div class="flow-wire wire-in" aria-hidden="true"><i></i></div>
-          <div class="gateway-node valor-node">
-            <div class="core-dial" aria-hidden="true"><div class="dial-ring"></div><svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h4l5 12 5-12h4L12 22zM10 5l2 5 2-5z"/></svg></div>
-            <h3>VALOR</h3>
-            <div class="reason-channels"><span>Logic · Policy check<b id="flow-logic">Awaiting proposals</b></span><span class="fear-channel">Fear memory<b id="flow-fear">Observer only</b></span></div>
+          <div class="studio-status"><span><i></i> Illustrated simulation</span><span id="flow-step-label">Ready</span></div>
+          <div class="scene-hotspots" aria-label="Inspect the illustrated scene">
+            <details id="proposal-details" class="proposal-details">
+              <summary id="proposal-inspect" class="scene-control"><i aria-hidden="true"></i> Agent <span aria-hidden="true">＋</span></summary>
+              <div class="proposal-sheet"><strong id="flow-proposal">Possible plans</strong><div id="flow-plans" class="flow-plans" aria-label="Proposed plans"></div></div>
+            </details>
+            <button id="review-inspect" class="scene-control" disabled><i aria-hidden="true"></i> VALOR <span aria-hidden="true">↗</span></button>
+            <button id="work-inspect" class="scene-control" aria-controls="workload-evidence"><i aria-hidden="true"></i> Work <span aria-hidden="true">↗</span></button>
           </div>
-          <div class="flow-wire wire-out" aria-hidden="true"><i></i></div>
-          <div class="gateway-node work-node">
-            <div class="node-heading"><span class="node-symbol"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4-8 4-8-4Zm0 4 8 4 8-4m-16 4 8 4 8-4"/></svg></span><div><h3>Work</h3><p id="flow-outcome">Awaiting a decision</p></div></div>
-            <div class="work-readout"><strong id="flow-progress">0 / 8</strong><span>units completed</span></div>
-            <div id="command-work" class="command-work" aria-label="Work completion at this stage"></div>
-            <dl id="flow-resources" class="flow-resources"></dl>
-          </div>
+          <div id="command-work" class="work-lights" aria-label="Work completion at this stage"></div>
         </div>
-        <div class="flow-stages" role="group" aria-label="Explore the supervision sequence">
-          <button id="flow-phase-0" aria-pressed="true">Propose</button>
-          <button id="flow-phase-1" aria-pressed="false">Forecast</button>
-          <button id="flow-phase-2" aria-pressed="false">Decide</button>
-          <button id="flow-phase-3" aria-pressed="false">Observe</button>
+        <div class="scene-readout">
+          <div class="readout-caption">
+            <span id="review-choice" hidden><strong id="review-action"></strong></span>
+            <p id="flow-caption">Choose a scenario to begin.</p>
+          </div>
+          <dl class="readout-work"><div><dt>Work</dt><dd id="flow-progress">0 / 8</dd></div></dl>
+          <dl id="flow-resources" class="flow-resources"></dl>
         </div>
-        <div class="flow-foot"><p id="flow-caption">Run a scenario to inspect the first decision.</p><button id="flow-play" class="quiet-button" disabled>Animate trace</button><button id="flow-step" class="quiet-button" disabled>Next stage</button></div>
+        <div class="studio-controls">
+          <button id="flow-play" class="trace-play" disabled>Play trace</button>
+          <div class="flow-stages" role="group" aria-label="Trace stages">
+            <button id="flow-phase-0" aria-pressed="true">Propose</button>
+            <button id="flow-phase-1" aria-pressed="false">Forecast</button>
+            <button id="flow-phase-2" aria-pressed="false">Decide</button>
+            <button id="flow-phase-3" aria-pressed="false">Observe</button>
+          </div>
+          <button id="flow-step" class="quiet-button" disabled>Next stage <span aria-hidden="true">→</span></button>
+        </div>
       </section>
-      <section class="run-review" aria-label="Review the current decision">
-        <div class="review-choice" id="review-choice" hidden>
-          <div><p class="rail-label">Recorded decision</p><h2 id="review-action"></h2><p id="review-reason"></p></div>
-          <button id="review-inspect" class="quiet-button">Inspect decision <span aria-hidden="true">→</span></button>
-        </div>
-        <div class="study-controls"><span id="study-playback-status" role="status" aria-live="polite">Ready to begin</span><div><button class="quiet-button" id="study-play" disabled>Play run</button><button class="quiet-button" id="study-next" disabled>Next decision</button></div></div>
+      <section class="run-review" aria-label="Decision timeline">
+        <span id="study-playback-status" role="status" aria-live="polite">Ready to begin</span>
         <ol id="study-timeline" class="study-timeline" aria-label="Recorded decisions"></ol>
+        <div class="run-transport"><button class="quiet-button" id="study-play" disabled>Play run</button><button class="quiet-button" id="study-next" disabled>Next decision</button></div>
       </section>
       <details id="technical-evidence" class="technical-evidence"><summary>Run evidence</summary>
       <div class="evidence-actions"><button id="mission-futures" class="quiet-button">Plan inspector</button><button id="mission-memory" class="quiet-button">Signal readings</button><button id="study-start" class="quiet-button">New run</button></div>
+      <p id="study-description">Complete eight units of work under high load.</p>
+      <div class="technical-signals"><span>Logic <strong id="flow-logic">Awaiting proposals</strong></span><span>Fear memory <strong id="flow-fear">Observer only</strong></span><span>Work <strong id="flow-outcome">Awaiting a decision</strong></span></div>
+      <p id="review-reason"></p>
       <p class="record-caption" id="record-caption">The local engine generates the decision record.</p>
-      <details class="workload-disclosure"><summary>Inspect workload and resources</summary><section class="simulation-stage" aria-label="Visual simulation of the recorded workload">
+      <details id="workload-evidence" class="workload-disclosure"><summary id="workload-label">Inspect workload and resources</summary><section class="simulation-stage" aria-label="Visual simulation of the recorded workload">
         <div class="stage-topline"><span>SIMULATED WORKLOAD</span><span id="scene-position">Awaiting a run</span></div>
         <div class="scene-body">
           <div class="scene-inputs"><p class="eyebrow">WHAT THE TASK NEEDS</p>
@@ -124,24 +132,66 @@
       </details>
     </section>
     <section id="futures" class="instrument-view" hidden aria-labelledby="futures-title">
-      <div class="view-heading"><h1 id="futures-title">Futures</h1><p>Compare the plans VALOR evaluated from the same starting state.</p></div><div class="futures-layout">
-      <div class="future-network"><div class="future-origin"><span class="node-symbol">◇</span><strong id="future-origin">Awaiting a decision</strong><small>Same state · Different plans</small></div><div id="future-branches" class="future-branches"></div></div>
-      <section class="future-detail" aria-label="Selected branch"><span id="future-label" class="eyebrow">SELECT A BRANCH</span><h2 id="future-name" tabindex="-1">Run a scenario to begin.</h2><p id="future-reason"></p><dl id="future-metrics" class="study-forecast-values"></dl></section>
-      </div><p class="instrument-note">Probabilities describe the full proposed plan. The simulation applies one action at a time.</p>
+      <div class="view-heading instrument-heading">
+        <h1 id="futures-title">Futures</h1>
+        <span class="instrument-tag">Plan forecasts</span>
+      </div>
+      <div class="futures-layout">
+        <div class="future-network">
+          <div class="future-origin"><strong id="future-origin">Awaiting a decision</strong><small>Estimated risk of failure by plan</small></div>
+          <div id="future-branches" class="future-branches"></div>
+        </div>
+        <section class="future-detail" aria-label="Selected plan forecast">
+          <span id="future-label" class="instrument-tag">Plan details</span>
+          <h2 id="future-name" tabindex="-1">Run a scenario to begin.</h2>
+          <p id="future-reason"></p>
+          <dl id="future-metrics" class="study-forecast-values"></dl>
+          <details class="instrument-disclosure"><summary>About this forecast</summary><p>Estimates cover the full proposed plan. The simulation applies one action at a time.</p></details>
+        </section>
+      </div>
     </section>
     <section id="memory" class="instrument-view" hidden aria-labelledby="memory-title">
-      <div class="view-heading"><h1 id="memory-title" tabindex="-1">Fear Memory</h1><p id="memory-summary">Run a scenario to inspect the signal history.</p></div>
-      <div class="memory-legend"><span>Observed harm</span><span>Activation after the event</span><span>Recorded steps through the current decision</span></div>
-      <figure class="memory-chart"><svg viewBox="0 0 900 230" role="img" aria-labelledby="memory-chart-title memory-chart-description"><title id="memory-chart-title">Damage and its lingering signal</title><desc id="memory-chart-description">Run a scenario to see recorded signal values.</desc><g class="chart-grid"><path d="M35 25H865M35 85H865M35 145H865M35 205H865"/></g><polyline id="memory-harm-line" class="harm-line" points=""/><polyline id="memory-activation-line" class="activation-line" points=""/><circle id="memory-current-point" r="5" cx="35" cy="205" hidden/></svg><figcaption><span>First decision</span><span id="memory-chart-position">No observations yet</span></figcaption></figure>
-      <details class="memory-readings"><summary>Inspect individual observations</summary><div id="memory-trace" class="memory-trace"></div></details>
-      <p id="memory-scale" class="instrument-note">Raw signal values, not probabilities.</p>
-      <div class="memory-boundary"><strong>Influence on this decision</strong><span>Observer only</span><p>This signal persists within a run. It currently has no effect on forecasts or action selection. A new run resets it.</p></div>
+      <div class="view-heading instrument-heading">
+        <h1 id="memory-title" tabindex="-1">Fear Memory</h1>
+        <span class="instrument-tag">Observer only</span>
+      </div>
+      <figure class="memory-chart">
+        <div class="memory-legend"><span>Observed harm</span><span>Fear signal</span></div>
+        <svg viewBox="0 0 900 230" role="img" aria-labelledby="memory-chart-title memory-chart-description">
+          <title id="memory-chart-title">Damage and its lingering signal</title>
+          <desc id="memory-chart-description">Run a scenario to see recorded signal values.</desc>
+          <g class="chart-grid"><path d="M35 25H865M35 85H865M35 145H865M35 205H865"/></g>
+          <polyline id="memory-harm-line" class="harm-line" points=""/>
+          <polyline id="memory-activation-line" class="activation-line" points=""/>
+          <circle id="memory-current-point" r="5" cx="35" cy="205" hidden/>
+        </svg>
+        <figcaption><span>First decision</span><span id="memory-chart-position">No observations yet</span></figcaption>
+      </figure>
+      <details class="memory-readings instrument-disclosure">
+        <summary>Inspect individual observations</summary>
+        <p id="memory-summary">Run a scenario to inspect the signal history.</p>
+        <p id="memory-scale" class="instrument-note">Raw signal values, not probabilities.</p>
+        <div id="memory-trace" class="memory-trace"></div>
+        <p>The observer records this signal within the run. It does not affect selection.</p>
+      </details>
     </section>
     <section id="chamber" class="instrument-view" hidden aria-labelledby="chamber-title">
-      <div class="view-heading"><h1 id="chamber-title" tabindex="-1">Decision Chamber</h1><p>See what VALOR chose, what it passed over, and what happened.</p></div><div class="decision-surface">
-      <div class="chamber-choice"><span class="eyebrow" id="chamber-status">AWAITING A RUN</span><h2 id="chamber-action">One choice.<br>Its consequences.</h2><p id="chamber-reason">Run a scenario from Command.</p></div>
-      <dl id="chamber-metrics" class="chamber-metrics"></dl>
-      <div class="chamber-comparison"><div><span class="eyebrow">STRONGEST SCORED ALTERNATIVE</span><p id="chamber-alternative">No evaluated alternatives yet.</p><p id="chamber-alternative-reason"></p><button id="chamber-inspect" class="text-button" disabled>Inspect this alternative ↗</button></div><div><span class="eyebrow">OBSERVED AFTER THE ACTION</span><p id="chamber-outcome">No outcome yet.</p></div></div>
+      <div class="view-heading instrument-heading"><h1 id="chamber-title" tabindex="-1">Decision Chamber</h1></div>
+      <div class="decision-surface">
+        <div class="chamber-verdict">
+          <div class="chamber-choice">
+            <span class="instrument-tag" id="chamber-status">Awaiting a run</span>
+            <h2 id="chamber-action">No selected plan</h2>
+            <p id="chamber-outcome">No outcome yet.</p>
+          </div>
+          <span class="chamber-sigil" aria-hidden="true"><span></span></span>
+        </div>
+        <dl id="chamber-metrics" class="chamber-metrics"></dl>
+        <details class="instrument-disclosure">
+          <summary>Why this choice?</summary>
+          <p id="chamber-reason">Run a scenario from Command.</p>
+          <div class="chamber-comparison"><div><span class="eyebrow">Highest scored alternative</span><p id="chamber-alternative">No evaluated alternatives yet.</p><p id="chamber-alternative-reason"></p><button id="chamber-inspect" class="text-button" disabled>Inspect alternative ↗</button></div></div>
+        </details>
       </div>
     </section>
     <div id="instrument-navigation" class="instrument-navigation" hidden><span id="instrument-position">No run loaded</span><button id="instrument-previous">← Previous decision</button><button id="instrument-next">Next decision →</button><button id="instrument-command">Return to Command ↗</button></div>

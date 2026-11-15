@@ -109,7 +109,7 @@ byId("tour-next").addEventListener("click",()=>{
 let flowTimer=null, flowPhase=0;
 function stopFlow(){
   clearInterval(flowTimer);flowTimer=null;
-  say("flow-play","Animate trace");
+  say("flow-play","Play trace");
 }
 function renderFlow(){
   const row=run?.decisions[index],chosen=row?.decision.candidates.find(c=>c.status==="selected");
@@ -119,6 +119,7 @@ function renderFlow(){
   const state=observing ? row?.actual_outcome : before;
   byId("gateway-flow").setAttribute("data-phase",String(flowPhase));
   byId("gateway-flow").setAttribute("data-ready",String(!!row));
+  byId("gateway-flow").setAttribute("data-commit",row?.commit.status || "pending");
   const work=byId("command-work");work.replaceChildren();
   for(let i=0;i<8;i++){
     const unit=document.createElement("span");
@@ -127,8 +128,8 @@ function renderFlow(){
     unit.setAttribute("aria-label","Work unit "+(i+1)+(completed?" completed":" pending"));
     unit.textContent=completed?"✓":"";work.append(unit);
   }
-  const stages=["Proposal","Logic + signal","Policy decision","Observed result"];
-  say("flow-step-label",row ? stages[flowPhase] : "Ready");
+  const stages=["Proposal","Forecast","Decision","Observed"];
+  say("flow-step-label",busy ? "Running" : row ? stages[flowPhase] : "Ready");
   say("flow-proposal",row ? row.decision.candidates.length+" proposed plans" : "Possible plans");
   let logic="Awaiting proposals";
   if(row && flowPhase===0)logic="Plans received";
@@ -158,22 +159,23 @@ function renderFlow(){
     byId("flow-phase-"+phase).disabled=busy || !row;
   }
   const captions=row ? [
-    "The simulator proposed "+row.decision.candidates.length+" plans for the current state.",
-    "VALOR compared their forecasts with the fixed policy. The fear signal was recorded separately.",
-    chosen ? plans[chosen.candidate.identifier]+" was selected. Permission status · "+row.commit.status : "No supported plan was selected.",
+    row.decision.candidates.length+" plans proposed",
+    row.decision.forecast_calls+" forecasts compared",
+    chosen ? "Permission: "+row.commit.status.replaceAll("_"," ") : "No supported action",
     observedChange(before,row.actual_outcome)
-  ] : ["Run a scenario to trace a proposal through the simulation."];
+  ] : ["Run a scenario to watch the first decision."];
   say("flow-caption",captions[flowPhase] || captions[0]);
   byId("flow-play").disabled=busy || !row;
   byId("flow-step").disabled=busy || !row;
-  byId("review-choice").hidden=!row;
+  byId("review-choice").hidden=!row || flowPhase<2;
+  byId("review-inspect").disabled=busy || !row;
   say("review-action",chosen ? plans[chosen.candidate.identifier] : "No supported action");
   say("review-reason",chosen ? explain(chosen) : "No proposal was applied.");
 }
 function observedChange(before,after){
   if(!before)return after.progress+" of 8 work units completed.";
   if(after.progress!==before.progress)return before.progress+" → "+after.progress+" of 8 work units completed.";
-  if(after.integrity!==before.integrity)return "System health changed from "+percent(before.integrity)+" to "+percent(after.integrity)+".";
+  if(after.integrity!==before.integrity)return "Health: "+percent(before.integrity)+" → "+percent(after.integrity);
   return (states[after.status] || after.status)+" · "+after.progress+" of 8 work units completed.";
 }
 for(let phase=0;phase<4;phase++){
@@ -191,12 +193,15 @@ byId("flow-play").addEventListener("click",()=>{
   if(flowTimer){stopFlow();return;}
   stopPlayback();flowPhase=0;render();
   if(reducedMotion.matches){toast("Use Next stage to explore the flow with reduced motion.");return;}
+  startFlow();
+});
+function startFlow(){
   say("flow-play","Pause trace");
   flowTimer=setInterval(()=>{
     flowPhase++;renderFlow();
     if(flowPhase===3)stopFlow();
-  },1700);
-});
+  },1500);
+}
 function renderInstruments(row){
   renderFlow();
   say("instrument-position",row ? "Decision "+(index+1)+" / "+run.decisions.length : "Run a scenario in Command");
@@ -344,13 +349,16 @@ async function begin(){
   byId("scenario-menu").open=false;
   if(!Number.isInteger(seed)||seed<0||seed>=2147483648){byId("technical-evidence").open=true;byId("study-settings").open=true;byId("study-seed").focus();toast("Use a whole starting number from 0 to 2147483647.");return;}
   stopPlayback();failureMessage="";busy=true;render();
+  let started=false;
   try{
     const response=await fetch("/api/study",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({scenario:selectedScenario,seed}),signal:AbortSignal.timeout(10000)});
     const data=await response.json();if(!response.ok)throw new Error(data.error || "The study could not start.");
     flowPhase=0;run=data;index=0;selectedCandidate=null;byId("study-timeline").dataset.study="";byId("study-candidates").replaceChildren();
+    started=true;
     if(!byId("study").hidden)byId("study").focus({preventScroll:true});
   }catch(error){toast(error instanceof TypeError || error.name==="TimeoutError"?"The local engine is not responding. Reopen Start VALOR, then refresh this page.":error.message);failureMessage=run?"The new study could not start. The previous record is still available.":"The study could not start. Reopen Start VALOR, then try again.";}
   finally{busy=false;render();}
+  if(started && !byId("study").hidden && !byId("technical-evidence").open && !reducedMotion.matches)startFlow();
 }
 function startPlayback(){
   stopPlayback();flowPhase=3;timer=setInterval(()=>{if(index>=run.decisions.length-1){stopPlayback();}else{index++;selectedCandidate=null;if(index===run.decisions.length-1)stopPlayback();}render();},1400);
@@ -359,6 +367,7 @@ byId("study-start").addEventListener("click",begin);
 byId("study-run").addEventListener("click",begin);
 function showWorkspace(view){
   stopPlayback();
+  byId("proposal-details").open=false;
   byId("instrument-navigation").hidden=!["futures","memory","chamber"].includes(view);
   for(const [name,panel] of [["simulation","study"],["futures","futures"],["memory","memory"],["chamber","chamber"],["execution","execution"],["research","research"]]){
     byId(panel).hidden=name!==view;
@@ -375,6 +384,14 @@ for(const name of ["simulation","futures","memory","chamber","execution","resear
 }
 byId("instrument-command").addEventListener("click",()=>{showWorkspace("simulation");render();});
 byId("review-inspect").addEventListener("click",()=>{showWorkspace("chamber");render();byId("chamber-title").focus();});
+byId("work-inspect").addEventListener("click",()=>{
+  stopPlayback();render();
+  byId("technical-evidence").open=true;
+  byId("workload-evidence").open=true;
+  byId("workload-label").focus();
+  byId("workload-evidence").scrollIntoView({block:"center",behavior:"instant"});
+});
+byId("proposal-details").addEventListener("toggle",()=>{if(byId("proposal-details").open)stopPlayback();});
 byId("chamber-inspect").addEventListener("click",()=>{
   if(!run || !byId("chamber-inspect").dataset.plan)return;
   selectedCandidate=byId("chamber-inspect").dataset.plan;

@@ -17,7 +17,7 @@ $projectHash = [BitConverter]::ToString($hashAlgorithm.ComputeHash($projectBytes
 $hashAlgorithm.Dispose()
 $launcherMutex = [System.Threading.Mutex]::new($false, "Local\ValorDemo-$projectHash-$Port")
 $mutexHeld = $false
-$requiredInterfaceVersion = 6
+$requiredInterfaceVersion = 7
 
 function Get-ValorHealth {
     try {
