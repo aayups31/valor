@@ -1,5 +1,11 @@
 # Build progress
 
+### Stop 27 — Command Center and local telemetry, November 15
+
+- Made Command Center the home screen. Run a scenario, see the run outcome and metrics, step through the agent proposals, VALOR findings and observed work, then export the full record. Visual Studio and the decision instruments open the selected run and decision.
+- Added a local history of the latest 12 simulations while the server is running. The separately labeled example does not appear in session history. The SQLite trial and simulation benchmark are linked as recorded evidence.
+- 290 tests passed. The isolated desktop and 390-pixel browser walkthrough verified new runs, history selection, trace controls, Studio navigation, and JSON download. Initial commit `79b4c67` pushed to GitHub. [Full report](reports/2026-11-15-command-center.md).
+
 ### Stop 26 — visual supervision studio, November 15
 
 - Replaced the text-led Command diagram with an original rendered work cell. Recorded phases drive the traveling signal, gate lighting, completed work lights and before/after readouts. The first decision plays once and stays available for inspection. Agent, VALOR and Work open their respective evidence.

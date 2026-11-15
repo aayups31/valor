@@ -51,7 +51,7 @@
 
     <section class="run-overview" aria-labelledby="run-title">
       <div class="run-header">
-        <div><span class="run-label" id="run-source">Selected run</span><h2 id="run-title">Loading telemetry</h2><p id="run-reference"></p></div>
+        <div><div class="run-identity"><span class="run-label" id="run-source">Selected run</span><span id="run-outcome" class="run-outcome" hidden></span></div><h2 id="run-title">Loading telemetry</h2><p id="run-reference"></p></div>
         <button class="quiet-button" id="export-run" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m-4-4 4 4 4-4M5 16v4h14v-4"/></svg><span>Export record</span></button>
       </div>
       <div class="metrics" aria-label="Selected run summary">
@@ -60,8 +60,8 @@
           <div><span>Work completed</span><strong id="metric-work">—</strong></div>
         </div>
         <div class="metric"><span>Decisions</span><strong id="metric-decisions">—</strong></div>
-        <div class="metric"><span>Plans outside policy</span><strong id="metric-excluded">—</strong></div>
-        <div class="metric"><span>Median decision time</span><strong id="metric-latency">—</strong></div>
+        <div class="metric"><span title="Counts each plan rejection at each decision in this run.">Plan rejections</span><strong id="metric-excluded">—</strong></div>
+        <div class="metric"><span title="Time spent computing a decision in this simulation.">Median decision time</span><strong id="metric-latency">—</strong></div>
       </div>
     </section>
 
@@ -69,11 +69,11 @@
       <div class="route-visual">
         <div class="route-heading"><h2>Decision trace</h2><span id="trace-position">Loading</span></div>
         <div class="route-scene">
-          <img src="/supervision-cell.webp" alt="" class="route-art" decoding="async" aria-hidden="true">
+          <img src="/supervision-cell.webp" alt="" class="route-art" decoding="sync" fetchpriority="high" aria-hidden="true">
           <div class="route-nodes" role="group" aria-label="Trace stage">
-            <button type="button" data-trace="proposal" aria-pressed="false"><span class="stage-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8l4 4-4 4m7 0h7"/></svg></span><span class="node-copy"><b>Agent</b><span id="agent-preview">Proposals</span></span></button>
-            <button type="button" data-trace="policy" aria-pressed="true"><span class="stage-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h4l4 10 4-10h4l-8 16z"/></svg></span><span class="node-copy"><b>VALOR</b><span id="valor-preview">Policy check</span></span></button>
-            <button type="button" data-trace="outcome" aria-pressed="false"><span class="stage-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 8 8-4 8 4-8 4-8-4Zm0 4 8 4 8-4m-16 4 8 4 8-4"/></svg></span><span class="node-copy"><b>Work</b><span id="work-preview">Observed result</span></span></button>
+            <button type="button" data-trace="proposal" aria-pressed="false" aria-controls="trace-content"><span class="stage-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8l4 4-4 4m7 0h7"/></svg></span><span class="node-copy"><b>Agent</b><span id="agent-preview">Proposals</span></span></button>
+            <button type="button" data-trace="policy" aria-pressed="true" aria-controls="trace-content"><span class="stage-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h4l4 10 4-10h4l-8 16z"/></svg></span><span class="node-copy"><b>VALOR</b><span id="valor-preview">Policy check</span></span></button>
+            <button type="button" data-trace="outcome" aria-pressed="false" aria-controls="trace-content"><span class="stage-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 8 8-4 8 4-8 4-8-4Zm0 4 8 4 8-4m-16 4 8 4 8-4"/></svg></span><span class="node-copy"><b>Work</b><span id="work-preview">Observed result</span></span></button>
           </div>
         </div>
         <div class="trace-transport" aria-label="Browse recorded decisions">
@@ -82,7 +82,7 @@
           <button id="trace-next" type="button" class="transport-button" aria-label="Next decision" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
         </div>
       </div>
-      <div class="trace-inspector">
+      <div class="trace-inspector" id="trace-inspector">
         <p class="trace-source" id="trace-source">VALOR’s finding</p>
         <div id="trace-content" class="trace-content" aria-live="polite"><p class="dashboard-empty">Loading the decision record…</p></div>
       </div>

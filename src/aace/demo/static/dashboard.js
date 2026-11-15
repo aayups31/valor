@@ -176,12 +176,15 @@
       const selected = chosen(row);
       const excluded = plans.filter(candidate => candidate.status === "constraint_rejected");
       const guard = row.commit?.status;
+      const elapsed = row.decision.decision_ms;
       const summary = reasonText(selected) || "No plan met the evidence and policy requirements.";
       container.append(node("h3", "trace-heading", choiceName(row)), node("p", "trace-summary", summary));
       container.append(
         facts([
           ["Plan failure forecast", percent(selected?.forecast?.failure_probability)],
           ["Action", guard === "applied" ? "Applied in simulation" : outcomeName(guard)],
+          ["Forecasts evaluated", row.decision.forecast_calls],
+          ["Decision time", Number.isFinite(elapsed) ? `${elapsed.toFixed(2)} ms` : "Unavailable"],
         ])
       );
       if (excluded.length) {
@@ -251,6 +254,9 @@
     say("run-title", scenarioName(record.scenario));
     say("run-source", record.example ? "Example replay" : "Session simulation");
     byId("run-source").dataset.source = record.example ? "example" : "simulation";
+    say("run-outcome", outcomeName(record.status));
+    byId("run-outcome").dataset.status = record.status;
+    byId("run-outcome").hidden = false;
     say("run-reference", record.example ? `Seed ${record.seed}` : `Run ${record.study_id.slice(0, 8)} · Seed ${record.seed}`);
     say("metric-work", `${record.state.progress} / ${record.goal}`);
     say("metric-decisions", record.decisions.length);
@@ -273,7 +279,7 @@
       button.type = "button";
       button.dataset.stage = classifyStep(row, index);
       button.setAttribute("aria-label", `Decision ${index + 1}. ${choiceName(row)}. ${observedName(row)}.`);
-      button.title = choiceName(row);
+      button.title = `${choiceName(row)} · ${observedName(row)}`;
       button.addEventListener("click", () => selectDecision(index));
       strip.append(button);
     }
@@ -440,6 +446,9 @@
       if (!Object.hasOwn(traceNames, button.dataset.trace)) return;
       trace = button.dataset.trace;
       renderTrace(run?.decisions[decisionIndex]);
+      if (window.matchMedia("(max-width: 980px)").matches) {
+        byId("trace-inspector").scrollIntoView({ block: "nearest", behavior: "instant" });
+      }
     });
   }
   byId("export-run").addEventListener("click", () => {
