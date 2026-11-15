@@ -75,7 +75,7 @@
           <dl class="readout-work"><div><dt>Work</dt><dd id="flow-progress">0 / 8</dd></div></dl>
           <dl id="flow-resources" class="flow-resources"></dl>
         </div>
-        <div class="studio-controls">
+        <div class="studio-controls" id="trace-controls" hidden>
           <button id="flow-play" class="trace-play" disabled>Play trace</button>
           <div class="flow-stages" role="group" aria-label="Trace stages">
             <button id="flow-phase-0" aria-pressed="true">Propose</button>
@@ -86,7 +86,7 @@
           <button id="flow-step" class="quiet-button" disabled>Next stage <span aria-hidden="true">→</span></button>
         </div>
       </section>
-      <section class="run-review" aria-label="Decision timeline">
+      <section class="run-review" id="run-review" aria-label="Decision timeline" hidden>
         <span id="study-playback-status" role="status" aria-live="polite">Ready to begin</span>
         <ol id="study-timeline" class="study-timeline" aria-label="Recorded decisions"></ol>
         <div class="run-transport"><button class="quiet-button" id="study-play" disabled>Play run</button><button class="quiet-button" id="study-next" disabled>Next decision</button></div>
@@ -160,7 +160,9 @@
         <svg viewBox="0 0 900 230" role="img" aria-labelledby="memory-chart-title memory-chart-description">
           <title id="memory-chart-title">Damage and its lingering signal</title>
           <desc id="memory-chart-description">Run a scenario to see recorded signal values.</desc>
+          <defs><linearGradient id="memory-signal-fill" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#e8be78" stop-opacity=".25"/><stop offset="100%" stop-color="#e8be78" stop-opacity="0"/></linearGradient></defs>
           <g class="chart-grid"><path d="M35 25H865M35 85H865M35 145H865M35 205H865"/></g>
+          <path id="memory-activation-area" fill="url(#memory-signal-fill)" d=""/>
           <polyline id="memory-harm-line" class="harm-line" points=""/>
           <polyline id="memory-activation-line" class="activation-line" points=""/>
           <circle id="memory-current-point" r="5" cx="35" cy="205" hidden/>

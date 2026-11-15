@@ -125,6 +125,7 @@ function renderFlow(){
     const unit=document.createElement("span");
     const completed=i<(state?.progress ?? 0);
     unit.classList.toggle("complete",completed);
+    unit.classList.toggle("new-work",observing && completed && i>=(before?.progress ?? 0));
     unit.setAttribute("aria-label","Work unit "+(i+1)+(completed?" completed":" pending"));
     unit.textContent=completed?"✓":"";work.append(unit);
   }
@@ -167,6 +168,8 @@ function renderFlow(){
   say("flow-caption",captions[flowPhase] || captions[0]);
   byId("flow-play").disabled=busy || !row;
   byId("flow-step").disabled=busy || !row;
+  byId("trace-controls").hidden=!row;
+  byId("run-review").hidden=!row && !busy && !failureMessage;
   byId("review-choice").hidden=!row || flowPhase<2;
   byId("review-inspect").disabled=busy || !row;
   say("review-action",chosen ? plans[chosen.candidate.identifier] : "No supported action");
@@ -246,9 +249,12 @@ function renderInstruments(row){
   const ceiling=Math.max(1,...history.flatMap(entry=>[entry.affect_observer.after.arousal,entry.affect_observer.after.observed_harm]));
   say("memory-scale",row ? "Raw signal values · shared scale 0–"+number(ceiling,3)+" · not probabilities" : "Raw signal values, not probabilities.");
   const plotPoint=(entry,position,key)=>[35+(history.length>1 ? position/(history.length-1)*830 : 0),205-entry.affect_observer.after[key]/ceiling*180];
-  for(const [id,key] of [["memory-harm-line","observed_harm"],["memory-activation-line","arousal"]]){
-    byId(id).setAttribute("points",history.map((entry,position)=>plotPoint(entry,position,key).join(",")).join(" "));
-  }
+  const points=key=>history.map((entry,position)=>plotPoint(entry,position,key).join(","));
+  const activation=points("arousal");
+  byId("memory-harm-line").setAttribute("points",points("observed_harm").join(" "));
+  byId("memory-activation-line").setAttribute("points",activation.join(" "));
+  const area=activation.length>1 ? "M35,205 L"+activation.join(" L")+" L865,205 Z" : "";
+  byId("memory-activation-area").setAttribute("d",area);
   if(row)byId("memory-current-point").removeAttribute("hidden");
   else byId("memory-current-point").setAttribute("hidden","");
   if(row){
@@ -392,6 +398,12 @@ byId("work-inspect").addEventListener("click",()=>{
   byId("workload-evidence").scrollIntoView({block:"center",behavior:"instant"});
 });
 byId("proposal-details").addEventListener("toggle",()=>{if(byId("proposal-details").open)stopPlayback();});
+byId("proposal-details").addEventListener("keydown",event=>{
+  if(event.key!=="Escape" || !byId("proposal-details").open)return;
+  event.preventDefault();
+  byId("proposal-details").open=false;
+  byId("proposal-inspect").focus();
+});
 byId("chamber-inspect").addEventListener("click",()=>{
   if(!run || !byId("chamber-inspect").dataset.plan)return;
   selectedCandidate=byId("chamber-inspect").dataset.plan;

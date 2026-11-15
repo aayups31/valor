@@ -215,6 +215,12 @@
 }
 .work-lights span { height: clamp(3px, .52vw, 7px); border-radius: 2px; background: #464346; color: transparent; overflow: hidden; }
 .work-lights span.complete { background: #b9e4c9; box-shadow: 0 0 8px #a8e4bc; }
+.work-lights .new-work { animation: work-arrives .95s ease-out both; }
+@keyframes work-arrives {
+  0%, 54% { background: #464346; box-shadow: none; }
+  82% { background: #e1fbe8; box-shadow: 0 0 16px 3px #b7eac8; }
+  100% { background: #b9e4c9; box-shadow: 0 0 8px #a8e4bc; }
+}
 .scene-readout {
   display: flex;
   align-items: center;
@@ -266,6 +272,7 @@
 }
 .studio-controls .flow-stages button[aria-pressed="true"] { background: #28231b; color: #f0d2a0; }
 .studio-controls > :last-child { justify-self: end; white-space: nowrap; }
+.studio:has(.studio-controls[hidden]) .scene-readout { border-radius: 0 0 16px 16px; border-bottom: 0; }
 .run-review {
   display: flex;
   align-items: center;

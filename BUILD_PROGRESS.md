@@ -1,5 +1,12 @@
 # Build progress
 
+### Stop 26 — visual supervision studio, November 15
+
+- Replaced the text-led Command diagram with an original rendered work cell. Recorded phases drive the traveling signal, gate lighting, completed work lights and before/after readouts. The first decision plays once and stays available for inspection. Agent, VALOR and Work open their respective evidence.
+- Reduced visible copy across Command, Futures, Fear Memory and Decision Chamber. Inspection, raw records and settings stay available. The scene is labeled as illustrated and the fear signal remains observer-only.
+- 21 targeted tests passed in 13.59 seconds. Verified the local render and interactions in an isolated Chrome profile at desktop and 390-pixel widths, including keyboard closure of the plan list and reduced motion. The local server was restarted to serve interface 7.
+- Initial studio commit `c137a89` pushed to `origin/main`. [Full report](reports/2026-11-15-visual-studio.md).
+
 ### Stop 25 — supervision workspace, November 15
 
 - Redesigned the primary app around one scenario picker, a supervision canvas and a decision timeline. A run opens on its first decision. The trace animates proposal, forecast, policy decision and observation, with manual controls and reduced-motion support. The Work readout shows health, time and reserves before the action, then the observed outcome.

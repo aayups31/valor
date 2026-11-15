@@ -37,9 +37,12 @@ def test_http_study_is_local_bounded_and_exports_provenance(server):
     result = json.loads(body)
     assert status == 201 and 1 <= len(result["decisions"]) <= 32
     assert result["forecast_source"].startswith("declared analytic")
-    for path in ("/rover", "/study.js", "/study.css", "/decision-paths.svg"):
+    for path in ("/rover", "/study.js", "/study.css", "/studio.css", "/instruments.css", "/decision-paths.svg"):
         status, _, body = request(server,path)
         assert status == 200 and body
+    status, headers, body = request(server, "/supervision-cell.webp")
+    assert status == 200 and headers["Content-Type"] == "image/webp"
+    assert body[:4] == b"RIFF" and body[8:12] == b"WEBP"
 
 
 def test_frontend_record_semantics_without_browser():
