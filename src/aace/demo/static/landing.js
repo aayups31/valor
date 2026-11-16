@@ -75,6 +75,16 @@
       });
     }
 
+    if (conditions.desktop) {
+      const story = document.querySelector(".decision-story");
+      const chapters = gsap.utils.toArray(".story-chapter");
+      gsap.fromTo(".story-orbit", {rotation:-28,scaleY:.63}, {rotation:26,scaleY:.85,ease:"none",scrollTrigger:{trigger:story,start:"top 70%",end:"bottom 70%",scrub:1}});
+      gsap.to(".signal-flow", {strokeDashoffset:-320,ease:"none",scrollTrigger:{trigger:story,start:"top center",end:"bottom center",scrub:.5}});
+      gsap.fromTo(".story-finding", {opacity:.18,y:20}, {opacity:1,y:0,scrollTrigger:{trigger:chapters[1],start:"top 80%",end:"top 35%",scrub:.6}});
+      gsap.fromTo(".story-health", {opacity:.18,y:20}, {opacity:1,y:0,scrollTrigger:{trigger:chapters[2],start:"top 85%",end:"top 35%",scrub:.6}});
+      chapters.forEach(chapter=>gsap.fromTo(chapter,{opacity:.35,y:35},{opacity:1,y:0,ease:"none",scrollTrigger:{trigger:chapter,start:"top 85%",end:"top 40%",scrub:.5}}));
+    }
+
     const film = document.querySelector(".film-section");
     const filmShell = film?.querySelector(".film-shell");
     const filmOrbit = film?.querySelector(".film-orbit");

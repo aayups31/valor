@@ -26,8 +26,8 @@
       <div class="hero-orbit" aria-hidden="true"></div>
       <div class="hero-copy">
         <p class="eyebrow" data-enter>Agent supervision · Research preview</p>
-        <h1 id="hero-heading"><span data-enter>See the decision.</span><span data-enter>See what follows.</span></h1>
-        <p class="hero-description" data-enter>Follow an agent’s proposal through VALOR. Compare what could happen and inspect the result.</p>
+        <h1 id="hero-heading"><span data-enter>Autonomy meets</span><span data-enter>consequence.</span></h1>
+        <p class="hero-description" data-enter>A clearer view between an agent’s next move and what happens next. Forecast. Evaluate. Observe.</p>
         <div class="hero-actions" data-enter>
           <a class="button button-gold" href="/app">Open Command Center <span aria-hidden="true">→</span></a>
           <a class="button button-quiet" href="#demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7z"/></svg> Watch the demo</a>
@@ -36,9 +36,27 @@
 
       <div class="hero-showcase" id="product">
         <a class="product-frame" href="/app" aria-labelledby="preview-label">
-          <div class="preview-chrome"><span id="preview-label"><i></i> Command Center</span><span>Recorded simulation</span><span class="preview-link" aria-hidden="true">↗</span></div>
-          <img class="product-image" src="/landing-preview.webp" width="1440" height="940" alt="VALOR Command Center showing an Under pressure run, its decision trace and the policy finding Work carefully." fetchpriority="high">
+          <div class="preview-chrome"><span id="preview-label">Inside VALOR</span><span>Actual product · simulation example</span><span class="preview-link" aria-hidden="true">↗</span></div>
+          <img class="product-image" src="/landing-preview.webp" width="1440" height="940" alt="VALOR Command Center showing the After damage example, its chosen recovery plan, forecast and observed system health." fetchpriority="high">
         </a>
+      </div>
+    </section>
+
+    <section class="decision-story content-width" aria-labelledby="story-title">
+      <div class="story-visual" aria-label="Illustrated walkthrough of the After damage example">
+        <div class="story-orbit" aria-hidden="true"></div>
+        <div class="story-caption"><span>AFTER DAMAGE</span><span>Illustrated simulation</span></div>
+        <div class="story-core"><span class="core-label">VALOR</span><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M20 26 50 57 80 26M30 53 50 75 70 53"/></svg><span>Decision supervision</span></div>
+        <div class="story-agent"><span class="story-icon">↗</span><b>Agent</b><small>Four possible plans</small></div>
+        <div class="story-work"><span class="story-icon">◎</span><b>Work</b><small>Observed outcome</small></div>
+        <svg class="story-connections" viewBox="0 0 600 400" aria-hidden="true"><path d="M80 200H240M360 200H520"/><path class="signal-flow" d="M80 200H240M360 200H520"/></svg>
+        <div class="story-finding"><span>SELECTED PLAN</span><strong>Restore capacity</strong><small>Highest score within policy</small></div>
+        <div class="story-health"><span>Observed health</span><strong>20% <i>→</i> 50%</strong></div>
+      </div>
+      <div class="story-chapters">
+        <article class="story-chapter" data-chapter="0"><p class="eyebrow">01 / Anticipate</p><h2 id="story-title">Before the action.<br><em>See the possibilities.</em></h2><p>A worker has four ways forward. VALOR compares their predicted consequences before one is applied.</p><a href="/app?run=example#evaluations">Explore the alternatives ↗</a></article>
+        <article class="story-chapter" data-chapter="1"><p class="eyebrow">02 / Evaluate</p><h2>Every choice.<br><em>A visible tradeoff.</em></h2><p>In this example, moving quickly exceeds policy limits. Restoring capacity scores highest among the permitted plans.</p><a href="/app?run=example#runs">Follow the decision ↗</a></article>
+        <article class="story-chapter" data-chapter="2"><p class="eyebrow">03 / Observe</p><h2>Then reality<br><em>gets a say.</em></h2><p>The first recovery action raises simulated health from 20% to 50%. Inspect what changed, alongside what was predicted.</p><a href="/app?run=example#evidence">Inspect the evidence ↗</a></article>
       </div>
     </section>
 
@@ -47,7 +65,7 @@
       <div class="section-heading" data-reveal>
         <p class="eyebrow">The demo</p>
         <h2 id="film-title">One decision. From proposal to result.</h2>
-        <p>Watch VALOR weigh the options in the After damage simulation.</p>
+        <p>A short illustrated replay of the After damage simulation.</p>
       </div>
       <figure class="film-shell">
         <div class="preview-chrome"><span><i></i> After damage</span><span>Simulation replay</span><span class="preview-link" aria-hidden="true">▶</span></div>
@@ -78,7 +96,7 @@
     </section>
 
     <section class="landing-close content-width" aria-labelledby="close-heading" data-reveal>
-      <div><p class="eyebrow">VALOR</p><h2 id="close-heading">See the workspace in action.</h2></div>
+      <div><p class="eyebrow">VALOR</p><h2 id="close-heading">Give every decision<br>a clearer perspective.</h2></div>
       <a class="button button-gold" href="/app">Open Command Center <span aria-hidden="true">→</span></a>
     </section>
   </main>
