@@ -238,6 +238,7 @@
     updateLinks();
     renderTrace(row);
     renderProduct(row);
+    if (row) byId("active-decision").value = String(decisionIndex);
   }
 
   function selectDecision(index) {
@@ -273,6 +274,11 @@
     byId("work-ring").dataset.status = record.status;
     byId("export-run").disabled = false;
 
+    const picker = byId("active-decision"); picker.replaceChildren();
+    record.decisions.forEach((row,index) => {
+      const option = node("option", "", `${index+1}. ${choiceName(row)}`);
+      option.value = String(index); picker.append(option);
+    });
     const strip = byId("decision-strip");
     strip.replaceChildren();
     for (const [index, row] of record.decisions.entries()) {
@@ -457,6 +463,7 @@
     say("page-title", pages[active][1]);
     say("page-subtitle", pages[active][2]);
     document.title = `VALOR · ${pages[active][0]}`;
+    requestAnimationFrame(() => window.scrollTo({top:0,behavior:"instant"}));
   }
   function panel(title, className = "") {
     const box = node("article", "instrument-panel " + className);
@@ -477,6 +484,13 @@
   }
   function renderProduct(row) {
     if (!row) return;
+    const timeline = byId("run-timeline"); timeline.replaceChildren();
+    run.decisions.forEach((d,i)=>{
+      const b=node("button","activity-row"); b.type="button";
+      b.setAttribute("aria-pressed",String(i===decisionIndex));
+      b.append(node("span","activity-number",String(i+1).padStart(2,"0")),node("strong","",choiceName(d)),node("span","muted",observedName(d)));
+      b.onclick=()=>{selectDecision(i);byId("run-timeline").children[i].focus({preventScroll:true});}; timeline.append(b);
+    });
     const selected = chosen(row), plans = candidates(row), forecast = selected?.forecast;
     const overview = byId("decision-overview"); overview.replaceChildren();
     const active = panel("Active decision", "active-panel");
@@ -504,7 +518,7 @@
     const agent=byId("agent-screen");agent.replaceChildren();
     const identity=panel("Supervised agent");identity.append(node("span","eyebrow","SIMULATION · LOCAL"),node("h3","feature-title","Service worker"),node("p","muted","The worker proposes plans. VALOR checks forecasts against policy before an action is applied."),facts([["Current plan",choiceName(row)],["Available plans",plans.length],["Connection","Local simulator"],["Action",row.commit?.status === "applied" ? "Applied in simulation" : outcomeName(row.commit?.status)]]),jump("Review decisions","runs"));
     const activity=panel("Decision history");
-    run.decisions.forEach((d,i)=>{const b=node("button","activity-row");b.type="button";b.setAttribute("aria-pressed",String(i===decisionIndex));b.append(node("span","activity-number",String(i+1).padStart(2,"0")),node("strong","",choiceName(d)),node("span","muted",observedName(d)));b.onclick=()=>selectDecision(i);activity.append(b);});agent.append(identity,activity);
+    run.decisions.forEach((d,i)=>{const b=node("button","activity-row");b.type="button";b.setAttribute("aria-pressed",String(i===decisionIndex));b.append(node("span","activity-number",String(i+1).padStart(2,"0")),node("strong","",choiceName(d)),node("span","muted",observedName(d)));b.onclick=()=>{selectDecision(i);byId("agent-screen").querySelectorAll(".activity-row")[i].focus({preventScroll:true});};activity.append(b);});agent.append(identity,activity);
     const evaluation=byId("evaluation-screen");evaluation.replaceChildren();
     const comparison=panel("Evaluated alternatives","comparison-panel");
     comparison.append(node("p","muted",`Decision ${decisionIndex+1} · predictions, not observed outcomes.`));
@@ -518,6 +532,7 @@
     memory.append(chart(history,"Experimental activation through the selected decision; raw values, not probabilities."),node("p","muted","Experimental observer only. This signal does not select actions or change forecasts in this demo."));
     const source=panel("Record provenance");source.append(facts([["Source",run.example?"Example simulation":"Session simulation"],["Seed",run.seed],["Selected decision",decisionIndex+1],["Execution scope","Local simulator"]]),node("p","muted","Export record downloads forecasts, policy reasons and observations for the complete run."));evidence.append(observed,memory,source);
   }
+  byId("active-decision").addEventListener("change",event=>selectDecision(Number(event.target.value)));
   window.addEventListener("hashchange", showPage);
   showPage();
 

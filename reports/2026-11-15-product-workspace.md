@@ -1,0 +1,9 @@
+# Product workspace redesign — November 15, 2026
+
+Implemented five focused views based on the owner's supplied product references: Command Center, Agents, Runs, Evaluations and Evidence. Added restrained obsidian/gold panels, serif editorial headings, a forecast display, observed-health ring, actual health history chart, selectable run timeline, comparison rows and record provenance. A shared decision picker preserves the selected run and decision across views. Existing local simulation, recent-run history, JSON export and instrument links remain connected.
+
+Verification: 22 demo/study tests passed in 13.30 seconds. The initial restricted test run could not access loopback sockets (WinError 10013); rerunning with local access passed. Isolated Chrome verified all five views at 1440 and 390 pixels without horizontal page overflow, decision selection across views, a new simulation, history and JSON download. No browser runtime errors. Rendered screenshots were reviewed; fixed the timeline layout and anchor scroll position and reran the browser checks successfully. JavaScript syntax and Git whitespace checked.
+
+Scope: local simulation UI, not an external-agent fleet or live approval console. No fabricated integrations, agent counts, approval actions or benchmark gains were added. Fear activation remains an experimental observer and does not alter policy in this demo. Session history remains bounded and temporary. Landing film and screenshot depict the earlier UI; refreshing those media is a separate follow-up.
+
+Version control: initial implementation committed as 0118752; final refinement and this report in the following commit. Both are to be pushed to origin/main. Next: user visual review of the five screens, then refresh landing product media to match the accepted design.
