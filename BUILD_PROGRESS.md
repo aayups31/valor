@@ -1,5 +1,11 @@
 # Build progress
 
+### Stop 28 — landing page, demo film, and scroll motion, November 15
+
+- Added the landing page at `/` with an original gold orbital backdrop and a preview of the actual dashboard. The primary action opens Command Center at `/app`. Visual Studio remains at `/studio`.
+- Added a 20-second local demo film of the After damage decision, with captions, transcript and a link to replay the case. GSAP ScrollTrigger drives the reversible motion and respects reduced motion.
+- 23 targeted tests passed. Isolated desktop and 390-pixel Chrome checks verified GSAP motion in both scroll directions, reduced motion, video playback and seeking, and the workspace handoff. Initial implementation pushed as `1353b25`. [Full report](reports/2026-11-15-landing.md).
+
 ### Stop 27 — Command Center and local telemetry, November 15
 
 - Made Command Center the home screen. Run a scenario, see the run outcome and metrics, step through the agent proposals, VALOR findings and observed work, then export the full record. Visual Studio and the decision instruments open the selected run and decision.

@@ -79,11 +79,11 @@ svg { flex: none; width: 21px; height: 21px; fill: none; stroke: currentColor; s
 .hero-orbit {
   position: absolute;
   z-index: -2;
-  inset: -5% -2% 8%;
+  inset: -5% -2% auto;
+  aspect-ratio: 2;
   background:
-    linear-gradient(180deg, #0b0a0928 4%, #0b0a0929 55%, #0b0a09 97%),
-    url("/landing-hero.webp") 50% 0 / 100% auto no-repeat,
-    radial-gradient(ellipse at 90% 35%, #392a17, transparent 52%);
+    linear-gradient(180deg, #0b0a091a 4%, transparent 70%, #0b0a09 99%),
+    url("/landing-hero.webp") 50% 50% / cover no-repeat;
   pointer-events: none;
 }
 .hero::after {
@@ -122,7 +122,7 @@ svg { flex: none; width: 21px; height: 21px; fill: none; stroke: currentColor; s
   justify-items: center;
   perspective: 1550px;
   width: min(91%, 1200px);
-  margin: clamp(30px, 5.6vw, 74px) auto 0;
+  margin: clamp(28px, 3.5vw, 51px) auto 0;
 }
 .hero-showcase::before {
   content: "";
@@ -201,6 +201,8 @@ svg { flex: none; width: 21px; height: 21px; fill: none; stroke: currentColor; s
   color: #ecd0a2;
 }
 .film-shell figcaption a:hover { color: #ffedce; }
+.film-error { color: var(--muted); font-size: 12px; padding: 9px 12px; }
+.film-error a { color: var(--gold); text-decoration: underline; }
 .transcript { max-width: 1050px; margin: 10px auto 0; font-size: 12px; color: var(--muted); }
 .transcript summary { cursor: pointer; width: fit-content; min-height: 38px; padding: 7px 0; color: #e1caab; }
 .transcript p { max-width: 70ch; padding-bottom: 4px; }
@@ -265,7 +267,7 @@ svg { flex: none; width: 21px; height: 21px; fill: none; stroke: currentColor; s
   .hero-description { width: 92%; }
   .hero-actions { gap: 8px; margin-top: 18px; }
   .hero-actions .button { min-height: 42px; padding-inline: 10px; gap: 5px; font-size: 12px; }
-  .hero-orbit { inset: -1% -54% 0 -22%; }
+  .hero-orbit { inset: -1% -54% auto -22%; }
   .hero-showcase { width: 94%; }
   .product-frame, .film-shell { border-radius: 11px; }
   .preview-chrome { min-height: 32px; padding-inline: 9px; font-size: 9px; }

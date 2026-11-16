@@ -3,18 +3,25 @@
 (() => {
   const video = document.getElementById("demo-video");
   const player = document.getElementById("play-demo");
-  if (video && player) {
+  const videoError = document.getElementById("film-error");
+  if (video && player && videoError) {
+    const showVideoError = () => {
+      player.hidden = true;
+      videoError.hidden = false;
+    };
     player.hidden = false;
+    if (video.error) showVideoError();
     player.addEventListener("click", async () => {
       try {
         await video.play();
         video.focus({ preventScroll: true });
       } catch {
-        player.hidden = true;
+        showVideoError();
         video.focus({ preventScroll: true });
       }
     });
-    video.addEventListener("play", () => { player.hidden = true; });
+    video.addEventListener("error", showVideoError);
+    video.addEventListener("play", () => { player.hidden = true; videoError.hidden = true; });
     video.addEventListener("ended", () => { player.hidden = false; });
   }
 
@@ -46,11 +53,11 @@
     const frame = showcase?.querySelector(".product-frame");
     if (frame) {
       gsap.fromTo(frame, {
-        y: conditions.desktop ? 28 : 12,
-        rotationX: conditions.desktop ? 7 : 0,
+        y: conditions.desktop ? 22 : 12,
+        rotationX: conditions.desktop ? 5 : 0,
         scale: 0.976,
         transformPerspective: 1400,
-        transformOrigin: "50% 80%",
+        transformOrigin: "50% 40%",
       }, {
         y: 0,
         rotationX: 0,

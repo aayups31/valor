@@ -24,15 +24,15 @@ The owner's [learned-stakes direction](01_Architecture/INTRINSIC_STAKES_DIRECTIO
 
 ## Open the demo
 
-On this Windows computer, double-click **Start VALOR.cmd** in the project folder. It starts the engine quietly and opens the experiment in your default browser. Press **Try VALOR**, or choose a situation and use **Run this scenario** beside it. **How it works** explains the task and controls. If an earlier interface is still running, the launcher asks you to open **Stop VALOR.cmd**, then start again.
+On Windows, double-click **Start VALOR.cmd** in the project folder. It starts the local engine and opens the landing page. Choose **Watch the demo** for the short recorded walkthrough, or **Open Command Center** to use the product. If the launcher detects an earlier interface, open **Stop VALOR.cmd** before starting again. Export any runs you want to retain before stopping.
 
-Choose everyday work, pressure, damage, low reserves or a short deadline. The engine computes a finite simulated run; **Play record**, **Next decision** and the numbered timeline let you inspect it. Opening alternatives, internal state or complete evidence pauses playback. Download the complete record for all actual decisions and outcomes. Changing conditions clears the previous evidence.
+In Command Center, choose a scenario and select **Run simulation**. Select **Agent**, **VALOR**, or **Work** to inspect the current decision, and use the timeline to move between steps. Visual Studio and the other instruments open the selected decision. **Export record** downloads the complete run as JSON.
 
 **Rover benchmark** opens the existing paired comparison at `/rover`. Use **Start mission**, **One decision** and the mission selector there. **Stop VALOR.cmd** closes the engine started by the launcher. Closing a browser tab alone does not stop the engine.
 
 The runtime is already installed on this laptop. On another Windows machine the launcher can set up the small demo environment if Python 3.11+ is installed; first setup needs internet. It does not install the optional neural training stack. No account or paid API is required.
 
-Your interface preferences are maintained in [UI design principles](UI_DESIGN_PRINCIPLES.md) and [the product experience direction](01_Architecture/PRODUCT_EXPERIENCE_DIRECTION.md). The Scale-inspired redesign and its verification are recorded in [UI build report 07](reports/2026-10-12-build-07-ui.md).
+The landing page, recorded walkthrough, and workspace handoff are documented in the [landing build report](reports/2026-11-15-landing.md). Interface preferences are maintained in the [UI design principles](UI_DESIGN_PRINCIPLES.md).
 
 ## Developer setup and commands (Windows PowerShell)
 
@@ -48,7 +48,7 @@ python -m venv .venv
 
 Use Python 3.11+; the first verified runtime is Python 3.13.1. Exact installed dependencies are recorded in `requirements-core.lock.txt`. The optional learning stack is isolated from the basic simulator/demo.
 
-Open http://127.0.0.1:8765 for the general decision study. The service core uses analytic benchmark forecasts; its experimental affect observer is processed over the recorded public states and has no action authority. Playback changes only the view. It controls no real service or user file.
+The landing page is at http://127.0.0.1:8765/, Command Center at `/app`, and Visual Studio at `/studio`. The service core uses analytic benchmark forecasts. The experimental affect observer records a signal without action authority. This workspace runs local simulations and presents separately recorded tool trials and research.
 
 The rover comparison at http://127.0.0.1:8765/rover begins paused. Its worker owns both engines; browser polling does not drive their decisions. Apply brakes bypasses the controllers and applies one bounded braking action; momentum still follows physics.
 
