@@ -237,6 +237,7 @@
     }
     updateLinks();
     renderTrace(row);
+    renderProduct(row);
   }
 
   function selectDecision(index) {
@@ -436,6 +437,89 @@
       byId("run-submit").disabled = false;
     }
   }
+
+  const pages = {
+    overview: ["Command Center", "Every decision. In perspective.", "See what the agent proposed, what VALOR found, and what followed."],
+    agents: ["Agents", "An agent. With oversight.", "Inspect the simulated worker and its recorded decisions."],
+    runs: ["Runs", "Follow the work.", "Move through the recorded decisions, one step at a time."],
+    evaluations: ["Evaluations", "The choice behind the action.", "Compare the plans VALOR evaluated for the selected decision."],
+    evidence: ["Evidence", "From prediction to proof.", "Observed results, experimental signals, and original records."]
+  };
+  function showPage() {
+    const page = location.hash.slice(1) || "overview";
+    const active = Object.hasOwn(pages, page) ? page : "overview";
+    document.querySelectorAll("[data-screen]").forEach(el => { el.hidden = !el.dataset.screen.split(" ").includes(active); });
+    document.querySelectorAll("[data-page]").forEach(el => {
+      if (el.dataset.page === active) el.setAttribute("aria-current", "page");
+      else el.removeAttribute("aria-current");
+    });
+    say("page-kicker", pages[active][0].toUpperCase());
+    say("page-title", pages[active][1]);
+    say("page-subtitle", pages[active][2]);
+    document.title = `VALOR · ${pages[active][0]}`;
+  }
+  function panel(title, className = "") {
+    const box = node("article", "instrument-panel " + className);
+    box.append(node("h2", "panel-title", title)); return box;
+  }
+  function jump(label, page) {
+    const link = node("a", "panel-link", label + " ↗"); link.href = "#" + page; return link;
+  }
+  function chart(values, label) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 500 130"); svg.classList.add("signal-chart");
+    svg.setAttribute("role", "img"); svg.setAttribute("aria-label", label);
+    const max = Math.max(1, ...values);
+    const line = document.createElementNS(svg.namespaceURI,"polyline");
+    line.setAttribute("points",values.map((v,i)=>`${10+i*480/Math.max(1,values.length-1)},${120-v/max*105}`).join(" ")); svg.append(line);
+    values.forEach((v,i)=>{const dot=document.createElementNS(svg.namespaceURI,"circle");dot.setAttribute("cx",10+i*480/Math.max(1,values.length-1));dot.setAttribute("cy",120-v/max*105);dot.setAttribute("r","3");svg.append(dot);});
+    return svg;
+  }
+  function renderProduct(row) {
+    if (!row) return;
+    const selected = chosen(row), plans = candidates(row), forecast = selected?.forecast;
+    const overview = byId("decision-overview"); overview.replaceChildren();
+    const active = panel("Active decision", "active-panel");
+    active.append(node("span","eyebrow",`DECISION ${decisionIndex+1} / ${run.decisions.length}`),node("h3","feature-title",choiceName(row)),node("p","muted","Simulated service agent"));
+    const chain=node("div","mini-chain");
+    ["Agent","VALOR","Work"].forEach((x,i)=>chain.append(node("span",i===1?"chain-gate":"",x)));
+    active.append(chain,jump("Inspect trace","runs"));
+    const futures=panel("Consequence forecast","forecast-panel");
+    futures.append(node("p","muted","Chosen plan · predicted outcomes"));
+    [["Completion",forecast?.success_probability,"green"],["Failure",forecast?.failure_probability,"red"]].forEach(([label,value,tone])=>{
+      const line=node("div","forecast-row");line.append(node("span","",label),node("strong",tone,percent(value)));
+      const bar=node("div","forecast-track"), fill=node("i",tone);fill.style.width=Number.isFinite(value)?`${Math.max(0,Math.min(1,value))*100}%`:"0%";bar.append(fill);line.append(bar);futures.append(line);
+    });
+    futures.append(jump("Compare alternatives","evaluations"));
+    const result=panel("Observed result","result-panel");
+    const health=row.actual_outcome.integrity;
+    const dial=node("div","health-dial");dial.style.setProperty("--health",`${Math.max(0,Math.min(1,health))*100}%`);
+    const inner=node("div");inner.append(node("strong","",percent(health)),node("span","muted","System health"));dial.append(inner);
+    result.append(dial,node("p","result-caption",observedName(row)));
+    const recommendation=panel("VALOR recommendation","recommendation-panel");
+    recommendation.append(node("span","recommendation-mark","✓"),node("h3","feature-title",choiceName(row)),node("p","muted",reasonText(selected)||"No plan met the policy requirements."),jump("See decision evidence","evidence"));
+    const signals=panel("System health across this run","signals-panel");
+    signals.append(chart([run.initial_state.integrity,...run.decisions.map(d=>d.actual_outcome.integrity)],"Observed system health from start through end of run. Scale zero to one."),node("p","chart-legend","Start → final observation · 0–100% health"));
+    overview.append(active,futures,result,recommendation,signals);
+    const agent=byId("agent-screen");agent.replaceChildren();
+    const identity=panel("Supervised agent");identity.append(node("span","eyebrow","SIMULATION · LOCAL"),node("h3","feature-title","Service worker"),node("p","muted","The worker proposes plans. VALOR checks forecasts against policy before an action is applied."),facts([["Current plan",choiceName(row)],["Available plans",plans.length],["Connection","Local simulator"],["Action",row.commit?.status === "applied" ? "Applied in simulation" : outcomeName(row.commit?.status)]]),jump("Review decisions","runs"));
+    const activity=panel("Decision history");
+    run.decisions.forEach((d,i)=>{const b=node("button","activity-row");b.type="button";b.setAttribute("aria-pressed",String(i===decisionIndex));b.append(node("span","activity-number",String(i+1).padStart(2,"0")),node("strong","",choiceName(d)),node("span","muted",observedName(d)));b.onclick=()=>selectDecision(i);activity.append(b);});agent.append(identity,activity);
+    const evaluation=byId("evaluation-screen");evaluation.replaceChildren();
+    const comparison=panel("Evaluated alternatives","comparison-panel");
+    comparison.append(node("p","muted",`Decision ${decisionIndex+1} · predictions, not observed outcomes.`));
+    const table=node("div","comparison-table");
+    const head=node("div","comparison-row comparison-head");["Plan","Completion","Failure","Score","Decision"].forEach(t=>head.append(node("span","",t)));table.append(head);
+    plans.forEach(c=>{const line=node("div","comparison-row");line.dataset.selected=String(c.status==="selected");[planName(c.candidate.identifier),percent(c.forecast?.success_probability),percent(c.forecast?.failure_probability),Number.isFinite(c.score)?c.score.toFixed(3):"—",candidateLabels[c.status]||c.status].forEach(t=>line.append(node("span","",t)));table.append(line);});comparison.append(table);
+    const why=panel("Why this plan");why.append(node("h3","feature-title",choiceName(row)),node("p","muted",reasonText(selected)||"No plan met the policy requirements."),candidateList(plans.filter(c=>c.status!=="selected"),true));evaluation.append(comparison,why);
+    const evidence=byId("record-screen");evidence.replaceChildren();
+    const observed=panel("Observed outcome");observed.append(node("h3","feature-title",observedName(row)),facts([["Work completed",`${row.actual_outcome.progress} / ${run.goal}`],["System health",percent(health)],["Reserve",units(row.actual_outcome.quota)],["Applied action",row.commit?.status === "applied" ? planName(row.commit.applied_action?.name) : "None"]]));
+    const memory=panel("Fear Memory");const history=run.decisions.slice(0,decisionIndex+1).map(d=>d.affect_observer?.after?.arousal).filter(Number.isFinite);
+    memory.append(chart(history,"Experimental activation through the selected decision; raw values, not probabilities."),node("p","muted","Experimental observer only. This signal does not select actions or change forecasts in this demo."));
+    const source=panel("Record provenance");source.append(facts([["Source",run.example?"Example simulation":"Session simulation"],["Seed",run.seed],["Selected decision",decisionIndex+1],["Execution scope","Local simulator"]]),node("p","muted","Export record downloads forecasts, policy reasons and observations for the complete run."));evidence.append(observed,memory,source);
+  }
+  window.addEventListener("hashchange", showPage);
+  showPage();
 
   byId("run-form").addEventListener("submit", submitRun);
   byId("example-run").addEventListener("click", () => selectRun("example"));

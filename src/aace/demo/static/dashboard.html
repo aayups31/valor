@@ -19,9 +19,11 @@
 
   <nav class="sidebar" aria-label="Workspace">
     <p class="nav-caption">Workspace</p>
-    <a href="#overview" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="3"/><path d="M8 9h3v3H8zm0 7h8m-2-7h2m-2 3h2"/></svg><span>Command Center</span></a>
-    <a href="#runs"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v4l3 2"/></svg><span>Runs</span></a>
-    <a href="#evidence"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 18h14M7 14v-3m5 3V6m5 8V9"/></svg><span>Evidence</span></a>
+    <a href="#overview" data-page="overview" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="3"/><path d="M8 9h3v3H8zm0 7h8m-2-7h2m-2 3h2"/></svg><span>Command Center</span></a>
+    <a href="#agents" data-page="agents"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 5v8l-8 5-8-5V8zm0 9 8-4m-8 4L4 8m8 4v9"/></svg><span>Agents</span></a>
+    <a href="#runs" data-page="runs"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v4l3 2"/></svg><span>Runs</span></a>
+    <a href="#evaluations" data-page="evaluations"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9m7 10V4m7 15v-7"/></svg><span>Evaluations</span></a>
+    <a href="#evidence" data-page="evidence"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 18h14M7 14v-3m5 3V6m5 8V9"/></svg><span>Evidence</span></a>
     <div class="sidebar-group">
       <p class="nav-caption">Inspect a decision</p>
       <a id="studio-link" href="/studio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18v12H3zM8 8l2-4h4l2 4"/><circle cx="12" cy="14" r="2.5"/></svg><span>Visual Studio</span></a>
@@ -34,7 +36,7 @@
 
   <main id="overview" tabindex="-1">
     <div class="page-heading">
-      <div><h1>Command Center</h1><p>Agent decisions, VALOR’s findings, and what happened.</p></div>
+      <div><span class="eyebrow" id="page-kicker">COMMAND CENTER</span><h1 id="page-title">Every decision. In perspective.</h1><p id="page-subtitle">See what the agent proposed, what VALOR found, and what followed.</p></div>
       <form id="run-form" class="run-form">
         <div class="scenario-field"><label for="scenario-select">Scenario</label><select id="scenario-select" name="scenario">
           <option value="hazard">Under pressure</option>
@@ -49,7 +51,7 @@
     <p id="dashboard-status" class="dashboard-status" role="status" aria-live="polite"></p>
     <noscript><p>Enable JavaScript to run a simulation and inspect its decisions.</p></noscript>
 
-    <section class="run-overview" aria-labelledby="run-title">
+    <section data-screen="overview agents runs evaluations evidence" class="run-overview" aria-labelledby="run-title">
       <div class="run-header">
         <div><div class="run-identity"><span class="run-label" id="run-source">Selected run</span><span id="run-outcome" class="run-outcome" hidden></span></div><h2 id="run-title">Loading telemetry</h2><p id="run-reference"></p></div>
         <button class="quiet-button" id="export-run" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m-4-4 4 4 4-4M5 16v4h14v-4"/></svg><span>Export record</span></button>
@@ -65,7 +67,11 @@
       </div>
     </section>
 
-    <section id="trace" class="trace-workspace" aria-label="Decision trace">
+    <section id="decision-overview" class="decision-overview" data-screen="overview" aria-label="Selected decision overview"></section>
+    <section id="agent-screen" class="product-screen" data-screen="agents" hidden></section>
+    <section id="evaluation-screen" class="product-screen" data-screen="evaluations" hidden></section>
+    <section id="record-screen" class="product-screen" data-screen="evidence" hidden></section>
+    <section id="trace" data-screen="runs" hidden class="trace-workspace" aria-label="Decision trace">
       <div class="route-visual">
         <div class="route-heading"><h2>Decision trace</h2><span id="trace-position">Loading</span></div>
         <div class="route-scene">
@@ -89,11 +95,11 @@
     </section>
 
     <div class="dashboard-library">
-      <section id="runs" class="library-panel" aria-labelledby="runs-title">
+      <section id="runs" data-screen="runs" hidden class="library-panel" aria-labelledby="runs-title">
         <div class="library-heading"><div><h2 id="runs-title">Recent runs</h2><p>Current local session</p></div><button type="button" id="example-run" class="quiet-button">Open example</button></div>
         <div id="recent-runs" class="recent-runs"><p class="dashboard-empty">Loading recent runs…</p></div>
       </section>
-      <section id="evidence" class="library-panel" aria-labelledby="evidence-title">
+      <section id="evidence" data-screen="evidence" hidden class="library-panel" aria-labelledby="evidence-title">
         <div class="library-heading"><div><h2 id="evidence-title">Evidence</h2><p>Recorded trials and benchmarks</p></div></div>
         <ul class="evidence-list">
           <li><a href="/studio?view=execution"><span class="evidence-value">14 / 14</span><span><strong>Tool trials</strong><small>Harmful proposals held in the local SQLite trial</small></span><span aria-hidden="true">↗</span></a></li>
