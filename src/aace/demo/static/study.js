@@ -23,7 +23,7 @@ function toast(message){clearTimeout(toastTimer);say("study-toast",message);byId
 function stopPlayback(){clearInterval(timer);timer=null;stopFlow();}
 function controls(){
   const linkedRun=run?.example ? "example" : run?.study_id;
-  byId("center-link").setAttribute("href",linkedRun ? "/?run="+encodeURIComponent(linkedRun)+"&decision="+(index+1) : "/");
+  byId("center-link").setAttribute("href",linkedRun ? "/app?run="+encodeURIComponent(linkedRun)+"&decision="+(index+1) : "/app");
   byId("study-start").disabled=busy;
   byId("study-run").disabled=busy;
   byId("study").setAttribute("aria-busy",String(busy));

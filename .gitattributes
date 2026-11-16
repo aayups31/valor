@@ -10,3 +10,6 @@
 *.cjs text eol=lf
 *.cmd text eol=crlf
 *.ps1 text eol=crlf
+*.vtt text eol=lf
+src/aace/demo/static/gsap.min.js -text whitespace=-blank-at-eol,-blank-at-eof
+src/aace/demo/static/ScrollTrigger.min.js -text whitespace=-blank-at-eol,-blank-at-eof

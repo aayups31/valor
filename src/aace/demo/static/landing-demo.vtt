@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.550
+Example simulation: after damage. The system begins at 20% health.
+
+00:00:03.550 --> 00:00:07.530
+The agent submits four plans for the next action.
+
+00:00:07.530 --> 00:00:11.920
+VALOR selects Restore capacity, the highest scoring plan that passes policy.
+
+00:00:11.920 --> 00:00:15.750
+System health rises from 20% to 50% after the simulated recovery action.
+
+00:00:15.750 --> 00:00:20.000
+The Command Center makes proposals, findings, and observed outcomes inspectable.

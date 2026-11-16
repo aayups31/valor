@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0a09">
+  <meta name="description" content="Explore VALOR's agent supervision workspace. Compare forecasts, trace a policy decision, and see what actually changed.">
+  <title>VALOR · Agent supervision</title>
+  <link rel="stylesheet" href="/landing.css">
+  <script src="/gsap.min.js" defer></script>
+  <script src="/ScrollTrigger.min.js" defer></script>
+  <script src="/landing.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="landing-header">
+    <div class="landing-nav">
+      <a class="brand" href="/" aria-label="VALOR home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h4l5 12 5-12h4L12 22zM10 5l2 5 2-5z"/></svg><span>VALOR</span></a>
+      <nav aria-label="Landing page"><a href="#product">Product</a><a href="#demo">Demo</a><a href="#evidence">Evidence</a></nav>
+      <a class="button button-small" href="/app">Open workspace <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-orbit" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow" data-enter>Agent supervision · Research preview</p>
+        <h1 id="hero-heading"><span data-enter>See the decision.</span><span data-enter>See what follows.</span></h1>
+        <p class="hero-description" data-enter>Follow an agent’s proposal through VALOR. Compare what could happen and inspect the result.</p>
+        <div class="hero-actions" data-enter>
+          <a class="button button-gold" href="/app">Open Command Center <span aria-hidden="true">→</span></a>
+          <a class="button button-quiet" href="#demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7z"/></svg> Watch the demo</a>
+        </div>
+      </div>
+
+      <div class="hero-showcase" id="product">
+        <a class="product-frame" href="/app" aria-labelledby="preview-label">
+          <div class="preview-chrome"><span id="preview-label"><i></i> Command Center</span><span>Recorded simulation</span><span class="preview-link" aria-hidden="true">↗</span></div>
+          <img class="product-image" src="/landing-preview.webp" width="1440" height="940" alt="VALOR Command Center showing an Under pressure run, its decision trace and the policy finding Work carefully." fetchpriority="high">
+        </a>
+      </div>
+    </section>
+
+    <section class="film-section content-width" id="demo" aria-labelledby="film-title">
+      <div class="film-orbit" aria-hidden="true"></div>
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">The demo</p>
+        <h2 id="film-title">One decision. From proposal to result.</h2>
+        <p>Watch VALOR weigh the options in the After damage simulation.</p>
+      </div>
+      <figure class="film-shell">
+        <div class="preview-chrome"><span><i></i> After damage</span><span>Simulation replay</span><span class="preview-link" aria-hidden="true">▶</span></div>
+        <div class="film-media">
+          <video id="demo-video" controls playsinline preload="metadata" poster="/supervision-cell.webp" aria-label="VALOR After damage simulation walkthrough">
+            <source src="/landing-demo.webm" type="video/webm">
+            <track src="/landing-demo.vtt" kind="captions" srclang="en" label="English">
+            <p>Video playback is unavailable in this browser. <a href="/landing-demo.webm">Download the demo</a>.</p>
+          </video>
+          <button id="play-demo" class="film-play" type="button" aria-label="Play the demo video" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7z"/></svg></button>
+        </div>
+        <figcaption><a href="/studio?run=example&amp;view=simulation&amp;decision=1">Replay this decision in Visual Studio <span aria-hidden="true">↗</span></a></figcaption>
+      </figure>
+      <details class="transcript"><summary>Read the demo transcript</summary><p>In the After damage simulation, the system starts at 20% health. The simulated agent has four plans. VALOR rejects the faster plan under its policy and chooses to restore capacity. After the selected action, system health reaches 50%. Command Center shows the forecasts, the policy result, and what changed.</p></details>
+    </section>
+
+    <section class="evidence-section content-width" id="evidence" aria-labelledby="evidence-heading">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">Inside the workspace</p>
+        <h2 id="evidence-heading">From a run to the evidence.</h2>
+      </div>
+      <div class="capability-list" data-reveal>
+        <a href="/app"><div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h16M7 14v-4m5 4V6m5 8V9"/></svg></div><span><strong>Trace a decision</strong><small>See the proposal, policy check, and observed result in one place.</small></span><span aria-hidden="true">↗</span></a>
+        <a href="/studio?run=example&amp;view=futures&amp;decision=1"><div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h6m0 0 6-6m-6 6 6 6"/><circle cx="5" cy="12" r="2"/><circle cx="18" cy="5" r="2"/><circle cx="18" cy="19" r="2"/></svg></div><span><strong>Compare possible outcomes</strong><small>Inspect the actual forecasts and find out why a plan was ruled out.</small></span><span aria-hidden="true">↗</span></a>
+        <a href="/app#evidence"><div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6m-5 0v6l-5 8a1 1 0 0 0 1 2h12a1 1 0 0 0 1-2l-5-8V4M8 15h8"/></svg></div><span><strong>Review the research</strong><small>Open recorded tool trials and benchmark comparisons.</small></span><span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <section class="landing-close content-width" aria-labelledby="close-heading" data-reveal>
+      <div><p class="eyebrow">VALOR</p><h2 id="close-heading">See the workspace in action.</h2></div>
+      <a class="button button-gold" href="/app">Open Command Center <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+  <footer class="content-width landing-footer"><span>VALOR · Local research preview</span><a href="/app">Command Center ↗</a><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

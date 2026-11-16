@@ -29,10 +29,10 @@ def server():
     thread.join(timeout=3)
 
 
-def request(server, path, payload=None, headers=None):
+def request(server, path, payload=None, headers=None, *, method=None):
     body = json.dumps(payload).encode() if payload is not None else None
     req = Request(f"http://127.0.0.1:{server.server_port}{path}", data=body,
-                  headers={"Content-Type": "application/json", **(headers or {})})
+                  headers={"Content-Type": "application/json", **(headers or {})}, method=method)
     with urlopen(req, timeout=5) as response:
         return response.status, response.headers, response.read()
 
@@ -63,10 +63,14 @@ def test_external_stop_has_a_real_record():
 
 def test_http_assets_and_session_export(server):
     status, headers, html = request(server, "/")
+    assert status == 200 and b"/landing.js" in html and b'href="/app"' in html
+    assert "frame-ancestors 'none'" in headers["Content-Security-Policy"]
+    status, headers, html = request(server, "/app")
     assert status == 200 and b'/dashboard.js' in html
     assert "frame-ancestors 'none'" in headers["Content-Security-Policy"]
     status, headers, html = request(server, "/studio")
     assert status == 200 and b'id="study-records"' in html
+    assert b'id="center-link" href="/app"' in html
     assert "frame-ancestors 'none'" in headers["Content-Security-Policy"]
     _, _, body = request(server, "/api/session", {"scenario": "benign", "seed": 20,
                          "comparison": "heuristic_detour"})
@@ -83,12 +87,51 @@ def test_http_assets_and_session_export(server):
 
 def test_launcher_health_identifies_interface_and_all_frontend_assets(server):
     _, _, body = request(server, "/api/health")
-    assert json.loads(body) == {"application": "valor", "interface_version": 8,
+    assert json.loads(body) == {"application": "valor", "interface_version": 9,
                                 "schema_version": "1.0"}
-    for path in ("/app.js", "/evidence.js", "/style.css", "/dashboard.js", "/dashboard.css"):
+    for path in (
+        "/app.js", "/evidence.js", "/style.css", "/dashboard.js", "/dashboard.css",
+        "/landing.css", "/landing.js", "/gsap.min.js", "/ScrollTrigger.min.js",
+    ):
         status, headers, body = request(server, path)
         assert status == 200 and body
         assert "no-store" == headers["Cache-Control"]
+
+
+def test_landing_media_supports_video_seeking(server):
+    for asset in ("/landing-hero.webp", "/landing-preview.webp"):
+        status, headers, body = request(server, asset)
+        assert status == 200 and headers.get_content_type() == "image/webp"
+        assert body[8:12] == b"WEBP"
+    status, headers, body = request(server, "/landing-demo.vtt")
+    assert status == 200 and headers.get_content_type() == "text/vtt"
+    assert body.startswith(b"WEBVTT")
+
+    url = "/landing-demo.webm"
+    status, headers, video = request(server, url)
+    assert status == 200 and video.startswith(b"\x1a\x45\xdf\xa3")
+    assert headers.get_content_type() == "video/webm"
+    assert headers["Accept-Ranges"] == "bytes"
+    size = len(video)
+    assert int(headers["Content-Length"]) == size
+    status, headers, body = request(server, url, method="HEAD")
+    assert status == 200 and int(headers["Content-Length"]) == size
+    assert not body
+
+    for value, start, end in (
+        ("bytes=4-15", 4, 15),
+        (f"bytes={size - 12}-", size - 12, size - 1),
+        ("bytes=-8", size - 8, size - 1),
+        (f"bytes={size - 12}-{size + 5}", size - 12, size - 1),
+    ):
+        status, headers, body = request(server, url, headers={"Range": value})
+        assert status == 206 and body == video[start:end + 1]
+        assert headers["Content-Range"] == f"bytes {start}-{end}/{size}"
+
+    with pytest.raises(HTTPError) as error:
+        request(server, url, headers={"Range": f"bytes={size}-"})
+    assert error.value.code == 416
+    assert error.value.headers["Content-Range"] == f"bytes */{size}"
 
 
 def test_reserve_replay_matches_the_frozen_damaged_case(server):

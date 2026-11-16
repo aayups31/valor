@@ -1,4 +1,5 @@
 import json
+import re
 import threading
 import time
 from collections import OrderedDict
@@ -16,6 +17,22 @@ from aace.demo.reserve import reserve_replay
 
 CONTROLLERS = ("heuristic_direct", "heuristic_detour", "oracle_planner")
 STATIC = Path(__file__).parent/"static"
+VIDEO_PATH = "/landing-demo.webm"
+BYTE_RANGE = re.compile(r"bytes=([0-9]{0,20})-([0-9]{0,20})")
+
+
+def video_range(value: str, size: int) -> tuple[int, int] | None:
+    """Resolve a single range to inclusive offsets within the local video."""
+    match = BYTE_RANGE.fullmatch(value)
+    if not match or not size:
+        return None
+    first, last = match.groups()
+    if not first:
+        length = int(last or "0")
+        return (max(0, size - length), size - 1) if length else None
+    start = int(first)
+    end = min(int(last), size - 1) if last else size - 1
+    return (start, end) if start <= end else None
 
 
 class PairSession:
@@ -172,19 +189,56 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         pass
 
-    def _respond(self, data, status=200, content_type="application/json; charset=utf-8"):
-        body = json.dumps(data, allow_nan=False).encode() if isinstance(data, (dict, list)) else data
+    def _response_headers(self, status, content_type, length, extra_headers=()):
         self.send_response(status)
         self.send_header("Content-Type", content_type)
-        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Content-Length", str(length))
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' blob:; object-src 'none'; frame-ancestors 'none'")
+        for key, value in extra_headers:
+            self.send_header(key, value)
         self.end_headers()
+
+    def _respond(self, data, status=200, content_type="application/json; charset=utf-8", extra_headers=()):
+        body = json.dumps(data, allow_nan=False).encode() if isinstance(data, (dict, list)) else data
+        self._response_headers(status, content_type, len(body), extra_headers)
+        if self.command == "HEAD":
+            return
         try:
             self.wfile.write(body)
         except (BrokenPipeError, ConnectionResetError):
             pass
+
+    def _serve_video(self):
+        try:
+            stream = (STATIC/VIDEO_PATH.removeprefix("/")).open("rb")
+        except FileNotFoundError:
+            return self._respond({"error": "Demo video is unavailable"}, 404)
+        with stream:
+            size = stream.seek(0, 2)
+            headers = [("Accept-Ranges", "bytes")]
+            status, start, end = 200, 0, size - 1
+            requested = self.headers.get("Range")
+            if self.command == "GET" and requested and not self.headers.get("If-Range"):
+                selected = video_range(requested, size)
+                if selected is None:
+                    headers.append(("Content-Range", f"bytes */{size}"))
+                    return self._respond({"error": "Requested video range is unavailable"}, 416, extra_headers=headers)
+                start, end = selected
+                status = 206
+                headers.append(("Content-Range", f"bytes {start}-{end}/{size}"))
+            remaining = end - start + 1
+            self._response_headers(status, "video/webm", remaining, headers)
+            if self.command == "HEAD":
+                return
+            stream.seek(start)
+            try:
+                while remaining and (chunk := stream.read(min(remaining, 64 * 1024))):
+                    self.wfile.write(chunk)
+                    remaining -= len(chunk)
+            except (BrokenPipeError, ConnectionResetError):
+                pass
 
     def _local_request(self) -> bool:
         port = self.server.server_port
@@ -201,7 +255,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         path = urlsplit(self.path).path
         if path == "/api/health":
-            return self._respond({"application": "valor", "interface_version": 8,
+            return self._respond({"application": "valor", "interface_version": 9,
                                   "schema_version": SCHEMA_VERSION})
         if path == "/api/studies":
             return self._respond({"runs": self.server.studies.list()})
@@ -229,8 +283,18 @@ class Handler(BaseHTTPRequestHandler):
                     return self._respond(pair.view())
             except ValueError as error:
                 return self._respond({"error": str(error)}, 404)
-        assets = {"/": ("dashboard.html", "text/html; charset=utf-8"),
+        if path == VIDEO_PATH:
+            return self._serve_video()
+        assets = {"/": ("landing.html", "text/html; charset=utf-8"),
+                  "/app": ("dashboard.html", "text/html; charset=utf-8"),
                   "/studio": ("index.html", "text/html; charset=utf-8"),
+                  "/landing.css": ("landing.css", "text/css; charset=utf-8"),
+                  "/landing.js": ("landing.js", "text/javascript; charset=utf-8"),
+                  "/gsap.min.js": ("gsap.min.js", "text/javascript; charset=utf-8"),
+                  "/ScrollTrigger.min.js": ("ScrollTrigger.min.js", "text/javascript; charset=utf-8"),
+                  "/landing-hero.webp": ("landing-hero.webp", "image/webp"),
+                  "/landing-demo.vtt": ("landing-demo.vtt", "text/vtt; charset=utf-8"),
+                  "/landing-preview.webp": ("landing-preview.webp", "image/webp"),
                   "/dashboard.css": ("dashboard.css", "text/css; charset=utf-8"),
                   "/dashboard.js": ("dashboard.js", "text/javascript; charset=utf-8"),
                   "/rover": ("rover.html", "text/html; charset=utf-8"),
@@ -250,6 +314,13 @@ class Handler(BaseHTTPRequestHandler):
             filename, kind = assets[path]
             return self._respond((STATIC/filename).read_bytes(), content_type=kind)
         self._respond({"error": "Not found"}, 404)
+
+    def do_HEAD(self):
+        if not self._local_request():
+            return
+        if urlsplit(self.path).path == VIDEO_PATH:
+            return self._serve_video()
+        return self._respond({"error": "Not found"}, 404)
 
     def do_POST(self):
         if not self._local_request():

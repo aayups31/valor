@@ -17,7 +17,7 @@ $projectHash = [BitConverter]::ToString($hashAlgorithm.ComputeHash($projectBytes
 $hashAlgorithm.Dispose()
 $launcherMutex = [System.Threading.Mutex]::new($false, "Local\ValorDemo-$projectHash-$Port")
 $mutexHeld = $false
-$requiredInterfaceVersion = 8
+$requiredInterfaceVersion = 9
 
 function Get-ValorHealth {
     try {
@@ -117,7 +117,7 @@ try {
     }
     Write-Host "Ready: $demoUrl"
     if (-not $NoBrowser) { Start-Process $demoUrl }
-    Write-Host 'Choose Run simulation in VALOR. Use Stop VALOR when you are finished.'
+    Write-Host 'Open Command Center from the VALOR landing page. Use Stop VALOR when you are finished.'
 } catch {
     Write-Host ''
     Write-Host 'VALOR needs a little help starting.' -ForegroundColor Yellow
