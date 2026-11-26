@@ -28,7 +28,7 @@ a:hover { text-decoration: underline; text-underline-offset: .24em; }
 .under, .ink-link { display: inline-flex; align-items: center; width: fit-content; padding-block: 8px; border-bottom: 1px solid currentColor; font-size: 14px; font-weight: 550; }
 .under:hover, .ink-link:hover { text-decoration: none; color: var(--rust); }
 .cover { position: relative; isolation: isolate; overflow: clip; border-top: 1px solid var(--line); }
-.cover-art { position: absolute; z-index: -1; inset: 0 0 0 20%; }
+.cover-art { overflow: hidden; position: absolute; z-index: -1; inset: 0 0 0 20%; }
 .cover-art img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 52%; display: block; }
 .cover-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,var(--paper),#f6f2e9da 9%,#f6f2e940 27%,transparent 42%); }
 .cover-inner { min-height: clamp(565px, 76svh, 900px); display: flex; align-items: center; padding-block: 70px; }
@@ -42,7 +42,7 @@ h1 i, h2 i { font-weight: 400; }
 .ink-link { margin-top: 24px; gap: 28px; color: var(--rust); }
 .section-rule { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 20px; padding-block: 14px; border-top: 1px solid currentColor; }
 h2 { font-size: clamp(51px, 5.6vw, 100px); }
-.replay { background: #181715; color: #f8f2e7; padding: clamp(40px, 5vw, 85px) 0; }
+.replay { background: #0c0b0a; color: #f8f2e7; padding: clamp(40px, 5vw, 85px) 0; }
 .replay .section-rule { color: #d0c1a6; border-color: #706b61; }
 .case-layout { display: grid; grid-template-columns: .78fr 1.6fr; gap: 5%; align-items: center; margin-block: 29px 12px; }
 .case-intro > p, .body-copy { max-width: 32ch; margin-top: 20px; line-height: 1.65; }

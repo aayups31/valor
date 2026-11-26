@@ -51,14 +51,14 @@
               <a href="/landing-demo.webm">Download the replay</a>
             </video>
             <figcaption><details><summary>Transcript</summary><p>The agent has four plans. Moving quickly exceeds the failure limit. VALOR chooses to restore capacity. After that action, simulated health rises from 20% to 50%.</p></details>
-              <a href="/studio?run=example&amp;decision=1&amp;view=simulation">Open Visual Studio ↗</a></figcaption>
+              <a id="inspect-moment" href="/studio?run=example&amp;decision=1&amp;view=simulation">Inspect starting conditions ↗</a></figcaption>
             <p id="film-status" role="status" hidden>Playback is unavailable. Read the transcript or <a href="/landing-demo.webm" download>download the film</a>.</p>
           </figure>
         </div>
       </div>
     </section>
 
-    <section class="comparison wrap" aria-labelledby="plan-title">
+    <section id="record" class="comparison wrap" aria-labelledby="plan-title">
       <div class="section-rule"><span>Decision record</span><span>After damage · Decision 1</span></div>
       <div class="spread">
         <div><h2 id="plan-title">Why this<br><i>plan?</i></h2><p class="body-copy">Open a plan to see why VALOR selected or ruled it out. The bars show predicted failure in this simulation.</p></div>
@@ -80,7 +80,7 @@
         <div class="workspace-layout">
           <a class="workspace-image" href="/app?run=example" aria-label="Open the example in Command Center"><img src="/landing-preview.webp" width="1424" height="917" loading="lazy" alt="Command Center showing the recovery decision, its forecast and the observed system health."></a>
           <dl class="index">
-            <div><dt><a href="/app?run=example#agents">Agents &amp; runs ↗</a></dt><dd>Step through proposals, decisions, and applied actions.</dd></div>
+            <div><dt><a href="/app?run=example#agents">Agents</a> &amp; <a href="/app?run=example#runs">runs ↗</a></dt><dd>Step through proposals, decisions, and applied actions.</dd></div>
             <div><dt><a href="/studio?run=example&amp;view=futures">Futures ↗</a></dt><dd>Compare predicted risk and reward across candidate plans.</dd></div>
             <div><dt><a href="/studio?run=example&amp;view=memory">Fear Memory ↗</a></dt><dd>Inspect the experimental response to damage. It runs as an observer in this demo.</dd></div>
             <div><dt><a href="/studio?run=example&amp;view=chamber">Decision Chamber ↗</a></dt><dd>See the policy checks and tradeoffs behind the choice.</dd></div>
@@ -94,7 +94,7 @@
       <div class="section-rule"><span>Research findings</span><a href="https://github.com/aayups31/valor">Source on GitHub ↗</a></div>
       <h2 id="findings-title">What the tests <i>show.</i></h2>
       <div class="results">
-        <article><h3>14 <i>of</i> 14</h3><p>Harmful proposals held in the local disposable SQLite trial.</p><a class="under" href="/studio?view=execution">Inspect tool trials ↗</a></article>
+        <article><h3>14 <i>of</i> 14</h3><p>Proposals affecting protected rows held in the local SQLite trial. A fixed rule matched this result.</p><a class="under" href="/studio?view=execution">Inspect tool trials ↗</a></article>
         <article><h3>+3.52 <i>pp</i></h3><p>Completion gain from guarded lookahead over planning one release at a time across 2,048 paired simulations. Learned memory’s contribution remains unproven.</p><a class="under" href="/studio?view=research">Read the comparison ↗</a></article>
       </div>
     </section>

@@ -6,10 +6,23 @@
   const buttons = Array.from(chapters.querySelectorAll("button"));
   const times = buttons.map(button => Number(button.dataset.time));
   const notice = document.getElementById("film-status");
+  const inspect = document.getElementById("inspect-moment");
+  const destinations = [
+    ["Inspect starting conditions ↗", "/studio?run=example&decision=1&view=simulation"],
+    ["Compare the four plans ↓", "#record"],
+    ["Inspect policy checks ↗", "/studio?run=example&decision=1&view=chamber"],
+    ["Inspect observed evidence ↗", "/app?run=example&decision=1#evidence"],
+  ];
+  let currentStage = -1;
   let requestedTime = null;
 
   function markChapter() {
     const active = times.findLastIndex(time => time <= film.currentTime);
+    if (active < 0 || active === currentStage) return;
+    currentStage = active;
+    const [label, href] = destinations[active];
+    inspect.textContent = label;
+    inspect.href = href;
     buttons.forEach((button, index) => {
       if (index === active) button.setAttribute("aria-current", "step");
       else button.removeAttribute("aria-current");
@@ -38,6 +51,7 @@
     });
   });
   film.addEventListener("loadedmetadata", seekRequestedTime);
+  film.addEventListener("playing", () => { notice.hidden = true; });
   film.addEventListener("timeupdate", markChapter);
   film.addEventListener("seeked", markChapter);
   film.addEventListener("error", playbackError);
