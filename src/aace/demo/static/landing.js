@@ -4,26 +4,29 @@
   const video = document.getElementById("demo-video");
   const player = document.getElementById("play-demo");
   const videoError = document.getElementById("film-error");
-  if (video && player && videoError) {
-    const showVideoError = () => {
-      player.hidden = true;
-      videoError.hidden = false;
-    };
-    player.hidden = false;
-    if (video.error) showVideoError();
-    player.addEventListener("click", async () => {
-      try {
-        await video.play();
-        video.focus({ preventScroll: true });
-      } catch {
-        showVideoError();
-        video.focus({ preventScroll: true });
-      }
-    });
-    video.addEventListener("error", showVideoError);
-    video.addEventListener("play", () => { player.hidden = true; videoError.hidden = true; });
-    video.addEventListener("ended", () => { player.hidden = false; });
+
+  function showVideoError() {
+    player.hidden = true;
+    videoError.hidden = false;
   }
+
+  player.hidden = Boolean(video.error);
+  if (video.error) showVideoError();
+  player.addEventListener("click", async () => {
+    try {
+      await video.play();
+      video.focus({ preventScroll: true });
+    } catch {
+      showVideoError();
+      video.focus({ preventScroll: true });
+    }
+  });
+  video.addEventListener("error", showVideoError);
+  video.addEventListener("play", () => {
+    player.hidden = true;
+    videoError.hidden = true;
+  });
+  video.addEventListener("ended", () => { player.hidden = false; });
 
   const { gsap, ScrollTrigger } = window;
   if (!gsap || !ScrollTrigger) return;
@@ -31,89 +34,51 @@
   gsap.registerPlugin(ScrollTrigger);
   gsap.matchMedia().add({
     all: "all",
-    desktop: "(min-width: 900px)",
-    reduce: "(prefers-reduced-motion: reduce)",
+    wide: "(min-width: 821px)",
+    reduced: "(prefers-reduced-motion: reduce)"
   }, ({ conditions }) => {
-    if (conditions.reduce) return;
+    if (conditions.reduced) return;
 
-    const enter = gsap.utils.toArray(".hero-copy [data-enter]");
-    if (enter.length) {
-      gsap.from(enter, {
-        y: 16,
-        opacity: 0.86,
-        duration: 0.8,
-        stagger: 0.09,
-        ease: "power3.out",
-        clearProps: "transform,opacity",
+    gsap.from("[data-enter]", {
+      y: 20, opacity: .78, duration: .85, stagger: .085,
+      ease: "power3.out", clearProps: "transform,opacity",
+    });
+
+    gsap.to(".page-progress", {
+      scaleX: 1, ease: "none",
+      scrollTrigger: { start: 0, end: "max", scrub: true },
+    });
+
+    if (conditions.wide) {
+      const exit = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: .6 },
       });
-    }
+      exit.to(".hero-image", { yPercent: 18, scale: 1.1, opacity: .58 }, 0);
+      exit.to(".scroll-cue", { opacity: .4, y: 12 }, 0);
 
-    const orbit = document.querySelector(".hero-orbit");
-    const showcase = document.querySelector(".hero-showcase");
-    const frame = showcase?.querySelector(".product-frame");
-    if (frame) {
-      gsap.fromTo(frame, {
-        y: conditions.desktop ? 22 : 12,
-        rotationX: conditions.desktop ? 5 : 0,
-        scale: 0.976,
-        transformPerspective: 1400,
-        transformOrigin: "50% 40%",
+      gsap.fromTo(".product-frame", {
+        y: 40, rotationX: 5, scale: .96, opacity: .72,
       }, {
-        y: 0,
-        rotationX: 0,
-        scale: 1,
-        ease: "none",
-        scrollTrigger: { trigger: showcase, start: "top 92%", end: "bottom 70%", scrub: 0.65 },
+        y: 0, rotationX: 0, scale: 1, opacity: 1, ease: "none",
+        scrollTrigger: { trigger: ".product-figure", start: "top 94%", end: "top 40%", scrub: .65 },
       });
-    }
-    if (orbit && showcase && conditions.desktop) {
-      gsap.to(orbit, {
-        yPercent: 11,
-        xPercent: 4,
-        ease: "none",
-        scrollTrigger: { trigger: showcase, start: "top bottom", end: "bottom top", scrub: 0.8 },
+
+      gsap.fromTo(".film-media", { scale: .96 }, {
+        scale: 1, ease: "none",
+        scrollTrigger: { trigger: ".film-shell", start: "top 96%", end: "top 42%", scrub: .65 },
       });
     }
 
-    if (conditions.desktop) {
-      const story = document.querySelector(".decision-story");
-      const chapters = gsap.utils.toArray(".story-chapter");
-      gsap.fromTo(".story-orbit", {rotation:-28,scaleY:.63}, {rotation:26,scaleY:.85,ease:"none",scrollTrigger:{trigger:story,start:"top 70%",end:"bottom 70%",scrub:1}});
-      gsap.to(".signal-flow", {strokeDashoffset:-320,ease:"none",scrollTrigger:{trigger:story,start:"top center",end:"bottom center",scrub:.5}});
-      gsap.fromTo(".story-finding", {opacity:.18,y:20}, {opacity:1,y:0,scrollTrigger:{trigger:chapters[1],start:"top 80%",end:"top 35%",scrub:.6}});
-      gsap.fromTo(".story-health", {opacity:.18,y:20}, {opacity:1,y:0,scrollTrigger:{trigger:chapters[2],start:"top 85%",end:"top 35%",scrub:.6}});
-      chapters.forEach(chapter=>gsap.fromTo(chapter,{opacity:.35,y:35},{opacity:1,y:0,ease:"none",scrollTrigger:{trigger:chapter,start:"top 85%",end:"top 40%",scrub:.5}}));
-    }
-
-    const film = document.querySelector(".film-section");
-    const filmShell = film?.querySelector(".film-shell");
-    const filmOrbit = film?.querySelector(".film-orbit");
-    if (filmShell) {
-      gsap.fromTo(filmShell, { scale: 0.964, y: 16 }, {
-        scale: 1,
-        y: 0,
-        ease: "none",
-        scrollTrigger: { trigger: film, start: "top 94%", end: "top 34%", scrub: 0.6 },
-      });
-    }
-    if (filmOrbit && conditions.desktop) {
-      gsap.fromTo(filmOrbit, { xPercent: -5, yPercent: 4 }, {
-        xPercent: 8,
-        yPercent: -4,
-        ease: "none",
-        scrollTrigger: { trigger: film, start: "top bottom", end: "bottom top", scrub: 0.85 },
-      });
-    }
-
-    for (const reveal of gsap.utils.toArray("[data-reveal]")) {
-      gsap.from(reveal, {
-        y: 18,
-        opacity: 0.84,
-        duration: 0.65,
-        ease: "power2.out",
+    for (const element of gsap.utils.toArray("[data-reveal]")) {
+      gsap.from(element, {
+        y: conditions.wide ? 26 : 12,
+        opacity: .72,
+        duration: .7,
+        ease: "power3.out",
         scrollTrigger: {
-          trigger: reveal,
-          start: "top 88%",
+          trigger: element,
+          start: "top 93%",
           toggleActions: "play none none reverse",
         },
       });
