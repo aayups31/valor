@@ -22,7 +22,7 @@
     <section class="cover" aria-labelledby="headline">
       <div class="wrap hero-type">
         <div><p class="eyebrow"><i></i> Agent decision oversight</p><h1 id="headline">Before the<br>agent <em>acts.</em></h1></div>
-        <div class="hero-note"><p>See the choices an AI agent faced, the risk VALOR saw, and what happened next.</p><a class="text-link" href="#walkthrough">Follow a decision <span aria-hidden="true">↓</span></a></div>
+        <div class="hero-note"><p>VALOR reviews an AI agent’s next move. See the alternatives, the predicted risk, and what actually happened.</p><a class="text-link" href="#walkthrough">Follow a decision <span aria-hidden="true">↓</span></a></div>
       </div>
       <figure class="hero-product wrap"><figcaption><span><b class="light"></b> Command Center</span><span>Recorded simulation · After damage</span></figcaption>
         <a class="surface" href="/app?run=example&amp;decision=1#overview" aria-label="Inspect this decision in Command Center"><img src="/landing-hero.webp" width="1424" height="910" alt="VALOR Command Center showing the selected recovery action, its failure forecast and the health observed after it." fetchpriority="high"></a>
@@ -38,7 +38,12 @@
         </div>
         <div class="moments">
           <article class="moment" data-view="Command Center"><div class="plate print"></div><p class="eyebrow">Starting conditions</p><h3>Health is down to <em>20%.</em></h3><p>The worker can still finish. Pushing a damaged system could cost it the entire job.</p><a href="/app?run=example&amp;decision=1#overview">Inspect the starting state ↗</a></article>
-          <article class="moment" data-view="Evaluations"><div class="plate print"></div><p class="eyebrow">Consequence forecast</p><h3>Fast comes at <em>a cost.</em></h3><p>VALOR compares four plans. Moving quickly carries a 38.6% forecast chance of failure. Working carefully brings it down to 8.8%.</p><a href="/app?run=example&amp;decision=1#evaluations">Compare all four plans ↗</a></article>
+          <article class="moment" data-view="Evaluations"><div class="plate print"></div><p class="eyebrow">Consequence forecast</p><h3>Fast comes at <em>a cost.</em></h3><p>VALOR compares four plans. Moving quickly carries a 38.6% forecast chance of failure. Working carefully brings it down to 8.8%.</p>
+            <details class="forecast"><summary>Compare the four plans</summary>
+              <table><caption>Predicted chance of failure</caption><tbody>
+                <tr><th scope="row">Move quickly</th><td>38.6%</td></tr><tr><th scope="row">Work carefully</th><td>8.8%</td></tr>
+                <tr><th scope="row">Restore capacity</th><td>7.7%</td></tr><tr><th scope="row">Stop this task</th><td>0.0%</td></tr>
+              </tbody></table></details><a href="/app?run=example&amp;decision=1#evaluations">Inspect the evaluation ↗</a></article>
           <article class="moment" data-view="Runs"><div class="plate print"></div><p class="eyebrow">VALOR’s decision</p><h3><em>Recover</em> first.</h3><p>Restoring capacity scores highest within policy. Stopping would avoid further risk, but it would also abandon the job.</p><a href="/studio?run=example&amp;decision=1&amp;view=chamber">Inspect the choice ↗</a></article>
           <article class="moment" data-view="Evidence"><div class="plate print"></div><p class="eyebrow">Observed outcome</p><h3>Health climbs to <em>50%.</em></h3><p>Recovery buys capacity for the next move. Across this recorded simulation, the agent eventually finishes all eight units.</p><a href="/app?run=example&amp;decision=1#evidence">Open the decision record ↗</a></article>
         </div>

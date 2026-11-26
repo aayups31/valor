@@ -24,7 +24,7 @@ The owner's [learned-stakes direction](01_Architecture/INTRINSIC_STAKES_DIRECTIO
 
 ## Open the demo
 
-On Windows, double-click **Start VALOR.cmd** in the project folder. It starts the local engine and opens the landing page. Choose **Follow a decision** for the chaptered replay, or **Open workspace** to use Command Center. If the launcher detects an earlier interface, open **Stop VALOR.cmd** before starting again. Export any runs you want to retain before stopping.
+On Windows, double-click **Start VALOR.cmd** in the project folder. It starts the local engine and opens the landing page. Choose **Follow a decision** and scroll to inspect a recorded simulation. Scroll up to revisit an earlier choice. Each scene links to its workspace record. Choose **Open workspace** to run a simulation yourself. If the launcher detects an earlier interface, open **Stop VALOR.cmd** before starting again. Export any runs you want to retain before stopping.
 
 In Command Center, choose a scenario and select **Run simulation**. Select **Agent**, **VALOR**, or **Work** to inspect the current decision, and use the timeline to move between steps. Visual Studio and the other instruments open the selected decision. **Export record** downloads the complete run as JSON.
 

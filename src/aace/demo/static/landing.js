@@ -87,10 +87,19 @@
           rotationX: 0, scale: 1, ease: "none",
           scrollTrigger: { trigger: ".hero-product", start: "top 85%", end: "center 45%", scrub: true }
         });
+        // Move from the workspace overview into its decision and forecast as it leaves the frame.
+        const desktop = gsap.matchMedia();
+        desktop.add("(min-width: 751px)", () => {
+          gsap.to(".surface img", {
+            scale: 1.18, transformOrigin: "48% 52%", ease: "none",
+            scrollTrigger: { trigger: ".surface", start: "top 22%", end: "bottom 16%", scrub: true }
+          });
+        });
         gsap.fromTo(".directory a", { y: 18 }, {
           y: 0, stagger: .12, ease: "none",
           scrollTrigger: { trigger: ".directory", start: "top 95%", end: "center 70%", scrub: true }
         });
+        return () => desktop.revert();
       });
     }
 

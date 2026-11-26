@@ -71,6 +71,13 @@ h2 { font-size: clamp(48px,5.3vw,90px); line-height: .98; letter-spacing: -.062e
 .moment .eyebrow { margin-bottom: .65rem; }
 h3 { font-size: clamp(36px,3.8vw,64px); line-height: 1.04; letter-spacing: -.055em; }
 .moment > p:not(.eyebrow) { margin-top: 1rem; max-width: 37ch; font-size: 1.02rem; }
+.forecast { width: min(100%, 340px); margin-top: 1.2rem; font-size: .88rem; }
+.forecast summary { width: fit-content; cursor: pointer; color: var(--gold); }
+.forecast table { width: 100%; margin-top: .8rem; border-collapse: collapse; }
+.forecast caption { text-align: left; color: var(--muted); font-size: .8rem; padding-bottom: .5rem; }
+.forecast th, .forecast td { padding-block: 5px; border-top: 1px solid var(--line); }
+.forecast th { font-weight: 400; text-align: left; }
+.forecast td { text-align: right; font-variant-numeric: tabular-nums; }
 .library { background: var(--paper); color: #28291f; }
 .split { padding-block: clamp(65px,8vw,130px); grid-template-columns: .95fr 1.4fr; align-items: start; }
 .library .eyebrow { color: #5b563f; }
@@ -121,6 +128,11 @@ footer .brand { margin-right: auto; }
   .scrub .stage { display: block; position: sticky; top: 0; z-index: 1; padding: 12px 0; background: #191a16; }
   .scrub .moment { min-height: 60svh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
   .scrub .print { display: none; }
+}
+@media (max-width: 520px) {
+  /* Frame the actual active-decision panel at a readable scale on phones. */
+  .surface { aspect-ratio: 1.35; max-height: none; }
+  .surface img { width: 350%; position: absolute; top: 0; left: 0; transform: translate(-17%, -39%); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; }
