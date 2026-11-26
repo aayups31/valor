@@ -1,79 +1,112 @@
 "use strict";
 
 (() => {
-  const film = document.getElementById("film");
-  const chapters = document.getElementById("chapters");
-  const buttons = Array.from(chapters.querySelectorAll("button"));
-  const times = buttons.map(button => Number(button.dataset.time));
-  const notice = document.getElementById("film-status");
-  const inspect = document.getElementById("inspect-moment");
-  const destinations = [
-    ["Inspect starting conditions ↗", "/studio?run=example&decision=1&view=simulation"],
-    ["Compare the four plans ↓", "#record"],
-    ["Inspect policy checks ↗", "/studio?run=example&decision=1&view=chamber"],
-    ["Inspect observed evidence ↗", "/app?run=example&decision=1#evidence"],
-  ];
-  let currentStage = -1;
-  let requestedTime = null;
+  const story = document.querySelector("#story");
+  const film = document.querySelector("#film");
+  const fallback = document.querySelector("#standby");
+  const stage = document.querySelector(".stage");
+  const counter = document.querySelector("#counter");
+  const view = document.querySelector("#view-name");
+  const moments = [...document.querySelectorAll(".moment")];
+  const motion = window.matchMedia("(prefers-reduced-motion: no-preference) and (min-height: 530px)");
+  let cleanup;
 
-  function markChapter() {
-    const active = times.findLastIndex(time => time <= film.currentTime);
-    if (active < 0 || active === currentStage) return;
-    currentStage = active;
-    const [label, href] = destinations[active];
-    inspect.textContent = label;
-    inspect.href = href;
-    buttons.forEach((button, index) => {
-      if (index === active) button.setAttribute("aria-current", "step");
-      else button.removeAttribute("aria-current");
-    });
-  }
+  function mount() {
+    cleanup?.();
+    if (!motion.matches) return;
 
-  function seekRequestedTime() {
-    if (requestedTime === null || film.readyState < HTMLMediaElement.HAVE_METADATA) return;
-    film.currentTime = requestedTime;
-    requestedTime = null;
-    markChapter();
-  }
+    const controller = new AbortController();
+    const options = { signal: controller.signal };
+    document.body.classList.add("scrub");
+    let active = -1;
+    let fraction = 0;
+    let frame = 0;
+    let visible = false;
+    let mediaFailed = false;
 
-  function playbackError() {
-    notice.hidden = false;
-    chapters.hidden = true;
-  }
+    function syncFilm() {
+      if (!Number.isFinite(film.duration) || film.seeking || mediaFailed) return;
+      const target = Math.min(film.duration - 1 / 24, fraction * film.duration);
+      if (Math.abs(film.currentTime - target) > 1 / 24) {
+        film.currentTime = target;
+      } else if (film.readyState >= 2) {
+        film.classList.add("ready");
+      }
+    }
 
-  buttons.forEach((button, index) => {
-    button.addEventListener("click", () => {
-      requestedTime = times[index];
-      seekRequestedTime();
-      film.play().catch(error => {
-        if (error.name !== "AbortError") notice.hidden = false;
+    function draw() {
+      frame = 0;
+      if (!visible) return;
+      const phone = window.innerWidth <= 750;
+      const focus = phone
+        ? stage.getBoundingClientRect().height + (window.innerHeight - stage.offsetHeight) * .42
+        : window.innerHeight * .5;
+      const bounds = moments.map(moment => moment.getBoundingClientRect());
+      const index = Math.max(0, bounds.findLastIndex(rect => rect.top <= focus));
+      const within = Math.max(0, Math.min(.999, (focus - bounds[index].top) / bounds[index].height));
+      fraction = (index + within) / moments.length;
+      if (index !== active) {
+        active = index;
+        film.classList.remove("ready");
+        view.textContent = moments[index].dataset.view;
+        counter.textContent = String(index + 1).padStart(2, "0") + " / 04";
+        fallback.style.setProperty("--plate", (index / (moments.length - 1)) * 100 + "%");
+      }
+      stage.style.setProperty("--progress", fraction);
+      syncFilm();
+    }
+
+    function schedule() {
+      if (!frame && visible) frame = requestAnimationFrame(draw);
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && !film.hasAttribute("src") && film.canPlayType("video/webm")) {
+        film.src = film.dataset.src;
+        film.preload = "auto";
+        film.load();
+      }
+      schedule();
+    }, { rootMargin: "15% 0px" });
+    observer.observe(story);
+    window.addEventListener("scroll", schedule, { ...options, passive: true });
+    window.addEventListener("resize", schedule, options);
+    film.addEventListener("loadeddata", schedule, options);
+    film.addEventListener("seeked", schedule, options);
+    film.addEventListener("error", () => {
+      mediaFailed = true;
+      film.classList.remove("ready");
+    }, options);
+
+    let choreography;
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+      choreography = gsap.context(() => {
+        gsap.fromTo(".surface", { rotationX: 6, scale: .965 }, {
+          rotationX: 0, scale: 1, ease: "none",
+          scrollTrigger: { trigger: ".hero-product", start: "top 85%", end: "center 45%", scrub: true }
+        });
+        gsap.fromTo(".directory a", { y: 18 }, {
+          y: 0, stagger: .12, ease: "none",
+          scrollTrigger: { trigger: ".directory", start: "top 95%", end: "center 70%", scrub: true }
+        });
       });
-    });
-  });
-  film.addEventListener("loadedmetadata", seekRequestedTime);
-  film.addEventListener("playing", () => { notice.hidden = true; });
-  film.addEventListener("timeupdate", markChapter);
-  film.addEventListener("seeked", markChapter);
-  film.addEventListener("error", playbackError);
-  film.querySelector("source").addEventListener("error", playbackError);
-  if (film.error) playbackError();
-  else chapters.hidden = false;
-  markChapter();
+    }
 
-  const { gsap, ScrollTrigger } = window;
-  if (!gsap || !ScrollTrigger) return;
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.matchMedia().add("(min-width: 821px) and (prefers-reduced-motion: no-preference)", () => {
-    gsap.from(".cover-copy > *", {
-      y: 12, duration: .7, stagger: .07, ease: "power2.out", clearProps: "transform",
-    });
-    gsap.fromTo(".cover-art img", { scale: 1.015 }, {
-      scale: 1.09, yPercent: 5, ease: "none",
-      scrollTrigger: { trigger: ".cover", start: "top top", end: "bottom top", scrub: .5 },
-    });
-    gsap.from(".workspace-image", {
-      y: 28, ease: "none",
-      scrollTrigger: { trigger: ".workspace-layout", start: "top 95%", end: "top 45%", scrub: .5 },
-    });
-  });
+    cleanup = () => {
+      controller.abort();
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+      choreography?.revert();
+      film.removeAttribute("src");
+      film.load();
+      film.classList.remove("ready");
+      document.body.classList.remove("scrub");
+      cleanup = undefined;
+    };
+  }
+
+  mount();
+  motion.addEventListener("change", mount);
 })();
