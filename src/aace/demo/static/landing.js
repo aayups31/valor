@@ -1,87 +1,65 @@
 "use strict";
 
 (() => {
-  const video = document.getElementById("demo-video");
-  const player = document.getElementById("play-demo");
-  const videoError = document.getElementById("film-error");
+  const film = document.getElementById("film");
+  const chapters = document.getElementById("chapters");
+  const buttons = Array.from(chapters.querySelectorAll("button"));
+  const times = buttons.map(button => Number(button.dataset.time));
+  const notice = document.getElementById("film-status");
+  let requestedTime = null;
 
-  function showVideoError() {
-    player.hidden = true;
-    videoError.hidden = false;
+  function markChapter() {
+    const active = times.findLastIndex(time => time <= film.currentTime);
+    buttons.forEach((button, index) => {
+      if (index === active) button.setAttribute("aria-current", "step");
+      else button.removeAttribute("aria-current");
+    });
   }
 
-  player.hidden = Boolean(video.error);
-  if (video.error) showVideoError();
-  player.addEventListener("click", async () => {
-    try {
-      await video.play();
-      video.focus({ preventScroll: true });
-    } catch {
-      showVideoError();
-      video.focus({ preventScroll: true });
-    }
+  function seekRequestedTime() {
+    if (requestedTime === null || film.readyState < HTMLMediaElement.HAVE_METADATA) return;
+    film.currentTime = requestedTime;
+    requestedTime = null;
+    markChapter();
+  }
+
+  function playbackError() {
+    notice.hidden = false;
+    chapters.hidden = true;
+  }
+
+  buttons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      requestedTime = times[index];
+      seekRequestedTime();
+      film.play().catch(error => {
+        if (error.name !== "AbortError") notice.hidden = false;
+      });
+    });
   });
-  video.addEventListener("error", showVideoError);
-  video.addEventListener("play", () => {
-    player.hidden = true;
-    videoError.hidden = true;
-  });
-  video.addEventListener("ended", () => { player.hidden = false; });
+  film.addEventListener("loadedmetadata", seekRequestedTime);
+  film.addEventListener("timeupdate", markChapter);
+  film.addEventListener("seeked", markChapter);
+  film.addEventListener("error", playbackError);
+  film.querySelector("source").addEventListener("error", playbackError);
+  if (film.error) playbackError();
+  else chapters.hidden = false;
+  markChapter();
 
   const { gsap, ScrollTrigger } = window;
   if (!gsap || !ScrollTrigger) return;
-
   gsap.registerPlugin(ScrollTrigger);
-  gsap.matchMedia().add({
-    all: "all",
-    wide: "(min-width: 821px)",
-    reduced: "(prefers-reduced-motion: reduce)"
-  }, ({ conditions }) => {
-    if (conditions.reduced) return;
-
-    gsap.from("[data-enter]", {
-      y: 20, opacity: .78, duration: .85, stagger: .085,
-      ease: "power3.out", clearProps: "transform,opacity",
+  gsap.matchMedia().add("(min-width: 821px) and (prefers-reduced-motion: no-preference)", () => {
+    gsap.from(".cover-copy > *", {
+      y: 12, duration: .7, stagger: .07, ease: "power2.out", clearProps: "transform",
     });
-
-    gsap.to(".page-progress", {
-      scaleX: 1, ease: "none",
-      scrollTrigger: { start: 0, end: "max", scrub: true },
+    gsap.fromTo(".cover-art img", { scale: 1.015 }, {
+      scale: 1.09, yPercent: 5, ease: "none",
+      scrollTrigger: { trigger: ".cover", start: "top top", end: "bottom top", scrub: .5 },
     });
-
-    if (conditions.wide) {
-      const exit = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: .6 },
-      });
-      exit.to(".hero-image", { yPercent: 18, scale: 1.1, opacity: .58 }, 0);
-      exit.to(".scroll-cue", { opacity: .4, y: 12 }, 0);
-
-      gsap.fromTo(".product-frame", {
-        y: 40, rotationX: 5, scale: .96, opacity: .72,
-      }, {
-        y: 0, rotationX: 0, scale: 1, opacity: 1, ease: "none",
-        scrollTrigger: { trigger: ".product-figure", start: "top 94%", end: "top 40%", scrub: .65 },
-      });
-
-      gsap.fromTo(".film-media", { scale: .96 }, {
-        scale: 1, ease: "none",
-        scrollTrigger: { trigger: ".film-shell", start: "top 96%", end: "top 42%", scrub: .65 },
-      });
-    }
-
-    for (const element of gsap.utils.toArray("[data-reveal]")) {
-      gsap.from(element, {
-        y: conditions.wide ? 26 : 12,
-        opacity: .72,
-        duration: .7,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: element,
-          start: "top 93%",
-          toggleActions: "play none none reverse",
-        },
-      });
-    }
+    gsap.from(".workspace-image", {
+      y: 28, ease: "none",
+      scrollTrigger: { trigger: ".workspace-layout", start: "top 95%", end: "top 45%", scrub: .5 },
+    });
   });
 })();
