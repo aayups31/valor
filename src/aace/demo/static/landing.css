@@ -76,7 +76,7 @@ em { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, #050505 0%, transparent 22%), linear-gradient(90deg, #050505ad, transparent 58%);
+  background: linear-gradient(0deg, #050505 0%, transparent 22%), linear-gradient(90deg, #050505e0, #05050587 31%, transparent 57%);
 }
 .hero-image { width: 100%; height: 100%; display: block; object-fit: cover; object-position: 50% 47%; }
 .hero-content {
@@ -221,6 +221,10 @@ em { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
   .editorial-heading h2 { font-size: clamp(39px, 11.6vw, 50px); }
   .product-figure figcaption, .film-shell figcaption { flex-wrap: wrap; }
   .product-figure figcaption > span { min-height: 30px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
 }
 
 @media (prefers-reduced-motion: reduce) {

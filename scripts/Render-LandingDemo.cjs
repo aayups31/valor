@@ -100,7 +100,6 @@ async function animate(heroSource, dashboardSource) {
     line(72, 54, 86, 68, gold, 2);
     line(86, 68, 100, 54, gold, 2);
     text('V A L O R', 116, 64, 21, cream, 600);
-    box(1007, 43, 203, 36, 18, '#130f0ccf', '#ac8b553f');
     text('SIMULATION REPLAY', 1023, 67, 16, gold, 600);
     ctx.restore();
   }
@@ -123,10 +122,13 @@ async function animate(heroSource, dashboardSource) {
     ctx.restore();
     locations.forEach((x, index) => {
       const current = index === stage;
-      box(x - 57, 557, 114, 34, 17, current ? '#30251b' : '#161310', current ? '#c09963' : '#6d57463d');
       ctx.save();
       ctx.textAlign = 'center';
-      text(labels[index], x, 580, 16, current ? gold : muted, 600);
+      ctx.fillStyle = current ? gold : '#9c8a72';
+      ctx.beginPath();
+      ctx.arc(x, 574, current ? 4 : 2, 0, Math.PI * 2);
+      ctx.fill();
+      text(labels[index], x, 609, 16, current ? gold : muted, 600);
       ctx.restore();
     });
   }
@@ -183,9 +185,9 @@ async function animate(heroSource, dashboardSource) {
       ctx.restore();
     }
     sceneLine(t, -.02, 3.55, 'EXAMPLE SCENARIO', [['After damage.', 70, cream]], ['The simulated system starts', 'at 20% health.']);
-    sceneLine(t, 3.2, 7.53, '01  /  AGENT', [['Four plans.', 70, cream]], ['The agent submits four options', 'for the next action.']);
-    sceneLine(t, 7.15, 11.92, '02  /  VALOR', [['Restore', 70, cream], ['capacity.', 70, gold]], ['VALOR selects the highest scoring', 'plan that passes its policy.']);
-    sceneLine(t, 11.55, 15.75, '03  /  OBSERVED RESULT', [['20%  →  50%', 77, gold]], ['System health increases after', 'the simulated recovery action.']);
+    sceneLine(t, 3.2, 7.53, 'AGENT PROPOSAL', [['Four plans.', 70, cream]], ['The agent submits four options', 'for the next action.']);
+    sceneLine(t, 7.15, 11.92, 'VALOR DECISION', [['Restore', 70, cream], ['capacity.', 70, gold]], ['VALOR selects the highest scoring', 'plan that passes its policy.']);
+    sceneLine(t, 11.55, 15.75, 'OBSERVED RESULT', [['20%  →  50%', 77, gold]], ['System health increases after', 'the simulated recovery action.']);
     commandCenter(t);
     brand();
     line(72, 652, 1208, 652, '#8e75523e');
